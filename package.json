@@ -1,0 +1,15 @@
+{
+  "name": "emp-field",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Root workspace scripts for EmpCloud field tracking client and server",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix packages/server\" \"npm run dev --prefix packages/client\"",
+    "dev:server": "npm run dev --prefix packages/server",
+    "dev:client": "npm run dev --prefix packages/client",
+    "install:all": "npm install --prefix packages/server && npm install --prefix packages/client"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
