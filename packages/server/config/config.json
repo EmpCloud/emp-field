@@ -1,0 +1,52 @@
+{
+    "_comment": "Fully sanitized template config. Replace all placeholder values locally and do not commit real credentials or URLs.",
+    "EmpmonitorFieldTracking": {
+        "port": 3000,
+        "host_url": "REPLACE_WITH_APP_HOST_URL"
+    },
+    "app_version": "1.0",
+    "swagger_host_url": "REPLACE_WITH_SWAGGER_HOST",
+    "mongo": {
+        "_comment": "Set Mongo values for your local environment.",
+        "username": "REPLACE_WITH_MONGO_USERNAME",
+        "password": "REPLACE_WITH_MONGO_PASSWORD",
+        "host": "REPLACE_WITH_MONGO_HOST",
+        "db_name": "REPLACE_WITH_MONGO_DB_NAME"
+    },
+    "skip": 0,
+    "limit": 10,
+    "sendgrid": {
+        "_comment": "All email values are placeholders.",
+        "key": "REPLACE_WITH_SENDGRID_KEY",
+        "name": "REPLACE_WITH_SENDGRID_SENDER_NAME",
+        "email": "REPLACE_WITH_SENDGRID_SENDER_EMAIL",
+        "WelcomeSubject": "REPLACE_WITH_WELCOME_SUBJECT",
+        "resetPwdSub": "REPLACE_WITH_RESET_SUBJECT",
+        "generateTokenSub": "REPLACE_WITH_VERIFY_SUBJECT",
+        "user_mail_verify_link": "REPLACE_WITH_USER_VERIFY_LINK"
+    },
+    "admin_mail_verify_link": "REPLACE_WITH_ADMIN_VERIFY_LINK",
+    "admin_sign_in_link": "REPLACE_WITH_ADMIN_SIGNIN_LINK",
+    "token_secret": "REPLACE_WITH_LOCAL_TOKEN_SECRET",
+    "passwordEmailSentCount": 3,
+    "user_mail_forgotPassword_verify_link": "REPLACE_WITH_FORGOT_PASSWORD_LINK",
+    "verificationEmailSentCount": 3,
+    "TWILIO_ACCOUNT_SID": "REPLACE_WITH_TWILIO_ACCOUNT_SID",
+    "TWILIO_AUTH_TOKEN": "REPLACE_WITH_TWILIO_AUTH_TOKEN",
+    "productName": "REPLACE_WITH_PRODUCT_NAME",
+    "siteLogin": "REPLACE_WITH_SITE_LOGIN_URL",
+    "emp_secret_key": "REPLACE_WITH_EMP_SECRET_KEY",
+    "empDomain": "REPLACE_WITH_EMP_DOMAIN_URL",
+    "empDomainForOrgId": "REPLACE_WITH_EMP_DOMAIN_ORG_URL",
+    "BUCKET_NAME_BIOMETRICS": "REPLACE_WITH_BUCKET_NAME",
+    "googleSnapRoadApi": "REPLACE_WITH_SNAP_ROAD_API_URL",
+    "googleSnapRoadSecretKey": "REPLACE_WITH_GOOGLE_SNAP_ROAD_KEY",
+    "googleMapsGeoCodingApi": "REPLACE_WITH_GEOCODING_API_URL",
+    "yamahaOrgId": 0,
+    "SWAGGER_AUTH": {
+        "_comment": "Use local docs credentials only.",
+        "admin": "REPLACE_WITH_SWAGGER_USERNAME_OR_PASSWORD"
+    },
+    "adminAttendanceURL": "REPLACE_WITH_ADMIN_ATTENDANCE_URL",
+    "NON_SNAP_TO_ROAD_CLIENTS": "REPLACE_WITH_CLIENT_IDS_CSV"
+}

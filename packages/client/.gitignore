@@ -1,0 +1,65 @@
+# Node.js artifacts
+node_modules/
+dist/
+dist-ssr/
+build/
+*package-lock.json
+*.local
+*.vite/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Compiled files
+*.class           # Java
+*.py[cod]         # Python
+
+# Package files
+*.jar
+
+# Maven
+target/
+
+# Unit test reports
+TEST*.xml
+
+# OS-generated files
+.DS_Store         # macOS
+Thumbs.db         # Windows
+
+# IDE directories and files
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Application files
+*.app
+*.exe
+*.war
+
+# Large media files
+*.mp4
+*.tiff
+*.avi
+*.flv
+*.mov
+*.wmv
+
+# Environment files
+*.env
+*.env.save
+*ecosystem.config.cjs
+
+# Learn more about .gitignore:
+# https://www.atlassian.com/git/tutorials/saving-changes/gitignore
