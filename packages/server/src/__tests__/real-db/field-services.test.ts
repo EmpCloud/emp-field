@@ -833,12 +833,12 @@ describe("RouteService", () => {
     cleanup.push({ table: "route_stops", id: stopId });
 
     await db("route_stops").where({ id: stopId }).update({
-      status: "completed",
+      status: "visited",
       actual_arrival: new Date(),
     });
 
     const stop = await db("route_stops").where({ id: stopId }).first();
-    expect(stop.status).toBe("completed");
+    expect(stop.status).toBe("visited");
   });
 
   it("should delete a route (cascade deletes stops)", async () => {
