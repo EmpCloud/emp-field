@@ -149,6 +149,8 @@ describe("ClientSiteService", () => {
       id,
       organization_id: ORG_ID,
       name: `List Site ${TS}`,
+      latitude: 12.9716,
+      longitude: 77.5946,
       category: "warehouse",
       is_active: true,
       created_at: new Date(),
@@ -174,6 +176,8 @@ describe("ClientSiteService", () => {
       id,
       organization_id: ORG_ID,
       name: `Old Site ${TS}`,
+      latitude: 12.9716,
+      longitude: 77.5946,
       is_active: true,
       created_at: new Date(),
       updated_at: new Date(),
@@ -197,6 +201,8 @@ describe("ClientSiteService", () => {
       id,
       organization_id: ORG_ID,
       name: `Deletable Site ${TS}`,
+      latitude: 12.9716,
+      longitude: 77.5946,
       is_active: true,
       created_at: new Date(),
       updated_at: new Date(),
@@ -213,6 +219,8 @@ describe("ClientSiteService", () => {
       id,
       organization_id: ORG_ID,
       name: `Factory ${TS}`,
+      latitude: 12.9716,
+      longitude: 77.5946,
       category: "factory",
       is_active: true,
       created_at: new Date(),
@@ -364,7 +372,7 @@ describe("ExpenseService", () => {
 
     const expense = await db("expenses").where({ id }).first();
     expect(expense.status).toBe("draft");
-    expect(expense.amount).toBe(2500);
+    expect(Number(expense.amount)).toBe(2500);
   });
 
   it("should update a draft expense", async () => {
@@ -389,7 +397,7 @@ describe("ExpenseService", () => {
     });
 
     const updated = await db("expenses").where({ id }).first();
-    expect(updated.amount).toBe(750);
+    expect(Number(updated.amount)).toBe(750);
   });
 
   it("should submit an expense (draft -> submitted)", async () => {
@@ -418,7 +426,7 @@ describe("ExpenseService", () => {
       id,
       organization_id: ORG_ID,
       user_id: EMP_USER_ID,
-      expense_type: "accommodation",
+      expense_type: "lodging",
       amount: 5000,
       currency: "INR",
       status: "submitted",
@@ -436,7 +444,7 @@ describe("ExpenseService", () => {
 
     const approved = await db("expenses").where({ id }).first();
     expect(approved.status).toBe("approved");
-    expect(approved.approved_by).toBe(USER_ID);
+    expect(Number(approved.approved_by)).toBe(USER_ID);
   });
 
   it("should reject a submitted expense", async () => {
@@ -445,7 +453,7 @@ describe("ExpenseService", () => {
       id,
       organization_id: ORG_ID,
       user_id: EMP_USER_ID,
-      expense_type: "misc",
+      expense_type: "other",
       amount: 10000,
       currency: "INR",
       status: "submitted",
@@ -530,7 +538,7 @@ describe("VisitLogService", () => {
     const visit = await db("visit_logs").where({ id }).first();
     expect(visit.purpose).toContain("Client meeting");
     expect(visit.duration_minutes).toBe(90);
-    const photos = JSON.parse(visit.photos);
+    const photos = typeof visit.photos === "string" ? JSON.parse(visit.photos) : visit.photos;
     expect(photos.length).toBe(2);
   });
 
@@ -893,7 +901,7 @@ describe("MileageService", () => {
 
     const mileage = await db("mileage_logs").where({ id }).first();
     expect(Number(mileage.distance_km)).toBeCloseTo(25.5, 1);
-    expect(mileage.reimbursement_amount).toBe(204);
+    expect(Number(mileage.reimbursement_amount)).toBe(204);
   });
 
   it("should list mileage logs with date range", async () => {
@@ -989,7 +997,7 @@ describe("GeoFenceService", () => {
 
     const fence = await db("geo_fences").where({ id }).first();
     expect(fence.type).toBe("polygon");
-    const parsedCoords = JSON.parse(fence.polygon_coords);
+    const parsedCoords = typeof fence.polygon_coords === "string" ? JSON.parse(fence.polygon_coords) : fence.polygon_coords;
     expect(parsedCoords.length).toBe(4);
   });
 
