@@ -25,7 +25,7 @@ export async function list(orgId: number, options?: { page?: number; perPage?: n
   // Parse polygon_coords JSON
   const parsed = data.map((row: any) => ({
     ...row,
-    polygon_coords: row.polygon_coords ? JSON.parse(row.polygon_coords) : null,
+    polygon_coords: row.polygon_coords ? (typeof row.polygon_coords === "string" ? JSON.parse(row.polygon_coords) : row.polygon_coords) : null,
   }));
 
   return { data: parsed, total: Number(total), page, perPage, totalPages: Math.ceil(Number(total) / perPage) };
@@ -37,7 +37,7 @@ export async function getById(orgId: number, id: string) {
   if (!fence) throw new NotFoundError("Geo fence", id);
   return {
     ...fence,
-    polygon_coords: fence.polygon_coords ? JSON.parse(fence.polygon_coords) : null,
+    polygon_coords: fence.polygon_coords ? (typeof fence.polygon_coords === "string" ? JSON.parse(fence.polygon_coords) : fence.polygon_coords) : null,
   };
 }
 
@@ -60,7 +60,7 @@ export async function create(orgId: number, data: Record<string, any>) {
     updated_at: now,
   });
   const row = await db(TABLE).where({ id }).first();
-  return { ...row, polygon_coords: row.polygon_coords ? JSON.parse(row.polygon_coords) : null };
+  return { ...row, polygon_coords: row.polygon_coords ? (typeof row.polygon_coords === "string" ? JSON.parse(row.polygon_coords) : row.polygon_coords) : null };
 }
 
 export async function update(orgId: number, id: string, data: Record<string, any>) {
@@ -75,7 +75,7 @@ export async function update(orgId: number, id: string, data: Record<string, any
 
   await db(TABLE).where({ id }).update(updateData);
   const row = await db(TABLE).where({ id }).first();
-  return { ...row, polygon_coords: row.polygon_coords ? JSON.parse(row.polygon_coords) : null };
+  return { ...row, polygon_coords: row.polygon_coords ? (typeof row.polygon_coords === "string" ? JSON.parse(row.polygon_coords) : row.polygon_coords) : null };
 }
 
 export async function remove(orgId: number, id: string) {

@@ -25,7 +25,7 @@ export async function list(orgId: number, options?: {
 
   const parsed = data.map((row: any) => ({
     ...row,
-    photos: row.photos ? JSON.parse(row.photos) : null,
+    photos: row.photos ? (typeof row.photos === "string" ? (typeof row.photos === "string" ? JSON.parse(row.photos) : row.photos) : row.photos) : null,
   }));
 
   return { data: parsed, total: Number(total), page, perPage, totalPages: Math.ceil(Number(total) / perPage) };
@@ -35,7 +35,7 @@ export async function getById(orgId: number, id: string) {
   const db = getDB();
   const visit = await db(TABLE).where({ id, organization_id: orgId }).first();
   if (!visit) throw new NotFoundError("Visit log", id);
-  return { ...visit, photos: visit.photos ? JSON.parse(visit.photos) : null };
+  return { ...visit, photos: visit.photos ? (typeof visit.photos === "string" ? (typeof visit.photos === "string" ? JSON.parse(visit.photos) : visit.photos) : visit.photos) : null };
 }
 
 export async function create(orgId: number, userId: number, data: Record<string, any>) {
@@ -55,7 +55,7 @@ export async function create(orgId: number, userId: number, data: Record<string,
     created_at: new Date(),
   });
   const row = await db(TABLE).where({ id }).first();
-  return { ...row, photos: row.photos ? JSON.parse(row.photos) : null };
+  return { ...row, photos: row.photos ? (typeof row.photos === "string" ? JSON.parse(row.photos) : row.photos) : null };
 }
 
 export async function update(orgId: number, id: string, userId: number, data: Record<string, any>) {
@@ -70,7 +70,7 @@ export async function update(orgId: number, id: string, userId: number, data: Re
 
   await db(TABLE).where({ id }).update(updateData);
   const row = await db(TABLE).where({ id }).first();
-  return { ...row, photos: row.photos ? JSON.parse(row.photos) : null };
+  return { ...row, photos: row.photos ? (typeof row.photos === "string" ? JSON.parse(row.photos) : row.photos) : null };
 }
 
 export async function remove(orgId: number, id: string, userId: number) {
