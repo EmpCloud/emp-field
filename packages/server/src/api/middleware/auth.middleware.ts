@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import { config } from "../../config";
 import { AppError } from "../../utils/errors";
+import { loadPublicKey } from "../../utils/jwt-keys";
 
 export interface AuthPayload {
   empcloudUserId: number;
@@ -52,8 +53,24 @@ export function authenticate(req: Request, _res: Response, next: NextFunction) {
   }
 
   const token = queryToken || header!.slice(7);
+  const publicKey = loadPublicKey();
+
   try {
-    const payload = jwt.verify(token, config.jwt.secret) as AuthPayload;
+    let payload: AuthPayload;
+    if (publicKey) {
+      // Prefer RS256 from EmpCloud OAuth2; fall back to HS256 on signature mismatch.
+      try {
+        payload = jwt.verify(token, publicKey, {
+          algorithms: ["RS256"],
+          issuer: config.jwt.issuer,
+        }) as AuthPayload;
+      } catch (rsErr: any) {
+        if (rsErr.name === "TokenExpiredError") throw rsErr;
+        payload = jwt.verify(token, config.jwt.secret, { algorithms: ["HS256"] }) as AuthPayload;
+      }
+    } else {
+      payload = jwt.verify(token, config.jwt.secret, { algorithms: ["HS256"] }) as AuthPayload;
+    }
     req.user = payload;
     next();
   } catch (err: any) {

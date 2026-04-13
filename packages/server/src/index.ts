@@ -2,6 +2,7 @@
 // EMP-FIELD SERVER ENTRY POINT
 // ============================================================================
 
+import http from "http";
 import express from "express";
 import cors from "cors";
 import helmet from "helmet";
@@ -27,8 +28,19 @@ import { visitRoutes } from "./api/routes/visit.routes";
 import { analyticsRoutes } from "./api/routes/analytics.routes";
 import { settingsRoutes } from "./api/routes/settings.routes";
 import { notificationRoutes } from "./api/routes/notification.routes";
+import { webhookRoutes } from "./api/routes/webhook.routes";
+import { deviceRoutes } from "./api/routes/device.routes";
+import { mobileRoutes } from "./api/routes/mobile.routes";
+import { uploadRoutes, UPLOAD_ROOT } from "./api/routes/upload.routes";
 import { errorHandler } from "./api/middleware/error.middleware";
 import { apiLimiter, authLimiter } from "./api/middleware/rate-limit.middleware";
+import { auditLogger } from "./api/middleware/audit.middleware";
+
+// Queue + realtime
+import { startWorkers, stopWorkers } from "./queue/workers";
+import { closeQueues } from "./queue/queues";
+import { closeRedis, getRedis } from "./queue/connection";
+import { initSocket, closeSocket } from "./realtime/socket";
 
 const app = express();
 
@@ -75,6 +87,7 @@ app.use("/health", healthRoutes);
 // ---------------------------------------------------------------------------
 const v1 = express.Router();
 v1.use(apiLimiter);
+v1.use(auditLogger);
 
 v1.use("/auth", authLimiter, authRoutes);
 v1.use("/client-sites", clientSiteRoutes);
@@ -89,8 +102,15 @@ v1.use("/visits", visitRoutes);
 v1.use("/analytics", analyticsRoutes);
 v1.use("/settings", settingsRoutes);
 v1.use("/notifications", notificationRoutes);
+v1.use("/webhooks", webhookRoutes);
+v1.use("/devices", deviceRoutes);
+v1.use("/mobile", mobileRoutes);
+v1.use("/uploads", uploadRoutes);
 
 app.use("/api/v1", v1);
+
+// Static serving of uploaded files (production should front this with a CDN/S3).
+app.use("/uploads", express.static(UPLOAD_ROOT));
 
 // ---------------------------------------------------------------------------
 // Error handling
@@ -100,6 +120,8 @@ app.use(errorHandler);
 // ---------------------------------------------------------------------------
 // Startup
 // ---------------------------------------------------------------------------
+const httpServer = http.createServer(app);
+
 async function start() {
   try {
     // Validate configuration
@@ -113,8 +135,15 @@ async function start() {
     await initDB();
     await migrateDB();
 
+    // Initialize Redis + BullMQ workers
+    getRedis();
+    startWorkers();
+
+    // Initialize socket.io on the same HTTP server
+    initSocket(httpServer);
+
     // Start server
-    app.listen(config.port, config.host, () => {
+    httpServer.listen(config.port, config.host, () => {
       logger.info(`emp-field server running at http://${config.host}:${config.port}`);
       logger.info(`   Environment: ${config.env}`);
     });
@@ -127,6 +156,10 @@ async function start() {
 // Graceful shutdown
 const shutdown = async () => {
   logger.info("Shutting down...");
+  await closeSocket();
+  await stopWorkers();
+  await closeQueues();
+  await closeRedis();
   await closeDB();
   await closeEmpCloudDB();
   process.exit(0);
@@ -137,4 +170,4 @@ process.on("SIGINT", shutdown);
 
 start();
 
-export { app };
+export { app, httpServer };

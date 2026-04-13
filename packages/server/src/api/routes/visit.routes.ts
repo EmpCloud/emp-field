@@ -1,12 +1,12 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { authenticate } from "../middleware/auth.middleware";
+import { protectRoute } from "../middleware/rbac.middleware";
 import * as visitService from "../../services/visit.service";
 import { createVisitLogSchema, updateVisitLogSchema } from "@emp-field/shared";
 import { sendSuccess, sendPaginated } from "../../utils/response";
 import { ValidationError } from "../../utils/errors";
 
 const router = Router();
-router.use(authenticate);
+router.use(protectRoute);
 
 // GET / — list visit logs
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {

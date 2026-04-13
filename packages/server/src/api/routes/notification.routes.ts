@@ -1,10 +1,10 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { authenticate } from "../middleware/auth.middleware";
+import { protectRoute } from "../middleware/rbac.middleware";
 import * as notificationService from "../../services/notification.service";
 import { sendSuccess, sendPaginated } from "../../utils/response";
 
 const router = Router();
-router.use(authenticate);
+router.use(protectRoute);
 
 // GET / — list my notifications
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {

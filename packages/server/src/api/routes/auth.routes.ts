@@ -6,6 +6,7 @@
 import { Router, Request, Response, NextFunction } from "express";
 import { z } from "zod";
 import * as authService from "../../services/auth.service";
+import { authenticate } from "../middleware/auth.middleware";
 import { sendSuccess } from "../../utils/response";
 import { ValidationError } from "../../utils/errors";
 
@@ -67,6 +68,25 @@ router.post("/refresh-token", async (req: Request, res: Response, next: NextFunc
   } catch (err) {
     next(err);
   }
+});
+
+// GET /me — current user profile (mobile clients call this after token refresh)
+router.get("/me", authenticate, (req: Request, res: Response) => {
+  sendSuccess(res, {
+    id: req.user!.empcloudUserId,
+    orgId: req.user!.empcloudOrgId,
+    fieldProfileId: req.user!.fieldProfileId,
+    email: req.user!.email,
+    firstName: req.user!.firstName,
+    lastName: req.user!.lastName,
+    role: req.user!.role,
+    orgName: req.user!.orgName,
+  });
+});
+
+// POST /logout — invalidate tokens client-side (server is stateless, respond ok)
+router.post("/logout", authenticate, (_req: Request, res: Response) => {
+  sendSuccess(res, { ok: true });
 });
 
 export { router as authRoutes };

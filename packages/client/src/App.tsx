@@ -6,6 +6,8 @@ import { apiPost } from "@/api/client";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import DashboardPage from "@/pages/DashboardPage";
 import ClientSitesPage from "@/pages/ClientSitesPage";
+import FieldCheckInPage from "@/pages/FieldCheckInPage";
+import LiveTrackingPage from "@/pages/LiveTrackingPage";
 import LoginPage from "@/pages/LoginPage";
 
 function PageLoader() {
@@ -85,9 +87,11 @@ export default function App() {
         <Routes>
           <Route path="/" element={<AuthRedirect />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/field/checkin" element={<FieldCheckInPage />} />
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/client-sites" element={<ClientSitesPage />} />
+            <Route path="/live-tracking" element={<LiveTrackingPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

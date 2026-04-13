@@ -202,3 +202,70 @@ export const updateSettingsSchema = z.object({
 export const ssoSchema = z.object({
   token: z.string().min(1, "SSO token is required"),
 });
+
+// ---------------------------------------------------------------------------
+// Mobile — device registration
+// ---------------------------------------------------------------------------
+
+export const registerDeviceSchema = z.object({
+  platform: z.enum(["ios", "android", "web"]),
+  push_token: z.string().min(8).max(512),
+  device_id: z.string().max(128).optional(),
+  device_model: z.string().max(128).optional(),
+  app_version: z.string().max(32).optional(),
+  os_version: z.string().max(32).optional(),
+});
+
+// ---------------------------------------------------------------------------
+// Mobile — offline sync batch upload
+// ---------------------------------------------------------------------------
+
+export const mobileSyncSchema = z.object({
+  checkins: z
+    .array(
+      z.object({
+        client_site_id: z.string().uuid().nullable().optional(),
+        check_in_lat: z.number(),
+        check_in_lng: z.number(),
+        check_in_time: z.string().datetime(),
+        check_out_time: z.string().datetime().optional(),
+        check_out_lat: z.number().optional(),
+        check_out_lng: z.number().optional(),
+        notes: z.string().max(2000).nullable().optional(),
+        photo_url: z.string().url().nullable().optional(),
+      }),
+    )
+    .optional(),
+  locationPoints: z
+    .array(
+      z.object({
+        latitude: z.number(),
+        longitude: z.number(),
+        accuracy: z.number().optional(),
+        timestamp: z.string().datetime(),
+      }),
+    )
+    .optional(),
+  expenses: z
+    .array(
+      z.object({
+        amount: z.number(),
+        category: z.string(),
+        description: z.string().max(500).optional(),
+        expense_date: z.string(),
+        receipt_url: z.string().url().nullable().optional(),
+      }),
+    )
+    .optional(),
+  mileage: z
+    .array(
+      z.object({
+        distance_km: z.number().nonnegative(),
+        start_location: z.string(),
+        end_location: z.string(),
+        trip_date: z.string(),
+        purpose: z.string().nullable().optional(),
+      }),
+    )
+    .optional(),
+});
