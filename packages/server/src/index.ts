@@ -32,6 +32,9 @@ import { webhookRoutes } from "./api/routes/webhook.routes";
 import { deviceRoutes } from "./api/routes/device.routes";
 import { mobileRoutes } from "./api/routes/mobile.routes";
 import { uploadRoutes, UPLOAD_ROOT } from "./api/routes/upload.routes";
+import { legacyAdminRoutes } from "./api/routes/legacy/admin.routes";
+import { legacyPublicRoutes } from "./api/routes/legacy/public.routes";
+import { legacyRouters } from "./api/routes/legacy";
 import { errorHandler } from "./api/middleware/error.middleware";
 import { apiLimiter, authLimiter } from "./api/middleware/rate-limit.middleware";
 import { auditLogger } from "./api/middleware/audit.middleware";
@@ -106,6 +109,25 @@ v1.use("/webhooks", webhookRoutes);
 v1.use("/devices", deviceRoutes);
 v1.use("/mobile", mobileRoutes);
 v1.use("/uploads", uploadRoutes);
+
+// ----- Legacy modules (commit 3409d88 parity) ----------------------------
+v1.use("/admin", legacyAdminRoutes);
+v1.use("/unauthorized", legacyPublicRoutes);
+v1.use("/holiday", legacyRouters.holiday);
+v1.use("/leave", legacyRouters.leave);
+v1.use("/role", legacyRouters.role);
+v1.use("/profile", legacyRouters.profile);
+v1.use("/category", legacyRouters.category);
+v1.use("/tags", legacyRouters.tag);
+v1.use("/transport", legacyRouters.transport);
+v1.use("/track", legacyRouters.tracking);
+v1.use("/hrmsAdmin", legacyRouters.hrms);
+v1.use("/autoEmailReport", legacyRouters.autoEmail);
+v1.use("/client", legacyRouters.legacyClient);
+v1.use("/user", legacyRouters.legacyUser);
+v1.use("/attendance", legacyRouters.attendance);
+v1.use("/task", legacyRouters.task);
+v1.use("/reports", legacyRouters.reports);
 
 app.use("/api/v1", v1);
 
