@@ -9,6 +9,21 @@ import ClientSitesPage from "@/pages/ClientSitesPage";
 import FieldCheckInPage from "@/pages/FieldCheckInPage";
 import LiveTrackingPage from "@/pages/LiveTrackingPage";
 import LoginPage from "@/pages/LoginPage";
+import AttendancePage from "@/pages/legacy/AttendancePage";
+import HolidayPage from "@/pages/legacy/HolidayPage";
+import LeavePage from "@/pages/legacy/LeavePage";
+import {
+  RolesPage,
+  CategoriesPage,
+  TagsPage,
+  ProfilePage,
+  GeoLocationPage,
+  ReportsPage,
+  LegacyClientsPage,
+  EmployeesPage,
+  LegacyTasksPage,
+  TimelinePage,
+} from "@/pages/legacy/SimplePages";
 
 function PageLoader() {
   return (
@@ -92,6 +107,20 @@ export default function App() {
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/client-sites" element={<ClientSitesPage />} />
             <Route path="/live-tracking" element={<LiveTrackingPage />} />
+            {/* Legacy modules ported from commit 3409d88 */}
+            <Route path="/attendance" element={<AttendancePage />} />
+            <Route path="/holidays" element={<HolidayPage />} />
+            <Route path="/leaves" element={<LeavePage />} />
+            <Route path="/roles" element={<RolesPage />} />
+            <Route path="/categories" element={<CategoriesPage />} />
+            <Route path="/tags" element={<TagsPage />} />
+            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/geo-location" element={<GeoLocationPage />} />
+            <Route path="/reports" element={<ReportsPage />} />
+            <Route path="/legacy-clients" element={<LegacyClientsPage />} />
+            <Route path="/employees" element={<EmployeesPage />} />
+            <Route path="/legacy-tasks" element={<LegacyTasksPage />} />
+            <Route path="/timeline" element={<TimelinePage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
