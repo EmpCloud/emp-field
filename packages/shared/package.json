@@ -2,8 +2,20 @@
   "name": "@emp-field/shared",
   "version": "0.1.0",
   "private": true,
+  "type": "commonjs",
   "main": "dist/index.js",
+  "module": "src/index.ts",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "src"
+  ],
   "scripts": {
     "build": "tsc",
     "lint": "eslint src/"
