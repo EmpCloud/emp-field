@@ -8,6 +8,10 @@ import DashboardPage from "@/pages/DashboardPage";
 import ClientSitesPage from "@/pages/ClientSitesPage";
 import FieldCheckInPage from "@/pages/FieldCheckInPage";
 import LiveTrackingPage from "@/pages/LiveTrackingPage";
+import VisitsPage from "@/pages/VisitsPage";
+import RoutesPage from "@/pages/RoutesPage";
+import FieldAgentsPage from "@/pages/FieldAgentsPage";
+import SettingsPage from "@/pages/SettingsPage";
 import LoginPage from "@/pages/LoginPage";
 import AttendancePage from "@/pages/legacy/AttendancePage";
 import HolidayPage from "@/pages/legacy/HolidayPage";
@@ -106,7 +110,12 @@ export default function App() {
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/client-sites" element={<ClientSitesPage />} />
+            <Route path="/field-agents" element={<FieldAgentsPage />} />
+            <Route path="/visits" element={<VisitsPage />} />
+            <Route path="/routes" element={<RoutesPage />} />
             <Route path="/live-tracking" element={<LiveTrackingPage />} />
+            <Route path="/tracking" element={<LiveTrackingPage />} />
+            <Route path="/settings" element={<SettingsPage />} />
             {/* Legacy modules ported from commit 3409d88 */}
             <Route path="/attendance" element={<AttendancePage />} />
             <Route path="/holidays" element={<HolidayPage />} />

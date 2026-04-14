@@ -28,7 +28,7 @@ const NAV_ITEMS: NavItem[] = [
   { to: "/field-agents", label: "Field Agents", icon: Users },
   { to: "/visits", label: "Visits", icon: ClipboardList },
   { to: "/routes", label: "Routes", icon: Route },
-  { to: "/tracking", label: "Live Tracking", icon: MapPin },
+  { to: "/live-tracking", label: "Live Tracking", icon: MapPin },
   { to: "/settings", label: "Settings", icon: Settings, adminOnly: true },
 ];
 
