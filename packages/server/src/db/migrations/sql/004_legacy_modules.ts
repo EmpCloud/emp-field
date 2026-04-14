@@ -3,17 +3,27 @@
 // ============================================================================
 //
 // Brings every table from the original JS+MongoDB version (commit 3409d88)
-// into the TS+Knex/MySQL stack. One big migration so that a fresh `db:migrate`
-// gives the full feature set.
+// into the TS+Knex/MySQL stack. Idempotent — wraps every createTable in a
+// hasTable check so a partial previous run (or re-deploy) does not crash.
 // ============================================================================
 
 import type { Knex } from "knex";
 
+async function createIfMissing(
+  knex: Knex,
+  name: string,
+  fn: (t: Knex.CreateTableBuilder) => void,
+): Promise<void> {
+  const exists = await knex.schema.hasTable(name);
+  if (exists) return;
+  await knex.schema.createTable(name, fn);
+}
+
 export async function up(knex: Knex): Promise<void> {
   // -------------------------------------------------------------------------
-  // admin_users — adminSchema (HRMS admin profile, separate from EmpCloud users)
+  // admin_users
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("admin_users", (t) => {
+  await createIfMissing(knex, "admin_users", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("full_name", 255).notNullable();
@@ -43,14 +53,14 @@ export async function up(knex: Knex): Promise<void> {
     t.integer("password_email_sent_count").notNullable().defaultTo(0);
     t.boolean("two_factor_enabled").notNullable().defaultTo(false);
     t.timestamps(true, true);
-    t.unique(["organization_id", "email"]);
-    t.index(["organization_id"]);
+    t.unique(["organization_id", "email"], { indexName: "admin_users_org_email_unq" });
+    t.index(["organization_id"], "admin_users_org_idx");
   });
 
   // -------------------------------------------------------------------------
-  // employee_profiles — extended user profile (profile.model.js)
+  // employee_profiles
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("employee_profiles", (t) => {
+  await createIfMissing(knex, "employee_profiles", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.bigInteger("user_id").unsigned().notNullable();
@@ -61,7 +71,7 @@ export async function up(knex: Knex): Promise<void> {
     t.string("profile_pic", 500).nullable();
     t.string("location", 255).nullable();
     t.string("department", 255).nullable();
-    t.integer("status").notNullable().defaultTo(1); // 1=active, 2=suspended, 4=deleted
+    t.integer("status").notNullable().defaultTo(1);
     t.string("role", 64).nullable();
     t.string("emp_id", 64).nullable();
     t.string("address1", 500).nullable();
@@ -85,41 +95,41 @@ export async function up(knex: Knex): Promise<void> {
     t.integer("snap_duration_limit").notNullable().defaultTo(60);
     t.boolean("is_biometric_user").notNullable().defaultTo(false);
     t.timestamps(true, true);
-    t.unique(["organization_id", "user_id"]);
-    t.index(["organization_id"]);
-    t.index(["organization_id", "emp_id"]);
+    t.unique(["organization_id", "user_id"], { indexName: "employee_profiles_org_user_unq" });
+    t.index(["organization_id"], "employee_profiles_org_idx");
+    t.index(["organization_id", "emp_id"], "employee_profiles_org_empid_idx");
   });
 
   // -------------------------------------------------------------------------
-  // field_roles — role.model.js (lightweight, distinct from EmpCloud RBAC)
+  // field_roles
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("field_roles", (t) => {
+  await createIfMissing(knex, "field_roles", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("role", 100).notNullable();
     t.timestamps(true, true);
-    t.unique(["organization_id", "role"]);
-    t.index(["organization_id"]);
+    t.unique(["organization_id", "role"], { indexName: "field_roles_org_role_unq" });
+    t.index(["organization_id"], "field_roles_org_idx");
   });
 
   // -------------------------------------------------------------------------
-  // leave_types — leave.model.js (defines available leave types per org)
+  // leave_types
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("leave_types", (t) => {
+  await createIfMissing(knex, "leave_types", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("name", 100).notNullable();
-    t.integer("duration").notNullable(); // 1=yearly, 2=half, 3=quarterly, 4=monthly
+    t.integer("duration").notNullable();
     t.integer("no_of_days").notNullable();
     t.integer("carry_forward").notNullable().defaultTo(0);
     t.timestamps(true, true);
-    t.index(["organization_id"]);
+    t.index(["organization_id"], "leave_types_org_idx");
   });
 
   // -------------------------------------------------------------------------
-  // leave_requests — actual leave applications
+  // leave_requests
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("leave_requests", (t) => {
+  await createIfMissing(knex, "leave_requests", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.bigInteger("user_id").unsigned().notNullable();
@@ -134,37 +144,37 @@ export async function up(knex: Knex): Promise<void> {
     t.bigInteger("approved_by").unsigned().nullable();
     t.timestamp("approved_at").nullable();
     t.timestamps(true, true);
-    t.index(["organization_id", "user_id"]);
-    t.index(["organization_id", "status"]);
+    t.index(["organization_id", "user_id"], "leave_requests_org_user_idx");
+    t.index(["organization_id", "status"], "leave_requests_org_status_idx");
   });
 
   // -------------------------------------------------------------------------
-  // holidays — holiday.model.js
+  // holidays
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("holidays", (t) => {
+  await createIfMissing(knex, "holidays", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("name", 255).notNullable();
     t.date("date").notNullable();
     t.timestamps(true, true);
-    t.index(["organization_id", "date"]);
+    t.index(["organization_id", "date"], "holidays_org_date_idx");
   });
 
   // -------------------------------------------------------------------------
-  // field_categories — category.model.js
+  // field_categories
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("field_categories", (t) => {
+  await createIfMissing(knex, "field_categories", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("category_name", 255).notNullable();
     t.timestamps(true, true);
-    t.index(["organization_id"]);
+    t.index(["organization_id"], "field_categories_org_idx");
   });
 
   // -------------------------------------------------------------------------
-  // field_tags — tag.model.js (kept distinct from any later "tags" table)
+  // field_tags
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("field_tags", (t) => {
+  await createIfMissing(knex, "field_tags", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("tag_name", 100).notNullable();
@@ -175,14 +185,14 @@ export async function up(knex: Knex): Promise<void> {
     t.boolean("is_active").notNullable().defaultTo(true);
     t.integer("order").notNullable().defaultTo(1);
     t.timestamps(true, true);
-    t.unique(["organization_id", "tag_name"]);
-    t.index(["organization_id"]);
+    t.unique(["organization_id", "tag_name"], { indexName: "field_tags_org_name_unq" });
+    t.index(["organization_id"], "field_tags_org_idx");
   });
 
   // -------------------------------------------------------------------------
-  // tasks — task.model.js (separate from work_orders, has recurrence + tagLogs)
+  // tasks (legacy)
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("tasks", (t) => {
+  await createIfMissing(knex, "tasks", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("client_id", 64).nullable();
@@ -205,20 +215,20 @@ export async function up(knex: Knex): Promise<void> {
     t.decimal("converted_amount_usd", 14, 2).nullable();
     t.integer("task_volume").nullable();
     t.string("recurrence_id", 64).nullable();
-    t.integer("task_cycle").notNullable().defaultTo(0); // 0=none, 1=repeating, 2=daily
+    t.integer("task_cycle").notNullable().defaultTo(0);
     t.string("recurrence_start", 32).nullable();
     t.string("recurrence_end", 32).nullable();
     t.json("recurrence_days").nullable();
     t.timestamps(true, true);
-    t.index(["organization_id"]);
-    t.index(["organization_id", "task_name"]);
-    t.index(["organization_id", "recurrence_id"]);
+    t.index(["organization_id"], "tasks_org_idx");
+    t.index(["organization_id", "task_name"], "tasks_org_name_idx");
+    t.index(["organization_id", "recurrence_id"], "tasks_org_recur_idx");
   });
 
   // -------------------------------------------------------------------------
-  // transport_settings — transport.model.js
+  // transport_settings
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("transport_settings", (t) => {
+  await createIfMissing(knex, "transport_settings", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("emp_id", 64).notNullable();
@@ -227,14 +237,14 @@ export async function up(knex: Knex): Promise<void> {
     t.string("current_mode", 32).notNullable().defaultTo("bike");
     t.json("default_config").nullable();
     t.timestamps(true, true);
-    t.unique(["organization_id", "emp_id"]);
-    t.index(["organization_id"]);
+    t.unique(["organization_id", "emp_id"], { indexName: "transport_settings_org_emp_unq" });
+    t.index(["organization_id"], "transport_settings_org_idx");
   });
 
   // -------------------------------------------------------------------------
-  // tracking_logs — track.model.js (daily geologs summary)
+  // tracking_logs
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("tracking_logs", (t) => {
+  await createIfMissing(knex, "tracking_logs", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("emp_id", 64).notNullable();
@@ -248,31 +258,31 @@ export async function up(knex: Knex): Promise<void> {
     t.string("created_by", 64).nullable();
     t.string("updated_by", 64).nullable();
     t.timestamps(true, true);
-    t.unique(["organization_id", "emp_id", "date"]);
-    t.index(["organization_id"]);
+    t.unique(["organization_id", "emp_id", "date"], { indexName: "tracking_logs_org_emp_date_unq" });
+    t.index(["organization_id"], "tracking_logs_org_idx");
   });
 
   // -------------------------------------------------------------------------
-  // user_tracking_events — userTracking.model.js (login/logout/inTask)
+  // user_tracking_events
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("user_tracking_events", (t) => {
+  await createIfMissing(knex, "user_tracking_events", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.bigInteger("user_id").unsigned().notNullable();
-    t.string("tracking_type", 32).notNullable(); // login, logOut, InTask
+    t.string("tracking_type", 32).notNullable();
     t.string("task_id", 64).nullable();
     t.timestamp("date").notNullable().defaultTo(knex.fn.now());
     t.string("latitude", 32).notNullable();
     t.string("longitude", 32).notNullable();
     t.timestamps(true, true);
-    t.index(["organization_id", "user_id"]);
-    t.index(["organization_id", "tracking_type"]);
+    t.index(["organization_id", "user_id"], "user_tracking_events_org_user_idx");
+    t.index(["organization_id", "tracking_type"], "user_tracking_events_org_type_idx");
   });
 
   // -------------------------------------------------------------------------
-  // employee_geo_settings — employeeLocation.model.js
+  // employee_geo_settings
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("employee_geo_settings", (t) => {
+  await createIfMissing(knex, "employee_geo_settings", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.bigInteger("employee_id").unsigned().notNullable();
@@ -285,14 +295,14 @@ export async function up(knex: Knex): Promise<void> {
     t.string("created_by", 64).nullable();
     t.string("updated_by", 64).nullable();
     t.timestamps(true, true);
-    t.unique(["organization_id", "employee_id"]);
-    t.index(["organization_id"]);
+    t.unique(["organization_id", "employee_id"], { indexName: "emp_geo_settings_org_emp_unq" });
+    t.index(["organization_id"], "emp_geo_settings_org_idx");
   });
 
   // -------------------------------------------------------------------------
-  // org_geo_locations — orgLocation.model.js
+  // org_geo_locations
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("org_geo_locations", (t) => {
+  await createIfMissing(knex, "org_geo_locations", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("location_name", 255).nullable();
@@ -306,13 +316,13 @@ export async function up(knex: Knex): Promise<void> {
     t.string("created_by", 64).nullable();
     t.string("updated_by", 64).nullable();
     t.timestamps(true, true);
-    t.index(["organization_id"]);
+    t.index(["organization_id"], "org_geo_locations_org_idx");
   });
 
   // -------------------------------------------------------------------------
-  // auto_email_reports — autoEmailReport.model.js
+  // auto_email_reports
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("auto_email_reports", (t) => {
+  await createIfMissing(knex, "auto_email_reports", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("reports_title", 255).notNullable();
@@ -323,13 +333,13 @@ export async function up(knex: Knex): Promise<void> {
     t.json("filter").nullable();
     t.boolean("send_test_mail").notNullable().defaultTo(false);
     t.timestamps(true, true);
-    t.index(["organization_id"]);
+    t.index(["organization_id"], "auto_email_reports_org_idx");
   });
 
   // -------------------------------------------------------------------------
-  // attendance_records — attendance module data
+  // attendance_records  ← the one that exploded last time (64-char limit)
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("attendance_records", (t) => {
+  await createIfMissing(knex, "attendance_records", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.bigInteger("user_id").unsigned().notNullable();
@@ -346,19 +356,21 @@ export async function up(knex: Knex): Promise<void> {
     t.string("source", 32).notNullable().defaultTo("field");
     t.string("notes", 500).nullable();
     t.timestamps(true, true);
-    t.unique(["organization_id", "user_id", "attendance_date"]);
-    t.index(["organization_id", "attendance_date"]);
+    t.unique(["organization_id", "user_id", "attendance_date"], {
+      indexName: "att_rec_org_user_date_unq",
+    });
+    t.index(["organization_id", "attendance_date"], "att_rec_org_date_idx");
   });
 
   // -------------------------------------------------------------------------
-  // attendance_requests — manual attendance correction requests
+  // attendance_requests
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("attendance_requests", (t) => {
+  await createIfMissing(knex, "attendance_requests", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.bigInteger("user_id").unsigned().notNullable();
     t.date("request_date").notNullable();
-    t.string("type", 32).notNullable(); // missed_checkin, wrong_time, etc.
+    t.string("type", 32).notNullable();
     t.string("reason", 1000).notNullable();
     t.enum("status", ["pending", "approved", "rejected"])
       .notNullable()
@@ -366,13 +378,13 @@ export async function up(knex: Knex): Promise<void> {
     t.bigInteger("approved_by").unsigned().nullable();
     t.timestamp("approved_at").nullable();
     t.timestamps(true, true);
-    t.index(["organization_id", "user_id"]);
+    t.index(["organization_id", "user_id"], "att_req_org_user_idx");
   });
 
   // -------------------------------------------------------------------------
-  // legacy_clients — old client.model.js (kept alongside client_sites)
+  // legacy_clients
   // -------------------------------------------------------------------------
-  await knex.schema.createTable("legacy_clients", (t) => {
+  await createIfMissing(knex, "legacy_clients", (t) => {
     t.uuid("id").primary();
     t.bigInteger("organization_id").unsigned().notNullable();
     t.string("client_name", 255).notNullable();
@@ -389,14 +401,14 @@ export async function up(knex: Knex): Promise<void> {
     t.string("zip_code", 16).nullable();
     t.string("latitude", 32).notNullable();
     t.string("longitude", 32).notNullable();
-    t.integer("client_type").notNullable().defaultTo(0); // 0=Active, 1=Suspended, 2=Expired
+    t.integer("client_type").notNullable().defaultTo(0);
     t.string("category", 100).notNullable();
     t.integer("status").notNullable().defaultTo(0);
     t.bigInteger("assigned_employees").unsigned().nullable();
     t.string("created_by", 64).nullable();
     t.string("updated_by", 64).nullable();
     t.timestamps(true, true);
-    t.index(["organization_id"]);
+    t.index(["organization_id"], "legacy_clients_org_idx");
   });
 }
 
