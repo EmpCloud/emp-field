@@ -1,12 +1,13 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { authenticate, authorize } from "../middleware/auth.middleware";
+import { authorize } from "../middleware/auth.middleware";
+import { protectRoute } from "../middleware/rbac.middleware";
 import * as expenseService from "../../services/expense.service";
 import { createExpenseSchema, updateExpenseSchema } from "@emp-field/shared";
 import { sendSuccess, sendPaginated } from "../../utils/response";
 import { ValidationError } from "../../utils/errors";
 
 const router = Router();
-router.use(authenticate);
+router.use(protectRoute);
 
 // GET / — list expenses
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {

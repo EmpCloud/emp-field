@@ -1,12 +1,12 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { authenticate } from "../middleware/auth.middleware";
+import { protectRoute } from "../middleware/rbac.middleware";
 import * as checkinService from "../../services/checkin.service";
 import { checkInSchema, checkOutSchema } from "@emp-field/shared";
 import { sendSuccess, sendPaginated } from "../../utils/response";
 import { ValidationError } from "../../utils/errors";
 
 const router = Router();
-router.use(authenticate);
+router.use(protectRoute);
 
 // POST / — check in
 router.post("/", async (req: Request, res: Response, next: NextFunction) => {
@@ -20,7 +20,7 @@ router.post("/", async (req: Request, res: Response, next: NextFunction) => {
   } catch (err) { next(err); }
 });
 
-// POST /:id/checkout — check out
+// POST /:id/checkout — check out by id
 router.post("/:id/checkout", async (req: Request, res: Response, next: NextFunction) => {
   try {
     const parsed = checkOutSchema.safeParse(req.body);
@@ -28,6 +28,27 @@ router.post("/:id/checkout", async (req: Request, res: Response, next: NextFunct
       throw new ValidationError("Invalid input", parsed.error.flatten().fieldErrors as Record<string, string[]>);
     }
     const checkin = await checkinService.checkOut(req.user!.empcloudOrgId, req.user!.empcloudUserId, req.params.id as string, parsed.data);
+    sendSuccess(res, checkin);
+  } catch (err) { next(err); }
+});
+
+// POST /checkout — mobile convenience: close the user's active check-in
+router.post("/checkout", async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const parsed = checkOutSchema.safeParse(req.body);
+    if (!parsed.success) {
+      throw new ValidationError("Invalid input", parsed.error.flatten().fieldErrors as Record<string, string[]>);
+    }
+    const active = await checkinService.getActive(req.user!.empcloudOrgId, req.user!.empcloudUserId);
+    if (!active) {
+      throw new ValidationError("No active check-in to close");
+    }
+    const checkin = await checkinService.checkOut(
+      req.user!.empcloudOrgId,
+      req.user!.empcloudUserId,
+      active.id,
+      parsed.data,
+    );
     sendSuccess(res, checkin);
   } catch (err) { next(err); }
 });

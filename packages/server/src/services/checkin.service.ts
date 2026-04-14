@@ -5,6 +5,7 @@
 import { v4 as uuidv4 } from "uuid";
 import { getDB } from "../db/connection";
 import { NotFoundError, ValidationError } from "../utils/errors";
+import * as attendanceSync from "./empcloud-attendance.service";
 
 const TABLE = "checkins";
 
@@ -36,6 +37,16 @@ export async function checkIn(orgId: number, userId: number, data: Record<string
     updated_at: now,
   });
 
+  // Best-effort sync to EmpCloud attendance.
+  await attendanceSync.syncCheckIn({
+    orgId,
+    userId,
+    checkInTime: now,
+    latitude: data.check_in_lat,
+    longitude: data.check_in_lng,
+    source: "field",
+  });
+
   return db(TABLE).where({ id }).first();
 }
 
@@ -61,6 +72,15 @@ export async function checkOut(orgId: number, userId: number, checkinId: string,
     status: "completed",
     duration_minutes: durationMinutes,
     updated_at: now,
+  });
+
+  await attendanceSync.syncCheckOut({
+    orgId,
+    userId,
+    checkInTime: new Date(checkin.check_in_time),
+    checkOutTime: now,
+    latitude: data.check_out_lat,
+    longitude: data.check_out_lng,
   });
 
   return db(TABLE).where({ id: checkinId }).first();

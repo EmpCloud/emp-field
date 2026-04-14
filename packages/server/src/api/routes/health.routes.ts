@@ -1,5 +1,8 @@
 import { Router, Request, Response } from "express";
 import { config } from "../../config";
+import { getDB } from "../../db/connection";
+import { getEmpCloudDB } from "../../db/empcloud";
+import { getRedis } from "../../queue/connection";
 
 const router = Router();
 
@@ -15,7 +18,39 @@ router.get("/", (_req: Request, res: Response) => {
 router.get("/detailed", async (_req: Request, res: Response) => {
   const start = Date.now();
   const checks: Record<string, any> = {};
+  let healthy = true;
 
+  // ---- MySQL (field) ----
+  try {
+    const t0 = Date.now();
+    await getDB().raw("SELECT 1");
+    checks.fieldDb = { status: "up", responseMs: Date.now() - t0 };
+  } catch (err: any) {
+    healthy = false;
+    checks.fieldDb = { status: "down", error: err.message };
+  }
+
+  // ---- MySQL (empcloud) ----
+  try {
+    const t0 = Date.now();
+    await getEmpCloudDB().raw("SELECT 1");
+    checks.empcloudDb = { status: "up", responseMs: Date.now() - t0 };
+  } catch (err: any) {
+    healthy = false;
+    checks.empcloudDb = { status: "down", error: err.message };
+  }
+
+  // ---- Redis ----
+  try {
+    const t0 = Date.now();
+    const pong = await getRedis().ping();
+    checks.redis = { status: pong === "PONG" ? "up" : "degraded", responseMs: Date.now() - t0 };
+  } catch (err: any) {
+    healthy = false;
+    checks.redis = { status: "down", error: err.message };
+  }
+
+  // ---- Memory / uptime ----
   const mem = process.memoryUsage();
   checks.memory = {
     rss: `${Math.round(mem.rss / 1024 / 1024)}MB`,
@@ -31,14 +66,10 @@ router.get("/detailed", async (_req: Request, res: Response) => {
   if (d > 0) parts.push(`${d}d`);
   if (h > 0) parts.push(`${h}h`);
   parts.push(`${m}m`);
+  checks.uptime = { process: `${Math.round(uptime)}s`, formatted: parts.join(" ") };
 
-  checks.uptime = {
-    process: `${Math.round(uptime)}s`,
-    formatted: parts.join(" "),
-  };
-
-  res.json({
-    status: "healthy",
+  res.status(healthy ? 200 : 503).json({
+    status: healthy ? "healthy" : "degraded",
     module: "emp-field",
     timestamp: new Date().toISOString(),
     responseTime: `${Date.now() - start}ms`,

@@ -4,7 +4,7 @@ dotenv.config({ path: path.resolve(process.cwd(), "../../.env") });
 
 export const config = {
   env: process.env.NODE_ENV || "development",
-  port: parseInt(process.env.PORT || "4800"),
+  port: parseInt(process.env.PORT || "6013"),
   host: process.env.HOST || "0.0.0.0",
 
   // Field module database
@@ -34,11 +34,15 @@ export const config = {
     password: process.env.REDIS_PASSWORD || undefined,
   },
 
-  // JWT
+  // JWT — supports both HS256 (local fallback) and RS256 (EmpCloud OAuth2)
   jwt: {
     secret: process.env.JWT_SECRET || "change-this-in-production",
     accessExpiry: process.env.JWT_ACCESS_EXPIRY || "15m",
     refreshExpiry: process.env.JWT_REFRESH_EXPIRY || "7d",
+    // RS256 public key issued by EmpCloud core. Can be a PEM string (\n-escaped)
+    // or a path to a .pem file. When set, tokens are verified as RS256 first.
+    publicKey: process.env.JWT_PUBLIC_KEY || process.env.JWT_PUBLIC_KEY_PATH || "",
+    issuer: process.env.JWT_ISSUER || "empcloud",
   },
 
   // CORS

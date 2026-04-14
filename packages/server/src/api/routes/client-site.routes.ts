@@ -1,5 +1,6 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { authenticate, authorize } from "../middleware/auth.middleware";
+import { authorize } from "../middleware/auth.middleware";
+import { protectRoute } from "../middleware/rbac.middleware";
 import * as clientSiteService from "../../services/client-site.service";
 import { createClientSiteSchema, updateClientSiteSchema } from "@emp-field/shared";
 import { sendSuccess, sendPaginated } from "../../utils/response";
@@ -7,8 +8,8 @@ import { ValidationError } from "../../utils/errors";
 
 const router = Router();
 
-// All routes require authentication
-router.use(authenticate);
+// All routes require authentication + org scope + subscription
+router.use(protectRoute);
 
 // GET / — list client sites
 router.get("/", async (req: Request, res: Response, next: NextFunction) => {

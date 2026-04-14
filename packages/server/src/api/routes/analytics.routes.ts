@@ -1,10 +1,11 @@
 import { Router, Request, Response, NextFunction } from "express";
-import { authenticate, authorize } from "../middleware/auth.middleware";
+import { authorize } from "../middleware/auth.middleware";
+import { protectRoute } from "../middleware/rbac.middleware";
 import * as analyticsService from "../../services/analytics.service";
 import { sendSuccess } from "../../utils/response";
 
 const router = Router();
-router.use(authenticate);
+router.use(protectRoute);
 
 // GET /dashboard — dashboard KPIs
 router.get("/dashboard", async (req: Request, res: Response, next: NextFunction) => {
