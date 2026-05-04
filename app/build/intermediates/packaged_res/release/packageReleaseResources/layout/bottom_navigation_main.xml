@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingStart="@dimen/margin_twenty"
+        android:paddingEnd="@dimen/margin_twenty"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:id="@+id/home"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_home"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"/>
+
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_home"
+                app:tint="@color/navigation_color_bottom" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="@string/home"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/navigation_color_bottom"/>
+        </LinearLayout>
+
+<!--        SELECTED HOME-->
+
+        <LinearLayout
+            android:id="@+id/home_select"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_height="4dp"
+                android:background="@drawable/nav_view_bg"/>
+
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_home"
+                app:tint="@color/nav_common_clr" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="@string/home"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/nav_common_clr"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/map"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_map"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"/>
+
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                android:src="@drawable/uiw_map"
+                app:tint="@color/navigation_color_bottom" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="Map"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/navigation_color_bottom"/>
+        </LinearLayout>
+
+        <!--        SELECTED Map-->
+
+        <LinearLayout
+            android:id="@+id/slelectedmap"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_height="4dp"
+                android:background="@drawable/nav_view_bg"/>
+
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                android:src="@drawable/uiw_map"
+                app:tint="@color/nav_common_clr" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="Map"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/nav_common_clr"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/qrbottom"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_qr"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"/>
+
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                android:src="@drawable/qr_withoutbg"
+                app:tint="@color/navigation_color_bottom" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="Qr"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/navigation_color_bottom"/>
+        </LinearLayout>
+
+        <!--        SELECTED QR-->
+
+        <LinearLayout
+            android:id="@+id/slelectedqr"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_height="4dp"
+                android:background="@drawable/nav_view_bg"/>
+
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                android:src="@drawable/qr_withoutbg"
+                app:tint="@color/nav_common_clr" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="Qr"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/nav_common_clr"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/task"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_task"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"/>
+
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_tasks"
+                app:tint="@color/navigation_color_bottom"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="@string/task"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/navigation_color_bottom"/>
+        </LinearLayout>
+
+
+<!--        SELECTD TASK-->
+
+        <LinearLayout
+            android:id="@+id/task_selected"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_task_selected"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_height="4dp"
+                android:background="@drawable/nav_view_bg"/>
+
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                android:src="@drawable/icon_tasks"
+                app:tint="@color/nav_common_clr"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="@string/task"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/nav_common_clr"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/insight"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_insight"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"/>
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                android:src="@drawable/insights"
+                app:tint="@color/navigation_color_bottom"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="@string/insight"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/navigation_color_bottom"/>
+        </LinearLayout>
+
+<!--        SELECTD INSIGHT-->
+
+        <LinearLayout
+            android:id="@+id/insight_selected"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_insight_selected"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:background="@drawable/nav_view_bg"
+                android:layout_height="4dp"/>
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                android:src="@drawable/insights"
+                app:tint="@color/nav_common_clr"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="@string/insight"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/nav_common_clr"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/client"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_client"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"/>
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="@dimen/margin_ten"
+                app:tint="@color/navigation_color_bottom"
+                android:src="@drawable/icon_clients"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="@string/client"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/navigation_color_bottom"/>
+        </LinearLayout>
+
+<!--        SELECTED_CLIENT-->
+
+        <LinearLayout
+            android:id="@+id/client_selected"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_client_selected"
+                android:layout_width="match_parent"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:background="@drawable/nav_view_bg"
+                android:layout_height="4dp"/>
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:adjustViewBounds="true"
+                android:layout_marginTop="@dimen/margin_ten"
+                app:tint="@color/nav_common_clr"
+                android:src="@drawable/icon_clients"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="@string/client"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/nav_common_clr"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/settings"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_settings"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"/>
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                app:tint="@color/navigation_color_bottom"
+                android:src="@drawable/icon_setting"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="@string/settings"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/navigation_color_bottom"/>
+        </LinearLayout>
+
+<!--        SELECTED SETTINGS-->
+
+        <LinearLayout
+            android:id="@+id/settings_selected"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <View
+                android:id="@+id/view_settings_selected"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:background="@drawable/nav_view_bg"
+                android:layout_height="4dp"/>
+            <ImageView
+                android:layout_width="24sp"
+                android:layout_height="24sp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:adjustViewBounds="true"
+                app:tint="@color/nav_common_clr"
+                android:src="@drawable/icon_setting"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:text="@string/settings"
+                android:textSize="10sp"
+                android:theme="@style/UbuntuRegular"
+                android:textColor="@color/nav_common_clr"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

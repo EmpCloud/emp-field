@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/locationalertpop"
+    android:visibility="gone"
+    android:translationZ="20dp"
+    android:clickable="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#3279B2FF"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        app:cardCornerRadius="@dimen/margin_twenty"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/cancelbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:src="@drawable/cancel_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_marginBottom="@dimen/margin_twenty"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:src="@drawable/alert"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/alert"
+                    android:textColor="@color/yellow_text_color"
+                    android:theme="@style/FontMedium"
+                    android:textSize="@dimen/text_twelve"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_five"
+                    android:text="@string/location_services_disabled"
+                    android:textColor="#3A3A3A"
+                    android:theme="@style/FontMedium"
+                    android:textSize="@dimen/text_twelve"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/your_location_is_currently_turned_off_please"
+                    android:textColor="#4D4C4C"
+                    android:theme="@style/FontMedium"
+                    android:textSize="@dimen/text_twelve"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/enable_location_services_to_continue"
+                    android:textColor="#4D4C4C"
+                    android:theme="@style/FontMedium"
+                    android:textSize="@dimen/text_twelve"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/okayBtn"
+                android:layout_width="wrap_content"
+                android:foreground="@drawable/ripple_new_aman"
+                android:background="@drawable/time_shower_shape"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ok"
+                    android:theme="@style/FontMedium"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:paddingStart="@dimen/margin_fifty"
+                    android:paddingEnd="@dimen/margin_fifty"
+                    android:paddingTop="@dimen/margin_five"
+                    android:paddingBottom="@dimen/margin_five"
+                    android:textSize="@dimen/text_twelve"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

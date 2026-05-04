@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_fifteen"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:visibility="visible"
+            android:layout_width="@dimen/_12sp"
+            android:layout_marginStart="@dimen/margin_ten"
+            android:layout_marginTop="@dimen/margin_five"
+            android:src="@drawable/checked_radio_btn_aman"
+            android:adjustViewBounds="true"
+            android:layout_height="@dimen/_12sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginStart="@dimen/margin_ten"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tasktitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_fourteen"
+                android:textColor="@color/new_txt_3a"
+                android:text="Lorem ipsum dolor sit amet"
+                android:theme="@style/FontMedium"/>
+
+            <TextView
+                android:id="@+id/taskdescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:textSize="@dimen/text_twelve"
+                android:textColor="@color/new_txt_3a"
+                android:text="Lorem ipsum dolor sit amet"
+                android:theme="@style/FontRegular"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/statuslayout"
+            android:clickable="false"
+            android:layout_marginEnd="@dimen/margin_ten"
+            android:visibility="visible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:background="@drawable/home_page_holidays_shape_back" >
+
+            <TextView
+                android:id="@+id/taskstatustxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:paddingStart="@dimen/margin_fifteen"
+                android:paddingTop="5dp"
+                android:paddingEnd="@dimen/margin_fifteen"
+                android:theme="@style/FontMedium"
+                android:paddingBottom="5dp"
+                android:text="Pending Task"
+                android:textColor="@color/white"
+                android:textSize="8dp"
+                android:visibility="visible"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">747529187310</string>
+    <string name="google_api_key" translatable="false">AIzaSyDjRcJJr_JcrdSxVyKTXYxZJz30zF0ECAo</string>
+    <string name="google_app_id" translatable="false">1:747529187310:android:53654c8a2a44a10426a8ff</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDjRcJJr_JcrdSxVyKTXYxZJz30zF0ECAo</string>
+    <string name="google_storage_bucket" translatable="false">emp-monitor-99c34.appspot.com</string>
+    <string name="project_id" translatable="false">emp-monitor-99c34</string>
+</resources>

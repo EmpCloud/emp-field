@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/leaves_screen_apply"
+    android:translationZ="20dp"
+    android:visibility="gone"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#80DFE9F6">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/margin_twenty"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_twenty"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/add_new_leave"
+                    android:textColor="@color/add_leaves_txt"
+                    android:textSize="@dimen/text_sixteen"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/cancebtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_fifteen"
+                    android:layout_marginEnd="@dimen/margin_ten"
+                    android:src="@drawable/cancel_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_twenty"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/employee_name"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textColor="@color/new_txt_3a"
+                    android:textSize="@dimen/text_twelve"
+                    />
+
+
+                <EditText
+                    android:id="@+id/empName"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="@dimen/margin_five"
+                    android:inputType="text"
+                    android:paddingStart="@dimen/padding_ten"
+                    android:paddingEnd="@dimen/padding_ten"
+                    android:drawablePadding="@dimen/padding_ten"
+                    android:background="@drawable/add_lv_et_bg"
+                    android:hint="@string/write_name"
+                    android:textSize="@dimen/text_twelve"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="@color/holidays_listitems_color1"
+                    />
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_ten"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/date_type"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textColor="@color/new_txt_3a"
+                    android:textSize="@dimen/text_twelve"
+                    />
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/margin_five">-->
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/autoCompletedate"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:paddingStart="@dimen/padding_ten"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:background="@drawable/add_lv_et_bg"-->
+<!--                        android:inputType="none"-->
+<!--                        android:textSize="@dimen/text_twelve"-->
+<!--                        android:textColor="@color/holidays_listitems_color1"/>-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+
+
+<!--                <EditText-->
+<!--                    android:id="@+id/autoCompletedate"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginTop="@dimen/margin_five"-->
+<!--                    android:paddingStart="@dimen/padding_ten"-->
+<!--                    android:paddingEnd="@dimen/padding_ten"-->
+<!--                    android:drawablePadding="@dimen/padding_ten"-->
+<!--                    android:background="@drawable/add_lv_et_bg"-->
+<!--                    android:hint="@string/write_name"-->
+<!--                    android:textSize="@dimen/text_twelve"-->
+<!--                    android:fontFamily="@font/montserrat_medium"-->
+<!--                    android:textColor="@color/holidays_listitems_color1"-->
+<!--                    />-->
+
+                    <Spinner
+                    android:id="@+id/autoCompletedate"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/margin_five"
+                    android:layout_height="40dp"
+                    android:background="@drawable/add_lv_et_bg"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/leave_type"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textColor="@color/new_txt_3a"
+                    android:textSize="@dimen/text_twelve"
+                    />
+
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="@dimen/margin_five">-->
+
+<!--                    <AutoCompleteTextView-->
+<!--                        android:id="@+id/autoCompleteLeave"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:paddingStart="@dimen/padding_ten"-->
+<!--                        android:layout_height="40dp"-->
+<!--                        android:background="@drawable/add_lv_et_bg"-->
+<!--                        android:inputType="none"-->
+<!--                        android:textSize="@dimen/text_twelve"-->
+<!--                        android:textColor="@color/holidays_listitems_color1"/>-->
+<!--                    <requestFocus />-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
+<!--                <EditText-->
+<!--                    android:id="@+id/autoCompleteLeave"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:visibility="gone"-->
+<!--                    android:layout_height="40dp"-->
+<!--                    android:layout_marginTop="@dimen/margin_five"-->
+<!--                    android:paddingStart="@dimen/padding_ten"-->
+<!--                    android:paddingEnd="@dimen/padding_ten"-->
+<!--                    android:drawablePadding="@dimen/padding_ten"-->
+<!--                    android:background="@drawable/add_lv_et_bg"-->
+<!--                    android:hint="@string/write_name"-->
+<!--                    android:textSize="@dimen/text_twelve"-->
+<!--                    android:fontFamily="@font/montserrat_medium"-->
+<!--                    android:textColor="@color/holidays_listitems_color1"-->
+<!--                    />-->
+                    <Spinner
+                        android:id="@+id/autoCompleteLeave"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/margin_five"
+                        android:layout_height="40dp"
+                        android:background="@drawable/add_lv_et_bg"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_twenty"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_ten"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/start_date"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:textColor="@color/new_txt_3a"
+                        android:textSize="@dimen/text_twelve"
+                        />
+
+                    <EditText
+                        android:id="@+id/startDate"
+                        android:layout_width="match_parent"
+                        android:focusable="false"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="@dimen/margin_five"
+                        android:paddingStart="@dimen/padding_ten"
+                        android:paddingEnd="@dimen/padding_ten"
+                        android:drawablePadding="@dimen/padding_ten"
+                        android:background="@drawable/add_lv_et_bg"
+                        android:hint="yyyy--mm-dd"
+                        android:textSize="@dimen/text_twelve"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textColor="@color/holidays_listitems_color1"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_ten"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/end_date"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:textColor="@color/new_txt_3a"
+                        android:textSize="@dimen/text_twelve"
+                        />
+
+
+                    <EditText
+                        android:id="@+id/endDate"
+                        android:focusable="false"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="@dimen/margin_five"
+                        android:paddingStart="@dimen/padding_ten"
+                        android:paddingEnd="@dimen/padding_ten"
+                        android:drawablePadding="@dimen/padding_ten"
+                        android:background="@drawable/add_lv_et_bg"
+                        android:hint="yyyy--mm-dd"
+                        android:textSize="@dimen/text_twelve"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textColor="@color/holidays_listitems_color1"
+                        />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_twenty"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reason"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textColor="@color/new_txt_3a"
+                    android:textSize="@dimen/text_twelve"
+                    />
+
+
+                <EditText
+                    android:id="@+id/reason"
+                    android:layout_width="match_parent"
+                    android:inputType="text"
+                    android:layout_height="80dp"
+                    android:layout_gravity="start"
+                    android:gravity="start"
+                    android:paddingTop="@dimen/padding_ten"
+                    android:paddingStart="@dimen/padding_ten"
+                    android:paddingEnd="@dimen/padding_ten"
+                    android:layout_marginTop="@dimen/margin_five"
+                    android:background="@drawable/add_lv_et_bg"
+                    android:hint="@string/write_reason_here"
+                    android:textSize="@dimen/text_twelve"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textColor="@color/holidays_listitems_color1"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nextbtn"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:layout_height="@dimen/user_screen_button_height"
+                android:layout_marginStart="@dimen/margin_twenty"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                android:layout_marginBottom="@dimen/margin_twenty"
+                android:foreground="@drawable/ripple"
+                android:background="@drawable/butoon_bg_shape"
+                android:layout_gravity="bottom"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:theme="@style/FontMedium"
+                    android:gravity="center"
+                    android:text="@string/apply"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/nextbtndisable"
+                android:visibility="visible"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:layout_height="@dimen/user_screen_button_height"
+                android:layout_marginStart="@dimen/margin_twenty"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                android:layout_marginBottom="@dimen/margin_twenty"
+                android:background="@drawable/butoon_bg_shape_disabled"
+                android:layout_gravity="bottom"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:theme="@style/FontMedium"
+                    android:gravity="center"
+                    android:text="@string/apply"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

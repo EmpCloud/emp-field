@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/srceen_top_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.11" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_twenty"
+            android:adjustViewBounds="true"
+            android:src="@drawable/camergallery" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_fifty"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center"
+                android:text="@string/camera_amp_gallery"
+                android:textColor="@color/welcome_text_color"
+                android:textSize="@dimen/text_twenty_five" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center"
+                android:text="@string/permission"
+                android:textColor="@color/insight_text_color"
+                android:textSize="@dimen/text_twenty_five" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="35dp"
+            android:layout_marginStart="@dimen/_10dp_"
+            android:layout_marginEnd="@dimen/_10dp_"
+            android:gravity="center"
+            android:text="@string/grant_permission_to_use_the_camera_and_gallery"
+            android:textColor="@color/welcome_text_display_color"
+            android:textSize="@dimen/text_sixteen"
+            android:theme="@style/FontMedium" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/nextBtn5"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/button_height"
+        android:layout_marginBottom="@dimen/margin_fifty"
+        android:layout_marginStart="@dimen/margin_fifty"
+        android:layout_marginEnd="@dimen/margin_fifty"
+        android:foreground="@drawable/ripple"
+        android:background="@drawable/butoon_bg_shape"
+        android:clickable="true"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/button_text_size"
+            android:fontFamily="@font/poppins_medium"
+            android:textColor="@color/white"
+            android:text="@string/next"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+    </LinearLayout>
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_end="154dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

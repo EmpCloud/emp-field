@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/profile_background"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:layout_marginStart="@dimen/text_fifteen"
+        android:layout_marginEnd="@dimen/margin_fifteen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:src="@drawable/arrow_back" />
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Create Profile"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_twenty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+        <LinearLayout
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/user_profile_background"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_user_profile" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:background="@drawable/user_image_upload_back"
+            android:layout_alignParentEnd="true">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/icon_camera"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/margin_fifteen"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:layout_marginEnd="@dimen/margin_fifteen"
+        android:layout_marginBottom="@dimen/margin_fifty"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_twenty"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add Address"
+                android:textColor="@color/user_form_text_color"
+                android:textSize="@dimen/text_fifteen"
+                android:textStyle="bold"
+                android:theme="@style/FontMedium" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:paddingStart="@dimen/padding_ten"
+                android:paddingEnd="@dimen/padding_ten"
+                android:drawablePadding="@dimen/padding_ten"
+                android:background="@drawable/create_profile_address_back"
+                android:drawableStart="@drawable/search_icon"
+                android:hint="Search for area, street name..."
+                android:textSize="@dimen/text_twelve"
+                android:theme="@style/FontMedium"
+                android:textColor="@color/edit_text_hint_color"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/padding_twenty"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:background="@drawable/create_profile_address_back">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Enable your device location"
+                        android:textColor="@color/welcome_text_display_color"
+                        android:textSize="@dimen/text_twelve"
+                        android:layout_marginStart="@dimen/margin_ten"
+                        android:layout_marginTop="@dimen/margin_ten"
+                        android:theme="@style/FontMedium"/>
+
+                    <!-- Thumb color implementation code is
+                    commented in the main activity class -->
+
+                    <Switch
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:layout_marginTop="@dimen/margin_ten"
+                        android:layout_marginEnd="@dimen/margin_ten"/>
+
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/view_firstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginLeft="@dimen/margin_ten"
+                    android:layout_marginRight="@dimen/margin_ten"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/view_horizontal_line_color"
+                    />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="+"
+                        android:layout_gravity="center"
+                        android:textColor="#2364B0"
+                        android:textSize="@dimen/margin_fifteen"
+                        android:layout_marginStart="@dimen/margin_ten"
+                        android:layout_marginTop="@dimen/margin_ten"
+                        android:theme="@style/FontMedium"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add complete Address"
+                        android:layout_gravity="center"
+                        android:textColor="@color/welcome_text_display_color"
+                        android:textSize="@dimen/text_twelve"
+                        android:layout_marginStart="@dimen/margin_ten"
+                        android:layout_marginTop="@dimen/margin_ten"
+                        android:theme="@style/FontMedium"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/user_screen_button_height"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_twenty"
+            android:layout_marginBottom="@dimen/margin_twenty"
+            android:background="@drawable/butoon_bg_shape"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:theme="@style/FontMedium"
+                android:gravity="center"
+                android:text="Next"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size" />
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.client.clienthome.ClientHomeFragment">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:translationZ="30dp"
+        android:indeterminateDrawable="@drawable/progressbar_bg"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="15dp">
+
+        <!--        back arrow view-->
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="30dp"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_twenty"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:background="@drawable/icon_white_circular_back"
+            android:padding="3dp"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/clients"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_twenty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout16"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:background="@drawable/profile_back_shape"
+        android:elevation="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_fifteen"
+            android:layout_marginTop="@dimen/margin_fifteen"
+            android:layout_marginEnd="@dimen/margin_fifteen"
+            android:orientation="horizontal">
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginEnd="@dimen/margin_ten"-->
+<!--                android:background="@drawable/blue_shape_color"-->
+<!--                android:gravity="center">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:gravity="center"-->
+<!--                    android:paddingStart="@dimen/margin_fifteen"-->
+<!--                    android:paddingTop="8dp"-->
+<!--                    android:paddingEnd="@dimen/margin_fifteen"-->
+<!--                    android:paddingBottom="8dp"-->
+<!--                    android:text="NOV\n16"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="@dimen/text_twelve" />-->
+<!--            </LinearLayout>-->
+
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:background="@drawable/blue_shape_color"
+                android:drawableStart="@drawable/task_search_icon"
+                android:drawablePadding="@dimen/padding_ten"
+                android:hint="@string/search"
+                android:paddingStart="@dimen/padding_ten"
+                android:paddingEnd="@dimen/padding_twenty"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="@dimen/text_twelve"
+                android:inputType="text"
+                android:textCursorDrawable="@null"
+                android:theme="@style/FontMedium" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/clientRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/padding_twenty"
+            android:visibility="gone"
+            tools:listitem="@layout/clients_screen_listitems" />
+
+        <TextView
+            android:id="@+id/noClientFound"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="No Client Found"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:textColor="@color/buttonBgColor_attendance"
+            android:theme="@style/FontMedium"
+            android:textSize="14sp"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/addClient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_twenty"
+        android:foreground="@drawable/ripple_fab"
+        android:background="@drawable/floating_button_gradient_color_and_shape"
+        android:elevation="2dp"
+        android:translationZ="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_ten"
+            android:src="@drawable/add_icon" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.EmpMonitorFieldTrackingUI" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="fontFamily">@font/montserrat_semibold</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:radioButtonStyle">@style/RadioButton</item>
+        <!--        <item name="android:switchStyle">@style/SCBSwitchStyle</item>-->
+
+        <!--        <item name="android:fitsSystemWindows">true</item>-->
+        <!--        <item name="android:windowLightStatusBar">true</item>-->
+        <item name="android:statusBarColor">@color/profile_gradient_first_color</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--        <item name="android:windowTranslucentStatus">true</item>-->
+
+
+    </style>
+</resources>

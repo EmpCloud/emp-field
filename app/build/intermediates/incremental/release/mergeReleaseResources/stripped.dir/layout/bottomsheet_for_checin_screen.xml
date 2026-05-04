@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:translationZ="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_fifteen"
+        android:layout_marginEnd="@dimen/margin_fifteen"
+        android:orientation="vertical"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="15dp">
+
+        <TextView
+            android:id="@+id/currentDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_ten"
+            android:layout_gravity="center"
+            android:theme="@style/UbuntuRegular"
+            android:gravity="center"
+            android:text="Wed, Oct 4"
+            android:textColor="#1069BC"
+            android:textSize="@dimen/text_twenty" />
+
+        <TextView
+            android:id="@+id/currentTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_ten"
+            android:layout_gravity="center"
+            android:theme="@style/UbuntuRegular"
+            android:gravity="center"
+            android:text="09:55am"
+            android:textColor="#1069BC"
+            android:textSize="@dimen/text_sixteen" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_ten"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/padding_ten"
+                android:paddingBottom="@dimen/padding_ten"
+                android:layout_weight="1"
+                android:background="@drawable/checkin_light_color_box_shape"
+                android:orientation="vertical">
+                <CheckBox
+                    android:id="@+id/inCheckBox"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:text="IN Time"
+                    android:theme="@style/UbuntuRegular"
+                    android:textSize="@dimen/margin_ten" />
+
+                <TextView
+                    android:id="@+id/inTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:theme="@style/UbuntuRegular"
+                    android:gravity="center"
+                    android:text="-- --"
+                    android:textColor="@color/black_text_color"
+                    android:textSize="@dimen/text_twenty" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/padding_ten"
+                android:paddingTop="@dimen/padding_ten"
+                android:layout_weight="1"
+                android:background="@drawable/records_common_back_shape"
+                android:orientation="vertical">
+                <CheckBox
+                    android:id="@+id/outCheck"
+                    android:focusable="false"
+                    android:clickable="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:text="OUT Time"
+                    android:theme="@style/UbuntuRegular"
+                    android:textSize="@dimen/margin_ten"/>
+
+                <TextView
+                    android:id="@+id/outTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:theme="@style/UbuntuRegular"
+                    android:gravity="center"
+                    android:text="-- --"
+                    android:textColor="@color/black_text_color"
+                    android:textSize="@dimen/text_twenty" />
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+<!--        HERE YOU HAVE TO CODE FOR THE SEEKBAR THE BELOW CODE IS JUST DUMMY CODE TO
+ SHOW HERE SEEKBAR IS USED
+ -->
+
+<!--        <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:gravity="center">-->
+
+<!--        <SeekBar-->
+<!--            android:id="@+id/seekbar"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:indeterminate="false"-->
+<!--            android:max="50"-->
+<!--            android:progress="0"-->
+<!--            android:progressDrawable="@drawable/custom_seekbar_user_profile"-->
+<!--            android:thumb="@drawable/seekbar_thum_shaape" />-->
+
+<!--    </LinearLayout>-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_ten"
+            android:layout_marginStart="@dimen/margin_fifty"
+            android:layout_marginEnd="@dimen/margin_fifty">
+
+            <com.ncorti.slidetoact.SlideToActView
+                android:id="@+id/sliderActView"
+                android:layout_width="match_parent"
+                android:visibility="gone"
+                android:layout_height="50dp"
+                app:inner_color="@color/swipe_innercolor"
+                app:animation_duration="250"
+                app:border_radius="120dp"
+                android:layout_marginStart="@dimen/margin_twenty"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                app:icon_margin="8dp"
+                app:slider_icon="@drawable/baseline_arrow_forward_24"
+                app:text="Swipe to Check IN"
+                app:text_color="@color/swipe_text"
+                app:outer_color="@color/swipe_outercolor"
+                android:layout_margin="10dp"
+                app:slider_locked="false"
+                app:text_size="12sp" />
+
+            <TextView
+                android:id="@+id/autoCheckInText"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:visibility="gone"
+                android:gravity="center"
+                android:text="Swipe to Auto Check In"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:background="@drawable/transport_selection_bg"
+                android:layout_marginStart="@dimen/margin_twenty"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                android:layout_margin="10dp" />
+
+            <ImageView
+                android:id="@+id/swipeDisable"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:adjustViewBounds="true"
+                android:layout_marginStart="@dimen/margin_twenty"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                android:src="@drawable/swipe"/>
+
+            <ImageView
+                android:id="@+id/swipeDisablecheckout"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:adjustViewBounds="true"
+                android:layout_marginStart="@dimen/margin_twenty"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                android:src="@drawable/mapswipecheckout"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:translationZ="50dp"
+    android:visibility="gone"
+    android:clickable="true"
+    android:id="@+id/popUpDateandTime"
+    android:background="#80BFD8FA">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:cardCornerRadius="@dimen/margin_ten">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:translationZ="50dp">
+
+            <ImageView
+                android:id="@+id/cancelbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_gravity="end"
+                android:adjustViewBounds="true"
+                android:clickable="true"
+                android:scaleType="centerCrop"
+                android:src="@drawable/cancel_icon"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <CalendarView
+                android:id="@+id/calendarView"
+                android:theme="@style/CustomTimePickerDialog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editTextStartTime"
+                    android:paddingStart="@dimen/margin_ten"
+                    android:paddingEnd="@dimen/margin_ten"
+                    android:layout_width="0dp"
+                    android:layout_margin="@dimen/margin_five"
+                    android:layout_height="45dp"
+                    android:drawableEnd="@drawable/ep_clock"
+                    android:background="@drawable/custom_et_back"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="Start Time"
+                    android:textSize="@dimen/text_twelve"
+                    android:inputType="none" />
+
+                <EditText
+                    android:id="@+id/editTextEndTime"
+                    android:layout_width="0dp"
+                    android:paddingStart="@dimen/margin_ten"
+                    android:paddingEnd="@dimen/margin_ten"
+                    android:textSize="@dimen/text_twelve"
+                    android:layout_margin="@dimen/margin_five"
+                    android:layout_height="45dp"
+                    android:drawableEnd="@drawable/ep_clock"
+                    android:background="@drawable/custom_et_back"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:focusable="false"
+                    android:hint="End Time"
+                    android:inputType="none" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/okayBtn"
+                android:visibility="gone"
+                android:layout_width="wrap_content"
+                android:background="@drawable/butoon_bg_shape"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OK"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:paddingStart="@dimen/margin_twenty"
+                    android:paddingEnd="@dimen/margin_twenty"
+                    android:paddingTop="@dimen/padding_ten"
+                    android:paddingBottom="@dimen/margin_ten"
+                    android:textSize="@dimen/text_twelve"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/okayBtndisable"
+                android:layout_width="wrap_content"
+                android:visibility="visible"
+                android:background="@drawable/butoon_bg_shape_disabled"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:layout_gravity="end"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="OK"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:paddingStart="@dimen/margin_twenty"
+                    android:paddingEnd="@dimen/margin_twenty"
+                    android:paddingTop="@dimen/padding_ten"
+                    android:paddingBottom="@dimen/margin_ten"
+                    android:textSize="@dimen/text_twelve"
+                    android:textColor="@color/white"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

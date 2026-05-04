@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/sidebar_menu"
+    android:visibility="gone"
+    android:translationZ="20dp"
+    android:clickable="true"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/main_contnet"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_thirty"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:orientation="horizontal">
+            <androidx.cardview.widget.CardView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                app:cardBackgroundColor="@color/buttonbgcolor"
+                app:cardCornerRadius="40dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/user_profile_background"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/userPic"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/defalut_user_ico" />
+
+                <ImageView
+                    android:id="@+id/userPicdisbale"
+                    android:visibility="visible"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/defalut_user_ico"
+                    app:tint="@color/white" />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text=""
+                    android:theme="@style/monstreat_semibold"
+                    android:textColor="@color/welcome_text_display_color"
+                    android:textSize="@dimen/text_fifteen" />
+
+                <TextView
+                    android:id="@+id/role"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/welcome_text_display_color"
+                    android:textSize="@dimen/text_twelve"
+                    android:theme="@style/FontMedium" />
+            </LinearLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_twenty">
+
+                <ImageView
+                    android:id="@+id/cancelbtn"
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:src="@drawable/cancel_icon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+<!--        home-->
+        <LinearLayout
+            android:id="@+id/menuHome"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_thirty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/menuhomeicon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_home"
+                app:tint="@color/weekoff" />
+
+            <TextView
+                android:id="@+id/hometxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/home"
+                android:theme="@style/FontMedium"
+                android:textColor="@color/weekoff"
+                android:textSize="@dimen/text_sixteen" />
+        </LinearLayout>
+
+<!--        attendance-->
+
+        <LinearLayout
+            android:id="@+id/menuattendance"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/atticon"
+                android:layout_width="24dp"
+                android:padding="2dp"
+                android:layout_height="24dp"
+                android:src="@drawable/attendance_side_menu"/>
+
+            <TextView
+                android:id="@+id/attendacncetxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/attendance_history"
+                android:theme="@style/FontMedium"
+                android:textColor="@color/weekoff"
+                android:textSize="@dimen/text_sixteen" />
+        </LinearLayout>
+
+<!--        leaves-->
+        <LinearLayout
+            android:id="@+id/menuleaves"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/lvivon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:padding="2dp"
+                android:src="@drawable/hll" />
+
+            <TextView
+                android:id="@+id/leavestxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/leaves"
+                android:theme="@style/FontMedium"
+                android:textColor="@color/weekoff"
+                android:textSize="@dimen/text_sixteen" />
+        </LinearLayout>
+
+<!--        holidays-->
+        <LinearLayout
+            android:id="@+id/menuholidays"
+            android:layout_width="match_parent"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/hllicon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:padding="2dp"
+                android:src="@drawable/hlll" />
+
+            <TextView
+                android:id="@+id/holidaystxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/holidays"
+                android:theme="@style/FontMedium"
+                android:textColor="@color/weekoff"
+                android:textSize="@dimen/text_sixteen" />
+        </LinearLayout>
+
+<!--        tasks-->
+        <LinearLayout
+            android:id="@+id/taskmenu"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/taskic"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_tasks"
+                app:tint="@color/weekoff" />
+
+            <TextView
+                android:id="@+id/tasktxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/tasks"
+                android:theme="@style/FontMedium"
+                android:textColor="@color/weekoff"
+                android:textSize="@dimen/text_sixteen" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/subtaskexpand"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:id="@+id/subtaskcurrent"
+                android:layout_marginStart="@dimen/margin_fifty"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:focusable="true">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/_10dp_"
+                    android:layout_height="@dimen/_10dp_"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="5dp"
+                    app:cardBackgroundColor="#9AA0FF"/>
+
+                <TextView
+                    android:id="@+id/subcurrenttxt"
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/current_tasks"
+                    android:theme="@style/FontMedium"
+                    android:textColor="@color/weekoff"
+                    android:textSize="@dimen/text_twelve" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/subtaskfinish"
+                android:layout_marginStart="@dimen/margin_fifty"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:focusable="true">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/_10dp_"
+                    android:layout_height="@dimen/_10dp_"
+                    android:layout_gravity="center"
+                    app:cardCornerRadius="5dp"
+                    app:cardBackgroundColor="#4CAF50"/>
+
+                <TextView
+                    android:id="@+id/subfinishtxt"
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:text="@string/finished_tasks"
+                    android:theme="@style/FontMedium"
+                    android:textColor="@color/weekoff"
+                    android:textSize="@dimen/text_twelve" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+<!--        clients-->
+
+        <LinearLayout
+            android:id="@+id/menuclients"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/clicoon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_clients" />
+
+            <TextView
+                android:id="@+id/clientstxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/clients"
+                android:theme="@style/FontMedium"
+                android:textColor="@color/weekoff"
+                android:textSize="@dimen/text_sixteen" />
+        </LinearLayout>
+
+<!--        settings-->
+        <LinearLayout
+            android:id="@+id/menusettings"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/setticon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_setting" />
+
+            <TextView
+                android:id="@+id/settingstxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/settings"
+                android:theme="@style/FontMedium"
+                android:textColor="@color/weekoff"
+                android:textSize="@dimen/text_sixteen" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/menuItemLogout"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:clickable="true"
+            android:focusable="true">
+
+            <ImageView
+                android:id="@+id/logoutIcon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icon_park_logout"
+                app:tint="@color/weekoff" />
+
+            <TextView
+                android:id="@+id/logoutText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/logout"
+                android:theme="@style/FontMedium"
+                android:textColor="@color/weekoff"
+                android:textSize="@dimen/text_sixteen" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

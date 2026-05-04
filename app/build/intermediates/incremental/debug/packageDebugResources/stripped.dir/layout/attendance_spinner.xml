@@ -1,0 +1,59 @@
+<!--<?xml version="1.0" encoding="utf-8"?>-->
+<!--<androidx.constraintlayout.widget.ConstraintLayout-->
+
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="wrap_content">-->
+
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@drawable/blue_shape_color"-->
+<!--        android:paddingBottom="@dimen/padding_ten"-->
+<!--        android:paddingStart="@dimen/padding_ten"-->
+<!--        android:orientation="vertical"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+        <TextView
+             xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@android:id/text1"
+            android:layout_width="match_parent"
+            android:padding="@dimen/margin_ten"
+            android:background="@color/buttonBgColor_attendance"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:gravity="start"
+            android:text="Attendance History"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_fourteen"/>
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView2"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="@dimen/margin_ten"-->
+<!--            android:layout_marginTop="@dimen/margin_ten"-->
+<!--            android:layout_gravity="start"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Leaves"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="@dimen/text_fourteen"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/textView3"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="@dimen/margin_ten"-->
+<!--            android:layout_marginTop="@dimen/margin_ten"-->
+<!--            android:layout_gravity="start"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Holidays"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="@dimen/text_fourteen"/>-->
+
+
+
+<!--    </LinearLayout>-->
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

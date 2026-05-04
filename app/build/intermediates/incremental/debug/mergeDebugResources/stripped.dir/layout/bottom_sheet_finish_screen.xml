@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/white"
+    android:visibility="visible"
+    android:translationZ="100dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/bottomDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/cancelbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_five"
+            android:layout_marginEnd="@dimen/margin_five"
+            android:layout_gravity="end"
+            android:src="@drawable/cancel_icon"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_fifteen"
+            android:layout_marginEnd="@dimen/margin_fifteen"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/description"
+                android:textColor="@color/welcome_text_display_color"
+                android:textSize="@dimen/text_fourteen" />
+
+
+            <EditText
+                android:id="@+id/description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_ten"
+                android:background="@drawable/finish_edit_text_shape"
+                android:hint="@string/enter_description"
+                android:inputType="text"
+                android:theme="@style/FontMedium"
+                android:paddingTop="@dimen/margin_fifteen"
+                android:paddingBottom="@dimen/margin_fifteen"
+                android:paddingStart="@dimen/padding_ten"
+                android:paddingEnd="@dimen/padding_ten"
+                android:textSize="@dimen/text_fourteen"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/donebtn"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/margin_thirty"
+            android:layout_marginTop="@dimen/margin_thirty"
+            android:layout_marginEnd="@dimen/margin_thirty"
+            android:background="@drawable/butoon_bg_shape"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/done"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size"
+                android:theme="@style/FontMedium" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/donebtndisable"
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/margin_thirty"
+            android:layout_marginTop="@dimen/margin_thirty"
+            android:layout_marginEnd="@dimen/margin_thirty"
+            android:background="@drawable/butoon_bg_shape_disabled"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/done"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size"
+                android:theme="@style/FontMedium" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

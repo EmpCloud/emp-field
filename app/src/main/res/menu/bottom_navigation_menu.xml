@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottombar_home"
+        android:title="@string/home"
+        android:icon="@drawable/icon_home" />
+
+    <item
+        android:id="@+id/bottombar_tasks"
+        android:title="@string/task"
+        android:icon="@drawable/icon_tasks" />
+
+    <item
+        android:id="@+id/bottombar_insights"
+        android:title="@string/insight"
+        android:icon="@drawable/insights" />
+
+    <item
+        android:id="@+id/bottombar_clients"
+        android:title="@string/client"
+        android:icon="@drawable/icon_clients" />
+
+    <item
+        android:id="@+id/bottombar_setting"
+        android:title="@string/settings"
+        android:icon="@drawable/icon_setting" />
+
+
+
+</menu>

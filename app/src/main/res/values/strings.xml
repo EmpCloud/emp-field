@@ -1,0 +1,259 @@
+<resources>
+    <string name="app_name">EmpMonitor</string>
+    <string name="test">Hello <u>aman</u> g</string>
+    <string name="welcome_display_text">Please read and accept our.
+</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="map"><u>Map</u></string>
+    <string name="email">Email</string>
+    <string name="login_with">Login with</string>
+    <string name="mobile">Mobile</string>
+    <string name="add_new_leave">Add New Leave</string>
+    <string name="write_name">Write Name</string>
+    <string name="employee_name">Employee Name*</string>
+    <string name="reason">Reason*</string>
+    <string name="write_reason_here">Write reason here</string>
+    <string name="date_type">Day Type*</string>
+    <string name="leave_type">Leave Type*</string>
+    <string name="apply">Apply</string>
+    <string name="start_date">Start Date*</string>
+    <string name="end_date">End Date*</string>
+    <string name="edit_leave">Edit Leave</string>
+    <string name="delete_leave">Delete Leave</string>
+    <string name="save">Save</string>
+    <string name="add_address">Add Address</string>
+    <string name="login_as">Login as</string>
+    <string name="admin_manager">Admin/Manager</string>
+    <string name="create_profile">Create Profile</string>
+    <string name="add_client">Add Client</string>
+    <string name="enable_location_access_for_empmonitor_to_track_your_daily_work_and_enhance_your_experience">Enable location access for Empmonitor to track your daily work and enhance your experience.</string>
+    <string name="enter_client_category">Enter client Category</string>
+    <string name="edit_attendance">Edit Attendance</string>
+    <string name="remark">Remark*</string>
+    <string name="check_out_date">Check Out Date*</string>
+    <string name="check_out_time">Check Out Time*</string>
+    <string name="check_in_date">Check In Date*</string>
+    <string name="check_in_time">Check In Time*</string>
+    <string name="home">Home</string>
+    <string name="task">Tasks</string>
+    <string name="insight">Insight</string>
+    <string name="client">Clients</string>
+    <string name="settings">Settings</string>
+    <string name="category">Category*</string>
+    <string name="mobile_no">Mobile No*</string>
+    <string name="email_id">Email ID</string>
+    <string name="full_name">Full Name*</string>
+    <string name="pending">Pending</string>
+    <string name="start">Start</string>
+    <string name="pause">Pause</string>
+    <string name="task_name">Task Name*</string>
+    <string name="write_task_name">Write Task name</string>
+    <string name="select_client">Select Client</string>
+    <string name="pick_up">Pick up</string>
+    <string name="collected_amount">Collected amount*</string>
+    <string name="you_re_outside_geofenced_perimeter">You\'re outside geofenced perimeter!</string>
+    <string name="not_allowed_to_check_in_check_out">Not Allowed to Check IN / Check OUT</string>
+    <string name="check_in_via_web">Check IN via. Web</string>
+    <string name="check_in_via_biometric">Check IN via. Biometric</string>
+    <string name="web_biometric_check_in">Web/Biometric Check IN</string>
+    <string name="check_in_via_map">Check IN via Map</string>
+    <string-array name="dateType">
+        <item>First Half</item>
+        <item>Second Half</item>
+        <item>Full Half</item>
+    </string-array>
+    <string-array name="leaveType">
+        <item>Casual Leave</item>
+        <item>Emergency Leave</item>
+    </string-array>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="lorem_ipsum">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam in scelerisque sem. Mauris
+        volutpat, dolor id interdum ullamcorper, risus dolor egestas lectus, sit amet mattis purus
+        dui nec risus. Maecenas non sodales nisi, vel dictum dolor. Class aptent taciti sociosqu ad
+        litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse blandit eleifend
+        diam, vel rutrum tellus vulputate quis. Aliquam eget libero aliquet, imperdiet nisl a,
+        ornare ex. Sed rhoncus est ut libero porta lobortis. Fusce in dictum tellus.\n\n
+        Suspendisse interdum ornare ante. Aliquam nec cursus lorem. Morbi id magna felis. Vivamus
+        egestas, est a condimentum egestas, turpis nisl iaculis ipsum, in dictum tellus dolor sed
+        neque. Morbi tellus erat, dapibus ut sem a, iaculis tincidunt dui. Interdum et malesuada
+        fames ac ante ipsum primis in faucibus. Curabitur et eros porttitor, ultricies urna vitae,
+        molestie nibh. Phasellus at commodo eros, non aliquet metus. Sed maximus nisl nec dolor
+        bibendum, vel congue leo egestas.\n\n
+        Sed interdum tortor nibh, in sagittis risus mollis quis. Curabitur mi odio, condimentum sit
+        amet auctor at, mollis non turpis. Nullam pretium libero vestibulum, finibus orci vel,
+        molestie quam. Fusce blandit tincidunt nulla, quis sollicitudin libero facilisis et. Integer
+        interdum nunc ligula, et fermentum metus hendrerit id. Vestibulum lectus felis, dictum at
+        lacinia sit amet, tristique id quam. Cras eu consequat dui. Suspendisse sodales nunc ligula,
+        in lobortis sem porta sed. Integer id ultrices magna, in luctus elit. Sed a pellentesque
+        est.\n\n
+        Aenean nunc velit, lacinia sed dolor sed, ultrices viverra nulla. Etiam a venenatis nibh.
+        Morbi laoreet, tortor sed facilisis varius, nibh orci rhoncus nulla, id elementum leo dui
+        non lorem. Nam mollis ipsum quis auctor varius. Quisque elementum eu libero sed commodo. In
+        eros nisl, imperdiet vel imperdiet et, scelerisque a mauris. Pellentesque varius ex nunc,
+        quis imperdiet eros placerat ac. Duis finibus orci et est auctor tincidunt. Sed non viverra
+        ipsum. Nunc quis augue egestas, cursus lorem at, molestie sem. Morbi a consectetur ipsum, a
+        placerat diam. Etiam vulputate dignissim convallis. Integer faucibus mauris sit amet finibus
+        convallis.\n\n
+        Phasellus in aliquet mi. Pellentesque habitant morbi tristique senectus et netus et
+        malesuada fames ac turpis egestas. In volutpat arcu ut felis sagittis, in finibus massa
+        gravida. Pellentesque id tellus orci. Integer dictum, lorem sed efficitur ullamcorper,
+        libero justo consectetur ipsum, in mollis nisl ex sed nisl. Donec maximus ullamcorper
+        sodales. Praesent bibendum rhoncus tellus nec feugiat. In a ornare nulla. Donec rhoncus
+        libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
+        vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
+    </string>
+    <string name="update_client">Update Client</string>
+
+    <string name="open_drawer">Open drawer</string>
+    <string name="close_drawer">Close drawer</string>
+    <string name="get_insights_of_your_workforce">Get insights of your workforce.</string>
+
+    <string name="allow_location_access_for_real_time_tracking">Allow location access for real-time tracking.</string>
+    <string name="allow_background_access_for_real_time_data">Allow background access for real-time data.</string>
+    <string name="turn_on_activity_tracking_for_detailed_reports">Turn on activity tracking for detailed reports.</string>
+    <string name="grant_permission_to_use_the_camera_and_gallery">Grant permission to use the camera and gallery.</string>
+    <string name="learn_how_to_use_the_app_with_a_video_guide">Learn how to use the app with a video guide.</string>
+    <string name="setup_finished_you_re_ready_to_go">Setup finished! You\'re ready to go.</string>
+    <string name="admins_manager">Admin/Manager</string>
+    <string name="accept_terms_amp_condition"><![CDATA[Accept Terms & Condition]]></string>
+    <string name="select_mode_of_transportation">Select Mode of Transportation</string>
+    <string name="bike">Bike</string>
+    <string name="select">Select</string>
+    <string name="car">Cab/Car</string>
+    <string name="mode_of_transportation">Mode of Transportation</string>
+    <string name="male">Male</string>
+    <string name="other">Other</string>
+    <string name="female">Female</string>
+    <string name="auto">Auto</string>
+    <string name="train_metro">Train/Metro</string>
+    <string name="bus">Bus</string>
+    <string name="task_volume">Task Volume</string>
+    <string name="enter_task_volume">Enter task volume</string>
+    <string name="battery_drain">Battery Drain</string>
+    <string name="please_plug_in_your_device_to_avoid_shutdown">Please plug in your device to avoid shutdown.</string>
+    <string name="location_services_disabled">Location Services Disabled</string>
+    <string name="your_location_is_currently_turned_off_please">Your location is currently turned off. Please</string>
+    <string name="enable_location_services_to_continue">enable location services to continue.</string>
+    <string name="stage_of_task">Stage of Task</string>
+    <string name="select_task_stage">Select task stage</string>
+    <string name="task_value">Task Value</string>
+    <string name="read_all"><u>Read All</u></string>
+    <string name="qr_code">QR Code</string>
+    <string name="to_provide_accurate_real_time_tracking_allow_the_app_to_access_your_location_at_all_times_we_collect_location_data_to_track_activities_even_when_the_app_is_closed_or_not_in_use">To provide accurate real-time tracking, allow the app to access your location at all times. We collect location data to track activities, even when the app is closed or not in use.</string>
+    <string name="emp">Emp</string>
+    <string name="monitor">Monitor</string>
+    <string name="welcome">Welcome!</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
+    <string name="reset_password">Reset Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="login">Login</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="send_otp">Send OTP</string>
+    <string name="enter_otp">Enter OTP</string>
+    <string name="didn_t_received_otp">Didn’t received OTP?</string>
+    <string name="resend">Resend</string>
+    <string name="add_complete_address">Add complete address</string>
+    <string name="address_line_1">Address line 1*</string>
+    <string name="address_line_2">Address line 2</string>
+    <string name="state">State*</string>
+    <string name="city">City*</string>
+    <string name="zip_code">Zip Code</string>
+    <string name="submit">Submit</string>
+    <string name="search_for_area_street_name">Search for area, street name...</string>
+    <string name="enable_your_device_location">Enable your device location</string>
+    <string name="use_current_location">Use current location</string>
+    <string name="confirm_location">Confirm location</string>
+    <string name="type_email">Type Email</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="continue_btn">Continue</string>
+    <string name="download_qr">Download QR</string>
+    <string name="www_empmonitor_com">www.empmonitor.com</string>
+    <string name="alert">Alert:</string>
+    <string name="ok">OK</string>
+    <string name="attendance_history">Attendance History</string>
+    <string name="leaves">Leaves</string>
+    <string name="holidays">Holidays</string>
+    <string name="tasks">Tasks</string>
+    <string name="clients">Clients</string>
+    <string name="logout">Logout</string>
+    <string name="enter_your_name">Enter Your Name</string>
+    <string name="email_id_ma">Email ID*</string>
+    <string name="enter_email_id">Enter Email ID</string>
+    <string name="mobile_no_not_rq">Mobile No</string>
+    <string name="enter_mobile_no">Enter Mobile No</string>
+    <string name="select_age">Select Age</string>
+    <string name="enter_your_age">Enter Your Age</string>
+    <string name="select_gender">Select Gender*</string>
+    <string name="current_tasks">Current Tasks</string>
+    <string name="finished_tasks">Finished Tasks</string>
+    <string name="attendance">Attendance</string>
+    <string name="date">Date</string>
+    <string name="status">Status</string>
+    <string name="clocked_in">Clocked-in</string>
+    <string name="clocked_out">Clocked-out</string>
+    <string name="call">Call</string>
+    <string name="message">Message</string>
+    <string name="direction">Direction</string>
+    <string name="start_task">Start Task</string>
+    <string name="search">Search...</string>
+    <string name="address">Address*</string>
+    <string name="enter_address">Enter Address</string>
+    <string name="hi">Hi!</string>
+    <string name="check_in">Check IN</string>
+    <string name="check_out">Check OUT</string>
+    <string name="yesterday_s_record">Yesterday’s Record</string>
+    <string name="distance_ntravelled">Distance \nTravelled</string>
+    <string name="hrs_nworked">Hrs\nworked</string>
+    <string name="task_ncompleted">Task\nCompleted</string>
+    <string name="checkout_restricted">Checkout Restricted</string>
+    <string name="cannot_checkout_before_1hr">Cannot Checkout Before 1hr</string>
+    <string name="logout_alert">Logout Alert</string>
+    <string name="proceeding_further_will_stop_your_live_location_tracking_and_you_ll_be_checked_out_for_the_day">Proceeding further will stop your live location tracking and you\'ll be Checked out for the day!</string>
+    <string name="please_confirm_your_action">Please Confirm your Action.</string>
+    <string name="abort">Abort</string>
+    <string name="yes_check_me_out">Yes, Check me out</string>
+    <string name="type">Type</string>
+    <string name="day_type">Day Type</string>
+    <string name="days">Days</string>
+    <string name="notification">Notification</string>
+    <string name="profile">Profile</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="description">Description*</string>
+    <string name="enter_description">Enter description</string>
+    <string name="done">Done</string>
+    <string name="add_task">Add Task</string>
+    <string name="select_client_ma">Select Client*</string>
+    <string name="schedule">Schedule*</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
+    <string name="write_description">Write Description</string>
+    <string name="enter_task_value">Enter task value</string>
+    <string name="add_picture">Add Picture</string>
+    <string name="update_profile">Update Profile</string>
+    <string name="age">Age*</string>
+    <string name="gender">Gender*</string>
+    <string name="edit">Edit</string>
+    <string name="reschedule_task">Reschedule Task</string>
+    <string name="productivity">Productivity</string>
+    <string name="insights">Insights</string>
+    <string name="location">Location</string>
+    <string name="permission">Permission</string>
+    <string name="background">Background</string>
+    <string name="activity">Activity</string>
+    <string name="camera_amp_gallery"><![CDATA[Camera & Gallery]]></string>
+    <string name="video">Video</string>
+    <string name="tutorial">Tutorial</string>
+    <string name="setup">Setup</string>
+    <string name="successful">Successful</string>
+    <string name="finish">Finish</string>
+</resources>

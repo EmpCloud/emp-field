@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.leaves.LeavesFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!--        back arrow view-->
+
+        <ImageView
+            android:id="@+id/backbtn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_gravity="center"
+            android:padding="3dp"
+            android:background="@drawable/icon_white_circular_back"
+            android:src="@drawable/baseline_arrow_back_24"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/leaves"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_sixteen"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:background="@drawable/profile_back_shape"
+        android:elevation="20dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.0">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_fifteen"
+            android:layout_marginTop="@dimen/margin_fifteen"
+            android:layout_marginEnd="@dimen/margin_fifteen"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginEnd="@dimen/margin_ten"
+                android:background="@drawable/blue_shape_color"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/calendar"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:foreground="@drawable/ripple"
+                    android:adjustViewBounds="true"
+                    android:paddingStart="@dimen/padding_ten"
+                    android:paddingTop="8dp"
+                    android:paddingEnd="@dimen/padding_ten"
+                    android:paddingBottom="8dp"
+                    android:src="@drawable/calendar_ic" />
+            </LinearLayout>
+
+<!--            <Spinner-->
+<!--                android:id="@+id/spinner"-->
+<!--                android:background="@color/buttonBgColor_attendance"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"/>-->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/margin_five"
+                app:cardBackgroundColor="@color/buttonBgColor_attendance">
+                <Spinner
+                    android:id="@+id/spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@color/buttonBgColor_attendance"
+                        android:layout_marginEnd="@dimen/margin_ten"
+                        android:src="@drawable/dropdown_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:tint="@color/white" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/datashowcard"
+        android:visibility="visible"
+        app:cardCornerRadius="@dimen/margin_ten"
+        android:layout_marginStart="@dimen/margin_five"
+        android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_five">
+
+        <LinearLayout
+            android:id="@+id/view1"
+            android:background="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:paddingStart="@dimen/margin_ten"
+                android:paddingEnd="@dimen/margin_five"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_five"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="@string/date"
+                    android:textColor="@color/blue_list_title"
+                    android:textSize="@dimen/text_twelve"
+                    android:theme="@style/FontMedium" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/type"
+                    android:textColor="@color/blue_list_title"
+                    android:textSize="@dimen/text_twelve"
+                    android:theme="@style/FontMedium" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/day_type"
+                    android:textColor="@color/blue_list_title"
+                    android:textSize="@dimen/text_twelve"
+                    android:theme="@style/FontMedium" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/days"
+                    android:textColor="@color/blue_list_title"
+                    android:textSize="@dimen/text_twelve"
+                    android:theme="@style/FontMedium" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="@string/status"
+                    android:textColor="@color/blue_list_title"
+                    android:textSize="@dimen/text_twelve"
+                    android:theme="@style/FontMedium" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_marginEnd="@dimen/margin_fifteen"/>
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/leavesRecycler"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/leaves_list_items" />
+        </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:scaleType="center"
+            android:adjustViewBounds="true"
+            android:src="@drawable/nodatefoundleaves"
+            android:id="@+id/nothingfoundanimation"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/padding_ten"
+            android:paddingBottom="@dimen/padding_ten"
+            android:layout_margin="@dimen/margin_ten"
+            app:layout_constraintTop_toBottomOf="@id/view1">
+
+            <LinearLayout
+                android:id="@+id/add_leaves_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_thirty"
+                android:layout_marginEnd="@dimen/margin_thirty"
+                android:background="@drawable/add_leave_bg"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_ten"
+                    android:paddingBottom="@dimen/padding_ten"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="@string/add_new_leave"
+                    android:textColor="@color/add_leaves_txt"
+                    android:textSize="@dimen/text_sixteen" />
+
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/addbtn"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:visibility="visible"-->
+<!--        android:translationZ="30dp"-->
+<!--        android:elevation="2dp"-->
+<!--        android:layout_marginBottom="@dimen/margin_twenty"-->
+<!--        android:background="@drawable/floating_button_gradient_color_and_shape"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/linearLayout7"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" >-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/fab_btn"-->
+<!--            android:clickable="true"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/add_icon"-->
+<!--            android:padding="@dimen/padding_ten"-->
+<!--            />-->
+<!--    </LinearLayout>-->
+
+
+    <include layout="@layout/add_new_leaves_pop_up"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/pop_leaves"/>
+
+    <include layout="@layout/edit_leaves"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/edit_leaves"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

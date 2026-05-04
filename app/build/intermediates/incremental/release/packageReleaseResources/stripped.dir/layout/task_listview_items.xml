@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_data"
+        android:visibility="visible"
+        app:cardBackgroundColor="@color/white"
+        android:foreground="@drawable/ripple_new_aman"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_five"
+        android:layout_marginTop="@dimen/margin_five"
+        android:layout_marginEnd="@dimen/margin_fifteen"
+        android:layout_marginStart="@dimen/margin_fifteen"
+        app:cardCornerRadius="10dp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="5dp">
+
+        <LinearLayout
+            android:id="@+id/mainView"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <View
+                android:id="@+id/viewSide"
+                android:layout_width="10dp"
+                android:layout_height="match_parent"
+                android:background="@color/leaves_shape_back_color" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="@dimen/padding_ten">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_ten"
+                    android:layout_marginTop="@dimen/margin_ten"
+                    android:layout_marginEnd="@dimen/margin_ten"
+                    android:paddingBottom="@dimen/margin_five">
+
+                    <TextView
+                        android:id="@+id/taskName"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="@dimen/margin_hundred"
+                        android:text="Devansh Mehta"
+                        android:textColor="@color/grey_text_color"
+                        android:textSize="@dimen/text_twelve"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/resume"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:background="@drawable/pending_back_shape"-->
+<!--                        android:paddingStart="@dimen/padding_ten"-->
+<!--                        android:paddingTop="5dp"-->
+<!--                        android:paddingEnd="@dimen/padding_ten"-->
+<!--                        android:paddingBottom="5dp"-->
+<!--                        android:text="Resume"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:textSize="8dp"-->
+<!--                        android:visibility="visible"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+                    <LinearLayout
+                        android:id="@+id/resume"
+                        android:clickable="true"
+                        android:foreground="@drawable/ripple_fab"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/pending_back_shape"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" >
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:adjustViewBounds="true"
+                            android:layout_marginStart="@dimen/margin_five"
+                            android:layout_gravity="center"
+                            android:src="@drawable/baseline_play_arrow_24"
+                            app:tint="@color/white" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_ten"
+                            android:paddingStart="@dimen/padding_ten"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="@dimen/padding_ten"
+                            android:paddingBottom="5dp"
+                            android:text="Resume"
+                            android:textColor="@color/white"
+                            android:textSize="8dp"
+                            android:visibility="visible"/>
+                    </LinearLayout>
+
+<!--                    START BUTTON-->
+                    <LinearLayout
+                        android:id="@+id/startbtn"
+                        android:clickable="true"
+                        android:foreground="@drawable/ripple_fab"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/start_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" >
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:adjustViewBounds="true"
+                            android:layout_marginStart="@dimen/margin_five"
+                            android:layout_gravity="center"
+                            android:src="@drawable/baseline_play_arrow_24"
+                            android:background="@drawable/white_cir_bg"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_ten"
+                            android:paddingStart="@dimen/padding_ten"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="@dimen/padding_ten"
+                            android:paddingBottom="5dp"
+                            android:text="@string/start"
+                            android:textColor="@color/white"
+                            android:textSize="8dp"
+                            android:visibility="visible"/>
+                    </LinearLayout>
+
+<!--                    RESCHEDULE BUTTON-->
+
+                    <LinearLayout
+                        android:id="@+id/reschedulebtnlayout"
+                        android:clickable="true"
+                        android:foreground="@drawable/ripple_fab"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/start_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" >
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="12dp"-->
+<!--                            android:layout_height="12dp"-->
+<!--                            android:adjustViewBounds="true"-->
+<!--                            android:layout_marginStart="@dimen/margin_five"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:src="@drawable/baseline_play_arrow_24"-->
+<!--                            android:background="@drawable/white_cir_bg"/>-->
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_ten"
+                            android:paddingStart="@dimen/padding_ten"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="@dimen/padding_ten"
+                            android:paddingBottom="5dp"
+                            android:text="@string/reschedule_task"
+                            android:textColor="@color/white"
+                            android:textSize="8dp"
+                            android:visibility="visible"/>
+                    </LinearLayout>
+<!--                    PAUSE BUTTON-->
+
+                    <LinearLayout
+                        android:id="@+id/pausebtn"
+                        android:clickable="true"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/pause_back"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" >
+
+                        <ImageView
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:adjustViewBounds="true"
+                            android:padding="2dp"
+                            android:layout_marginStart="@dimen/margin_five"
+                            android:layout_gravity="center"
+                            android:src="@drawable/baseline_pause_24"
+                            android:background="@drawable/white_cir_bg"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="@dimen/margin_ten"
+                            android:paddingStart="@dimen/padding_ten"
+                            android:paddingTop="5dp"
+                            android:paddingEnd="@dimen/padding_ten"
+                            android:paddingBottom="5dp"
+                            android:text="@string/pause"
+                            android:textColor="@color/white"
+                            android:textSize="8dp"
+                            android:visibility="visible"/>
+                    </LinearLayout>
+
+
+                    <!--                    THIS IS FOR THE TICK SIGN -->
+
+
+                    <ImageView
+                        android:id="@+id/tickbtn"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:adjustViewBounds="true"
+                        android:background="@drawable/tick_sign_back"
+                        android:padding="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/tick_sign"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/taskDESC"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:layout_marginStart="@dimen/margin_ten"
+                    android:layout_marginTop="@dimen/margin_five"
+                    android:layout_marginEnd="@dimen/margin_hundred"
+                    android:text="Meeting with client for sales"
+                    android:textColor="@color/welcome_text_display_color"
+                    android:textSize="@dimen/text_twelve"
+                    android:theme="@style/FontMedium" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_ten"
+                    android:layout_marginTop="@dimen/margin_five"
+                    android:layout_marginEnd="@dimen/margin_ten"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/startTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="10:00 AM"
+                            android:layout_gravity="start"
+                            android:textColor="@color/welcome_text_color"
+                            android:textSize="@dimen/text_twelve" />
+
+                        <TextView
+                            android:id="@+id/dot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="-"
+                            android:layout_marginStart="@dimen/margin_five"
+                            android:layout_marginEnd="@dimen/margin_five"
+                            android:textColor="@color/welcome_text_color"
+                            android:textSize="@dimen/text_twelve" />
+
+                        <TextView
+                            android:id="@+id/endTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="11:00AM"
+                            android:layout_gravity="start"
+                            android:textColor="@color/welcome_text_color"
+                            android:textSize="@dimen/text_twelve" />
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:theme="@style/FontMedium"
+                        android:gravity="end"
+                        android:text="Admin"
+                        android:layout_gravity="center"
+                        android:textColor="@color/welcome_text_display_color"
+                        android:textSize="@dimen/margin_ten" />
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+<!--    <LinearLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="120dp"-->
+<!--        android:orientation="vertical"-->
+<!--        android:gravity="center"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:visibility="gone"-->
+<!--        android:id="@+id/deleteBtn"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:background="#F44336"/>-->
+
+<!--    <LinearLayout-->
+<!--        android:id="@+id/completeBtn"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="120dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_margin="10dp"-->
+<!--        android:background="#4CAF50"-->
+<!--        android:gravity="center"-->
+<!--        android:orientation="vertical"-->
+<!--        android:visibility="gone"/>-->
+
+    <LinearLayout
+        android:id="@+id/deleteBtn"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_marginBottom="@dimen/margin_five"
+        android:layout_marginTop="@dimen/margin_five"
+        android:layout_marginEnd="@dimen/margin_fifteen"
+        android:layout_marginStart="@dimen/margin_fifteen"
+        android:background="@drawable/delete_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_twenty"
+            android:gravity="center"
+            android:layout_gravity="end"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/delete"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:text="Delete Task"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_semibold"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="10sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/completeBtn"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="@dimen/margin_five"
+        android:layout_marginTop="@dimen/margin_five"
+        android:layout_marginEnd="@dimen/margin_fifteen"
+        android:layout_marginStart="@dimen/margin_fifteen"
+        android:background="@drawable/complete_back_bg"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:gravity="center"
+            android:layout_gravity="start"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/tick_sign_back"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/tick_sign"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_five"
+                android:text="Finish Task"
+                android:textColor="@color/white"
+                android:fontFamily="@font/montserrat_semibold"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textSize="10sp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/greenCard"-->
+<!--        android:visibility="visible"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_marginBottom="@dimen/margin_five"-->
+<!--        android:layout_marginTop="@dimen/margin_five"-->
+<!--        android:layout_marginEnd="@dimen/margin_fifteen"-->
+<!--        android:layout_marginStart="@dimen/margin_fifteen"-->
+<!--        app:cardCornerRadius="10dp"-->
+<!--        app:cardBackgroundColor="@color/green_listitem_color"-->
+<!--        app:cardElevation="2dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:layout_editor_absoluteX="5dp"/>-->
+
+<!--    <androidx.cardview.widget.CardView-->
+<!--        android:id="@+id/redCard"-->
+<!--        android:visibility="visible"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="80dp"-->
+<!--        android:layout_marginBottom="@dimen/margin_five"-->
+<!--        android:layout_marginTop="@dimen/margin_five"-->
+<!--        android:layout_marginEnd="@dimen/margin_fifteen"-->
+<!--        android:layout_marginStart="@dimen/margin_fifteen"-->
+<!--        app:cardCornerRadius="10dp"-->
+<!--        app:cardBackgroundColor="@color/green_listitem_color"-->
+<!--        app:cardElevation="2dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        tools:layout_editor_absoluteX="5dp"/>-->
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,1666 @@
+[
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/font_comfortaa_bold.ttf.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/font/comfortaa_bold.ttf"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/xml_backup_rules.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_locationalertdisable.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/locationalertdisable.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xxhdpi_ic_launcher.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_finish_screen_icon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/finish_screen_icon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/anim_layout_animator.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/anim/layout_animator.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_bottom_navigation_main.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_navigation_main.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_white_edittext_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/white_edittext_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_home.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_edit_attendance.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/edit_attendance.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_custom_location.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/custom_location.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_client_screen_5.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/client_screen_5.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_uppward_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/uppward_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_check_in_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/check_in_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_edit_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/edit_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_create_profile_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/create_profile_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_login_screen_second.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/login_screen_second.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-mdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-mdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_multiple_checkin_options.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/multiple_checkin_options.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_search_icon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/search_icon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/anim_splash_logo.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/anim/splash_logo.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_splash.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_splash.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/menu_bottom_navigation_menu.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/menu/bottom_navigation_menu.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/raw_splash_animation.json.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/raw/splash_animation.json"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_phone_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/phone_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_camera_flip.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/camera_flip.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_login_screen_frist.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/login_screen_frist.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_filter_calendar.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/filter_calendar.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_radio_btn_custom_aman.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/radio_btn_custom_aman.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_task_complete_icon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/task_complete_icon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_holiday1_1.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/holiday1_1.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xhdpi_ic_launcher_round.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_hld.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/hld.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_location_screen_image.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/location_screen_image.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_uiw_map.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/uiw_map.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xxhdpi_ic_launcher_foreground_new.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xxhdpi/ic_launcher_foreground_new.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_option_filter_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/option_filter_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_splash_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/splash_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_train.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/train.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/raw_nothing_animation.json.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/raw/nothing_animation.json"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_baseline_edit_24.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/baseline_edit_24.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_checkbox_circle_background.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/checkbox_circle_background.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_office.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/office.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_email_password.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_email_password.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_client_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/client_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_imgicon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/imgicon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_home_page_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/home_page_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_butoon_bg_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/butoon_bg_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_mapswipecheckout.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/mapswipecheckout.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_currencytextlayout.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/currencytextlayout.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-mdpi_ic_launcher.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-mdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_permission.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_permission.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_set_email_password_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/set_email_password_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_custom_et_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/custom_et_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_form_circular_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/form_circular_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_edit_text_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/edit_text_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_customize_radio_background.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/customize_radio_background.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_iconamoon_profile_fill.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/iconamoon_profile_fill.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_taskvalueedittextbg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/taskvalueedittextbg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/font_montserrat_semibold.ttf.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/font/montserrat_semibold.ttf"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_bike.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/bike.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_holiday_ic.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/holiday_ic.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_white_circular_shape_for_card.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/white_circular_shape_for_card.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_leaves.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_leaves.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_complete_back_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/complete_back_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_switch_selector_thumb.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/switch_selector_thumb.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_nav_view_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/nav_view_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_sidebar_menu_layout.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/sidebar_menu_layout.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_main.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_leaves_ic.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/leaves_ic.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_baseline_pause_24.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/baseline_pause_24.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_task_circular_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/task_circular_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_pause_btn_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/pause_btn_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_finish_task_13.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/finish_task_13.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_tasksnothingfound.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/tasksnothingfound.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_menu.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/menu.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_resume_btn_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/resume_btn_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_finish_task_initial_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/finish_task_initial_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_clock.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/clock.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_nodatefoundleaves.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/nodatefoundleaves.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_floating_button_gradient_color_and_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/floating_button_gradient_color_and_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_alert.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/alert.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_time_clock_icon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/time_clock_icon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_tick_sign_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/tick_sign_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_attendance.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_attendance.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/anim_splash_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/anim/splash_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_map_image.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/map_image.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_viamapchecking.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/viamapchecking.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_white_cir_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/white_cir_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_baseline_play_arrow_24.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/baseline_play_arrow_24.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-hdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-hdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_bottom_sheet_checkin_page.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_sheet_checkin_page.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_user_image_upload_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/user_image_upload_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_capture_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/capture_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_baseline_check_24.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/baseline_check_24.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_rectangle_checked_btn.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/rectangle_checked_btn.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_taskvaluespinnerbg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/taskvaluespinnerbg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_select_client_scren.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/select_client_scren.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_notification_badge_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/notification_badge_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_home.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_home.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_srceen_top_image.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/srceen_top_image.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_mobile_otp.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_mobile_otp.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_splash.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_att.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/att.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_demo.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/demo.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_user_profile.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_user_profile.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_fluent_task_list_square_24_regular.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/fluent_task_list_square_24_regular.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_bottomsheet_client_5.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottomsheet_client_5.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_client_add_final.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_add_final.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_bottomsheet_of_add_clients.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottomsheet_of_add_clients.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_holidays_listitems.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/holidays_listitems.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_edit_leaves.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/edit_leaves.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_update_address.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_update_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_setting.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_setting.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_qrcodedemo.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/qrcodedemo.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_email_login.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_email_login.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/font_poppins_medium.ttf.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/font/poppins_medium.ttf"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_checked_radio_btn_aman.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/checked_radio_btn_aman.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_delete.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/delete.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_profile_view_icon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/profile_view_icon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_camera.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_camera.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_park_logout.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_park_logout.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_profile_back_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/profile_back_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_spinner_leaves_items.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/spinner_leaves_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_map_show.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_map_show.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_welcome_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/welcome_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_empmonitoricony.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/empmonitoricony.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_batterydrainalert.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/batterydrainalert.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_location.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/location.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_unchecked_circular.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_unchecked_circular.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_capture_circular_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/capture_circular_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_video_turtorial.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/video_turtorial.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_attendance_a.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/attendance_a.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_video_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/video_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_updae_edit_client.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_updae_edit_client.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_screen_bottom_image.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/screen_bottom_image.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_reset_password.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_reset_password.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/font_poppins_regular.ttf.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/font/poppins_regular.ttf"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_create_profile.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_create_profile.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_live_location_icon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/live_location_icon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_qr_withoutbg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/qr_withoutbg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_add_address_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_address_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_productivity_images.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/productivity_images.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/xml_file_paths.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/xml/file_paths.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_recycler_selected_client_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/recycler_selected_client_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_filter_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/filter_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_alert_btn_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/alert_btn_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_direction_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/direction_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_unchecked_circular.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/unchecked_circular.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_ep_clock.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/ep_clock.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_bottom_finish_task_initial_sheeet.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_finish_task_initial_sheeet.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_save_cookie.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_save_cookie.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_finish_task_13.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/finish_task_13.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_delete_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/delete_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_direction_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/direction_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_baseline_delete_outline_24.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/baseline_delete_outline_24.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_leave1_1.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/leave1_1.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_tick_sign.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/tick_sign.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_mapsearchitems.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/mapsearchitems.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_start_task_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/start_task_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_add_client_manually_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_client_manually_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_map_search_background.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/map_search_background.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_circular_checkebox_selector.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/circular_checkebox_selector.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_create_profile_address_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/create_profile_address_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_task_listitems_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/task_listitems_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_checkout_restrict_popup.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/checkout_restrict_popup.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_client_address.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_ion_globe_outline.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/ion_globe_outline.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_solar_gallery_bold.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/solar_gallery_bold.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_clinet_map_show.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_clinet_map_show.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_nothing.jpg.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/nothing.jpg"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_bottom_sheet_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/bottom_sheet_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_defalut_user_ico.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/defalut_user_ico.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_holidaysnotfound.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/holidaysnotfound.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/font_montserrat_bold.ttf.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/font/montserrat_bold.ttf"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_clients_screen_3.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/clients_screen_3.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-hdpi_ic_launcher_foreground_new.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-hdpi/ic_launcher_foreground_new.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_circular_checked_box.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_circular_checked_box.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_baseline_location_on_24.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/baseline_location_on_24.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_la_car_side.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/la_car_side.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_radiobtncustom.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/radiobtncustom.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_userprofile_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/userprofile_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_termscondition.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/termscondition.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xxxhdpi_ic_launcher.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xxxhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/font_montserrat_medium.ttf.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/font/montserrat_medium.ttf"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_pause_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/pause_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_home_page_holidays_shape_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/home_page_holidays_shape_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_user_profile_background.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/user_profile_background.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_login_options.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_login_options.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_login_screen_top_image.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/login_screen_top_image.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_custom_popup_taskhome.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/custom_popup_taskhome.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_rectangle_box_unchecked.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/rectangle_box_unchecked.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_start_tasl_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/start_tasl_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_bottomsheet_for_checin_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottomsheet_for_checin_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_map_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/map_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_office_cahnge.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/office_cahnge.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_customofficeicon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/customofficeicon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_transport_selection_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/transport_selection_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_welcome_page_image.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/welcome_page_image.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_pending_back_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/pending_back_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_leaves_no_found.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/leaves_no_found.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_productivity_insights.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/productivity_insights.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_edit_btn_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/edit_btn_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_user_screen_edittext_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/user_screen_edittext_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_pdf.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/pdf.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_bottom_sheet_map.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_sheet_map.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_attendance_spinner.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/attendance_spinner.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_attendance1_1.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/attendance1_1.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_email_login.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/email_login.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_add_new_leaves_pop_up.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_new_leaves_pop_up.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_start_task_pic.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_start_task_pic.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/xml_data_extraction_rules.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_button_bg_user_profile.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/button_bg_user_profile.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_content_web_view.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/content_web_view.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_current_loc_change.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/current_loc_change.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_text_layout_leaves.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/text_layout_leaves.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_update_address_map.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_update_address_map.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_white_back_user_profile_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/white_back_user_profile_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_download.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/download.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_add_clients_with_edit_option.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_clients_with_edit_option.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_add_leave_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/add_leave_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_notificationrecycleritem.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/notificationrecycleritem.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_bottomsheet_of_add_client_with_edit.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottomsheet_of_add_client_with_edit.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_profile_background.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/profile_background.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_map_address.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_map_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_welcome.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_welcome.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_finish_task_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/finish_task_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_splash_screen_image.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/splash_screen_image.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_progressbar_speed.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/progressbar_speed.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_task_listview_items.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/task_listview_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_add_complete_address_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_complete_address_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_bottom_start_task_sheet.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_start_task_sheet.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_add_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/add_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xhdpi_ic_launcher.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xhdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-hdpi_ic_launcher_round.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-hdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_activity_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/activity_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_gradient_circular_back_shap.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/gradient_circular_back_shap.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/font_inter_regular.ttf.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/font/inter_regular.ttf"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_notification.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_notification.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/anim_slide_left_to_right.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/anim/slide_left_to_right.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/font_ubuntu_medium.ttf.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/font/ubuntu_medium.ttf"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_records_common_back_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/records_common_back_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_add_lv_et_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/add_lv_et_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/anim_slide_right_to_left.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/anim/slide_right_to_left.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_custom_seekbar_user_profile.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/custom_seekbar_user_profile.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_video_screen_image.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/video_screen_image.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_baseline_search_24.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/baseline_search_24.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_web_biometric.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/web_biometric.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_red_loc_back_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/red_loc_back_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_location_new.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/location_new.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_web_view.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_web_view.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_finish_edit_text_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/finish_edit_text_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_holidays.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_holidays.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_client_first_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/client_first_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_biometric.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/biometric.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_add_address.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_add_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_client_sceen_3_box.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/client_sceen_3_box.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_client_complete_address.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_complete_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_radio_unchecked.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/radio_unchecked.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_desc_ic.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/desc_ic.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_time_shower_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/time_shower_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_swipe.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/swipe.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_sidebar_custom.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/sidebar_custom.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/menu_drawer_menu.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/menu/drawer_menu.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xxxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xxxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_ll.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/ll.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_next_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/next_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_reschedule_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/reschedule_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_notify.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_notify.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_add_task_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_task_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_second3.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_second3.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_holidays_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/holidays_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_update_full_address.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_update_full_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_carselection.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/carselection.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_park_outline_time.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_park_outline_time.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_bottom_sheet_finish_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_sheet_finish_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_taskinfobg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/taskinfobg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/anim_slid_recycler.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/anim/slid_recycler.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_task_first_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/task_first_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_radio_selected.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/radio_selected.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_finsh_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/finsh_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_checkbox_circular_selector.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/checkbox_circular_selector.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_bus.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/bus.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_select_language_list_items.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/select_language_list_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_custom_sidebar.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_custom_sidebar.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_add_client_edit_option.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_add_client_edit_option.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_ic_launcher_background.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/ic_launcher_background.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_arrow_back.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/arrow_back.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_image_capture_button.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/image_capture_button.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_toast_icons.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/toast_icons.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_loading.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/loading.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_select_language.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/select_language.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_green_loc_back_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/green_loc_back_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_ion_location.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/ion_location.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_position.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_position.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-hdpi_ic_launcher.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-hdpi/ic_launcher.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_checkin_options_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/checkin_options_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_home_page_attendance_back_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/home_page_attendance_back_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_scheduleic.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/scheduleic.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_camera_toggle.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/camera_toggle.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_profile.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_profile.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_settings.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/font_montserrat_regular.ttf.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/font/montserrat_regular.ttf"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_blue_shape_color.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/blue_shape_color.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_first3.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_first3.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_popup_transportselection.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/popup_transportselection.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_seekbar_thum_shaape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/seekbar_thum_shaape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_leaves_list_items.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/leaves_list_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_loc_map_icon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/loc_map_icon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-mdpi_ic_launcher_round.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-mdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_clients.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_clients.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_task_search_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/task_search_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_switch_selector.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/switch_selector.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_add_picture.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_add_picture.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_update_profile.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_update_profile.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_img.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/img.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_emp_icon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/emp_icon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-mdpi_ic_launcher_foreground_new.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-mdpi/ic_launcher_foreground_new.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_task_home.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_task_home.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_main1.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_main1.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_map_current.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_map_current.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_distance_travelled_icon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/distance_travelled_icon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_tutorial.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_tutorial.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_pin_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/pin_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_background_permission.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/background_permission.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_edit_client.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_edit_client.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_recycler_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/recycler_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_setting_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/setting_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_run_in_screen_image.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/run_in_screen_image.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_start_task.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_start_task.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xhdpi_ic_launcher_foreground_new.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xhdpi/ic_launcher_foreground_new.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_camergallery.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/camergallery.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_leaves_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/leaves_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_indian_flag_icon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/indian_flag_icon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_auto.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/auto.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_add_client.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_add_client.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_time_icon.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/time_icon.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_via_map.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/via_map.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_login_otp_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/login_otp_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_radius.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/radius.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_add_floating_button.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/add_floating_button.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_baseline_menu_24.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/baseline_menu_24.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_content_save_cookie.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/content_save_cookie.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_checkin_light_color_box_shape_2.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/checkin_light_color_box_shape_2.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_location_permission.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/location_permission.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_client_direction.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_direction.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xxxhdpi_ic_launcher_round.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xxxhdpi/ic_launcher_round.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_forgot_password.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_forgot_password.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_tasks.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_tasks.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_home_page_leaves_shape_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/home_page_leaves_shape_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_activity_screen_image.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/activity_screen_image.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_hlll.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/hlll.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_add_clients_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_clients_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_qrshowpopup.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/qrshowpopup.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_marker_customs.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/marker_customs.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xxxhdpi_ic_launcher_foreground_new.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xxxhdpi/ic_launcher_foreground_new.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_emp_back.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_emp_back.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_checked_circular.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/checked_circular.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_checkout_confirmbtn_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/checkout_confirmbtn_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_calendar_ic.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/calendar_ic.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_baseline_arrow_forward_24.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/baseline_arrow_forward_24.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_manually_add_address.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_manually_add_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_run_in_background.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/run_in_background.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_dropdown_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/dropdown_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_butoon_bg_shape_disabled.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/butoon_bg_shape_disabled.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_edit_icon_client.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/edit_icon_client.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-xxhdpi_ic_launcher_foreground.webp.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-xxhdpi/ic_launcher_foreground.webp"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_attend_ic.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/attend_ic.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_attendance_screen.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/attendance_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_profile_blue.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/profile_blue.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_baseline_arrow_back_24.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/baseline_arrow_back_24.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_swipe_complete_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/swipe_complete_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_picprviewlayout.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/picprviewlayout.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/font_montserrat_light.ttf.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/font/montserrat_light.ttf"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_swipe_bg_common.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/swipe_bg_common.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_message_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/message_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_ripple.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/ripple.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_recycler_client_select_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/recycler_client_select_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_game_icons_path_distance.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/game_icons_path_distance.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_ripple_fab.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/ripple_fab.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_light_color_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/light_color_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_second.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_second.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_checkout_confirm_alert.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/checkout_confirm_alert.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_first.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_first.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_activity_mobile_login.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_mobile_login.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_edit_client_address.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_edit_client_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_world_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/world_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_background_screen_image.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/background_screen_image.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_calendar_pop_up_with_time.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/calendar_pop_up_with_time.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_add_task.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_add_task.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_clients_screen_listitems.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/clients_screen_listitems.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_linear_card_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/linear_card_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_login_screen_third.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/login_screen_third.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_progressbar_bg.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/progressbar_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_hll.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/hll.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/font_ubuntu_regular.ttf.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/font/ubuntu_regular.ttf"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_stage_selection_recycler_items.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/stage_selection_recycler_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_attendance_side_menu.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/attendance_side_menu.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_select_client.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_select_client.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_attendance_list_items.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/attendance_list_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_checkin_light_color_box_shape.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/checkin_light_color_box_shape.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_client_home.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_home.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_ripple_new_aman.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/ripple_new_aman.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_cancel_icon.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/cancel_icon.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_splash_screen_image_back.png.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/splash_screen_image_back.png"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_start_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/start_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_icon_white_circular_back.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/icon_white_circular_back.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_vector_pause.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/vector_pause.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_insights.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/insights.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/drawable_radio.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/drawable/radio.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-release-82:/layout_fragment_client_edit_update_map.xml.flat",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_edit_update_map.xml"
+    }
+]

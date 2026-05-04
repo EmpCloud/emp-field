@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "747529187310",
+    "project_id": "emp-monitor-99c34",
+    "storage_bucket": "emp-monitor-99c34.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:747529187310:android:53654c8a2a44a10426a8ff",
+        "android_client_info": {
+          "package_name": "com.empcloud.empmonitor"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjRcJJr_JcrdSxVyKTXYxZJz30zF0ECAo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="emp_icon_color">#354d83</color>
+    <color name="monitor_icon_color">#38a2d7</color>
+    <color name="welcome_text_color">#2364B0</color>
+    <color name="terms_conditions_text_color">#3E6599</color>
+    <color name="welcome_text_display_color">#4F4E4E</color>
+    <color name="insight_text_color">#1D9BD8</color>
+    <color name="buttonbgcolor">#5A8CD0</color>
+    <color name="black_text_color">#141414</color>
+    <color name="edit_text_color">#9A9A9A</color>
+    <color name="text_for_resend_color">#565D61</color>
+    <color name="resend_text_color">#5791DF</color>
+    <color name="email_changes_text_color">#B46E6565</color>
+    <color name="profile_gradient_first_color">#84b7fc</color>
+    <color name="profile_gradient_second_color">#9cc5fb</color>
+    <color name="user_image_back">#5b91d9</color>
+    <color name="user_form_text_color">#2E2E2E</color>
+    <color name="user_edittext_color">#F1F1F1</color>
+    <color name="radio_button_text_color">#5F5F5F</color>
+    <color name="view_horizontal_line_color">#E7E7E7</color>
+    <color name="edit_text_hint_color">#32464646</color>
+    <color name="attendance_shape_back_color">#9AA0FF</color>
+    <color name="leaves_shape_back_color">#FFA5C9</color>
+    <color name="holidays_shape_back_color">#FFAF52</color>
+    <color name="records_shape_back_color">#F1F8FF</color>
+    <color name="bottom_icon_color">#404040</color>
+    <color name="home_page_profile_shape_color">#F1F8FF</color>
+    <color name="time_display_color">#333333</color>
+    <color name="records_card_text_color">#444343</color>
+    <color name="buttonBgColor_attendance">#7BB3FE</color>
+    <color name="blue_list_title">#1470C6</color>
+    <color name="green_listitem_color">#4DB948</color>
+    <color name="red_listitems_color">#F44336</color>
+    <color name="holidays_listitems_color1">#4D4C4C</color>
+    <color name="yellow_text_color">#FFB800</color>
+    <color name="grey_text_color">#444444</color>
+    <color name="yelow_icon_back">#FFB800</color>
+    <color name="gradient_circular_blue_first">#79B2FF</color>
+    <color name="gradient_blue_light_second">#9CC5FE</color>
+    <color name="finish_light_white_back_color">#E2EEFF</color>
+    <color name="edit_text_black_color">#5F5F5F</color>
+
+    <color name="colorPrimaryDark">#7EA5DE</color>
+    <color name="colorPrimaryLight">#CFEEFF</color>
+    <color name="radiobtn">#5494E9</color>
+    <color name="btn_ripple_color">#14315A</color>
+    <color name="_5791df_resedn">#5791DF</color>
+    <color name="bg_color_app">#F6F6F6</color>
+    <color name="swipe_text">#2B2B2B</color>
+    <color name="swipe_outercolor">#DAEDFF</color>
+    <color name="swipe_innercolor">#3F6DAD</color>
+    <color name="swipe_reverse_outer">#5A8CD0</color>
+    <color name="video_bg">#9CC5FE</color>
+    <color name="status_bar">#9CC5FE</color>
+    <color name="new_edit_map_hint">#46464680</color>
+
+    <color name="white_90">#DFFFFFFF</color>
+
+    <color name="white_70">#BEFFFFFF</color>
+    <color name="weekoff">#4F4E4E</color>
+    <color name="pending_yellow">#FFB800</color>
+    <color name="add_leaves_txt">#5181C6</color>
+    <color name="pop_up_bg">#86A5CD</color>
+    <color name="new_txt_3a">#3A3A3A</color>
+    <color name="_3a3a3a">#3A3A3A</color>
+    <color name="_4d4c4c">#4D4C4C</color>
+    <color name="navigation_color_bottom">#404040</color>
+    <color name="nav_common_clr">#1470C6</color>
+    <color name="colorRecycler1">#A7EAFF</color>
+    <color name="colorRecycler2">#FFA7A7</color>
+    <color name="colorRecycler3">#FFDB5A</color>
+    <color name="colorRecycler4">#5FAEF8</color>
+    <color name="colorRecycler5">#BDE36D</color>
+    <color name="blue">#5A8CD0</color>
+    <color name="_5a8cd0">#5A8CD0</color>
+
+    <color name="calendarBtn">#5181C6</color>
+    <color name="sidear_tint">#1470C6</color>
+    <color name="officefence">
+        #4898E2</color>
+
+    <color name="colorPrimary">#3F51B5</color> <!-- Example primary color -->
+    <color name="colorAccent">#FF4898E2</color>
+
+    <color name="colorButtonOK">#4CAF50</color> <!-- Example OK button color -->
+    <color name="colorButtonCancel">#F44336</color>
+    <color name="holidaysitemscolor">#2364B0</color>
+    <color name="_1470c6">#1470C6</color>
+    <color name="_7cb4ff">#7CB4FF</color>
+    <color name="spinnervalue">#7AB3FF</color>
+    <color name="stage_recyvler_itemslist_txt">#6C6C6C</color>
+</resources>

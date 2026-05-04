@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/profile_background"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_fifteen"
+        android:layout_marginEnd="@dimen/margin_fifteen"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="15dp">
+
+        <!--        back arrow view-->
+
+        <ImageView
+            android:id="@+id/imageView4"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/icon_white_circular_back"
+            android:padding="@dimen/padding_ten"
+            android:src="@drawable/arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!--        user profile linear-->
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="start"
+            android:layout_marginStart="@dimen/margin_fifteen"
+            android:background="@drawable/icon_white_circular_back"
+            android:padding="@dimen/padding_ten"
+            android:src="@drawable/icon_profile"
+            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="Tasks"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_twenty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <!--        notificaiton icon linear-->
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/icon_white_circular_back"
+            android:padding="@dimen/padding_ten"
+            android:src="@drawable/icon_notify"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:background="@drawable/profile_back_shape"
+        android:elevation="10dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:textSize="@dimen/text_eighteen"
+            android:gravity="center"
+            android:text="Add Task"
+            android:textColor="@color/black_text_color" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_twenty"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_fourteen"
+                android:textStyle="bold"
+                android:textColor="@color/welcome_text_display_color"
+                android:text="Select Client"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_ten"
+                android:drawableEnd="@drawable/next_icon"
+                android:background="@drawable/white_edittext_back"
+                android:hint="Select Client"
+                android:inputType="text"
+                android:theme="@style/FontMedium"
+                android:paddingTop="@dimen/margin_fifteen"
+                android:paddingBottom="@dimen/margin_fifteen"
+                android:paddingStart="@dimen/padding_ten"
+                android:paddingEnd="@dimen/padding_ten"
+                android:textSize="12sp"/>
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:textSize="@dimen/text_fourteen"
+                android:textStyle="bold"
+                android:textColor="@color/welcome_text_display_color"
+                android:text="Schedule"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_ten"
+                android:drawableEnd="@drawable/scheduleic"
+                android:background="@drawable/white_edittext_back"
+                android:hint="10:00AM - 11:00AM "
+                android:inputType="time"
+                android:theme="@style/FontMedium"
+                android:paddingTop="@dimen/padding_ten"
+                android:paddingBottom="@dimen/padding_ten"
+                android:paddingStart="@dimen/padding_ten"
+                android:paddingEnd="@dimen/padding_ten"
+                android:textSize="12sp"
+                android:textColor="@color/welcome_text_display_color"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:textSize="@dimen/text_fourteen"
+                android:textStyle="bold"
+                android:textColor="@color/welcome_text_display_color"
+                android:text="Description"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:layout_marginTop="@dimen/padding_ten"
+                android:drawableEnd="@drawable/desc_ic"
+                android:background="@drawable/white_edittext_back"
+                android:hint="Write Description "
+                android:inputType="textImeMultiLine"
+                android:theme="@style/FontMedium"
+                android:paddingTop="@dimen/padding_ten"
+                android:paddingBottom="@dimen/padding_ten"
+                android:paddingStart="@dimen/padding_ten"
+                android:paddingEnd="@dimen/padding_ten"
+                android:textSize="12sp"
+                android:textColor="@color/welcome_text_display_color"/>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_thirty"
+            android:layout_marginStart="@dimen/margin_ten"
+            android:layout_marginEnd="@dimen/margin_ten"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardElevation="2dp"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_five"
+                android:layout_marginEnd="@dimen/margin_five"
+                android:layout_marginStart="2dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:paddingTop="@dimen/padding_ten"
+                    android:paddingBottom="@dimen/padding_ten"
+                    android:background="@drawable/linear_card_back"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:adjustViewBounds="true"
+                        android:padding="@dimen/padding_ten"
+                        android:background="@drawable/task_circular_back"
+                        android:layout_gravity="center"
+                        android:src="@drawable/reschedule_icon" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_five"
+                        android:textSize="@dimen/text_twelve"
+                        android:gravity="center"
+                        android:text="Reschedule"
+                        android:textColor="@color/welcome_text_display_color" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardElevation="2dp"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_five"
+                android:layout_marginEnd="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="@dimen/padding_ten"
+                    android:paddingBottom="@dimen/padding_ten"
+                    android:layout_gravity="center"
+                    android:background="@drawable/linear_card_back"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:adjustViewBounds="true"
+                        android:padding="@dimen/padding_ten"
+                        android:background="@drawable/capture_circular_back"
+                        android:layout_gravity="center"
+                        android:src="@drawable/capture_icon" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_five"
+                        android:textSize="@dimen/text_twelve"
+                        android:gravity="center"
+                        android:text="Add Picture"
+                        android:textColor="@color/welcome_text_display_color" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                app:cardElevation="2dp"
+                android:layout_marginTop="@dimen/margin_five"
+                android:layout_marginBottom="@dimen/margin_five"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="2dp"
+                android:layout_weight="1"
+                app:cardCornerRadius="10dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingTop="@dimen/padding_ten"
+                    android:paddingBottom="@dimen/padding_ten"
+                    android:layout_gravity="center"
+                    android:background="@drawable/linear_card_back"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:adjustViewBounds="true"
+                        android:padding="@dimen/padding_ten"
+                        android:background="@drawable/form_circular_back"
+                        android:layout_gravity="center"
+                        android:src="@drawable/activity_icon" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/margin_five"
+                        android:textSize="@dimen/text_twelve"
+                        android:gravity="center"
+                        android:text="Add Form"
+                        android:textColor="@color/welcome_text_display_color" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+
+        </LinearLayout>
+
+<!--        THIS IS DISABLE BUTTON DESIGN-->
+        <LinearLayout
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/user_screen_button_height"
+            android:layout_marginTop="@dimen/margin_fifty"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_twenty"
+            android:layout_marginBottom="@dimen/margin_twenty"
+            android:background="@drawable/butoon_bg_shape_disabled"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:theme="@style/FontMedium"
+                android:gravity="center"
+                android:text="Add Task"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size" />
+        </LinearLayout>
+
+<!--        THIS IS ACTIVE BUTTON DESIGN WHERE VISIBILITY SET TO GONE USE THIS ACCORDINGLY LOGIC-->
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/user_screen_button_height"
+            android:layout_marginTop="@dimen/margin_fifty"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_twenty"
+            android:layout_marginBottom="@dimen/margin_twenty"
+            android:background="@drawable/butoon_bg_shape"
+            android:layout_gravity="bottom"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:theme="@style/FontMedium"
+                android:gravity="center"
+                android:text="Add Task"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

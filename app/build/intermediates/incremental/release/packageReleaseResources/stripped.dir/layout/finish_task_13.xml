@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/setCamera"
+    android:clickable="true"
+    android:translationZ="50dp"
+    android:visibility="visible"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:clickable="true"
+        android:foreground="@drawable/ripple_fab"
+        android:id="@+id/imageCapturebtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationZ="50dp"
+        android:adjustViewBounds="true"
+        android:layout_marginBottom="@dimen/margin_twenty"
+        android:src="@drawable/image_capture_button"
+        app:layout_constraintBottom_toBottomOf="@+id/previewView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/picset"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:background="@color/blue"
+        android:translationZ="70dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/cameraToggle"
+        android:layout_width="40dp"
+        android:clickable="true"
+        android:foreground="@drawable/ripple_fab"
+        android:layout_height="40dp"
+        android:padding="@dimen/margin_five"
+        android:layout_marginBottom="@dimen/margin_thirty"
+        android:background="@drawable/camera_toggle"
+        android:translationZ="50dp"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        app:layout_constraintBottom_toBottomOf="@+id/previewView"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/camera_flip"/>
+
+    <ImageView
+        android:id="@+id/gallery"
+        android:layout_width="40dp"
+        android:clickable="true"
+        android:layout_height="40dp"
+        android:padding="8dp"
+        android:foreground="@drawable/ripple_fab"
+        android:layout_marginBottom="@dimen/margin_thirty"
+        android:background="@drawable/camera_toggle"
+        android:translationZ="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="@dimen/margin_twenty"
+        app:layout_constraintBottom_toBottomOf="@+id/previewView"
+        android:src="@drawable/solar_gallery_bold"/>
+
+    <androidx.camera.view.PreviewView
+        android:id="@+id/previewView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:clickable="true"
+        app:layout_constraintBottom_toTopOf="@+id/bottomSheet"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:translationZ="80dp"
+        android:layout_marginStart="@dimen/margin_fifteen"
+        android:layout_marginEnd="@dimen/margin_fifteen"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="15dp">
+
+        <!--        back arrow view-->
+
+        <ImageView
+            android:id="@+id/backbtnCamera"
+            android:foreground="@drawable/ripple_fab"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:padding="3dp"
+            android:background="@drawable/icon_white_circular_back"
+            android:src="@drawable/arrow_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <include
+        layout="@layout/bottom_sheet_finish_screen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_hideable="true"
+        android:visibility="gone"
+        android:id="@+id/bottomSheet"
+        app:behavior_peekHeight="74dp"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

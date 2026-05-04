@@ -1,0 +1,23 @@
+<!-- res/drawable/custom_radio_button_background.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background Rectangle -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#FF000000" /> <!-- Border color, change as needed -->
+            <solid android:color="#00FFFFFF" /> <!-- Transparent background -->
+            <padding
+                android:left="8dp"
+                android:top="8dp"
+                android:right="8dp"
+                android:bottom="8dp" />
+        </shape>
+    </item>
+    <!-- Content (RadioButton text) -->
+    <item android:top="10dp">
+        <shape android:shape="rectangle">
+            <solid android:color="#00FFFFFF" /> <!-- Transparent background -->
+        </shape>
+    </item>
+</layer-list>

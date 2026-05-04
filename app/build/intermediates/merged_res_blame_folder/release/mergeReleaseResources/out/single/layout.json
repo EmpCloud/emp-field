@@ -1,0 +1,546 @@
+[
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_update_full_address.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_update_full_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_client_home.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_home.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_welcome.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_welcome.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/attendance_list_items.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/attendance_list_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/task_first_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/task_first_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/checkout_restrict_popup.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/checkout_restrict_popup.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_clinet_map_show.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_clinet_map_show.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_custom_sidebar.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_custom_sidebar.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/video_turtorial.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/video_turtorial.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/qrshowpopup.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/qrshowpopup.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_add_client.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_add_client.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/stage_selection_recycler_items.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/stage_selection_recycler_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/bottomsheet_of_add_clients.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottomsheet_of_add_clients.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_client_add_final.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_add_final.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/checkout_confirm_alert.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/checkout_confirm_alert.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_map_show.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_map_show.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_second3.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_second3.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_email_login.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_email_login.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/create_profile_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/create_profile_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/currencytextlayout.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/currencytextlayout.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/holidays_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/holidays_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/bottom_sheet_map.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_sheet_map.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/demo.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/demo.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/set_email_password_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/set_email_password_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/location_permission.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/location_permission.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/text_layout_leaves.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/text_layout_leaves.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_first3.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_first3.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/clients_screen_listitems.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/clients_screen_listitems.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/picprviewlayout.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/picprviewlayout.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/client_first_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/client_first_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_map_current.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_map_current.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/welcome_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/welcome_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/mapsearchitems.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/mapsearchitems.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/start_tasl_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/start_tasl_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_holidays.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_holidays.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/bottom_finish_task_initial_sheeet.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_finish_task_initial_sheeet.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/locationalertdisable.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/locationalertdisable.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_splash.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_splash.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_mobile_login.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_mobile_login.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/batterydrainalert.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/batterydrainalert.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/bottom_navigation_main.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_navigation_main.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/finsh_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/finsh_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/task_listview_items.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/task_listview_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_edit_client.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_edit_client.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/background_permission.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/background_permission.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/bottomsheet_of_add_client_with_edit.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottomsheet_of_add_client_with_edit.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_mobile_otp.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_mobile_otp.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/email_login.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/email_login.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/add_address_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_address_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_login_options.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_login_options.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_notification.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_notification.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/attendance_spinner.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/attendance_spinner.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_forgot_password.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_forgot_password.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/leaves_list_items.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/leaves_list_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/login_screen_frist.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/login_screen_frist.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/clients_screen_3.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/clients_screen_3.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/holidays_listitems.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/holidays_listitems.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/bottom_sheet_checkin_page.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_sheet_checkin_page.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/leaves_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/leaves_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/login_otp_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/login_otp_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/add_complete_address_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_complete_address_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_tutorial.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_tutorial.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_update_profile.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_update_profile.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_updae_edit_client.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_updae_edit_client.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_main.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_manually_add_address.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_manually_add_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/multiple_checkin_options.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/multiple_checkin_options.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_start_task_pic.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_start_task_pic.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_email_password.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_email_password.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_add_task.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_add_task.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/finish_task_initial_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/finish_task_initial_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/sidebar_menu_layout.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/sidebar_menu_layout.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_main1.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_main1.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_select_client.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_select_client.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_second.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_second.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_reset_password.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_reset_password.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_add_client_edit_option.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_add_client_edit_option.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/edit_leaves.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/edit_leaves.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/select_language.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/select_language.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/add_clients_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_clients_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_client_edit_update_map.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_edit_update_map.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/run_in_background.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/run_in_background.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/notificationrecycleritem.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/notificationrecycleritem.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_start_task.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_start_task.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/custom_popup_taskhome.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/custom_popup_taskhome.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/add_client_manually_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_client_manually_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_web_view.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_web_view.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_update_address_map.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_update_address_map.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_update_address.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_update_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/spinner_leaves_items.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/spinner_leaves_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/client_screen_5.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/client_screen_5.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_settings.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/bottom_sheet_finish_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_sheet_finish_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/home_page_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/home_page_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/finish_task_13.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/finish_task_13.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_leaves.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_leaves.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/filter_calendar.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/filter_calendar.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/content_save_cookie.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/content_save_cookie.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/login_screen_third.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/login_screen_third.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_client_address.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/edit_attendance.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/edit_attendance.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_create_profile.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_create_profile.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/add_new_leaves_pop_up.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_new_leaves_pop_up.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/setting_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/setting_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/finish_task_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/finish_task_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_first.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_first.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/bottomsheet_for_checin_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottomsheet_for_checin_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/add_task_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_task_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/map_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/map_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_home.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_home.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/select_client_scren.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/select_client_scren.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_client_complete_address.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_complete_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/productivity_insights.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/productivity_insights.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_permission.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_permission.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/bottom_start_task_sheet.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottom_start_task_sheet.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/popup_transportselection.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/popup_transportselection.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_add_address.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_add_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_save_cookie.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_save_cookie.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/activity_map_address.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/activity_map_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_attendance.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_attendance.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_add_picture.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_add_picture.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/add_clients_with_edit_option.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/add_clients_with_edit_option.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_client_direction.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_client_direction.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_edit_client_address.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_edit_client_address.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/task_listitems_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/task_listitems_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/attendance_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/attendance_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/bottomsheet_client_5.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/bottomsheet_client_5.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/calendar_pop_up_with_time.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/calendar_pop_up_with_time.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/select_language_list_items.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/select_language_list_items.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/splash_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/splash_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/login_screen_second.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/login_screen_second.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/fragment_task_home.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/fragment_task_home.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/content_web_view.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/content_web_view.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/swipe_complete_bg.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/swipe_complete_bg.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/check_in_screen.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/check_in_screen.xml"
+    },
+    {
+        "merged": "com.empcloud.empmonitor.app-mergeReleaseResources-81:/layout/sidebar_custom.xml",
+        "source": "com.empcloud.empmonitor.app-main-83:/layout/sidebar_custom.xml"
+    }
+]

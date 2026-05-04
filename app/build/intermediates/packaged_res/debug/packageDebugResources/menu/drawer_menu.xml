@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/home_nav"
+        android:icon="@drawable/icon_home"
+        android:iconTint="@color/weekoff"
+        android:title="Home"/>
+    <item
+        android:id="@+id/att_his"
+        android:icon="@drawable/icon_home"
+        android:iconTint="@color/weekoff"
+        android:title="Attendance History"/>
+
+    <item
+        android:id="@+id/leaves_nav"
+        android:icon="@drawable/icon_home"
+        android:iconTint="@color/weekoff"
+        android:title="Leaves"/>
+
+    <item
+        android:id="@+id/task_nav"
+        android:icon="@drawable/icon_home"
+        android:iconTint="@color/weekoff"
+        android:title="Tasks"/>
+
+    <item
+        android:id="@+id/clients_nav"
+        android:icon="@drawable/icon_home"
+        android:iconTint="@color/weekoff"
+        android:title="Clients"/>
+
+    <item
+        android:id="@+id/settings_nav"
+        android:icon="@drawable/icon_home"
+        android:iconTint="@color/weekoff"
+        android:title="Settings"/>
+
+
+    <item
+        android:id="@+id/logout_nav"
+        android:icon="@drawable/icon_home"
+        android:iconTint="@color/weekoff"
+        android:title="Logout"/>
+</menu>

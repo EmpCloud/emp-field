@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        >
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/fab"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:src="@drawable/add_icon"-->
+<!--            android:background="@drawable/floating_button_gradient_color_and_shape"-->
+<!--            android:backgroundTint="@android:color/transparent"-->
+<!--            app:layout_anchorGravity="center"-->
+<!--            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.MyApp.FloatingActionButton" />-->
+
+<!--        <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--            android:id="@+id/add_alarm_fab"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginBottom="24dp"-->
+<!--            app:fabSize="normal"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/add_fab"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/add_fab"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/add_fab"/>-->
+
+<!--      <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--          android:layout_width=""-->
+<!--          android:layout_height=""/>-->
+
+<!--        <RadioButton-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:backgroundTint="@color/red_listitems_color"/>-->
+
+
+<!--        <Switch-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            style="@style/SCBSwitchStyle"-->
+<!--            android:checked="false"-->
+<!--            android:layout_marginTop="@dimen/margin_ten"-->
+<!--            android:layout_marginEnd="@dimen/margin_ten"/>-->
+
+<!--<SeekBar-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="50dp"-->
+<!--    android:background="@drawable/home_page_holidays_shape_back">-->
+
+<!--</SeekBar>-->
+<!--        <RadioButton-->
+<!--            android:id="@+id/customRadioButton"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            style="@style/SCBSwitchStyle"-->
+<!--            android:button="@drawable/customize_radio_background"-->
+<!--            android:text="Option 1"-->
+<!--            android:checked="true"-->
+<!--            android:textColor="#000000"/>-->
+
+<!--        <com.gbs.empmonitorfieldtrackingui.SlideButton-->
+<!--            android:id="@+id/example_gray_on_green"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:elevation="6dp"-->
+<!--            app:area_margin="4dp"-->
+<!--            app:animation_duration="250"-->
+<!--            app:outer_color="@color/green"-->
+<!--            app:inner_color="@color/grey"-->
+<!--            app:border_radius="2dp"-->
+<!--            app:text="Testing all the custom attributes"-->
+<!--            app:text_size="12sp"-->
+<!--            app:slider_height="80dp"-->
+<!--            app:slider_locked="false"-->
+<!--            app:bounce_on_start="true" />-->
+
+
+        <RadioButton
+            android:id="@+id/customRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Option 1"
+            android:checked="false"
+            style="@style/CustomRadioButtonStyle"
+          />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

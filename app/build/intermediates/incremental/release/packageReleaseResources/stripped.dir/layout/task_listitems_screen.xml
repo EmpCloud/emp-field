@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/card"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="@dimen/margin_fifteen"
+            android:paddingBottom="@dimen/margin_fifteen"
+            android:layout_marginStart="@dimen/margin_ten"
+            android:layout_marginEnd="@dimen/margin_ten"
+            android:layout_gravity="center"
+            android:background="@drawable/edit_text_back"
+            android:paddingEnd="@dimen/padding_ten"
+            android:paddingStart="@dimen/padding_ten"
+            android:layout_margin="@dimen/margin_five"
+            android:orientation="horizontal">
+
+
+              <ImageView
+                  android:id="@+id/userImg"
+                  android:visibility="visible"
+                  android:layout_width="40dp"
+                  android:layout_height="40dp"
+                  android:adjustViewBounds="true"
+                  android:layout_gravity="center"
+                  android:scaleType="centerCrop"
+                  android:padding="@dimen/padding_ten"
+                  android:background="@drawable/gradient_circular_back_shap"
+                  android:src="@drawable/icon_user_profile"
+                  app:tint="@color/white" />
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:visibility="gone"
+                android:id="@+id/picardselect"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:id="@+id/profilePicselect"
+                    android:visibility="visible"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:scaleType="centerCrop" />
+
+            </androidx.cardview.widget.CardView>
+
+<!--            <androidx.cardview.widget.CardView-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                app:cardCornerRadius="25dp"-->
+<!--                android:layout_centerInParent="true"-->
+<!--                android:background="@drawable/gradient_circular_back_shap"-->
+<!--                android:gravity="center">-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/userPic"-->
+<!--                    android:visibility="visible"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:scaleType="centerCrop"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:src="@drawable/icon_user_profile"-->
+<!--                    app:tint="@color/white" />-->
+
+<!--                <ImageView-->
+<!--                    android:id="@+id/userPicdisbale"-->
+<!--                    android:visibility="visible"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:tint="@color/white"-->
+<!--                    android:src="@drawable/icon_user_profile" />-->
+<!--            </androidx.cardview.widget.CardView>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginStart="@dimen/margin_ten"
+                android:orientation="vertical">
+
+                <TextView
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:id="@+id/clientNameSelect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="Aman Singh"
+                    android:gravity="start"
+                    android:textColor="@color/grey_text_color"
+                    android:textSize="@dimen/text_fifteen" />
+
+                <TextView
+                    android:id="@+id/clientAddressSelect"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="start"
+                    android:text="devansh@gmail.com"
+                    android:textColor="@color/grey_text_color"
+                    android:theme="@style/FontMedium"
+                    android:textSize="@dimen/text_twelve" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="end">
+                <TextView
+                    android:id="@+id/distanceSelect"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_ten"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="--"
+                    android:textSize="@dimen/text_twelve"
+                    android:textColor="@color/welcome_text_display_color"/>
+
+<!--                THIS IS FOR GREEN LOCATION -->
+                
+                <ImageView
+                    android:id="@+id/greenLOc"
+                    android:visibility="visible"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/green_loc_back_shape"
+                    android:padding="@dimen/margin_five"
+                    android:src="@drawable/baseline_location_on_24"
+                    android:layout_gravity="center"/>
+
+<!--                THIS IS FOR RED LOCATION WHERE VISIBILITY SET TO GONE-->
+
+                <ImageView
+                    android:id="@+id/redLoc"
+                    android:visibility="gone"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/red_loc_back_shape"
+                    android:padding="@dimen/margin_five"
+                    android:src="@drawable/baseline_location_on_24"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+</LinearLayout>

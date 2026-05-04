@@ -1,0 +1,18 @@
+<!-- custom_marker.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background white circle -->
+    <item>
+
+        <shape
+            android:shape="oval">
+            <solid android:color="#809ACBC6"/>
+        </shape>
+    </item>
+    <!-- Centered marker icon -->
+    <item
+        android:drawable="@drawable/custom_location"
+        android:bottom="8dp"
+        android:left="8dp"
+        android:right="8dp"
+        android:top="8dp"/>
+</layer-list>

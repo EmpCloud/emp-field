@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/checkInWeb"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:padding="@dimen/_10dp_"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        android:background="@drawable/swipe_bg_common"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_ten"
+            android:padding="5dp"
+            android:src="@drawable/world_icon"
+            android:background="@drawable/checkin_options_bg"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_in_via_web"
+            android:layout_gravity="center"
+            android:textColor="@color/_5a8cd0"
+            android:theme="@style/FontMedium"
+            android:textSize="@dimen/text_twelve"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_ten"/>
+
+    </LinearLayout>
+
+<!--    CHECKIN VIE BIOMETRIC-->
+    <LinearLayout
+        android:id="@+id/checkInBiometric"
+        android:visibility="gone"
+        android:clickable="true"
+        android:padding="@dimen/_10dp_"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        android:background="@drawable/swipe_bg_common"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:layout_marginStart="@dimen/margin_ten"
+            android:padding="5dp"
+            android:src="@drawable/biometric"
+            android:background="@drawable/checkin_options_bg"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_in_via_biometric"
+            android:layout_gravity="center"
+            android:textColor="@color/_5a8cd0"
+            android:theme="@style/FontMedium"
+            android:textSize="@dimen/text_twelve"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_ten"/>
+
+    </LinearLayout>
+
+<!--    WEB BIOMETRIC LOGIN-->
+
+    <LinearLayout
+        android:id="@+id/checkInBiometricWeb"
+        android:visibility="gone"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:padding="@dimen/_10dp_"
+        android:layout_height="50dp"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        android:background="@drawable/swipe_bg_common"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_ten"
+            android:padding="7dp"
+            android:src="@drawable/web_biometric"
+            android:background="@drawable/checkin_options_bg"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/web_biometric_check_in"
+            android:layout_gravity="center"
+            android:textColor="@color/_5a8cd0"
+            android:theme="@style/FontMedium"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_ten"
+            android:textSize="@dimen/text_twelve"
+            />
+
+    </LinearLayout>
+
+<!--    VIA MAP-->
+
+    <LinearLayout
+        android:id="@+id/checkinviamap"
+        android:visibility="gone"
+        android:padding="@dimen/_10dp_"
+        android:clickable="true"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:layout_marginStart="@dimen/margin_twenty"
+        android:layout_marginEnd="@dimen/margin_twenty"
+        android:background="@drawable/viamapchecking"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_ten"
+            android:padding="7dp"
+            android:src="@drawable/uiw_map"
+            android:background="@drawable/checkin_options_bg"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/check_in_via_map"
+            android:layout_gravity="center"
+            android:textColor="@color/_5a8cd0"
+            android:theme="@style/FontMedium"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_ten"
+            android:textSize="@dimen/text_twelve"/>
+
+    </LinearLayout>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

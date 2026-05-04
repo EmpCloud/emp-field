@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:clickable="true"
+    android:background="@drawable/bottom_sheet_shape"
+    android:translationZ="10dp"
+    android:paddingBottom="@dimen/margin_thirty"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_fifty"
+            android:layout_marginTop="@dimen/margin_twenty"
+            android:layout_marginEnd="@dimen/margin_twenty"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                android:src="@drawable/icon_position" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/location_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bidadi"
+                    android:textColor="@color/black_text_color"
+                    android:textSize="@dimen/text_twenty"
+                    android:textStyle="bold"
+                    android:theme="@style/FontMedium" />
+
+                <TextView
+                    android:id="@+id/full_text_loc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bengaluru, India"
+                    android:textColor="@color/welcome_text_display_color"
+                    android:textSize="@dimen/text_fourteen"
+                    android:textStyle="bold"
+                    android:theme="@style/FontMedium" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/confirm_loc"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/margin_thirty"
+            android:layout_marginTop="@dimen/margin_thirty"
+            android:layout_marginEnd="@dimen/margin_thirty"
+            android:foreground="@drawable/ripple"
+            android:background="@drawable/butoon_bg_shape"
+            android:clickable="true"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/confirm_location"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size"
+                android:theme="@style/FontMedium" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

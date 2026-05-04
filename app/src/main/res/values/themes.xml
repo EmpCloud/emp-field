@@ -1,0 +1,149 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.EmpMonitorFieldTrackingUI" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="fontFamily">@font/montserrat_semibold</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+        <item name="android:radioButtonStyle">@style/RadioButton</item>
+        <!--        <item name="android:switchStyle">@style/SCBSwitchStyle</item>-->
+
+<!--        <item name="android:fitsSystemWindows">true</item>-->
+<!--        <item name="android:windowLightStatusBar">true</item>-->
+        <item name="android:statusBarColor">@color/profile_gradient_first_color</item>
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        <!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+<!--        <item name="android:windowTranslucentStatus">true</item>-->
+
+
+    </style>
+
+    <style name="Theme.EmpMonitorFieldTrackingUI" parent="Base.Theme.EmpMonitorFieldTrackingUI" >
+        <item name="colorAccent">@color/swipe_innercolor</item>
+
+    </style>
+
+    <style name="FontBold">
+        <item name="fontFamily">@font/montserrat_bold</item>
+        <item name="android:fontFamily">@font/montserrat_bold</item>
+    </style>
+
+    <style name="FontRegular">
+        <item name="fontFamily">@font/montserrat_regular</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+    </style>
+
+    <style name="FontMedium">
+        <item name="fontFamily">@font/montserrat_medium</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+        <item name="android:radioButtonStyle">@style/RadioButton</item>
+    </style>
+
+    <style name="Widget.MaterialComponents.CompoundButton.CheckBox.EMP" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="minWidth">?attr/minTouchTargetSize</item>
+    </style>
+
+    <style name="RadioButton" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/radio</item>
+    </style>
+
+    <style name="PoppinMedium">
+        <item name="fontFamily">@font/poppins_medium</item>
+        <item name="android:fontFamily">@font/montserrat_medium</item>
+    </style>
+
+    <style name="PoppinRegular">
+        <item name="fontFamily">@font/poppins_regular</item>
+        <item name="android:fontFamily">@font/poppins_regular</item>
+    </style>
+
+    <style name="UbuntuMedium">
+        <item name="fontFamily">@font/ubuntu_medium</item>
+        <item name="android:fontFamily">@font/ubuntu_medium</item>
+    </style>
+
+    <style name="UbuntuRegular">
+        <item name="fontFamily">@font/ubuntu_regular</item>
+        <item name="android:fontFamily">@font/ubuntu_regular</item>
+    </style>
+
+    <style name="monstreat_semibold">
+        <item name="fontFamily">@font/montserrat_semibold</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+    </style>
+
+    <style name="comfortaa_bold">
+        <item name="fontFamily">@font/comfortaa_bold</item>
+        <item name="android:fontFamily">@font/comfortaa_bold</item>
+    </style>
+
+    <style name="InterRegular">
+        <item name="fontFamily">@font/inter_regular</item>
+        <item name="android:fontFamily">@font/inter_regular</item>
+    </style>
+
+    <style name="MonstratLight">
+        <item name="fontFamily">@font/montserrat_light</item>
+        <item name="android:fontFamily">@font/montserrat_light</item>
+    </style>
+
+    <style name="CustomCheckbox02" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/circular_checkebox_selector</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <!--    <style name="SCBSwitchStyle" parent="@android:style/Widget.CompoundButton.Switch">-->
+    <!--        <item name="android:thumbTint">@color/white</item>-->
+    <!--        <item name="android:track">@drawable/switch_selector</item>-->
+
+    <!--    </style>-->
+
+    <style name="ShapeAppearanceOverlay.MyApp.FloatingActionButton" parent="">
+        <item name="android:background">@drawable/floating_button_gradient_color_and_shape</item>
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> <!-- Adjust this value to make it circular -->
+    </style>
+
+
+    <style name="CustomRadioButtonStyle" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <!-- Customize the color of the RadioButton when checked -->
+        <item name="android:buttonTint">@color/red_listitems_color</item>
+
+        <!-- Customize the color of the RadioButton when unchecked -->
+        <item name="android:colorControlNormal">@color/green_listitem_color</item>
+
+        <!-- Customize other attributes as needed -->
+    </style>
+
+    <style name="CustomTimePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Change clock color to white -->
+        <item name="colorControlActivated">@color/blue</item>
+        <!-- Change text color to blue -->
+        <item name="android:textColorPrimary">@color/blue</item>
+        <!-- Change background color to black -->
+        <item name="android:background">@android:color/white</item>
+    </style>
+
+
+    <style name="CustomDatePickerDialogTheme" parent="Theme.MaterialComponents.Light.Dialog">
+        <!-- Customize primary, primaryDark, and accent colors -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="materialButtonOutlinedStyle">
+            @style/Widget.MaterialComponents.Button.OutlinedButton
+        </item>
+        <item name="buttonBarPositiveButtonStyle">@style/CustomPositiveButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/CustomNegativeButton</item>
+    </style>
+
+    <style name="CustomPositiveButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorButtonOK</item>
+    </style>
+
+    <style name="CustomNegativeButton" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/colorButtonCancel</item>
+    </style>
+
+
+
+</resources>

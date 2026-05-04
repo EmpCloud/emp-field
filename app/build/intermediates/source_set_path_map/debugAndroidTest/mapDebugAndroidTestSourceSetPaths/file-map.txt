@@ -1,0 +1,6 @@
+com.empcloud.empmonitor.test.app-jetified-core-1.6.1-0 /home/glb-blr-161/.gradle/caches/8.11.1/transforms/1234a71730d9377872132bff8b0ca8f6/transformed/jetified-core-1.6.1/res
+com.empcloud.empmonitor.test.app-jetified-tracing-1.2.0-1 /home/glb-blr-161/.gradle/caches/8.11.1/transforms/b280976660457b6857fe6a273e68b6c7/transformed/jetified-tracing-1.2.0/res
+com.empcloud.empmonitor.test.app-androidTest-2 /home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/build/generated/res/resValues/androidTest/debug
+com.empcloud.empmonitor.test.app-mergeDebugAndroidTestResources-3 /home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/merged.dir
+com.empcloud.empmonitor.test.app-mergeDebugAndroidTestResources-4 /home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/build/intermediates/incremental/debugAndroidTest/mergeDebugAndroidTestResources/stripped.dir
+com.empcloud.empmonitor.test.app-debugAndroidTest-5 /home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/build/intermediates/merged_res/debugAndroidTest/mergeDebugAndroidTestResources

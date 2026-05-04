@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/.cxx/Debug/4e1f6y5s/x86_64",
+  "command": "/home/glb-blr-161/Android/Sdk/ndk/29.0.14206865/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ --target=x86_64-none-linux-android24 --sysroot=/home/glb-blr-161/Android/Sdk/ndk/29.0.14206865/toolchains/llvm/prebuilt/linux-x86_64/sysroot -Dnative_lib_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security   -fno-limit-debug-info  -fPIC -o CMakeFiles/native-lib.dir/src/main/cpp/native-lib.cpp.o -c /home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/cpp/native-lib.cpp",
+  "file": "/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/cpp/native-lib.cpp"
+}
+]

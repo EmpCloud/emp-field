@@ -1,0 +1,971 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.empcloud.empmonitor"
+4    android:versionCode="10"
+5    android:versionName="1.9" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="24"
+9        android:targetSdkVersion="36" />
+10
+11    <uses-feature
+11-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:5:5-7:36
+12        android:name="android.hardware.camera"
+12-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:6:9-47
+13        android:required="false" />
+13-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:7:9-33
+14    <uses-feature
+14-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:8:5-10:36
+15        android:name="android.hardware.telephony"
+15-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:9:9-50
+16        android:required="false" />
+16-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:10:9-33
+17
+18    <uses-permission android:name="android.permission.INTERNET" />
+18-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:12:5-67
+18-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:12:22-64
+19    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+19-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:13:5-85
+19-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:13:22-82
+20    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+20-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:14:5-81
+20-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:14:22-78
+21    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+21-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:15:5-79
+21-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:15:22-76
+22    <uses-permission android:name="android.permission.CAMERA" />
+22-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:16:5-65
+22-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:16:22-62
+23    <uses-permission android:name="android.permission.BODY_SENSORS" />
+23-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:17:5-71
+23-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:17:22-68
+24    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+24-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:18:5-77
+24-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:18:22-74
+25    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
+25-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:19:5-86
+25-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:19:22-83
+26    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+26-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:20:5-80
+26-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:20:22-77
+27    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+27-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:21:5-75
+27-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:21:22-72
+28    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+28-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:22:5-81
+28-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:22:22-78
+29    <uses-permission android:name="android.permission.READ_CLIPBOARD" />
+29-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:23:5-72
+29-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:23:22-70
+30    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+30-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:24:5-80
+30-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:24:22-78
+31    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
+31-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:25:5-78
+31-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:25:22-76
+32    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+32-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:26:5-73
+32-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:26:22-71
+33
+34    <uses-feature android:name="android.hardware.camera.autofocus" />
+34-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:27:5-70
+34-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:27:19-67
+35
+36    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+36-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:28:5-77
+36-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:28:22-74
+37
+38    <queries>
+38-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:31:5-35:15
+39        <intent>
+39-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:32:9-34:18
+40            <action android:name="android.media.action.IMAGE_CAPTURE" />
+40-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:33:13-73
+40-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:33:21-70
+41        </intent>
+42        <!-- Needs to be explicitly declared on Android R+ -->
+43        <package android:name="com.google.android.apps.maps" />
+43-->[com.google.android.gms:play-services-maps:19.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9992609edc0c01b6efeaee768bdafaa2/transformed/jetified-play-services-maps-19.2.0/AndroidManifest.xml:29:7-61
+43-->[com.google.android.gms:play-services-maps:19.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9992609edc0c01b6efeaee768bdafaa2/transformed/jetified-play-services-maps-19.2.0/AndroidManifest.xml:29:16-59
+44    </queries>
+45
+46    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+46-->[com.google.android.libraries.places:places:4.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/f584787d770b2ef9f86f0f38b0838efc/transformed/jetified-places-4.2.0/AndroidManifest.xml:13:5-76
+46-->[com.google.android.libraries.places:places:4.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/f584787d770b2ef9f86f0f38b0838efc/transformed/jetified-places-4.2.0/AndroidManifest.xml:13:22-73
+47    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+47-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:26:5-79
+47-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:26:22-76
+48
+49    <uses-feature
+49-->[com.google.android.gms:play-services-maps:19.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9992609edc0c01b6efeaee768bdafaa2/transformed/jetified-play-services-maps-19.2.0/AndroidManifest.xml:22:5-24:33
+50        android:glEsVersion="0x00020000"
+50-->[com.google.android.gms:play-services-maps:19.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9992609edc0c01b6efeaee768bdafaa2/transformed/jetified-play-services-maps-19.2.0/AndroidManifest.xml:23:8-40
+51        android:required="true" />
+51-->[com.google.android.gms:play-services-maps:19.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9992609edc0c01b6efeaee768bdafaa2/transformed/jetified-play-services-maps-19.2.0/AndroidManifest.xml:24:8-31
+52
+53    <uses-permission android:name="android.permission.WAKE_LOCK" />
+53-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:23:5-68
+53-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:23:22-65
+54
+55    <permission
+55-->[androidx.core:core:1.16.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/c1bf638acc7aa84c1bd95cebfdea4f9c/transformed/core-1.16.0/AndroidManifest.xml:22:5-24:47
+56        android:name="com.empcloud.empmonitor.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+56-->[androidx.core:core:1.16.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/c1bf638acc7aa84c1bd95cebfdea4f9c/transformed/core-1.16.0/AndroidManifest.xml:23:9-81
+57        android:protectionLevel="signature" />
+57-->[androidx.core:core:1.16.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/c1bf638acc7aa84c1bd95cebfdea4f9c/transformed/core-1.16.0/AndroidManifest.xml:24:9-44
+58
+59    <uses-permission android:name="com.empcloud.empmonitor.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+59-->[androidx.core:core:1.16.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/c1bf638acc7aa84c1bd95cebfdea4f9c/transformed/core-1.16.0/AndroidManifest.xml:26:5-97
+59-->[androidx.core:core:1.16.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/c1bf638acc7aa84c1bd95cebfdea4f9c/transformed/core-1.16.0/AndroidManifest.xml:26:22-94
+60    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+60-->[com.google.android.recaptcha:recaptcha:18.6.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/31e99179412538bfd08e79b854541669/transformed/jetified-recaptcha-18.6.1/AndroidManifest.xml:9:5-98
+60-->[com.google.android.recaptcha:recaptcha:18.6.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/31e99179412538bfd08e79b854541669/transformed/jetified-recaptcha-18.6.1/AndroidManifest.xml:9:22-95
+61
+62    <application
+62-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:38:5-195:19
+63        android:name="com.empcloud.empmonitor.di.BaseApplication"
+63-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:39:9-43
+64        android:allowBackup="false"
+64-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:40:9-36
+65        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+65-->[androidx.core:core:1.16.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/c1bf638acc7aa84c1bd95cebfdea4f9c/transformed/core-1.16.0/AndroidManifest.xml:28:18-86
+66        android:dataExtractionRules="@xml/data_extraction_rules"
+66-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:41:9-65
+67        android:extractNativeLibs="false"
+68        android:fullBackupContent="@xml/backup_rules"
+68-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:42:9-54
+69        android:icon="@mipmap/ic_launcher"
+69-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:43:9-43
+70        android:label="@string/app_name"
+70-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:44:9-41
+71        android:requestLegacyExternalStorage="true"
+71-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:49:9-52
+72        android:roundIcon="@mipmap/ic_launcher_round"
+72-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:45:9-54
+73        android:supportsRtl="true"
+73-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:46:9-35
+74        android:theme="@style/Theme.EmpMonitorFieldTrackingUI" >
+74-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:47:9-63
+75        <activity
+75-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:51:9-55:70
+76            android:name="com.empcloud.empmonitor.ui.activity.savecookie.SaveCookieActivity"
+76-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:52:13-70
+77            android:exported="false"
+77-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:54:13-37
+78            android:screenOrientation="portrait"
+78-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:53:13-49
+79            android:theme="@style/Theme.EmpMonitorFieldTrackingUI" />
+79-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:55:13-67
+80        <activity
+80-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:56:9-60:70
+81            android:name="com.empcloud.empmonitor.ui.activity.webview_activity.WebViewActivity"
+81-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:57:13-73
+82            android:exported="false"
+82-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:59:13-37
+83            android:screenOrientation="portrait"
+83-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:58:13-49
+84            android:theme="@style/Theme.EmpMonitorFieldTrackingUI" />
+84-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:60:13-67
+85        <activity
+85-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:61:9-65:40
+86            android:name="com.empcloud.empmonitor.ui.activity.mainactivity.MainActivity"
+86-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:62:13-66
+87            android:exported="false"
+87-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:65:13-37
+88            android:screenOrientation="portrait"
+88-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:63:13-49
+89            android:windowSoftInputMode="adjustPan" />
+89-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:64:13-52
+90        <activity
+90-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:66:9-69:40
+91            android:name="com.empcloud.empmonitor.ui.activity.mapaddress.ManuallyAddAddressActivity"
+91-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:67:13-78
+92            android:exported="false"
+92-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:69:13-37
+93            android:screenOrientation="portrait" />
+93-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:68:13-49
+94        <activity
+94-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:70:9-73:40
+95            android:name="com.empcloud.empmonitor.ui.activity.mapaddress.MapShowActivity"
+95-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:71:13-67
+96            android:exported="false"
+96-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:73:13-37
+97            android:screenOrientation="portrait" />
+97-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:72:13-49
+98        <activity
+98-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:74:9-77:40
+99            android:name="com.empcloud.empmonitor.ui.activity.mapaddress.MapAddressActivity"
+99-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:75:13-70
+100            android:exported="false"
+100-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:77:13-37
+101            android:screenOrientation="portrait" />
+101-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:76:13-49
+102        <activity
+102-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:78:9-82:58
+103            android:name="com.empcloud.empmonitor.ui.activity.mobilelogin.otp.MobileOtpActivity"
+103-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:79:13-74
+104            android:exported="false"
+104-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:81:13-37
+105            android:screenOrientation="portrait"
+105-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:80:13-49
+106            android:windowSoftInputMode="adjustResize" />
+106-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:82:13-55
+107        <activity
+107-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:83:9-87:58
+108            android:name="com.empcloud.empmonitor.ui.activity.mobilelogin.MobileLoginActivity"
+108-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:84:13-72
+109            android:exported="false"
+109-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:86:13-37
+110            android:screenOrientation="portrait"
+110-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:85:13-49
+111            android:windowSoftInputMode="adjustResize" />
+111-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:87:13-55
+112        <activity
+112-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:88:9-91:40
+113            android:name="com.empcloud.empmonitor.ui.activity.address.AddAddressActivity"
+113-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:89:13-67
+114            android:exported="false"
+114-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:91:13-37
+115            android:screenOrientation="portrait" />
+115-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:90:13-49
+116        <activity
+116-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:92:9-96:40
+117            android:name="com.empcloud.empmonitor.ui.activity.createprofile.CreateProfileActivity"
+117-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:93:13-76
+118            android:exported="false"
+118-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:96:13-37
+119            android:screenOrientation="portrait"
+119-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:94:13-49
+120            android:windowSoftInputMode="adjustResize" />
+120-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:95:13-55
+121        <activity
+121-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:97:9-101:58
+122            android:name="com.empcloud.empmonitor.ui.activity.resetpassword.ResetPasswordActivity"
+122-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:98:13-76
+123            android:exported="false"
+123-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:100:13-37
+124            android:screenOrientation="portrait"
+124-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:99:13-49
+125            android:windowSoftInputMode="adjustResize" />
+125-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:101:13-55
+126        <activity
+126-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:102:9-106:58
+127            android:name="com.empcloud.empmonitor.ui.activity.forgotpassword.ForgotPasswordActivity"
+127-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:103:13-78
+128            android:exported="false"
+128-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:105:13-37
+129            android:screenOrientation="portrait"
+129-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:104:13-49
+130            android:windowSoftInputMode="adjustResize" />
+130-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:106:13-55
+131        <activity
+131-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:107:9-111:58
+132            android:name="com.empcloud.empmonitor.ui.activity.login.EmailPasswordActivity"
+132-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:108:13-68
+133            android:exported="false"
+133-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:110:13-37
+134            android:screenOrientation="portrait"
+134-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:109:13-49
+135            android:windowSoftInputMode="adjustResize" />
+135-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:111:13-55
+136        <activity
+136-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:112:9-116:58
+137            android:name="com.empcloud.empmonitor.ui.activity.login.EmailLoginActivity"
+137-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:113:13-65
+138            android:exported="false"
+138-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:115:13-37
+139            android:screenOrientation="portrait"
+139-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:114:13-49
+140            android:windowSoftInputMode="adjustResize" />
+140-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:116:13-55
+141        <activity
+141-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:117:9-120:40
+142            android:name="com.empcloud.empmonitor.ui.activity.login.LoginOptionsActivity"
+142-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:118:13-67
+143            android:exported="false"
+143-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:120:13-37
+144            android:screenOrientation="portrait" />
+144-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:119:13-49
+145        <activity
+145-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:121:9-124:40
+146            android:name="com.empcloud.empmonitor.ui.activity.tutorial.TutorialActivity"
+146-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:122:13-66
+147            android:exported="false"
+147-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:124:13-37
+148            android:screenOrientation="portrait" />
+148-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:123:13-49
+149        <activity
+149-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:125:9-128:40
+150            android:name="com.empcloud.empmonitor.ui.activity.welcom_tutorial.WelcomeActivity"
+150-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:126:13-72
+151            android:exported="false"
+151-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:128:13-37
+152            android:screenOrientation="portrait" />
+152-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:127:13-49
+153        <activity
+153-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:129:9-138:20
+154            android:name="com.empcloud.empmonitor.ui.activity.SplashActivity"
+154-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:130:13-55
+155            android:exported="true"
+155-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:131:13-36
+156            android:screenOrientation="portrait" >
+156-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:132:13-49
+157            <intent-filter>
+157-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:133:13-137:29
+158                <action android:name="android.intent.action.MAIN" />
+158-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:134:17-69
+158-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:134:25-66
+159
+160                <category android:name="android.intent.category.LAUNCHER" />
+160-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:136:17-77
+160-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:136:27-74
+161            </intent-filter>
+162        </activity>
+163        <activity
+163-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:139:9-142:40
+164            android:name="com.empcloud.empmonitor.MainActivity"
+164-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:140:13-41
+165            android:exported="false"
+165-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:142:13-37
+166            android:screenOrientation="portrait" />
+166-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:141:13-49
+167
+168        <provider
+168-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:144:9-152:20
+169            android:name="androidx.core.content.FileProvider"
+169-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:145:13-62
+170            android:authorities="com.empcloud.empmonitor.fileprovider"
+170-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:146:13-71
+171            android:exported="false"
+171-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:147:13-37
+172            android:grantUriPermissions="true" >
+172-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:148:13-47
+173            <meta-data
+173-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:149:13-151:54
+174                android:name="android.support.FILE_PROVIDER_PATHS"
+174-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:150:17-67
+175                android:resource="@xml/file_paths" />
+175-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:151:17-51
+176        </provider>
+177
+178        <meta-data
+178-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:154:9-156:71
+179            android:name="com.google.android.geo.API_KEY"
+179-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:155:13-58
+180            android:value="AIzaSyCttW09coBAF-u_FvqOiriGmLHs_SFTY0s" />
+180-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:156:13-68
+181
+182        <service
+182-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:158:9-162:56
+183            android:name="com.empcloud.empmonitor.ui.services.location_tacking.LocationService"
+183-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:159:13-73
+184            android:enabled="true"
+184-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:160:13-35
+185            android:exported="false"
+185-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:161:13-37
+186            android:foregroundServiceType="location" />
+186-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:162:13-53
+187
+188        <receiver
+188-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:164:9-171:20
+189            android:name="com.empcloud.empmonitor.utils.broadcast_services.SmsBroadcastReceiver"
+189-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:165:13-74
+190            android:exported="true"
+190-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:167:13-36
+191            android:permission="com.google.android.gms.auth.api.phone.permission.SEND" >
+191-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:166:13-87
+192            <intent-filter>
+192-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:168:13-170:29
+193                <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED_ACTION" />
+193-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:169:17-101
+193-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:169:25-98
+194            </intent-filter>
+195        </receiver>
+196        <receiver
+196-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:173:9-178:20
+197            android:name="com.empcloud.empmonitor.utils.broadcast_services.NetworkChangeReceiver"
+197-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:173:19-81
+198            android:enabled="true"
+198-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:173:82-104
+199            android:exported="true" >
+199-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:174:13-36
+200            <intent-filter>
+200-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:175:13-177:29
+201                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+201-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:176:17-79
+201-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:176:25-76
+202            </intent-filter>
+203        </receiver>
+204        <receiver
+204-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:181:9-187:20
+205            android:name="com.empcloud.empmonitor.utils.broadcast_services.StopocationService"
+205-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:181:19-78
+206            android:enabled="true"
+206-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:182:13-35
+207            android:exported="true" >
+207-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:183:13-36
+208            <intent-filter>
+208-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:184:13-186:29
+209                <action android:name="android.intent.action.BOOT_COMPLETED" />
+209-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:185:17-79
+209-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:185:25-76
+210            </intent-filter>
+211        </receiver>
+212        <receiver
+212-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:189:9-192:40
+213            android:name="com.empcloud.empmonitor.utils.broadcast_services.AutoCheckoutReceiver"
+213-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:190:13-74
+214            android:enabled="true"
+214-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:191:13-35
+215            android:exported="false" />
+215-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:192:13-37
+216
+217        <activity
+217-->[com.google.android.libraries.places:places:4.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/f584787d770b2ef9f86f0f38b0838efc/transformed/jetified-places-4.2.0/AndroidManifest.xml:17:9-23:20
+218            android:name="com.google.android.libraries.places.widget.AutocompleteActivity"
+218-->[com.google.android.libraries.places:places:4.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/f584787d770b2ef9f86f0f38b0838efc/transformed/jetified-places-4.2.0/AndroidManifest.xml:18:13-91
+219            android:exported="false"
+219-->[com.google.android.libraries.places:places:4.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/f584787d770b2ef9f86f0f38b0838efc/transformed/jetified-places-4.2.0/AndroidManifest.xml:19:13-37
+220            android:label="@string/places_autocomplete_label"
+220-->[com.google.android.libraries.places:places:4.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/f584787d770b2ef9f86f0f38b0838efc/transformed/jetified-places-4.2.0/AndroidManifest.xml:20:13-62
+221            android:theme="@style/PlacesAutocompleteOverlay"
+221-->[com.google.android.libraries.places:places:4.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/f584787d770b2ef9f86f0f38b0838efc/transformed/jetified-places-4.2.0/AndroidManifest.xml:21:13-61
+222            android:windowSoftInputMode="adjustResize" >
+222-->[com.google.android.libraries.places:places:4.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/f584787d770b2ef9f86f0f38b0838efc/transformed/jetified-places-4.2.0/AndroidManifest.xml:22:13-55
+223        </activity>
+224
+225        <service
+225-->[androidx.camera:camera-camera2:1.4.2] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5f4740acae1da78cd20b8abbebcee0b8/transformed/jetified-camera-camera2-1.4.2/AndroidManifest.xml:24:9-33:19
+226            android:name="androidx.camera.core.impl.MetadataHolderService"
+226-->[androidx.camera:camera-camera2:1.4.2] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5f4740acae1da78cd20b8abbebcee0b8/transformed/jetified-camera-camera2-1.4.2/AndroidManifest.xml:25:13-75
+227            android:enabled="false"
+227-->[androidx.camera:camera-camera2:1.4.2] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5f4740acae1da78cd20b8abbebcee0b8/transformed/jetified-camera-camera2-1.4.2/AndroidManifest.xml:26:13-36
+228            android:exported="false" >
+228-->[androidx.camera:camera-camera2:1.4.2] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5f4740acae1da78cd20b8abbebcee0b8/transformed/jetified-camera-camera2-1.4.2/AndroidManifest.xml:27:13-37
+229            <meta-data
+229-->[androidx.camera:camera-camera2:1.4.2] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5f4740acae1da78cd20b8abbebcee0b8/transformed/jetified-camera-camera2-1.4.2/AndroidManifest.xml:30:13-32:89
+230                android:name="androidx.camera.core.impl.MetadataHolderService.DEFAULT_CONFIG_PROVIDER"
+230-->[androidx.camera:camera-camera2:1.4.2] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5f4740acae1da78cd20b8abbebcee0b8/transformed/jetified-camera-camera2-1.4.2/AndroidManifest.xml:31:17-103
+231                android:value="androidx.camera.camera2.Camera2Config$DefaultProvider" />
+231-->[androidx.camera:camera-camera2:1.4.2] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5f4740acae1da78cd20b8abbebcee0b8/transformed/jetified-camera-camera2-1.4.2/AndroidManifest.xml:32:17-86
+232        </service>
+233        <service
+233-->[com.google.firebase:firebase-auth-ktx:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/03a8f1a03902207e9673b8fc39780e9f/transformed/jetified-firebase-auth-ktx-23.2.0/AndroidManifest.xml:8:9-14:19
+234            android:name="com.google.firebase.components.ComponentDiscoveryService"
+234-->[com.google.firebase:firebase-auth-ktx:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/03a8f1a03902207e9673b8fc39780e9f/transformed/jetified-firebase-auth-ktx-23.2.0/AndroidManifest.xml:9:13-84
+235            android:directBootAware="true"
+235-->[com.google.firebase:firebase-common:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9c5b0bace5bc27fe5b7eb650561c955b/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:32:13-43
+236            android:exported="false" >
+236-->[com.google.firebase:firebase-auth-ktx:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/03a8f1a03902207e9673b8fc39780e9f/transformed/jetified-firebase-auth-ktx-23.2.0/AndroidManifest.xml:10:13-37
+237            <meta-data
+237-->[com.google.firebase:firebase-auth-ktx:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/03a8f1a03902207e9673b8fc39780e9f/transformed/jetified-firebase-auth-ktx-23.2.0/AndroidManifest.xml:11:13-13:85
+238                android:name="com.google.firebase.components:com.google.firebase.auth.ktx.FirebaseAuthLegacyRegistrar"
+238-->[com.google.firebase:firebase-auth-ktx:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/03a8f1a03902207e9673b8fc39780e9f/transformed/jetified-firebase-auth-ktx-23.2.0/AndroidManifest.xml:12:17-119
+239                android:value="com.google.firebase.components.ComponentRegistrar" />
+239-->[com.google.firebase:firebase-auth-ktx:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/03a8f1a03902207e9673b8fc39780e9f/transformed/jetified-firebase-auth-ktx-23.2.0/AndroidManifest.xml:13:17-82
+240            <meta-data
+240-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:69:13-71:85
+241                android:name="com.google.firebase.components:com.google.firebase.auth.FirebaseAuthRegistrar"
+241-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:70:17-109
+242                android:value="com.google.firebase.components.ComponentRegistrar" />
+242-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:71:17-82
+243            <meta-data
+243-->[com.google.firebase:firebase-common-ktx:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ecdd565255dc0d1e3720e72a96c6c5aa/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:12:13-14:85
+244                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonLegacyRegistrar"
+244-->[com.google.firebase:firebase-common-ktx:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ecdd565255dc0d1e3720e72a96c6c5aa/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:13:17-116
+245                android:value="com.google.firebase.components.ComponentRegistrar" />
+245-->[com.google.firebase:firebase-common-ktx:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ecdd565255dc0d1e3720e72a96c6c5aa/transformed/jetified-firebase-common-ktx-21.0.0/AndroidManifest.xml:14:17-82
+246            <meta-data
+246-->[com.google.firebase:firebase-common:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9c5b0bace5bc27fe5b7eb650561c955b/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:35:13-37:85
+247                android:name="com.google.firebase.components:com.google.firebase.FirebaseCommonKtxRegistrar"
+247-->[com.google.firebase:firebase-common:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9c5b0bace5bc27fe5b7eb650561c955b/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:36:17-109
+248                android:value="com.google.firebase.components.ComponentRegistrar" />
+248-->[com.google.firebase:firebase-common:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9c5b0bace5bc27fe5b7eb650561c955b/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:37:17-82
+249        </service>
+250
+251        <activity
+251-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:29:9-46:20
+252            android:name="com.google.firebase.auth.internal.GenericIdpActivity"
+252-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:30:13-80
+253            android:excludeFromRecents="true"
+253-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:31:13-46
+254            android:exported="true"
+254-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:32:13-36
+255            android:launchMode="singleTask"
+255-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:33:13-44
+256            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+256-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:34:13-72
+257            <intent-filter>
+257-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:35:13-45:29
+258                <action android:name="android.intent.action.VIEW" />
+258-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:36:17-69
+258-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:36:25-66
+259
+260                <category android:name="android.intent.category.DEFAULT" />
+260-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:38:17-76
+260-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:38:27-73
+261                <category android:name="android.intent.category.BROWSABLE" />
+261-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:39:17-78
+261-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:39:27-75
+262
+263                <data
+263-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:41:17-44:51
+264                    android:host="firebase.auth"
+264-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:42:21-49
+265                    android:path="/"
+265-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:43:21-37
+266                    android:scheme="genericidp" />
+266-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:44:21-48
+267            </intent-filter>
+268        </activity>
+269        <activity
+269-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:47:9-64:20
+270            android:name="com.google.firebase.auth.internal.RecaptchaActivity"
+270-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:48:13-79
+271            android:excludeFromRecents="true"
+271-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:49:13-46
+272            android:exported="true"
+272-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:50:13-36
+273            android:launchMode="singleTask"
+273-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:51:13-44
+274            android:theme="@android:style/Theme.Translucent.NoTitleBar" >
+274-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:52:13-72
+275            <intent-filter>
+275-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:53:13-63:29
+276                <action android:name="android.intent.action.VIEW" />
+276-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:36:17-69
+276-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:36:25-66
+277
+278                <category android:name="android.intent.category.DEFAULT" />
+278-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:38:17-76
+278-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:38:27-73
+279                <category android:name="android.intent.category.BROWSABLE" />
+279-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:39:17-78
+279-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:39:27-75
+280
+281                <data
+281-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:41:17-44:51
+282                    android:host="firebase.auth"
+282-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:42:21-49
+283                    android:path="/"
+283-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:43:21-37
+284                    android:scheme="recaptcha" />
+284-->[com.google.firebase:firebase-auth:23.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9082e1b82cc4aa7ef33d2794224c3036/transformed/jetified-firebase-auth-23.2.0/AndroidManifest.xml:44:21-48
+285            </intent-filter>
+286        </activity>
+287
+288        <service
+288-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:24:9-32:19
+289            android:name="androidx.credentials.playservices.CredentialProviderMetadataHolder"
+289-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:25:13-94
+290            android:enabled="true"
+290-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:26:13-35
+291            android:exported="false" >
+291-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:27:13-37
+292            <meta-data
+292-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:29:13-31:104
+293                android:name="androidx.credentials.CREDENTIAL_PROVIDER_KEY"
+293-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:30:17-76
+294                android:value="androidx.credentials.playservices.CredentialProviderPlayServicesImpl" />
+294-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:31:17-101
+295        </service>
+296
+297        <activity
+297-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:34:9-41:20
+298            android:name="androidx.credentials.playservices.HiddenActivity"
+298-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:35:13-76
+299            android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
+299-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:36:13-87
+300            android:enabled="true"
+300-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:37:13-35
+301            android:exported="false"
+301-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:38:13-37
+302            android:fitsSystemWindows="true"
+302-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:39:13-45
+303            android:theme="@style/Theme.Hidden" >
+303-->[androidx.credentials:credentials-play-services-auth:1.2.0-rc01] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6a570215a4bddbd1c180814666e7413c/transformed/jetified-credentials-play-services-auth-1.2.0-rc01/AndroidManifest.xml:40:13-48
+304        </activity>
+305        <activity
+305-->[com.google.android.gms:play-services-auth:21.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/344f9d53e928cc84890b41ea0bb55a85/transformed/jetified-play-services-auth-21.3.0/AndroidManifest.xml:23:9-27:75
+306            android:name="com.google.android.gms.auth.api.signin.internal.SignInHubActivity"
+306-->[com.google.android.gms:play-services-auth:21.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/344f9d53e928cc84890b41ea0bb55a85/transformed/jetified-play-services-auth-21.3.0/AndroidManifest.xml:24:13-93
+307            android:excludeFromRecents="true"
+307-->[com.google.android.gms:play-services-auth:21.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/344f9d53e928cc84890b41ea0bb55a85/transformed/jetified-play-services-auth-21.3.0/AndroidManifest.xml:25:13-46
+308            android:exported="false"
+308-->[com.google.android.gms:play-services-auth:21.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/344f9d53e928cc84890b41ea0bb55a85/transformed/jetified-play-services-auth-21.3.0/AndroidManifest.xml:26:13-37
+309            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+309-->[com.google.android.gms:play-services-auth:21.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/344f9d53e928cc84890b41ea0bb55a85/transformed/jetified-play-services-auth-21.3.0/AndroidManifest.xml:27:13-72
+310        <!--
+311            Service handling Google Sign-In user revocation. For apps that do not integrate with
+312            Google Sign-In, this service will never be started.
+313        -->
+314        <service
+314-->[com.google.android.gms:play-services-auth:21.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/344f9d53e928cc84890b41ea0bb55a85/transformed/jetified-play-services-auth-21.3.0/AndroidManifest.xml:33:9-37:51
+315            android:name="com.google.android.gms.auth.api.signin.RevocationBoundService"
+315-->[com.google.android.gms:play-services-auth:21.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/344f9d53e928cc84890b41ea0bb55a85/transformed/jetified-play-services-auth-21.3.0/AndroidManifest.xml:34:13-89
+316            android:exported="true"
+316-->[com.google.android.gms:play-services-auth:21.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/344f9d53e928cc84890b41ea0bb55a85/transformed/jetified-play-services-auth-21.3.0/AndroidManifest.xml:35:13-36
+317            android:permission="com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION"
+317-->[com.google.android.gms:play-services-auth:21.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/344f9d53e928cc84890b41ea0bb55a85/transformed/jetified-play-services-auth-21.3.0/AndroidManifest.xml:36:13-107
+318            android:visibleToInstantApps="true" /> <!-- Needs to be explicitly declared on P+ -->
+318-->[com.google.android.gms:play-services-auth:21.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/344f9d53e928cc84890b41ea0bb55a85/transformed/jetified-play-services-auth-21.3.0/AndroidManifest.xml:37:13-48
+319        <uses-library
+319-->[com.google.android.gms:play-services-maps:19.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9992609edc0c01b6efeaee768bdafaa2/transformed/jetified-play-services-maps-19.2.0/AndroidManifest.xml:33:7-86
+320            android:name="org.apache.http.legacy"
+320-->[com.google.android.gms:play-services-maps:19.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9992609edc0c01b6efeaee768bdafaa2/transformed/jetified-play-services-maps-19.2.0/AndroidManifest.xml:33:21-58
+321            android:required="false" />
+321-->[com.google.android.gms:play-services-maps:19.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9992609edc0c01b6efeaee768bdafaa2/transformed/jetified-play-services-maps-19.2.0/AndroidManifest.xml:33:59-83
+322
+323        <activity
+323-->[com.google.android.gms:play-services-base:18.5.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ceb6ce20024a14c3ee438fbcea728d35/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:9-173
+324            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+324-->[com.google.android.gms:play-services-base:18.5.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ceb6ce20024a14c3ee438fbcea728d35/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:19-85
+325            android:exported="false"
+325-->[com.google.android.gms:play-services-base:18.5.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ceb6ce20024a14c3ee438fbcea728d35/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:146-170
+326            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+326-->[com.google.android.gms:play-services-base:18.5.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ceb6ce20024a14c3ee438fbcea728d35/transformed/jetified-play-services-base-18.5.0/AndroidManifest.xml:5:86-145
+327
+328        <provider
+328-->[com.google.firebase:firebase-common:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9c5b0bace5bc27fe5b7eb650561c955b/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:23:9-28:39
+329            android:name="com.google.firebase.provider.FirebaseInitProvider"
+329-->[com.google.firebase:firebase-common:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9c5b0bace5bc27fe5b7eb650561c955b/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:24:13-77
+330            android:authorities="com.empcloud.empmonitor.firebaseinitprovider"
+330-->[com.google.firebase:firebase-common:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9c5b0bace5bc27fe5b7eb650561c955b/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:25:13-72
+331            android:directBootAware="true"
+331-->[com.google.firebase:firebase-common:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9c5b0bace5bc27fe5b7eb650561c955b/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:26:13-43
+332            android:exported="false"
+332-->[com.google.firebase:firebase-common:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9c5b0bace5bc27fe5b7eb650561c955b/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:27:13-37
+333            android:initOrder="100" />
+333-->[com.google.firebase:firebase-common:21.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9c5b0bace5bc27fe5b7eb650561c955b/transformed/jetified-firebase-common-21.0.0/AndroidManifest.xml:28:13-36
+334        <provider
+334-->[androidx.emoji2:emoji2:1.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7ca75bf6e7d6845db8361713fc18b3f0/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:24:9-32:20
+335            android:name="androidx.startup.InitializationProvider"
+335-->[androidx.emoji2:emoji2:1.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7ca75bf6e7d6845db8361713fc18b3f0/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:25:13-67
+336            android:authorities="com.empcloud.empmonitor.androidx-startup"
+336-->[androidx.emoji2:emoji2:1.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7ca75bf6e7d6845db8361713fc18b3f0/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:26:13-68
+337            android:exported="false" >
+337-->[androidx.emoji2:emoji2:1.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7ca75bf6e7d6845db8361713fc18b3f0/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:27:13-37
+338            <meta-data
+338-->[androidx.emoji2:emoji2:1.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7ca75bf6e7d6845db8361713fc18b3f0/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:29:13-31:52
+339                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+339-->[androidx.emoji2:emoji2:1.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7ca75bf6e7d6845db8361713fc18b3f0/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:30:17-75
+340                android:value="androidx.startup" />
+340-->[androidx.emoji2:emoji2:1.3.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7ca75bf6e7d6845db8361713fc18b3f0/transformed/jetified-emoji2-1.3.0/AndroidManifest.xml:31:17-49
+341            <meta-data
+341-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:34:13-36:52
+342                android:name="androidx.work.WorkManagerInitializer"
+342-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:35:17-68
+343                android:value="androidx.startup" />
+343-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:36:17-49
+344            <meta-data
+344-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/d72056886505e63e453f7f5885db0b5b/transformed/jetified-lifecycle-process-2.8.7/AndroidManifest.xml:29:13-31:52
+345                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+345-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/d72056886505e63e453f7f5885db0b5b/transformed/jetified-lifecycle-process-2.8.7/AndroidManifest.xml:30:17-78
+346                android:value="androidx.startup" />
+346-->[androidx.lifecycle:lifecycle-process:2.8.7] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/d72056886505e63e453f7f5885db0b5b/transformed/jetified-lifecycle-process-2.8.7/AndroidManifest.xml:31:17-49
+347            <meta-data
+347-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:29:13-31:52
+348                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+348-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:30:17-85
+349                android:value="androidx.startup" />
+349-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:31:17-49
+350        </provider>
+351
+352        <service
+352-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:39:9-45:35
+353            android:name="androidx.work.impl.background.systemalarm.SystemAlarmService"
+353-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:40:13-88
+354            android:directBootAware="false"
+354-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:41:13-44
+355            android:enabled="@bool/enable_system_alarm_service_default"
+355-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:42:13-72
+356            android:exported="false" />
+356-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:43:13-37
+357        <service
+357-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:46:9-52:35
+358            android:name="androidx.work.impl.background.systemjob.SystemJobService"
+358-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:47:13-84
+359            android:directBootAware="false"
+359-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:48:13-44
+360            android:enabled="@bool/enable_system_job_service_default"
+360-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:49:13-70
+361            android:exported="true"
+361-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:50:13-36
+362            android:permission="android.permission.BIND_JOB_SERVICE" />
+362-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:51:13-69
+363        <service
+363-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:53:9-59:35
+364            android:name="androidx.work.impl.foreground.SystemForegroundService"
+364-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:54:13-81
+365            android:directBootAware="false"
+365-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:55:13-44
+366            android:enabled="@bool/enable_system_foreground_service_default"
+366-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:56:13-77
+367            android:exported="false" />
+367-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:57:13-37
+368
+369        <receiver
+369-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:61:9-66:35
+370            android:name="androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver"
+370-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:62:13-88
+371            android:directBootAware="false"
+371-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:63:13-44
+372            android:enabled="true"
+372-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:64:13-35
+373            android:exported="false" />
+373-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:65:13-37
+374        <receiver
+374-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:67:9-77:20
+375            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy"
+375-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:68:13-106
+376            android:directBootAware="false"
+376-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:69:13-44
+377            android:enabled="false"
+377-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:70:13-36
+378            android:exported="false" >
+378-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:71:13-37
+379            <intent-filter>
+379-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:73:13-76:29
+380                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
+380-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:74:17-87
+380-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:74:25-84
+381                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED" />
+381-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:75:17-90
+381-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:75:25-87
+382            </intent-filter>
+383        </receiver>
+384        <receiver
+384-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:78:9-88:20
+385            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy"
+385-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:79:13-104
+386            android:directBootAware="false"
+386-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:80:13-44
+387            android:enabled="false"
+387-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:81:13-36
+388            android:exported="false" >
+388-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:82:13-37
+389            <intent-filter>
+389-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:84:13-87:29
+390                <action android:name="android.intent.action.BATTERY_OKAY" />
+390-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:85:17-77
+390-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:85:25-74
+391                <action android:name="android.intent.action.BATTERY_LOW" />
+391-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:86:17-76
+391-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:86:25-73
+392            </intent-filter>
+393        </receiver>
+394        <receiver
+394-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:89:9-99:20
+395            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy"
+395-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:90:13-104
+396            android:directBootAware="false"
+396-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:91:13-44
+397            android:enabled="false"
+397-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:92:13-36
+398            android:exported="false" >
+398-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:93:13-37
+399            <intent-filter>
+399-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:95:13-98:29
+400                <action android:name="android.intent.action.DEVICE_STORAGE_LOW" />
+400-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:96:17-83
+400-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:96:25-80
+401                <action android:name="android.intent.action.DEVICE_STORAGE_OK" />
+401-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:97:17-82
+401-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:97:25-79
+402            </intent-filter>
+403        </receiver>
+404        <receiver
+404-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:100:9-109:20
+405            android:name="androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy"
+405-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:101:13-103
+406            android:directBootAware="false"
+406-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:102:13-44
+407            android:enabled="false"
+407-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:103:13-36
+408            android:exported="false" >
+408-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:104:13-37
+409            <intent-filter>
+409-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:175:13-177:29
+410                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+410-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:176:17-79
+410-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:176:25-76
+411            </intent-filter>
+412        </receiver>
+413        <receiver
+413-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:110:9-121:20
+414            android:name="androidx.work.impl.background.systemalarm.RescheduleReceiver"
+414-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:111:13-88
+415            android:directBootAware="false"
+415-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:112:13-44
+416            android:enabled="false"
+416-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:113:13-36
+417            android:exported="false" >
+417-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:114:13-37
+418            <intent-filter>
+418-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:116:13-120:29
+419                <action android:name="android.intent.action.BOOT_COMPLETED" />
+419-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:185:17-79
+419-->/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/src/main/AndroidManifest.xml:185:25-76
+420                <action android:name="android.intent.action.TIME_SET" />
+420-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:118:17-73
+420-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:118:25-70
+421                <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+421-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:119:17-81
+421-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:119:25-78
+422            </intent-filter>
+423        </receiver>
+424        <receiver
+424-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:122:9-131:20
+425            android:name="androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver"
+425-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:123:13-99
+426            android:directBootAware="false"
+426-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:124:13-44
+427            android:enabled="@bool/enable_system_alarm_service_default"
+427-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:125:13-72
+428            android:exported="false" >
+428-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:126:13-37
+429            <intent-filter>
+429-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:128:13-130:29
+430                <action android:name="androidx.work.impl.background.systemalarm.UpdateProxies" />
+430-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:129:17-98
+430-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:129:25-95
+431            </intent-filter>
+432        </receiver>
+433        <receiver
+433-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:132:9-142:20
+434            android:name="androidx.work.impl.diagnostics.DiagnosticsReceiver"
+434-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:133:13-78
+435            android:directBootAware="false"
+435-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:134:13-44
+436            android:enabled="true"
+436-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:135:13-35
+437            android:exported="true"
+437-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:136:13-36
+438            android:permission="android.permission.DUMP" >
+438-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:137:13-57
+439            <intent-filter>
+439-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:139:13-141:29
+440                <action android:name="androidx.work.diagnostics.REQUEST_DIAGNOSTICS" />
+440-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:140:17-88
+440-->[androidx.work:work-runtime:2.10.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/ce9bc097b495b3daed8a57a067373589/transformed/work-runtime-2.10.1/AndroidManifest.xml:140:25-85
+441            </intent-filter>
+442        </receiver>
+443
+444        <uses-library
+444-->[androidx.window:window:1.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5655970cfea95e5a684a8234804dbbf7/transformed/jetified-window-1.0.0/AndroidManifest.xml:25:9-27:40
+445            android:name="androidx.window.extensions"
+445-->[androidx.window:window:1.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5655970cfea95e5a684a8234804dbbf7/transformed/jetified-window-1.0.0/AndroidManifest.xml:26:13-54
+446            android:required="false" />
+446-->[androidx.window:window:1.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5655970cfea95e5a684a8234804dbbf7/transformed/jetified-window-1.0.0/AndroidManifest.xml:27:13-37
+447        <uses-library
+447-->[androidx.window:window:1.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5655970cfea95e5a684a8234804dbbf7/transformed/jetified-window-1.0.0/AndroidManifest.xml:28:9-30:40
+448            android:name="androidx.window.sidecar"
+448-->[androidx.window:window:1.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5655970cfea95e5a684a8234804dbbf7/transformed/jetified-window-1.0.0/AndroidManifest.xml:29:13-51
+449            android:required="false" />
+449-->[androidx.window:window:1.0.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5655970cfea95e5a684a8234804dbbf7/transformed/jetified-window-1.0.0/AndroidManifest.xml:30:13-37
+450
+451        <service
+451-->[androidx.room:room-runtime-android:2.7.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9096c61849e0e8932a23dee2df556a19/transformed/jetified-room-runtime-release/AndroidManifest.xml:24:9-28:63
+452            android:name="androidx.room.MultiInstanceInvalidationService"
+452-->[androidx.room:room-runtime-android:2.7.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9096c61849e0e8932a23dee2df556a19/transformed/jetified-room-runtime-release/AndroidManifest.xml:25:13-74
+453            android:directBootAware="true"
+453-->[androidx.room:room-runtime-android:2.7.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9096c61849e0e8932a23dee2df556a19/transformed/jetified-room-runtime-release/AndroidManifest.xml:26:13-43
+454            android:exported="false" />
+454-->[androidx.room:room-runtime-android:2.7.1] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9096c61849e0e8932a23dee2df556a19/transformed/jetified-room-runtime-release/AndroidManifest.xml:27:13-37
+455
+456        <meta-data
+456-->[com.google.android.gms:play-services-basement:18.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/4fdde9cf5c874d1c45c9a9cc0fd68cd1/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:9-122
+457            android:name="com.google.android.gms.version"
+457-->[com.google.android.gms:play-services-basement:18.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/4fdde9cf5c874d1c45c9a9cc0fd68cd1/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:20-65
+458            android:value="@integer/google_play_services_version" />
+458-->[com.google.android.gms:play-services-basement:18.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/4fdde9cf5c874d1c45c9a9cc0fd68cd1/transformed/jetified-play-services-basement-18.4.0/AndroidManifest.xml:6:66-119
+459
+460        <provider
+460-->[com.squareup.picasso:picasso:2.71828] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9aa1ec8d3153287bbc1ce2077be65a56/transformed/jetified-picasso-2.71828/AndroidManifest.xml:8:9-11:40
+461            android:name="com.squareup.picasso.PicassoProvider"
+461-->[com.squareup.picasso:picasso:2.71828] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9aa1ec8d3153287bbc1ce2077be65a56/transformed/jetified-picasso-2.71828/AndroidManifest.xml:9:13-64
+462            android:authorities="com.empcloud.empmonitor.com.squareup.picasso"
+462-->[com.squareup.picasso:picasso:2.71828] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9aa1ec8d3153287bbc1ce2077be65a56/transformed/jetified-picasso-2.71828/AndroidManifest.xml:10:13-72
+463            android:exported="false" />
+463-->[com.squareup.picasso:picasso:2.71828] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/9aa1ec8d3153287bbc1ce2077be65a56/transformed/jetified-picasso-2.71828/AndroidManifest.xml:11:13-37
+464
+465        <receiver
+465-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:34:9-52:20
+466            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+466-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:35:13-76
+467            android:directBootAware="false"
+467-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:36:13-44
+468            android:enabled="true"
+468-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:37:13-35
+469            android:exported="true"
+469-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:38:13-36
+470            android:permission="android.permission.DUMP" >
+470-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:39:13-57
+471            <intent-filter>
+471-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:40:13-42:29
+472                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+472-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:41:17-91
+472-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:41:25-88
+473            </intent-filter>
+474            <intent-filter>
+474-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:43:13-45:29
+475                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+475-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:44:17-85
+475-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:44:25-82
+476            </intent-filter>
+477            <intent-filter>
+477-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:46:13-48:29
+478                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+478-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:47:17-88
+478-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:47:25-85
+479            </intent-filter>
+480            <intent-filter>
+480-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:49:13-51:29
+481                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+481-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:50:17-95
+481-->[androidx.profileinstaller:profileinstaller:1.4.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/2c3458947ed4f23d9261ac6dc45e99a5/transformed/jetified-profileinstaller-1.4.0/AndroidManifest.xml:50:25-92
+482            </intent-filter>
+483        </receiver>
+484
+485        <service
+485-->[com.google.android.datatransport:transport-backend-cct:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6bbd714e0702d9426a931c1b6dd7e837/transformed/jetified-transport-backend-cct-3.2.0/AndroidManifest.xml:26:9-32:19
+486            android:name="com.google.android.datatransport.runtime.backends.TransportBackendDiscovery"
+486-->[com.google.android.datatransport:transport-backend-cct:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6bbd714e0702d9426a931c1b6dd7e837/transformed/jetified-transport-backend-cct-3.2.0/AndroidManifest.xml:27:13-103
+487            android:exported="false" >
+487-->[com.google.android.datatransport:transport-backend-cct:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6bbd714e0702d9426a931c1b6dd7e837/transformed/jetified-transport-backend-cct-3.2.0/AndroidManifest.xml:28:13-37
+488            <meta-data
+488-->[com.google.android.datatransport:transport-backend-cct:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6bbd714e0702d9426a931c1b6dd7e837/transformed/jetified-transport-backend-cct-3.2.0/AndroidManifest.xml:29:13-31:39
+489                android:name="backend:com.google.android.datatransport.cct.CctBackendFactory"
+489-->[com.google.android.datatransport:transport-backend-cct:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6bbd714e0702d9426a931c1b6dd7e837/transformed/jetified-transport-backend-cct-3.2.0/AndroidManifest.xml:30:17-94
+490                android:value="cct" />
+490-->[com.google.android.datatransport:transport-backend-cct:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/6bbd714e0702d9426a931c1b6dd7e837/transformed/jetified-transport-backend-cct-3.2.0/AndroidManifest.xml:31:17-36
+491        </service>
+492        <service
+492-->[com.google.android.datatransport:transport-runtime:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5aa0877b7f03154018739fe66a4a7ba8/transformed/jetified-transport-runtime-3.2.0/AndroidManifest.xml:24:9-28:19
+493            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService"
+493-->[com.google.android.datatransport:transport-runtime:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5aa0877b7f03154018739fe66a4a7ba8/transformed/jetified-transport-runtime-3.2.0/AndroidManifest.xml:25:13-117
+494            android:exported="false"
+494-->[com.google.android.datatransport:transport-runtime:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5aa0877b7f03154018739fe66a4a7ba8/transformed/jetified-transport-runtime-3.2.0/AndroidManifest.xml:26:13-37
+495            android:permission="android.permission.BIND_JOB_SERVICE" >
+495-->[com.google.android.datatransport:transport-runtime:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5aa0877b7f03154018739fe66a4a7ba8/transformed/jetified-transport-runtime-3.2.0/AndroidManifest.xml:27:13-69
+496        </service>
+497
+498        <receiver
+498-->[com.google.android.datatransport:transport-runtime:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5aa0877b7f03154018739fe66a4a7ba8/transformed/jetified-transport-runtime-3.2.0/AndroidManifest.xml:30:9-32:40
+499            android:name="com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver"
+499-->[com.google.android.datatransport:transport-runtime:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5aa0877b7f03154018739fe66a4a7ba8/transformed/jetified-transport-runtime-3.2.0/AndroidManifest.xml:31:13-132
+500            android:exported="false" /> <!-- The activities will be merged into the manifest of the hosting app. -->
+500-->[com.google.android.datatransport:transport-runtime:3.2.0] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/5aa0877b7f03154018739fe66a4a7ba8/transformed/jetified-transport-runtime-3.2.0/AndroidManifest.xml:32:13-37
+501        <activity
+501-->[com.google.android.play:core-common:2.0.3] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7a390ea0b9ede0a71bad837943b66160/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:14:9-18:65
+502            android:name="com.google.android.play.core.common.PlayCoreDialogWrapperActivity"
+502-->[com.google.android.play:core-common:2.0.3] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7a390ea0b9ede0a71bad837943b66160/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:15:13-93
+503            android:exported="false"
+503-->[com.google.android.play:core-common:2.0.3] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7a390ea0b9ede0a71bad837943b66160/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:16:13-37
+504            android:stateNotNeeded="true"
+504-->[com.google.android.play:core-common:2.0.3] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7a390ea0b9ede0a71bad837943b66160/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:17:13-42
+505            android:theme="@style/Theme.PlayCore.Transparent" />
+505-->[com.google.android.play:core-common:2.0.3] /home/glb-blr-161/.gradle/caches/8.11.1/transforms/7a390ea0b9ede0a71bad837943b66160/transformed/jetified-core-common-2.0.3/AndroidManifest.xml:18:13-62
+506    </application>
+507
+508</manifest>

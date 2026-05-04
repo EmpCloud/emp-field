@@ -1,0 +1,27 @@
+{
+  "buildFiles": [
+    "/home/glb-blr-214/StudioProjects/emp-field/app/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/home/glb-blr-214/Android/Sdk/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/home/glb-blr-214/StudioProjects/emp-field/app/.cxx/Debug/4e1f6y5s/x86",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/home/glb-blr-214/Android/Sdk/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/home/glb-blr-214/StudioProjects/emp-field/app/.cxx/Debug/4e1f6y5s/x86",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "native-lib::@6890427a1f51a3e7e1df": {
+      "artifactName": "native-lib",
+      "abi": "x86",
+      "output": "/home/glb-blr-214/StudioProjects/emp-field/app/build/intermediates/cxx/Debug/4e1f6y5s/obj/x86/libnative-lib.so",
+      "runtimeFiles": []
+    }
+  }
+}

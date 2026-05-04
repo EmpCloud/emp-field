@@ -1,0 +1,1271 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.fragment.task.task_create_second.add_task.AddTaskFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="15dp">
+
+        <!--        back arrow view-->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/backbtn"
+            android:clickable="true"
+            android:layout_marginStart="@dimen/margin_twenty"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center"
+                android:padding="3dp"
+                android:src="@drawable/baseline_arrow_back_24" />
+        </androidx.cardview.widget.CardView>
+
+
+
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/tasks"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_twenty"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/margin_twenty"
+        android:background="@drawable/profile_back_shape"
+        android:layout_height="0dp">
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="0dp"-->
+<!--            app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent">-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/linearLayout22"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="0dp"-->
+<!--                android:layout_marginTop="@dimen/margin_twenty"-->
+<!--                android:elevation="10dp"-->
+<!--                android:orientation="vertical"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2">-->
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_gravity="center"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:gravity="center"
+                android:text="@string/add_task"
+                android:textColor="@color/black_text_color"
+                android:textSize="@dimen/text_eighteen" />
+
+            <ScrollView
+                android:id="@+id/scrollsection"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/margin_twenty"
+                android:layout_marginBottom="@dimen/margin_twenty"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
+                android:layout_height="0dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_twenty"
+                    android:layout_marginEnd="@dimen/margin_twenty"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/task_name"
+                        android:textColor="@color/welcome_text_display_color"
+                        android:textSize="@dimen/text_fourteen"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/taskName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_five"
+                        android:background="@drawable/white_edittext_back"
+                        android:hint="@string/write_task_name"
+                        android:inputType="text"
+                        android:paddingStart="@dimen/padding_ten"
+                        android:paddingTop="@dimen/margin_fifteen"
+                        android:paddingEnd="@dimen/padding_ten"
+                        android:paddingBottom="@dimen/margin_fifteen"
+                        android:textColor="@color/weekoff"
+                        android:textSize="12sp"
+                        android:theme="@style/FontMedium" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/padding_ten"
+                        android:text="@string/select_client_ma"
+                        android:textColor="@color/welcome_text_display_color"
+                        android:textSize="@dimen/text_fourteen"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/selectClient"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_five"
+                        android:background="@drawable/white_edittext_back"
+                        android:clickable="true"
+                        android:drawableEnd="@drawable/next_icon"
+                        android:focusable="false"
+                        android:hint="@string/select_client"
+                        android:inputType="text"
+                        android:paddingStart="@dimen/padding_ten"
+                        android:paddingTop="@dimen/margin_fifteen"
+                        android:paddingEnd="@dimen/padding_ten"
+                        android:paddingBottom="@dimen/margin_fifteen"
+                        android:textColor="@color/weekoff"
+                        android:textSize="12sp"
+                        android:theme="@style/FontMedium" />
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_ten"
+                        android:text="@string/schedule"
+                        android:textColor="@color/welcome_text_display_color"
+                        android:textSize="@dimen/text_fourteen"
+                        android:textStyle="bold" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <EditText
+                            android:id="@+id/timestart"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_five"
+                            android:layout_marginEnd="@dimen/margin_ten"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_edittext_back"
+                            android:clickable="true"
+                            android:drawableEnd="@drawable/scheduleic"
+                            android:focusable="false"
+                            android:hint="@string/start_time"
+                            android:inputType="text"
+                            android:paddingStart="@dimen/padding_ten"
+                            android:paddingTop="@dimen/padding_ten"
+                            android:paddingEnd="@dimen/padding_ten"
+                            android:paddingBottom="@dimen/padding_ten"
+                            android:textColor="@color/weekoff"
+                            android:textSize="12sp"
+                            android:theme="@style/FontMedium" />
+
+                        <EditText
+                            android:id="@+id/timeEnd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_five"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_edittext_back"
+                            android:clickable="true"
+                            android:drawableEnd="@drawable/scheduleic"
+                            android:focusable="false"
+                            android:hint="@string/end_time"
+                            android:inputType="text"
+                            android:paddingStart="@dimen/padding_ten"
+                            android:paddingTop="@dimen/padding_ten"
+                            android:paddingEnd="@dimen/padding_ten"
+                            android:paddingBottom="@dimen/padding_ten"
+                            android:textColor="@color/weekoff"
+                            android:textSize="12sp"
+                            android:theme="@style/FontMedium" />
+                    </LinearLayout>
+
+                    <!--            <EditText-->
+                    <!--                android:id="@+id/time"-->
+                    <!--                android:layout_width="match_parent"-->
+                    <!--                android:layout_height="wrap_content"-->
+                    <!--                android:layout_marginTop="@dimen/margin_five"-->
+                    <!--                android:background="@drawable/white_edittext_back"-->
+                    <!--                android:clickable="true"-->
+                    <!--                android:drawableEnd="@drawable/scheduleic"-->
+                    <!--                android:focusable="false"-->
+                    <!--                android:hint="10:00AM - 11:00AM "-->
+                    <!--                android:inputType="text"-->
+                    <!--                android:paddingStart="@dimen/padding_ten"-->
+                    <!--                android:paddingTop="@dimen/padding_ten"-->
+                    <!--                android:paddingEnd="@dimen/padding_ten"-->
+                    <!--                android:paddingBottom="@dimen/padding_ten"-->
+                    <!--                android:textColor="@color/weekoff"-->
+                    <!--                android:textSize="12sp"-->
+                    <!--                android:theme="@style/FontMedium" />-->
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_ten"
+                        android:text="@string/description"
+                        android:textColor="@color/welcome_text_display_color"
+                        android:textSize="@dimen/text_fourteen"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_five"
+                        android:background="@drawable/white_edittext_back"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/description"
+                            android:layout_width="match_parent"
+                            android:layout_height="80dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/white_edittext_back"
+                            android:gravity="top"
+                            android:hint="@string/write_description"
+                            android:inputType="textMultiLine"
+                            android:paddingStart="@dimen/padding_ten"
+                            android:paddingTop="@dimen/padding_ten"
+                            android:paddingEnd="@dimen/padding_ten"
+                            android:paddingBottom="@dimen/padding_ten"
+                            android:textColor="@color/weekoff"
+                            android:textSize="12sp"
+                            android:theme="@style/FontMedium" />
+
+                        <ImageView
+                            android:id="@+id/docsUpload"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_marginTop="@dimen/margin_ten"
+                            android:layout_marginEnd="@dimen/margin_five"
+                            android:adjustViewBounds="true"
+                            android:clickable="true"
+                            android:padding="@dimen/margin_five"
+                            android:src="@drawable/desc_ic" />
+                    </LinearLayout>
+
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_ten"
+                        android:text="@string/task_volume"
+                        android:textColor="@color/welcome_text_display_color"
+                        android:textSize="@dimen/text_fourteen"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/taskvolume"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_five"
+                        android:background="@drawable/white_edittext_back"
+                        android:hint="@string/enter_task_volume"
+                        android:inputType="number"
+                        android:paddingStart="@dimen/padding_ten"
+                        android:paddingTop="@dimen/margin_fifteen"
+                        android:paddingEnd="@dimen/padding_ten"
+                        android:paddingBottom="@dimen/margin_fifteen"
+                        android:textColor="@color/weekoff"
+                        android:textSize="12sp"
+                        android:theme="@style/FontMedium" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_ten"
+                        android:text="@string/task_value"
+                        android:textColor="@color/welcome_text_display_color"
+                        android:textSize="@dimen/text_fourteen"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="50dp"
+                        android:layout_marginTop="@dimen/padding_ten"
+                        android:orientation="horizontal">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/taskvaluespinnerbg"
+                            android:orientation="horizontal">
+
+                            <Spinner
+                                android:id="@+id/currencydrop"
+                                android:gravity="center"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"/>
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/buttonBgColor_attendance"
+                                android:layout_marginEnd="@dimen/margin_ten"
+                                android:src="@drawable/dropdown_icon"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:tint="@color/white" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <EditText
+                            android:id="@+id/taskvalue"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/white_edittext_back"
+                            android:hint="@string/enter_task_value"
+                            android:inputType="number"
+                            android:paddingStart="@dimen/padding_ten"
+                            android:paddingTop="@dimen/margin_fifteen"
+                            android:paddingEnd="@dimen/padding_ten"
+                            android:paddingBottom="@dimen/margin_fifteen"
+                            android:textColor="@color/weekoff"
+                            android:textSize="12sp"
+                            android:theme="@style/FontMedium" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/docsfiledatashow"
+                        android:clickable="true"
+                        android:layout_marginBottom="50dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_five"
+                        android:layout_marginTop="@dimen/margin_five"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/firstdocs"
+                            android:clickable="true"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="0dp"
+                            android:layout_marginEnd="@dimen/margin_ten"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="@dimen/margin_ten">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/finish_task_13"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_marginStart="@dimen/margin_five"
+                                        android:src="@drawable/pdf"
+                                        android:layout_gravity="center"/>
+                                    <TextView
+                                        android:id="@+id/doctxt"
+                                        android:layout_width="match_parent"
+                                        android:layout_marginStart="@dimen/margin_five"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/margin_ten"
+                                        android:ellipsize="end"
+                                        android:maxLines="1"
+                                        android:text="Description*"
+                                        android:textColor="@color/holidays_listitems_color1"
+                                        android:textSize="@dimen/text_twelve"
+                                        android:theme="@style/FontMedium" />
+
+                                    <ImageView
+                                        android:id="@+id/cancelbtn"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:clickable="true"
+                                        android:src="@drawable/cancel_icon"
+                                        app:tint="@color/buttonbgcolor" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/seconddocs"
+                            android:clickable="true"
+                            android:visibility="invisible"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            app:cardElevation="0dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="@dimen/margin_ten">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:adjustViewBounds="true"
+                                    android:scaleType="centerCrop"
+                                    android:src="@drawable/finish_task_13"/>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_marginStart="@dimen/margin_five"
+                                        android:src="@drawable/pdf"
+                                        android:layout_gravity="center"/>
+                                    <TextView
+                                        android:id="@+id/doctxt2"
+                                        android:layout_width="match_parent"
+                                        android:layout_marginStart="@dimen/margin_five"
+                                        android:layout_weight="1"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="@dimen/margin_ten"
+                                        android:ellipsize="end"
+                                        android:maxLines="1"
+                                        android:text="Description*"
+                                        android:textColor="@color/holidays_listitems_color1"
+                                        android:textSize="@dimen/text_twelve"
+                                        android:theme="@style/FontMedium" />
+
+                                    <ImageView
+                                        android:id="@+id/cancelbtn2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:clickable="true"
+                                        android:src="@drawable/cancel_icon"
+                                        app:tint="@color/buttonbgcolor" />
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </androidx.cardview.widget.CardView>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/imageshow"
+                        android:clickable="true"
+                        android:layout_marginBottom="50dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/imgfirst"
+                                android:clickable="true"
+                                android:visibility="invisible"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardElevation="0dp"
+                                android:layout_marginEnd="@dimen/margin_ten"
+                                android:layout_weight="1"
+                                app:cardCornerRadius="@dimen/margin_ten">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/firstimgshow"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="60dp"
+                                        android:scaleType="center"
+                                        android:adjustViewBounds="true"/>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+
+                                        <ImageView
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:layout_marginStart="@dimen/margin_five"
+                                            android:src="@drawable/imgicon"
+                                            android:layout_gravity="center"/>
+                                        <TextView
+                                            android:id="@+id/imgfirsttxt"
+                                            android:layout_width="match_parent"
+                                            android:layout_marginStart="@dimen/margin_five"
+                                            android:layout_weight="1"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_ten"
+                                            android:ellipsize="end"
+                                            android:maxLines="1"
+                                            android:text="Description*"
+                                            android:textColor="@color/holidays_listitems_color1"
+                                            android:textSize="@dimen/text_twelve"
+                                            android:theme="@style/FontMedium" />
+
+                                        <ImageView
+                                            android:id="@+id/imgfirstcancelbtn"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:clickable="true"
+                                            android:src="@drawable/cancel_icon"
+                                            app:tint="@color/buttonbgcolor" />
+                                    </LinearLayout>
+
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/secondimg"
+                                android:clickable="true"
+                                android:visibility="invisible"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardElevation="0dp"
+                                android:layout_weight="1"
+                                app:cardCornerRadius="@dimen/margin_ten">
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/secshowimg"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="60dp"
+                                        android:adjustViewBounds="true"
+                                        android:scaleType="centerCrop"/>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:layout_marginStart="@dimen/margin_five"
+                                            android:src="@drawable/imgicon"
+                                            android:layout_gravity="center"/>
+
+                                        <TextView
+                                            android:id="@+id/secondimgxt2"
+                                            android:layout_width="match_parent"
+                                            android:layout_marginStart="@dimen/margin_five"
+                                            android:layout_weight="1"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_ten"
+                                            android:ellipsize="end"
+                                            android:maxLines="1"
+                                            android:text="Description*"
+                                            android:textColor="@color/holidays_listitems_color1"
+                                            android:textSize="@dimen/text_twelve"
+                                            android:theme="@style/FontMedium" />
+
+                                        <ImageView
+                                            android:id="@+id/secondimgcancelbtn2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:clickable="true"
+                                            android:src="@drawable/cancel_icon"
+                                            app:tint="@color/buttonbgcolor" />
+                                    </LinearLayout>
+
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/margin_five"
+                            android:orientation="horizontal">
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/imgthird"
+                                android:clickable="true"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardElevation="0dp"
+                                android:layout_marginEnd="@dimen/margin_ten"
+                                android:layout_weight="1"
+                                app:cardCornerRadius="@dimen/margin_ten">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/thirdimgshow"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="60dp"
+                                        android:scaleType="center"
+                                        android:adjustViewBounds="true"/>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:layout_marginStart="@dimen/margin_five"
+                                            android:src="@drawable/imgicon"
+                                            android:layout_gravity="center"/>
+                                        <TextView
+                                            android:id="@+id/imgthirdtxt"
+                                            android:layout_width="match_parent"
+                                            android:layout_marginStart="@dimen/margin_five"
+                                            android:layout_weight="1"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_ten"
+                                            android:ellipsize="end"
+                                            android:maxLines="1"
+                                            android:text="Description*"
+                                            android:textColor="@color/holidays_listitems_color1"
+                                            android:textSize="@dimen/text_twelve"
+                                            android:theme="@style/FontMedium" />
+
+                                        <ImageView
+                                            android:id="@+id/imgthirdcancelbtn"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:clickable="true"
+                                            android:src="@drawable/cancel_icon"
+                                            app:tint="@color/buttonbgcolor" />
+                                    </LinearLayout>
+
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+
+                            <androidx.cardview.widget.CardView
+                                android:id="@+id/fourthimg"
+                                android:clickable="true"
+                                android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                app:cardElevation="0dp"
+                                android:layout_weight="1"
+                                app:cardCornerRadius="@dimen/margin_ten">
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_gravity="center"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <ImageView
+                                        android:id="@+id/foruthhowimg"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="60dp"
+                                        android:adjustViewBounds="true"
+                                        android:scaleType="centerCrop"/>
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <ImageView
+                                            android:layout_width="20dp"
+                                            android:layout_height="20dp"
+                                            android:layout_marginStart="@dimen/margin_five"
+                                            android:src="@drawable/imgicon"
+                                            android:layout_gravity="center"/>
+                                        <TextView
+                                            android:id="@+id/fourthimgxt2"
+                                            android:layout_width="match_parent"
+                                            android:layout_marginStart="@dimen/margin_five"
+                                            android:layout_weight="1"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/margin_ten"
+                                            android:ellipsize="end"
+                                            android:maxLines="1"
+                                            android:text="Description*"
+                                            android:textColor="@color/holidays_listitems_color1"
+                                            android:textSize="@dimen/text_twelve"
+                                            android:theme="@style/FontMedium" />
+
+                                        <ImageView
+                                            android:id="@+id/fourthimgcancelbtn2"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center"
+                                            android:clickable="true"
+                                            android:src="@drawable/cancel_icon"
+                                            app:tint="@color/buttonbgcolor" />
+                                    </LinearLayout>
+
+                                </LinearLayout>
+                            </androidx.cardview.widget.CardView>
+                        </LinearLayout>
+
+
+
+
+                        <!--                        <TextView-->
+<!--                            android:id="@+id/imgtxt"-->
+<!--                            android:layout_width="100dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginTop="@dimen/margin_ten"-->
+<!--                            android:ellipsize="end"-->
+<!--                            android:maxLines="1"-->
+<!--                            android:text="Description*"-->
+<!--                            android:textColor="#1470C6"-->
+<!--                            android:textSize="@dimen/text_twelve"-->
+<!--                            android:theme="@style/FontMedium" />-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imgcancelbtn"-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:clickable="true"-->
+<!--                            android:src="@drawable/cancel_icon"-->
+<!--                            app:tint="@color/weekoff" />-->
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </ScrollView>
+
+
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/scrollsection">
+
+
+            <LinearLayout
+                android:id="@+id/picsection"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_ten"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/disablebtn"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <!--            <androidx.cardview.widget.CardView-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="match_parent"-->
+                <!--                app:cardElevation="2dp"-->
+                <!--                android:layout_marginTop="@dimen/margin_five"-->
+                <!--                android:layout_marginBottom="@dimen/margin_five"-->
+                <!--                android:layout_marginEnd="@dimen/margin_five"-->
+                <!--                android:layout_marginStart="2dp"-->
+                <!--                android:layout_weight="1"-->
+                <!--                app:cardCornerRadius="10dp">-->
+
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/reschedule"-->
+                <!--                    android:clickable="true"-->
+                <!--                    android:foreground="@drawable/ripple"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:paddingTop="@dimen/padding_ten"-->
+                <!--                    android:paddingBottom="@dimen/padding_ten"-->
+                <!--                    android:background="@drawable/linear_card_back"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="vertical">-->
+
+                <!--                    <ImageView-->
+                <!--                        android:layout_width="40dp"-->
+                <!--                        android:layout_height="40dp"-->
+                <!--                        android:adjustViewBounds="true"-->
+                <!--                        android:padding="@dimen/padding_ten"-->
+                <!--                        android:background="@drawable/task_circular_back"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:src="@drawable/reschedule_icon" />-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:layout_marginTop="@dimen/margin_five"-->
+                <!--                        android:textSize="@dimen/text_twelve"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:text="Reschedule"-->
+                <!--                        android:textColor="@color/welcome_text_display_color" />-->
+                <!--                </LinearLayout>-->
+                <!--            </androidx.cardview.widget.CardView>-->
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="@dimen/margin_five"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginBottom="@dimen/margin_five"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp"
+                    app:cardElevation="2dp">
+
+                    <LinearLayout
+                        android:id="@+id/picadd"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="@drawable/linear_card_back"
+                        android:clickable="true"
+                        android:foreground="@drawable/ripple"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/padding_ten"
+                        android:paddingBottom="@dimen/padding_ten">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/capture_circular_back"
+                            android:padding="@dimen/padding_ten"
+                            android:src="@drawable/capture_icon" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="@dimen/margin_five"
+                            android:gravity="center"
+                            android:text="@string/add_picture"
+                            android:textColor="@color/welcome_text_display_color"
+                            android:textSize="@dimen/text_twelve" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!--            <androidx.cardview.widget.CardView-->
+                <!--                android:layout_width="wrap_content"-->
+                <!--                android:layout_height="match_parent"-->
+                <!--                app:cardElevation="2dp"-->
+                <!--                android:layout_marginTop="@dimen/margin_five"-->
+                <!--                android:layout_marginBottom="@dimen/margin_five"-->
+                <!--                android:layout_marginStart="5dp"-->
+                <!--                android:layout_marginEnd="2dp"-->
+                <!--                android:layout_weight="1"-->
+                <!--                app:cardCornerRadius="10dp">-->
+
+                <!--                <LinearLayout-->
+                <!--                    android:id="@+id/addForm"-->
+                <!--                    android:clickable="true"-->
+                <!--                    android:foreground="@drawable/ripple"-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:paddingTop="@dimen/padding_ten"-->
+                <!--                    android:paddingBottom="@dimen/padding_ten"-->
+                <!--                    android:layout_gravity="center"-->
+                <!--                    android:background="@drawable/linear_card_back"-->
+                <!--                    android:gravity="center"-->
+                <!--                    android:orientation="vertical">-->
+
+                <!--                    <ImageView-->
+                <!--                        android:layout_width="40dp"-->
+                <!--                        android:layout_height="40dp"-->
+                <!--                        android:adjustViewBounds="true"-->
+                <!--                        android:padding="@dimen/padding_ten"-->
+                <!--                        android:background="@drawable/form_circular_back"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:src="@drawable/activity_icon" />-->
+
+                <!--                    <TextView-->
+                <!--                        android:layout_width="match_parent"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_gravity="center"-->
+                <!--                        android:layout_marginTop="@dimen/margin_five"-->
+                <!--                        android:textSize="@dimen/text_twelve"-->
+                <!--                        android:gravity="center"-->
+                <!--                        android:text="Add Form"-->
+                <!--                        android:textColor="@color/welcome_text_display_color" />-->
+                <!--                </LinearLayout>-->
+                <!--            </androidx.cardview.widget.CardView>-->
+
+
+            </LinearLayout>
+
+            <!--        THIS IS DISABLE BUTTON DESIGN-->
+            <LinearLayout
+                android:id="@+id/disablebtn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_screen_button_height"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/margin_twenty"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                android:layout_marginBottom="@dimen/margin_twenty"
+                android:background="@drawable/butoon_bg_shape_disabled"
+                android:clickable="true"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/add_task"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size"
+                    android:theme="@style/FontMedium" />
+            </LinearLayout>
+
+            <!--        THIS IS ACTIVE BUTTON DESIGN WHERE VISIBILITY SET TO GONE USE THIS ACCORDINGLY LOGIC-->
+
+            <LinearLayout
+                android:id="@+id/enablebtn"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/user_screen_button_height"
+                android:layout_gravity="bottom"
+                android:layout_marginStart="@dimen/margin_twenty"
+                android:layout_marginTop="@dimen/margin_ten"
+                android:layout_marginEnd="@dimen/margin_twenty"
+                android:layout_marginBottom="@dimen/margin_twenty"
+                android:background="@drawable/butoon_bg_shape"
+                android:clickable="true"
+                android:foreground="@drawable/ripple"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/add_task"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/button_text_size"
+                    android:theme="@style/FontMedium" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+<!--            <LinearLayout-->
+<!--                android:layout_width="200dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/margin_twenty"-->
+<!--                android:layout_marginTop="@dimen/margin_ten"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                &lt;!&ndash;            <androidx.cardview.widget.CardView&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_height="match_parent"&ndash;&gt;-->
+<!--                &lt;!&ndash;                app:cardElevation="2dp"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_marginTop="@dimen/margin_five"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_marginBottom="@dimen/margin_five"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_marginEnd="@dimen/margin_five"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_marginStart="2dp"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_weight="1"&ndash;&gt;-->
+<!--                &lt;!&ndash;                app:cardCornerRadius="10dp">&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                <LinearLayout&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:id="@+id/reschedule"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:clickable="true"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:foreground="@drawable/ripple"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:layout_height="match_parent"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:layout_gravity="center"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:paddingTop="@dimen/padding_ten"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:paddingBottom="@dimen/padding_ten"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:background="@drawable/linear_card_back"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:gravity="center"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:orientation="vertical">&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                    <ImageView&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_width="40dp"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_height="40dp"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:adjustViewBounds="true"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:padding="@dimen/padding_ten"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:background="@drawable/task_circular_back"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_gravity="center"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:src="@drawable/reschedule_icon" />&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                    <TextView&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_gravity="center"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_marginTop="@dimen/margin_five"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:textSize="@dimen/text_twelve"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:gravity="center"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:text="Reschedule"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:textColor="@color/welcome_text_display_color" />&ndash;&gt;-->
+<!--                &lt;!&ndash;                </LinearLayout>&ndash;&gt;-->
+<!--                &lt;!&ndash;            </androidx.cardview.widget.CardView>&ndash;&gt;-->
+
+<!--                <androidx.cardview.widget.CardView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginStart="2dp"-->
+<!--                    android:layout_marginTop="@dimen/margin_five"-->
+<!--                    android:layout_marginEnd="2dp"-->
+<!--                    android:layout_marginBottom="@dimen/margin_five"-->
+<!--                    android:layout_weight="1"-->
+<!--                    app:cardCornerRadius="10dp"-->
+<!--                    app:cardElevation="2dp">-->
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/picadd"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_gravity="center"-->
+<!--                        android:background="@drawable/linear_card_back"-->
+<!--                        android:clickable="true"-->
+<!--                        android:foreground="@drawable/ripple"-->
+<!--                        android:gravity="center"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:paddingTop="@dimen/padding_ten"-->
+<!--                        android:paddingBottom="@dimen/padding_ten">-->
+
+<!--                        <ImageView-->
+<!--                            android:layout_width="40dp"-->
+<!--                            android:layout_height="40dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:adjustViewBounds="true"-->
+<!--                            android:background="@drawable/capture_circular_back"-->
+<!--                            android:padding="@dimen/padding_ten"-->
+<!--                            android:src="@drawable/capture_icon" />-->
+
+<!--                        <TextView-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:layout_marginTop="@dimen/margin_five"-->
+<!--                            android:gravity="center"-->
+<!--                            android:text="Add Picture"-->
+<!--                            android:textColor="@color/welcome_text_display_color"-->
+<!--                            android:textSize="@dimen/text_twelve" />-->
+<!--                    </LinearLayout>-->
+<!--                </androidx.cardview.widget.CardView>-->
+
+<!--                &lt;!&ndash;            <androidx.cardview.widget.CardView&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_width="wrap_content"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_height="match_parent"&ndash;&gt;-->
+<!--                &lt;!&ndash;                app:cardElevation="2dp"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_marginTop="@dimen/margin_five"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_marginBottom="@dimen/margin_five"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_marginStart="5dp"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_marginEnd="2dp"&ndash;&gt;-->
+<!--                &lt;!&ndash;                android:layout_weight="1"&ndash;&gt;-->
+<!--                &lt;!&ndash;                app:cardCornerRadius="10dp">&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                <LinearLayout&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:id="@+id/addForm"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:clickable="true"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:foreground="@drawable/ripple"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:layout_height="match_parent"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:paddingTop="@dimen/padding_ten"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:paddingBottom="@dimen/padding_ten"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:layout_gravity="center"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:background="@drawable/linear_card_back"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:gravity="center"&ndash;&gt;-->
+<!--                &lt;!&ndash;                    android:orientation="vertical">&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                    <ImageView&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_width="40dp"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_height="40dp"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:adjustViewBounds="true"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:padding="@dimen/padding_ten"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:background="@drawable/form_circular_back"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_gravity="center"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:src="@drawable/activity_icon" />&ndash;&gt;-->
+
+<!--                &lt;!&ndash;                    <TextView&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_width="match_parent"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_height="wrap_content"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_gravity="center"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:layout_marginTop="@dimen/margin_five"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:textSize="@dimen/text_twelve"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:gravity="center"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:text="Add Form"&ndash;&gt;-->
+<!--                &lt;!&ndash;                        android:textColor="@color/welcome_text_display_color" />&ndash;&gt;-->
+<!--                &lt;!&ndash;                </LinearLayout>&ndash;&gt;-->
+<!--                &lt;!&ndash;            </androidx.cardview.widget.CardView>&ndash;&gt;-->
+
+
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash;        THIS IS DISABLE BUTTON DESIGN&ndash;&gt;-->
+<!--            <LinearLayout-->
+<!--                android:id="@+id/disablebtn"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/user_screen_button_height"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:layout_marginStart="@dimen/margin_twenty"-->
+<!--                android:layout_marginTop="@dimen/margin_ten"-->
+<!--                android:layout_marginEnd="@dimen/margin_twenty"-->
+<!--                android:layout_marginBottom="@dimen/margin_twenty"-->
+<!--                android:background="@drawable/butoon_bg_shape_disabled"-->
+<!--                android:clickable="true"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="vertical"-->
+<!--                android:visibility="visible">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Add Task"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="@dimen/button_text_size"-->
+<!--                    android:theme="@style/FontMedium" />-->
+<!--            </LinearLayout>-->
+
+<!--            &lt;!&ndash;        THIS IS ACTIVE BUTTON DESIGN WHERE VISIBILITY SET TO GONE USE THIS ACCORDINGLY LOGIC&ndash;&gt;-->
+
+<!--            <LinearLayout-->
+<!--                android:id="@+id/enablebtn"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="@dimen/user_screen_button_height"-->
+<!--                android:layout_gravity="bottom"-->
+<!--                android:layout_marginStart="@dimen/margin_twenty"-->
+<!--                android:layout_marginTop="@dimen/margin_ten"-->
+<!--                android:layout_marginEnd="@dimen/margin_twenty"-->
+<!--                android:layout_marginBottom="@dimen/margin_twenty"-->
+<!--                android:background="@drawable/butoon_bg_shape"-->
+<!--                android:clickable="true"-->
+<!--                android:foreground="@drawable/ripple"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="vertical"-->
+<!--                android:visibility="gone">-->
+
+<!--                <TextView-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="Add Task"-->
+<!--                    android:textColor="@color/white"-->
+<!--                    android:textSize="@dimen/button_text_size"-->
+<!--                    android:theme="@style/FontMedium" />-->
+<!--            </LinearLayout>-->
+
+
+<!--        </LinearLayout>-->
+<!--    <include-->
+<!--        android:id="@+id/cameraLayout"-->
+<!--        layout="@layout/finish_task_13"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:visibility="gone"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent" />-->
+
+
+    <include
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:id="@+id/imgpreview"
+        layout="@layout/picprviewlayout"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

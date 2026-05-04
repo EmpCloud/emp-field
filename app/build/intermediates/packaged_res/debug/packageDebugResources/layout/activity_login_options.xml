@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.activity.login.LoginOptionsActivity">
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:src="@drawable/login_screen_top_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.08" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/icon_emp_back"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:layout_gravity="center"
+                android:src="@drawable/empmonitoricony" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3">
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView3">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/login_with"
+                android:textColor="@color/black_text_color"
+                android:textSize="@dimen/text_twenty_five"
+                android:theme="@style/FontMedium" />
+
+<!--            <RadioGroup-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="@dimen/margin_fifty"-->
+<!--                android:layout_marginTop="@dimen/margin_fifty"-->
+<!--                android:layout_marginEnd="@dimen/margin_fifty"-->
+<!--                android:gravity="center"-->
+<!--                android:orientation="horizontal">-->
+
+<!--                <RadioButton-->
+<!--                    android:id="@+id/emailLogin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:layout_marginEnd="@dimen/margin_thirty"-->
+<!--                    android:fontFamily="@font/montserrat_medium"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="@string/email"-->
+<!--                    android:textColor="@color/welcome_text_display_color"-->
+<!--                    android:textSize="@dimen/text_twenty" />-->
+
+
+<!--                <RadioButton-->
+<!--                    android:id="@+id/mobileLogin"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center"-->
+<!--                    android:fontFamily="@font/montserrat_medium"-->
+<!--                    android:gravity="center"-->
+<!--                    android:text="@string/mobile"-->
+<!--                    android:textColor="@color/welcome_text_display_color"-->
+<!--                    android:textSize="@dimen/text_twenty" />-->
+<!--            </RadioGroup>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_fifty"
+                android:layout_marginTop="@dimen/margin_fifty"
+                android:layout_marginEnd="@dimen/margin_fifty"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/emailselection"
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/margin_thirty"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/uncheeck_btn_email"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/radio_btn_custom_aman"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/checkedbtemail"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/checked_radio_btn_aman"
+                        android:adjustViewBounds="true"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/margin_ten"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/email"
+                        android:theme="@style/monstreat_semibold"
+                        android:textColor="@color/welcome_text_display_color"
+                        android:textSize="@dimen/text_twenty" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/mobileselection"
+                    android:clickable="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_thirty"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/unchecked_btn_mobile"
+                        android:visibility="visible"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:src="@drawable/radio_btn_custom_aman"/>
+
+                    <ImageView
+                        android:id="@+id/checkedbtmobile"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/checked_radio_btn_aman"
+                        android:adjustViewBounds="true"
+                        android:layout_gravity="center"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:theme="@style/monstreat_semibold"
+                        android:layout_marginStart="@dimen/margin_ten"
+                        android:text="@string/mobile"
+                        android:textColor="@color/welcome_text_display_color"
+                        android:textSize="@dimen/text_twenty"  />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/continuebtn"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/button_height"
+            android:layout_marginStart="@dimen/margin_fifty"
+            android:layout_marginTop="@dimen/margin_fifty"
+            android:layout_marginEnd="@dimen/margin_fifty"
+            android:background="@drawable/butoon_bg_shape_disabled"
+            android:foreground="@drawable/ripple"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/poppins_medium"
+                android:gravity="center"
+                android:text="@string/continue_btn"
+                android:textColor="@color/white"
+                android:textSize="@dimen/button_text_size" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/margin_thirty"
+            android:foreground="@drawable/ripple"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/login_as"
+                android:textColor="@color/new_txt_3a"
+                android:textSize="@dimen/text_fourteen" />
+
+            <TextView
+                android:id="@+id/adminLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_marginStart="@dimen/margin_five"
+                android:fontFamily="@font/montserrat_semibold"
+                android:text="@string/admin_manager"
+                android:textColor="@color/resend_text_color"
+                android:textSize="@dimen/text_fourteen" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

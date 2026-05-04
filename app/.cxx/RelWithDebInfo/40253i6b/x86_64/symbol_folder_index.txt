@@ -1,0 +1,1 @@
+/home/glb-blr-161/AndroidStudioProjects/empmonitor-android-app/app/build/intermediates/cxx/RelWithDebInfo/40253i6b/obj/x86_64
