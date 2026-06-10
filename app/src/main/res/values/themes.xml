@@ -7,12 +7,12 @@
         <item name="android:radioButtonStyle">@style/RadioButton</item>
         <!--        <item name="android:switchStyle">@style/SCBSwitchStyle</item>-->
 
-<!--        <item name="android:fitsSystemWindows">true</item>-->
-<!--        <item name="android:windowLightStatusBar">true</item>-->
+<!--        Edge-to-edge is handled in code via EdgeToEdgeUtils (Android 16 forces it
+            and ignores the legacy opt-out / statusBarColor flags). Dark status-bar
+            icons suit the predominantly light screens; statusBarColor is kept only
+            for API < 35 devices, where the system still paints it. -->
+        <item name="android:windowLightStatusBar">true</item>
         <item name="android:statusBarColor">@color/profile_gradient_first_color</item>
-        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
-        <!--        <item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
-<!--        <item name="android:windowTranslucentStatus">true</item>-->
 
 
     </style>
