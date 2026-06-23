@@ -42,6 +42,24 @@ $RECYCLE.BIN/
 # Build
 *.tsbuildinfo
 
+# ---- Android / Gradle ----
+*.iml
+.gradle/
+/local.properties
+/build/
+/captures
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+*.ap_
+*.dex
+.kotlin/
+
+# Android module build outputs
+/app/build/
+/app/.cxx/
+
 # Docker volumes
 docker/data/
 

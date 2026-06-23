@@ -1,3 +1,0 @@
-com.empcloud.empmonitor.test
-style WhiteBackgroundDialogTheme
-style WhiteBackgroundTheme
