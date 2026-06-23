@@ -772,9 +772,21 @@ class HomeFragment constructor(private val listener: OnFragmentChangedListener? 
                             }
 
                             if(it.statusCode == 400){
-
-                                Toast.makeText(requireContext(),it.body.message,Toast.LENGTH_SHORT).show()
-
+                                // Status fetch failed (e.g. a new user with no attendance record yet).
+                                // Don't leave the user stuck: fall back to a manual check-in/out option
+                                // using the org config saved at login.
+                                // isMobileDeviceEnabled == 1 -> show the "Swipe to Check IN/OUT" slider.
+                                // geofencing on            -> show check-in via map.
+                                val isMobileDeviceEnabled = requireContext()
+                                    .getSharedPreferences(Constants.IS_MOBILE_DEVICE_ENABLED, AppCompatActivity.MODE_PRIVATE)
+                                    .getInt(Constants.IS_MOBILE_DEVICE_ENABLED, 0)
+                                val geoFencingOn = requireContext()
+                                    .getSharedPreferences(Constants.IS_GEO_FENCING_ON, AppCompatActivity.MODE_PRIVATE)
+                                    .getInt(Constants.IS_GEO_FENCING_ON, 0)
+                                binding.swipeMultiple.checkinviamap.visibility =
+                                    if (geoFencingOn == 1) View.VISIBLE else View.GONE
+                                binding.sliderActView.visibility =
+                                    if (isMobileDeviceEnabled == 1) View.VISIBLE else View.GONE
                             }
 
 
@@ -784,13 +796,15 @@ class HomeFragment constructor(private val listener: OnFragmentChangedListener? 
 
                         }
                         is ApiState.ERROR -> {
-
-                            Toast.makeText(requireContext(),"Session Expired",Toast.LENGTH_SHORT).show()
-                            CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.AUTH_TOKEN)
-                            val intent = Intent(requireContext(),LoginOptionsActivity::class.java)
-                            requireContext().startActivity(intent)
-                            requireActivity().finish()
-
+                            // Only force logout on an actual auth failure (401).
+                            // Network / other errors must NOT kick the user to the login screen.
+                            if (res.errorCode == 401) {
+                                Toast.makeText(requireContext(),"Session Expired",Toast.LENGTH_SHORT).show()
+                                CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.AUTH_TOKEN)
+                                val intent = Intent(requireContext(),LoginOptionsActivity::class.java)
+                                requireContext().startActivity(intent)
+                                requireActivity().finish()
+                            }
                         }
 
                         else -> {}

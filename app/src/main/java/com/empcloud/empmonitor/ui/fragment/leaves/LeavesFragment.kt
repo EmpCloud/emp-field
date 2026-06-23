@@ -220,7 +220,8 @@ class LeavesFragment constructor(private val listener: OnFragmentChangedListener
 //                            Toast.makeText(applicationContext,it.message,Toast.LENGTH_SHORT);
                             if (it.statusCode == 200){
 
-                                initRecycler(it.body.data)
+                                val list = it.body.data
+                                if (!list.isNullOrEmpty()) initRecycler(list) else showNoIcon()
                             }
                             if (it.statusCode == 400){
                                 Toast.makeText(requireContext(),it.body.message, Toast.LENGTH_SHORT).show()
@@ -237,8 +238,7 @@ class LeavesFragment constructor(private val listener: OnFragmentChangedListener
 
                         }
                         is ApiState.ERROR -> {
-
-
+                            Toast.makeText(requireContext(), res.message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -251,7 +251,7 @@ class LeavesFragment constructor(private val listener: OnFragmentChangedListener
         binding.datashowcard.visibility = View.VISIBLE
         binding.nothingfoundanimation.visibility = View.GONE
         leaveList = data
-        empname = leaveList!![0].employee_name
+        empname = data.firstOrNull()?.employee_name
         binding.leavesRecycler.setHasFixedSize(false)
         binding.leavesRecycler.layoutManager = LinearLayoutManager(requireContext(),
             RecyclerView.VERTICAL,false)
@@ -482,15 +482,14 @@ class LeavesFragment constructor(private val listener: OnFragmentChangedListener
                                 Toast.makeText(requireContext(),it.body.message, Toast.LENGTH_SHORT).show()
                                 binding.popLeaves.leavesScreenApply.visibility = View.GONE
                                 val sharPref = requireActivity().getSharedPreferences(Constants.LEAVE_ID,AppCompatActivity.MODE_PRIVATE)
-                                sharPref.edit().putInt(Constants.LEAVE_ID,it.body.data.data.leave.leave_id).apply()
+                                it.body.data?.data?.leave?.leave_id?.let { id -> sharPref.edit().putInt(Constants.LEAVE_ID,id).apply() }
                                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,LeavesFragment(listener)).commit()
 
                             }
 
                             if(it.statusCode == 400){
 
-                                if (it.body.error.message == null)   Toast.makeText(requireContext(),it.body.message, Toast.LENGTH_SHORT).show()
-                                else Toast.makeText(requireContext(),it.body.error.message, Toast.LENGTH_SHORT).show()
+                                Toast.makeText(requireContext(),it.body.error?.message ?: it.body.message, Toast.LENGTH_SHORT).show()
                                 binding.popLeaves.leavesScreenApply.visibility = View.GONE
                                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,LeavesFragment(listener)).commit()
 //                                binding.popLeaves.leavesScreenApply.visibility = View.GONE
@@ -501,8 +500,7 @@ class LeavesFragment constructor(private val listener: OnFragmentChangedListener
 
                         }
                         is ApiState.ERROR -> {
-
-
+                            Toast.makeText(requireContext(), res.message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -767,7 +765,7 @@ class LeavesFragment constructor(private val listener: OnFragmentChangedListener
                             if(it.statusCode == 400){
 
 //                                if (!it.body.data.message.isNullOrEmpty())  Toast.makeText(requireContext(),it.body.data.message, Toast.LENGTH_SHORT).show()
-                                  Toast.makeText(requireContext(),it.body.error.message, Toast.LENGTH_SHORT).show()
+                                  Toast.makeText(requireContext(),it.body.error?.message ?: it.body.message, Toast.LENGTH_SHORT).show()
 
                                 binding.editLeaves.editScreenApply.visibility = View.GONE
                                 requireActivity().supportFragmentManager.beginTransaction().replace(R.id.fragmentContainer,LeavesFragment(listener)).commit()
@@ -781,8 +779,7 @@ class LeavesFragment constructor(private val listener: OnFragmentChangedListener
 
                         }
                         is ApiState.ERROR -> {
-
-
+                            Toast.makeText(requireContext(), res.message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -821,8 +818,7 @@ class LeavesFragment constructor(private val listener: OnFragmentChangedListener
 
                         }
                         is ApiState.ERROR -> {
-
-
+                            Toast.makeText(requireContext(), res.message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
@@ -861,8 +857,7 @@ class LeavesFragment constructor(private val listener: OnFragmentChangedListener
 
                         }
                         is ApiState.ERROR -> {
-
-
+                            Toast.makeText(requireContext(), res.message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

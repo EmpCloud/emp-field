@@ -89,7 +89,8 @@ companion object {
 //                            Toast.makeText(applicationContext,it.message,Toast.LENGTH_SHORT);
                             if (it.statusCode == 200){
 
-                                initRecycler(it.body.data)
+                                val list = it.body.data
+                                if (!list.isNullOrEmpty()) initRecycler(list) else showNoIcon()
                             }
                             if (it.statusCode == 400){
 //                                Toast.makeText(requireContext(),it.body.message, Toast.LENGTH_SHORT).show()
@@ -106,8 +107,7 @@ companion object {
 
                         }
                         is ApiState.ERROR -> {
-
-
+                            Toast.makeText(requireContext(), res.message, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }

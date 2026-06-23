@@ -10,5 +10,5 @@ data class HolidayBody(
     @SerializedName("message")
     val message: String,
     @SerializedName("data")
-    val data: List<HolidayList>
+    val data: List<HolidayList>? = null
 ):Serializable

@@ -225,6 +225,9 @@ class EmailPasswordActivity : AppCompatActivity() {
         val sp3 = getSharedPreferences(Constants.IS_GEO_FENCING_ON, MODE_PRIVATE)
         sp3.edit().putInt(Constants.IS_GEO_FENCING_ON, data.isGeoFencingOn).apply()
 
+        val spMob = getSharedPreferences(Constants.IS_MOBILE_DEVICE_ENABLED, MODE_PRIVATE)
+        spMob.edit().putInt(Constants.IS_MOBILE_DEVICE_ENABLED, data.isMobileDeviceEnabled).apply()
+
         val sp4 = getSharedPreferences(Constants.ORG_LATITUDE, MODE_PRIVATE)
         sp4.edit().putString(Constants.ORG_LATITUDE, data.latitude).apply()
 

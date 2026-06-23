@@ -6,6 +6,6 @@ import java.io.Serializable
 data class CreateLeaveBody(
     val status:String,
     val message:String,
-    val data:CreateLeaveData,
-    val error: EditLeaveData
+    val data:CreateLeaveData? = null,
+    val error: EditLeaveData? = null
 ):Serializable

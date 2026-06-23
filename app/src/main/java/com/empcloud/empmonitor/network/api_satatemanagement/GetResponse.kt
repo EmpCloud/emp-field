@@ -22,38 +22,39 @@ object GetResponse {
                     emit(ApiState.SUCESS(it))
                 }
             } else {
-                response.errorBody()?.let { error ->
-                    error.close()
-                    emit(
-                        ApiState.ERROR(
-                            message = error.toString(),
-                            isNetworkERROR = false,
-                            errorCode = response.code(),
-                            errorBody = response.errorBody()
-                        )
+                emit(
+                    ApiState.ERROR(
+                        message = response.message().ifEmpty { "Request failed (${response.code()})" },
+                        isNetworkERROR = false,
+                        errorCode = response.code(),
+                        errorBody = response.errorBody()
                     )
-                }
+                )
             }
         }catch (throwable: Throwable) {
             when (throwable) {
                 is HttpException -> {
                     Log.d("EXCEPTION_FROM_LOGIN_API_ERR" , throwable.code().toString())
 
-                    ApiState.ERROR(
-                        message = throwable.message!!,
-                        isNetworkERROR = false,
-                        errorCode = throwable.code(),
-                        errorBody = throwable.response()?.errorBody()
+                    emit(
+                        ApiState.ERROR(
+                            message = throwable.message ?: "Something went wrong",
+                            isNetworkERROR = false,
+                            errorCode = throwable.code(),
+                            errorBody = throwable.response()?.errorBody()
+                        )
                     )
                 }
                 else -> {
-                    Log.d("EXCEPTION_FROM_LOGIN_API_ERROR" , throwable.message!!.toString())
+                    Log.d("EXCEPTION_FROM_LOGIN_API_ERROR" , throwable.message.toString())
 
-                    ApiState.ERROR(
-                        message = throwable.message!!,
-                        isNetworkERROR = true,
-                        errorCode = null,
-                        errorBody = null
+                    emit(
+                        ApiState.ERROR(
+                            message = throwable.message ?: "No internet connection",
+                            isNetworkERROR = true,
+                            errorCode = null,
+                            errorBody = null
+                        )
                     )
                 }
             }

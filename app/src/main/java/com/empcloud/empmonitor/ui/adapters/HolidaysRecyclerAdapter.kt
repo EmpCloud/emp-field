@@ -13,6 +13,7 @@ import com.empcloud.empmonitor.R
 import com.empcloud.empmonitor.data.remote.response.holidays.HolidayList
 import com.empcloud.empmonitor.utils.CommonMethods
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -70,16 +71,19 @@ class HolidaysRecyclerAdapter(private val context: Context,
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun convertTimezonDateToString(inputDate: String): String {
-        // Parse the input string to Instant
-        val instant = Instant.parse(inputDate)
-
-        // Convert Instant to LocalDateTime
-        val localDateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault())
-
-        // Define the desired date format
         val formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy")
-
-        // Format LocalDateTime to the desired string
-        return localDateTime.format(formatter)
+        return try {
+            if (inputDate.contains("T")) {
+                // Full ISO-8601 instant, e.g. "2026-04-14T00:00:00.000Z"
+                val instant = Instant.parse(inputDate)
+                LocalDateTime.ofInstant(instant, ZoneId.systemDefault()).format(formatter)
+            } else {
+                // Date-only, e.g. "2026-04-14"
+                LocalDate.parse(inputDate).format(formatter)
+            }
+        } catch (e: Exception) {
+            // Never crash the list over a date string; show the date part as-is.
+            inputDate.take(10)
+        }
     }
 }

@@ -54,9 +54,11 @@ import com.empcloud.empmonitor.data.remote.response.update_task.UpdateTaskRespon
 import com.empcloud.empmonitor.data.remote.response.uploadprofile.UploadProfileResponse
 import com.empcloud.empmonitor.data.remote.response.url_response_pics.UrlPicsResponse
 import com.empcloud.empmonitor.data.remote.response.verify_email.VerifyEmailResponse
+import android.util.Log
 import com.empcloud.empmonitor.network.api_satatemanagement.ApiState
 import com.empcloud.empmonitor.network.api_satatemanagement.GetResponse
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.onEach
 import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.Body
@@ -108,8 +110,21 @@ class NetworkRepository  @Inject constructor(val service: ApiService){
     }
 
     suspend fun getMarkAttendanceData(accessToken:String,markAttendanceModel: MarkAttendanceModel):Flow<ApiState<MarkAttendanceResponse>>{
+        // Central log for ALL check-in / check-out paths: manual swipe, auto check-in
+        // after email/mobile login, and the midnight auto-checkout. The response
+        // "message" tells you whether it was a Check IN or Check OUT.
+        Log.d("AttendanceAPI", "mark-attendance REQUEST -> time=${markAttendanceModel.time}, lat=${markAttendanceModel.latitude}, lon=${markAttendanceModel.longitude}")
         return GetResponse.fromFlow {
             service.markAttendance(accessToken,markAttendanceModel)
+        }.onEach { state ->
+            when (state) {
+                is ApiState.LOADING -> Log.d("AttendanceAPI", "mark-attendance LOADING...")
+                is ApiState.SUCESS -> {
+                    val r = state.getResponse
+                    Log.d("AttendanceAPI", "mark-attendance RESPONSE <- httpStatus=${r.statusCode}, status=${r.body.status}, code=${r.body.data.code}, message=${r.body.data.message}, time=${r.body.data.data?.time ?: "-"}")
+                }
+                is ApiState.ERROR -> Log.e("AttendanceAPI", "mark-attendance ERROR <- code=${state.errorCode}, network=${state.isNetworkERROR}, message=${state.message}")
+            }
         }
     }
 

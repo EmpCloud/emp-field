@@ -5,6 +5,6 @@ import java.io.Serializable
 data class  LeavesBody(
     val status:String,
     val message:String,
-    val data:List<LeavesList>
+    val data:List<LeavesList>? = null
 
     ):Serializable
