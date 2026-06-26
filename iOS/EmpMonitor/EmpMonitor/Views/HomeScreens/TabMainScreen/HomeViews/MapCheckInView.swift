@@ -1,0 +1,541 @@
+//
+//  MapCheckInView.swift
+//  EmpMonitor
+//
+//  Created by Sumit Ghosh on 25/07/24.
+//
+
+import SwiftUI
+import MapKit
+
+struct MapCheckInView: View {
+    
+    @EnvironmentObject var permissionManager: PermissionManager
+    @EnvironmentObject var timerManager: TimerManager
+    @EnvironmentObject var searchLocationViewModel: SearchLocationViewModel
+    @EnvironmentObject var profileImageLoader: ProfileImageLoader
+    
+    @ObservedObject var homeScreenViewModel: HomeScreenViewModel
+    @ObservedObject var checkINViewModel: CheckINViewModel
+    
+    @Binding var showCheckIN: Bool
+    @Binding var showCheckOUT: Bool
+    @State private var currentDeviceTime: String = ""
+    
+    //UserInfo
+    @State private var name: String = "-----"
+    @State private var department: String = "-----"
+    
+    //For checkingOUT
+    @State private var showCheckOUTAlert: Bool = false
+    @State private var yesCheckOut: Bool = false
+    
+    //For Mode of Travel
+    @ObservedObject var motViewModel: MOTViewModel
+    @Binding var selecetedMode: String?
+    @Binding var tappedMode: String?
+    @State private var showMOTPopup: Bool = false
+    
+    //Warning
+    @State private var showWarning: Bool = false
+    
+    //Task Status used to manage the checkOUT
+    @Binding var isTaskRunning: Bool
+    
+    
+    @State var userLocation: CLLocationCoordinate2D?
+    
+    //Office location
+     private var officeLocation: CLLocationCoordinate2D {
+        return CLLocationCoordinate2D(latitude: lat, longitude: long)
+    }
+    
+    var lat: Double {
+        if let latitude = Double(homeScreenViewModel.homeScreenData?.orglatitude ?? "\(permissionManager.userLocation?.coordinate.latitude ?? 0.0)"){
+            return latitude
+        }
+        return 0.0
+    }
+    var long: Double {
+        if let longitude = Double(homeScreenViewModel.homeScreenData?.orglongitude ?? "\(permissionManager.userLocation?.coordinate.longitude ?? 0.0)"){
+            return longitude
+        }
+        return 0.0
+    }
+    
+    //Radius of CheckIN
+    @State private var checkINRadius: Int?
+    
+    @State private var checkINAccessDistance: Int?
+    
+    var body: some View {
+        
+        ZStack {
+            LinearGradient(gradient: Gradient(colors: [Color.appBg1, Color.appBg2]), startPoint: .top, endPoint: .bottom)
+                .ignoresSafeArea()
+            VStack {
+                //MARK: User Name
+                HStack(spacing: 20) {
+                    ProfileMediumView()
+                        .environmentObject(profileImageLoader)
+                        .padding()
+                        .padding(.leading, 20)
+                    
+                    VStack(alignment: .leading) {
+                        Text(name)
+                            .font(.custom("Ubuntu-Regular", size: 20))
+                            .fontWeight(.bold)
+                        
+                        Text(department)
+                            .font(.custom("Ubuntu-Regular", size: 10))
+                    }
+                    .foregroundStyle(.white)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(10)
+                
+                //MARK: Map View
+                VStack(spacing: 7) {
+                    
+                    
+                    //MARK: MAP View
+                    //                   EmpMapViewRepresentable()
+                    CheckINMap(userLocation: $userLocation, officeLocation: officeLocation, radius: CLLocationDistance(checkINRadius ?? 100), checkINAccessDistance: $checkINAccessDistance)
+                        .overlay(alignment: .bottom) {
+                            if homeScreenViewModel.homeScreenData?.isGeoFencingOn == 1 {
+                                if checkINAccessDistance ?? 0 > homeScreenViewModel.homeScreenData?.orgRadius ?? 500 {
+                                    GeoFencingWarningView()
+                                        .padding()
+                                }
+                            }
+                            
+                        }
+                    
+                    Text("\(HelperFunction.shared.todaysDate())")
+                        .font(.custom("Ubuntu-Regular", size: 24))
+                        .foregroundStyle(Color.welcomeText)
+                    
+                    HStack(alignment: .bottom) {
+                        //                        Text("09:55")
+                        //                            .font(.custom("Ubuntu-Regular", size: 20))
+                        //                        Text("am")
+                        //                            .font(.custom("Ubuntu-Regular", size: 14))
+                        //                            .padding(.leading, -8)
+                        LiveTimeView()
+                    }
+                    .padding(.vertical, 5)
+                    .foregroundStyle(Color.welcomeText)
+                    
+                    
+                    //MARK: Check in-out Timer
+                    HStack(spacing: 0){
+                        Rectangle()
+                            .fill(Color(UIColor(red: 212/255, green: 235/255, blue: 255/255, alpha: 1.0)))
+                            .overlay {
+                                VStack {
+                                    HStack{
+                                        Image(systemName: "checkmark.square.fill")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .foregroundStyle(Color.primaryButton1)
+                                            .frame(width: 12, height: 12)
+                                        Text("IN Time")
+                                            .font(.custom("Ubuntu-Regular", size: 10))
+                                            .foregroundStyle(Color(red: 79/255, green: 78/255, blue: 78/255, opacity: 1.0))
+                                    }
+                                    
+                                    HStack(alignment: .bottom){
+                                        Text(HelperFunction.shared.formatCheckTime(from: homeScreenViewModel.checkINTime) ?? "--:--")
+                                            .font(.custom("Ubuntu-Regular", size: 24))
+                                        Text("am")
+                                            .font(.custom("Ubuntu-Regular", size: 12))
+                                            .padding(.leading, -5)
+                                            .padding(.bottom, 3)
+                                    }
+                                    .padding(.leading)
+                                    .foregroundStyle(Color(red: 20/255, green: 20/255, blue: 20/255, opacity: 1.0))
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                            }
+                        
+                        Rectangle()
+                            .fill(Color(UIColor(red: 238/255, green: 247/255, blue: 255/255, alpha: 1.0)))
+                            .overlay {
+                                VStack {
+                                    HStack{
+                                        Image(systemName: "checkmark.square")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .foregroundStyle(Color.primaryButton1)
+                                            .frame(width: 12, height: 12)
+                                        Text("OUT Time")
+                                            .font(.custom("Ubuntu-Regular", size: 10))
+                                            .foregroundStyle(Color(red: 79/255, green: 78/255, blue: 78/255, opacity: 1.0))
+                                    }
+                                    .padding(.leading)
+                                    
+                                    HStack(alignment: .bottom){
+                                        Text(HelperFunction.shared.formatCheckTime(from: homeScreenViewModel.checkOUTTime) ?? "--:--")
+                                            .font(.custom("Ubuntu-Regular", size: 24))
+                                        Text("am")
+                                            .font(.custom("Ubuntu-Regular", size: 12))
+                                            .padding(.leading, -5)
+                                            .padding(.bottom, 3)
+                                    }
+                                    .padding(.leading)
+                                    .foregroundStyle(Color(red: 20/255, green: 20/255, blue: 20/255, opacity: 1.0))
+                                }
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                
+                            }
+                        
+                    }
+                    .frame(width: 300 ,height: 70)
+                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .padding(.horizontal, 30)
+                    
+                    
+                    
+                    VStack{
+                        //MARK: Swipe Button
+                        if showCheckIN {
+                            
+                            if homeScreenViewModel.homeScreenData?.isGeoFencingOn == 1 {  // valdiate if the geoLocation ON
+                                if checkINAccessDistance ?? 0 > homeScreenViewModel.homeScreenData?.orgRadius ?? 500 {
+                                    CheckINDisableButtonView(text: "Swipe to check IN") {
+                                        //DO nothing
+                                    }
+                                    .disableWithOpacity(true)
+                                }
+                                // Condition when geoFencing is on and User is inside the fencing
+                                else{
+                                    CheckInSwipeButtonView()
+                                        .onSwipeSuccess {
+                                            self.showCheckIN = false
+                                            self.showCheckOUT = true
+                                            self.showMOTPopup = true  // Mode of travel visiblity
+                                            currentDeviceTime = HelperFunction.shared.currentTime()
+                                            print("Current Time: \(currentDeviceTime)")
+                                            print("Lat: \(permissionManager.userLocation?.coordinate.latitude)")
+                                            print("Long: \(permissionManager.userLocation?.coordinate.latitude)")
+                                            Task {
+                                                checkINViewModel.checkINTime = currentDeviceTime
+                                                if let lat = permissionManager.userLocation?.coordinate.latitude{
+                                                    checkINViewModel.checkINLatitude = Double(lat)
+                                                }
+                                                if let long = permissionManager.userLocation?.coordinate.longitude {
+                                                    checkINViewModel.checkINLongitude = Double(long)
+                                                }
+                                                try await checkINViewModel.markAttendance()
+                                                print("CheckIN: Attendance marked")
+                                                if checkINViewModel.checkINTime != "" {
+                                                    homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
+                                                    
+                                                    timerManager.startActiveTimer()
+                                                    
+                                                    // start tracking
+                                                    UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+                                                }
+                                            }
+                                            
+                                            // to refresh the screen after checkIN
+                                            Task {
+                                                try await homeScreenViewModel.getHomeScreenData()
+                                                
+                                                if let data = homeScreenViewModel.checkData?.data.checkIn {
+                                                    showCheckIN = false
+                                                    showCheckOUT = true
+                                                    
+                                                    //to automatically start the timer is CheckOUT timer is nill
+                                                    if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
+                                                        //                            timerManager.startActiveTimer()
+                                                        timerManager.stopActiveTimer()
+                                                    }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
+                                                        timerManager.startActiveTimer()
+                                                    }
+                                                }
+                                                else{
+                                                    UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                    showCheckIN = true
+                                                    showCheckOUT = false
+                                                }
+                                                
+                                                //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
+                                                //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                            }
+                                        }
+                                        .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
+                                }
+                            }
+                            else{
+                                CheckInSwipeButtonView()
+                                    .onSwipeSuccess {
+                                        self.showCheckIN = false
+                                        self.showCheckOUT = true
+                                        self.showMOTPopup = true  // Mode of travel visiblity
+                                        currentDeviceTime = HelperFunction.shared.currentTime()
+                                        print("Current Time: \(currentDeviceTime)")
+                                        print("Lat: \(permissionManager.userLocation?.coordinate.latitude)")
+                                        print("Long: \(permissionManager.userLocation?.coordinate.latitude)")
+                                        Task {
+                                            checkINViewModel.checkINTime = currentDeviceTime
+                                            if let lat = permissionManager.userLocation?.coordinate.latitude{
+                                                checkINViewModel.checkINLatitude = Double(lat)
+                                            }
+                                            if let long = permissionManager.userLocation?.coordinate.longitude {
+                                                checkINViewModel.checkINLongitude = Double(long)
+                                            }
+                                            try await checkINViewModel.markAttendance()
+                                            print("CheckIN: Attendance marked")
+                                            if checkINViewModel.checkINTime != "" {
+                                                homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
+                                                
+                                                timerManager.startActiveTimer()
+                                                
+                                                // start tracking
+                                                UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+                                            }
+                                        }
+                                        
+                                        // to refresh the screen after checkIN
+                                        Task {
+                                            try await homeScreenViewModel.getHomeScreenData()
+                                            
+                                            if let data = homeScreenViewModel.checkData?.data.checkIn {
+                                                showCheckIN = false
+                                                showCheckOUT = true
+                                                
+                                                //to automatically start the timer is CheckOUT timer is nill
+                                                if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                    timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
+                                                    //                            timerManager.startActiveTimer()
+                                                    timerManager.stopActiveTimer()
+                                                }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                    timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
+                                                    timerManager.startActiveTimer()
+                                                }
+                                            }
+                                            else{
+                                                UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                showCheckIN = true
+                                                showCheckOUT = false
+                                            }
+                                            
+                                            //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
+                                            //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                        }
+                                    }
+                                    .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
+                            }
+                            
+                        }
+                        
+                        if showCheckOUT {
+                            
+                            if homeScreenViewModel.homeScreenData?.isGeoFencingOn == 1 {
+                                if checkINAccessDistance ?? 0 > homeScreenViewModel.homeScreenData?.orgRadius ?? 500 {
+                                    CheckOUTDisableButtonView(text: "Swipe to check OUT") {
+                                        //DO nothing
+                                    }
+                                    .disableWithOpacity(true)
+                                }
+                                // Condition when geoFencing is on and User is inside the fencing
+                                else{
+                                    CheckOutSwipeButtonView()
+                                        .onSwipeSuccess{
+                                            showCheckOUT = false
+                                            
+                                            Task {
+                                                currentDeviceTime = HelperFunction.shared.currentTime()
+                                                print("Current Time: \(currentDeviceTime)")
+                                                checkINViewModel.checkINTime = currentDeviceTime
+                                                if let lat = permissionManager.userLocation?.coordinate.latitude{
+                                                    checkINViewModel.checkINLatitude = Double(lat)
+                                                }
+                                                if let long = permissionManager.userLocation?.coordinate.longitude {
+                                                    checkINViewModel.checkINLongitude = Double(long)
+                                                }
+                                                //show checkOutAlert
+                                                showCheckOUTAlert.toggle()
+                                                //                                            try await checkINViewModel.markAttendance()
+                                                //                                            print("CheckOUT: Attendance marked")
+                                                //
+                                                //                                            timerManager.stopActiveTimer()
+                                            }
+                                            
+                                            // to refresh the screen after checkIN
+                                            Task {
+                                                try await homeScreenViewModel.getHomeScreenData()
+                                                
+                                                if let data = homeScreenViewModel.checkData?.data.checkIn {
+                                                    showCheckIN = false
+                                                    showCheckOUT = true
+                                                    
+                                                    //to automatically start the timer is CheckOUT timer is nill
+                                                    if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
+                                                        //                            timerManager.startActiveTimer()
+                                                        timerManager.stopActiveTimer()
+                                                    }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
+                                                        timerManager.startActiveTimer()
+                                                    }
+                                                }
+                                                else{
+                                                    UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                    showCheckIN = true
+                                                    showCheckOUT = false
+                                                }
+                                                
+                                                //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
+                                                //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                            }
+                                        }
+                                        .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
+                                        .onDisappear(){
+                                            showCheckOUT = true
+                                        }
+                                    
+                                }
+                            }
+                            else{
+                                CheckOutSwipeButtonView()
+                                    .onSwipeSuccess{
+                                        showCheckOUT = false
+                                        
+                                        Task {
+                                            currentDeviceTime = HelperFunction.shared.currentTime()
+                                            print("Current Time: \(currentDeviceTime)")
+                                            checkINViewModel.checkINTime = currentDeviceTime
+                                            if let lat = permissionManager.userLocation?.coordinate.latitude{
+                                                checkINViewModel.checkINLatitude = Double(lat)
+                                            }
+                                            if let long = permissionManager.userLocation?.coordinate.longitude {
+                                                checkINViewModel.checkINLongitude = Double(long)
+                                            }
+                                            //show checkOutAlert
+                                            showCheckOUTAlert.toggle()
+                                            //                                            try await checkINViewModel.markAttendance()
+                                            //                                            print("CheckOUT: Attendance marked")
+                                            //
+                                            //                                            timerManager.stopActiveTimer()
+                                        }
+                                        
+                                        // to refresh the screen after checkIN
+                                        Task {
+                                            try await homeScreenViewModel.getHomeScreenData()
+                                            
+                                            if let data = homeScreenViewModel.checkData?.data.checkIn {
+                                                showCheckIN = false
+                                                showCheckOUT = true
+                                                
+                                                //to automatically start the timer is CheckOUT timer is nill
+                                                if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                    timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
+                                                    //                            timerManager.startActiveTimer()
+                                                    timerManager.stopActiveTimer()
+                                                }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                    timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
+                                                    timerManager.startActiveTimer()
+                                                }
+                                            }
+                                            else{
+                                                UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                showCheckIN = true
+                                                showCheckOUT = false
+                                            }
+                                            
+                                            //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
+                                            //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                        }
+                                    }
+                                    .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
+                                    .onDisappear(){
+                                        showCheckOUT = true
+                                    }
+                                
+                            }
+                        }
+                    }
+                    .frame(height: 43)
+                    .padding(.top)
+                    
+                }
+                .background(Color.white)
+                //                .clipShape(RoundedRectangle(cornerRadius: 25))
+                //                .frame(maxHeight: .infinity)
+            }
+            .onChange(of: showWarning) { _, _ in
+                showCheckOUTAlert = false
+            }
+            .onAppear {
+                self.name = UserDefaults.standard.string(forKey: "UserName") ?? ""
+                self.department = UserDefaults.standard.string(forKey: "UserDepartment") ?? ""
+                self.checkINRadius = homeScreenViewModel.homeScreenData?.orgRadius
+                
+                // to send the user current location to MapView
+                userLocation = CLLocationCoordinate2D(latitude: permissionManager.userLocation?.coordinate.latitude ?? 12.970005196080612, longitude: permissionManager.userLocation?.coordinate.longitude ?? 77.58629190248757)
+            }
+            
+            
+            //MARK: MOT Popup after checkIN
+            if showMOTPopup {
+                ZStack {
+                    ModeOfTravelView(motViewModel: motViewModel, selectedMode: $selecetedMode, tappedMode: $tappedMode, showMode: $showMOTPopup)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.opacity(0.5))
+                .onTapGesture {
+                    showMOTPopup.toggle()
+                }
+            }
+            //MARK: CheckOUT Popup
+            if showCheckOUTAlert {
+                ZStack {
+                    LogoutAlertPopupView(checkINViewModel: checkINViewModel, homeScreenViewModel: homeScreenViewModel, showCheckOUTAlert: $showCheckOUTAlert, yesCheckout: $yesCheckOut, showWarningPopup: $showWarning, isTaskRunning: $isTaskRunning)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea()
+                .background(Color.black.opacity(0.5))
+                
+            }
+            
+            //MARK: Warning
+            if showWarning {
+                if NetworkManager.shared.statusCode == 403 {
+                    ZStack {
+                        WarningPopupView(titleText: "Checkout Restricted", description: "Check Before 1 hour is not allowed", showWarningPopup: $showWarning)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.5))
+                    .onTapGesture {
+                        showWarning.toggle()
+                        showCheckOUTAlert = false
+                    }
+                }else {
+                    ZStack {
+                        WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarning)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.5))
+                    .onTapGesture {
+                        showWarning.toggle()
+                        showCheckOUTAlert = false
+                    }
+                }
+                
+            }
+        }
+        
+    }
+}
+
+#Preview {
+    MapCheckInView(homeScreenViewModel: HomeScreenViewModel(), checkINViewModel: CheckINViewModel(), showCheckIN: .constant(false), showCheckOUT: .constant(false), motViewModel: MOTViewModel(), selecetedMode: .constant(""), tappedMode: .constant(nil), isTaskRunning: .constant(false))
+        .environmentObject(SearchLocationViewModel())
+        .environmentObject(PermissionManager())
+        .environmentObject(TimerManager())
+}

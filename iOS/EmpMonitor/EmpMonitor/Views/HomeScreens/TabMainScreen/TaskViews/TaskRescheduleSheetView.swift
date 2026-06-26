@@ -1,0 +1,939 @@
+//
+//  TaskRescheduleSheetView.swift
+//  EmpMonitor
+//
+//  Created by Sumit Ghosh on 11/09/24.
+//
+
+import SwiftUI
+
+struct TaskRescheduleSheetView: View {
+    
+    @ObservedObject var cameraViewModel: CameraViewModel
+    @ObservedObject var uploadFileViewModel: UploadFilesViewModel
+    @ObservedObject var updateTaskViewModel: UpdateTaskViewModel
+    
+    @ObservedObject var tagViewModel: TagViewModel
+    @ObservedObject var dateViewModel: DateViewModel
+    
+    //sheet manipulation
+    @Binding var sheetHeight: CGFloat
+    @Binding var currentDetent: PresentationDetent
+    @Binding var showTaskRescheduleSheet: Bool
+    
+    @Binding var taskVolume: String
+    @Binding var taskValue: String
+    
+    @Binding var showCurrencyPopup: Bool
+    @Binding var selectedCurrency: String
+    
+    //camera
+    @Binding var showCamera: Bool
+    @Binding var showImagePreview: Bool
+    @Binding var selectedImage: UIImage?
+    @Binding var savedImageURLs: [URL]
+    @Binding var savedImages: [SavedImage]
+    
+    //calendar
+    @State var showCalendar: Bool = false
+    // for rescheduling
+    @State private var startDate: String?
+    @State private var endDate: String?
+    @State private var setStartDate: Bool?
+    @State private var setEndDate: Bool?
+    
+    @State private var rescheduleStartTime: String?
+    @State private var rescheduleStopTime: String?
+    
+    //time
+//    @State private var showTimePicker: Bool = false
+    @State private var startTime: String = ""
+    @State private var stopTime: String = ""
+//    @State private var setStartTime: Bool?
+    
+    
+    //DATA
+    @Binding var selectedTask: FilterTaskListResponseData?
+    @Binding var taskStatus: [String : Int]  // for task status "start", "pause", "resume"
+
+    
+    
+    //dismiss the view when the task is updated
+    @Binding var isDismiss: Bool
+    
+    //Warning
+    @Binding var showWarningPopup: Bool
+    
+    
+    //To refresh the taskList after updating status
+    @Binding var refreshScreen: Bool
+    
+    
+    var body: some View {
+        ZStack {
+            VStack {
+                if sheetHeight == 0.05 {
+                    HStack {
+                        Text("Swipe Up")
+                            .font(.system(size: 14, weight: .regular))
+                        Image(systemName: "arrow.up")
+                    }
+                    .fontWeight(.bold)
+                    .foregroundStyle(Color.subText)
+                    .padding(.top, 20)
+                }
+                else if sheetHeight == 0.3 {
+                    VStack {
+                        Text(selectedTask?.taskName ?? "Task")
+                            .font(.system(size: 18, weight: .regular))
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color.addAddressText)
+                            .padding(.top, 10)
+                        
+                        
+                        //NAME
+                        HStack {
+                            Circle()
+                                .fill(
+                                    .shadow(.inner(color: Color.taskSearchBar.opacity(0.5), radius: 4))
+                                )
+                                .foregroundStyle(Color.white)
+                                .frame(width: 30, height: 30)
+                                .overlay {
+                                    Image(.profileIcon)
+                                }
+                            
+                            Text(selectedTask?.clientName ?? "")
+                                .font(.system(size: 14, weight: .regular))
+                                .fontWeight(.medium)
+                                .foregroundStyle(Color.subText)
+                            
+                            Spacer()
+                        }
+                        
+                        //Timing
+                        HStack {
+                            Circle()
+                                .fill(
+                                    .shadow(.inner(color: Color.taskSearchBar.opacity(0.5), radius: 4))
+                                )
+                                .foregroundStyle(Color.white)
+                                .frame(width: 30, height: 30)
+                                .overlay {
+                                    Image(.clock)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 16.3, height: 16.3)
+                                }
+                            
+                            //Time
+                            HStack(spacing: 0) {
+                                if let startTime = rescheduleStartTime {
+                                    Text(startTime)
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(Color.primaryButton1)
+                                }
+                                else if let startTime = selectedTask?.startTime {
+                                    Text(FormatterHelper.shared.checkTimeFormatter(from: startTime) ?? "")
+//                                    Text(self.startTime)
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(Color.primaryButton1)
+                                }else{
+                                    Text("__")
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(Color.primaryButton1)
+                                }
+                                
+                                Text(" - ")
+                                
+                                if let stopTime = rescheduleStopTime {
+                                    Text(stopTime)
+                                            .font(.system(size: 14, weight: .regular))
+                                            .fontWeight(.semibold)
+                                            .foregroundStyle(Color.primaryButton1)
+                                }
+                                else if let endTime = selectedTask?.endTime {
+                                    Text(FormatterHelper.shared.checkTimeFormatter(from: endTime) ?? "")
+//                                    Text(stopTime)
+                                            .font(.system(size: 14, weight: .regular))
+                                            .fontWeight(.semibold)
+                                            .foregroundStyle(Color.primaryButton1)
+                                }else{
+                                    Text("__")
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(Color.primaryButton1)
+                                }
+                            }
+                            
+                            
+                            Spacer()
+                        }
+                        
+                        //Address
+                        HStack {
+                            Circle()
+                                .fill(
+                                    .shadow(.inner(color: Color.taskSearchBar.opacity(0.5), radius: 4))
+                                )
+                                .foregroundStyle(Color.white)
+                                .frame(width: 30, height: 30)
+                                .overlay {
+                                    Image(.locationPointerBlueIcon)
+                                }
+                            
+                            HStack(spacing: 0) {
+                                if let address1 = selectedTask?.address1 {
+                                    Text(address1)
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.medium)
+                                        .foregroundStyle(Color.subText)
+                                }else if let address2 = selectedTask?.address2 {
+                                    Text(address2)
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.medium)
+                                        .foregroundStyle(Color.subText)
+                                }
+                            }
+                            
+                            
+                            Spacer()
+                        }
+                        
+                        //MARK: Button
+                        if taskStatus[selectedTask?.id ?? ""] == 0 {
+                            PrimaryThinButton(text: "Start") {
+                                //TODO: To start the task
+                                Task {
+                                    updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                    updateTaskViewModel.status = 1
+                                    updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                    updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                    updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+//                                    updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                    updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                    updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                    updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                    
+                                    
+                                    try await updateTaskViewModel.updateTaskStatus()
+                                    
+                                    if NetworkManager.shared.statusCode == 400 {
+                                        currentDetent = .fraction(0.05)
+                                        showWarningPopup = true
+                                    }
+                                    else{
+                                        taskStatus[selectedTask?.id ?? ""] = 1
+                                        refreshScreen.toggle()
+                                    }
+                                    
+                                }
+                            }
+                            .padding()
+                        }
+                        else if taskStatus[selectedTask?.id ?? ""] == 1 || taskStatus[selectedTask?.id ?? ""] == 3 {
+                            RedThinButton(text: "Pause") {
+                                //TODO: To pause the task
+                                Task {
+                                    updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                    updateTaskViewModel.status = 2
+                                    updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                    updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                    updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+//                                    updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                    updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                    updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                    updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                    
+                                    
+                                    
+                                    try await updateTaskViewModel.updateTaskStatus()
+                                    
+                                    if NetworkManager.shared.statusCode == 400 {
+                                        showWarningPopup = true
+                                    }else{
+                                        taskStatus[selectedTask?.id ?? ""] = 2
+                                        refreshScreen.toggle()
+                                    }
+                                    
+                                }
+                                
+                            }
+                        }
+                        else if taskStatus[selectedTask?.id ?? ""] == 2 {
+                            RedThinButton(text: "Resume") {
+                                //TODO: To resume the task
+                                Task {
+                                    updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                    updateTaskViewModel.status = 3
+                                    updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                    updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                    updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+//                                    updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                    updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                    updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                    updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                    
+                                    
+                                    try await updateTaskViewModel.updateTaskStatus()
+                                    
+                                    if NetworkManager.shared.statusCode == 400 {
+                                        showWarningPopup = true
+                                    }
+                                    else{
+                                        taskStatus[selectedTask?.id ?? ""] = 3
+                                        refreshScreen.toggle()
+                                    }
+                                }
+                            }
+                        }
+                        
+                        
+                    }
+                    .padding(.horizontal)
+                    .frame(height: 250, alignment: .top)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.white)
+                    .padding(.top, 50)
+                }
+                else if sheetHeight == 0.99  {
+                    TaskRescheduleDetailSheetView(tagViewModel: tagViewModel, cameraViewModel: cameraViewModel, uploadFileViewModel: uploadFileViewModel, updateTaskViewModel: updateTaskViewModel, sheetHeight: $sheetHeight, currentDetent: $currentDetent, showTaskRescheduleSheet: $showTaskRescheduleSheet, taskVolume: $taskVolume, taskValue: $taskValue, showCurrencyPopup: $showCurrencyPopup, selectedCurrency: $selectedCurrency, showCamera: $showCamera, showImagePreview: $showCalendar, selectedImage: $selectedImage, savedImageURLs: $savedImageURLs, savedImages: $savedImages, showCalendar: $showCalendar, startDate: $startDate, endDate: $endDate, setStartDate: $setStartDate, setEndDate: $setEndDate, rescheduleStartTime: $rescheduleStartTime, rescheduleStopTime: $rescheduleStopTime, startTime: $startTime, stopTime: $stopTime, selectedTask: $selectedTask, taskStatus: $taskStatus, isDismiss: $isDismiss, refreshScreen: $refreshScreen)
+                }
+                
+            }
+            
+            //MARK: Currency Popup
+            if showCurrencyPopup {
+                ZStack {
+                    CurrencyPopupView(selectedCurrency: $selectedCurrency, showCurrencyPopup: $showCurrencyPopup)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.opacity(0.5))
+                .onTapGesture {
+                    showCurrencyPopup.toggle()
+                }
+            }
+            
+            //MARK: Calendar
+            if showCalendar {
+                ZStack {
+                    RescheduleCalendarView(dateViewModel: dateViewModel, startDate: $startDate, endDate: $endDate, setStartDate: $setStartDate, setEndDate: $setEndDate, rescheduleStartTime: $rescheduleStartTime, rescheduleStopTime: $rescheduleStopTime, startTime: $startTime, stopTime: $stopTime, showCalendar: $showCalendar)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.opacity(0.5))
+                .onTapGesture {
+                    showCalendar.toggle()
+                    setStartDate = false
+                }
+            }
+            
+            //MARK: show time picker
+            if dateViewModel.showPicker {
+                ZStack {
+                    TimePickerView(dateViewModel: dateViewModel, startTime: $startTime, stopTime: $stopTime)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.opacity(0.5))
+                .onTapGesture {
+                    dateViewModel.showPicker.toggle()
+                }
+            }
+            
+        }
+        .onAppear {
+//            if let startTime = selectedTask?.startTime {
+//                self.startTime = FormatterHelper.shared.checkTimeFormatter(from: startTime) ?? ""
+//            }
+//            if let stopTime = selectedTask?.endTime {
+//                self.stopTime = FormatterHelper.shared.checkTimeFormatter(from: stopTime) ?? ""
+//            }
+        }
+        .onChange(of: currentDetent) { _, newValue in
+            // Optionally, you can update the sheetHeight state based on the currentDetent
+            switch newValue {
+            case .fraction(0.05):
+                sheetHeight = 0.05
+            case .fraction(0.3):
+                sheetHeight = 0.3
+            case .fraction(0.99):
+                sheetHeight = 0.99
+            default:
+                break
+            }
+        }
+        
+    }
+}
+
+struct TaskRescheduleDetailSheetView: View {
+    
+    @ObservedObject var tagViewModel: TagViewModel
+    @ObservedObject var cameraViewModel: CameraViewModel
+    @ObservedObject var uploadFileViewModel: UploadFilesViewModel
+    @ObservedObject var updateTaskViewModel: UpdateTaskViewModel
+    
+    //sheetManipulation
+    @Binding var sheetHeight: CGFloat
+    @Binding var currentDetent: PresentationDetent
+    @Binding var showTaskRescheduleSheet: Bool
+    
+    @Binding var taskVolume: String
+    @Binding var taskValue: String
+    @Binding var showCurrencyPopup: Bool
+    @Binding var selectedCurrency: String
+   
+    @State private var showPause: Bool = false
+    
+    //Camera
+    @Binding var showCamera: Bool
+    @Binding var showImagePreview: Bool
+    @Binding var selectedImage: UIImage?
+    @Binding var savedImageURLs: [URL]
+    @Binding var savedImages: [SavedImage]
+    
+    //Calendar
+    @Binding var showCalendar: Bool
+    // for rescheduling
+    @Binding var startDate: String?
+    @Binding var endDate: String?
+    @Binding var setStartDate: Bool?
+    @Binding var setEndDate: Bool?
+    
+    @Binding var rescheduleStartTime: String?
+    @Binding var rescheduleStopTime: String?
+    
+    //Time
+    @Binding var startTime: String
+    @Binding var stopTime: String
+    
+//    @State private var testText: String = ""
+    
+    //DATA
+    @Binding var selectedTask: FilterTaskListResponseData?
+    @State private var selectedStage: TagResponseData?
+    @State private var selectedStageTitle: String?
+    @Binding var taskStatus: [String : Int]  // for task status "start", "pause", "resume"
+    
+    //TO Finish the task
+    @State private var showFinishAlert: Bool = false
+    
+    
+    //dismiss the view when the task is updated
+    @Binding var isDismiss: Bool
+    
+    //Warning
+    @State private var showWarningPopup: Bool = false
+    
+    //To refresh the taskList after updating status
+    @Binding var refreshScreen: Bool
+    
+    var body: some View {
+        ZStack {
+//            ScrollView {
+                VStack {
+                    
+                    Text(selectedTask?.taskName ?? "Task")
+                        .font(.system(size: 18, weight: .regular))
+                        .fontWeight(.semibold)
+                        .foregroundStyle(Color.addAddressText)
+                    
+                    //UserInfo
+                    VStack {
+                        //NAME
+                        HStack {
+                            Circle()
+                                .fill(
+                                    .shadow(.inner(color: Color.taskSearchBar.opacity(0.5), radius: 4))
+                                )
+                                .foregroundStyle(Color.white)
+                                .frame(width: 30, height: 30)
+                                .overlay {
+                                    Image(.profileIcon)
+                                }
+                            
+                            Text(selectedTask?.clientName ?? "")
+                                .font(.system(size: 14, weight: .regular))
+                                .fontWeight(.medium)
+                                .foregroundStyle(Color.subText)
+                            
+                            Spacer()
+                        }
+                        
+                        //Timing
+                        HStack {
+                            Circle()
+                                .fill(
+                                    .shadow(.inner(color: Color.taskSearchBar.opacity(0.5), radius: 4))
+                                )
+                                .foregroundStyle(Color.white)
+                                .frame(width: 30, height: 30)
+                                .overlay {
+                                    Image(.clock)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 16.3, height: 16.3)
+                                }
+                            
+                            //Time
+                            HStack(spacing: 0) {
+                                if let startTime = rescheduleStartTime {
+                                    Text(startTime)
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(Color.primaryButton1)
+                                }
+                                else if let startTime = selectedTask?.startTime {
+                                    Text(FormatterHelper.shared.checkTimeFormatter(from: startTime) ?? "")
+    //                                    Text(self.startTime)
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(Color.primaryButton1)
+                                }else{
+                                    Text("__")
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(Color.primaryButton1)
+                                }
+                                
+                                Text(" - ")
+                                
+                                if let stopTime = rescheduleStopTime {
+                                    Text(stopTime)
+                                            .font(.system(size: 14, weight: .regular))
+                                            .fontWeight(.semibold)
+                                            .foregroundStyle(Color.primaryButton1)
+                                }
+                                else if let endTime = selectedTask?.endTime {
+                                    Text(FormatterHelper.shared.checkTimeFormatter(from: endTime) ?? "")
+    //                                    Text(stopTime)
+                                            .font(.system(size: 14, weight: .regular))
+                                            .fontWeight(.semibold)
+                                            .foregroundStyle(Color.primaryButton1)
+                                }else{
+                                    Text("__")
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.semibold)
+                                        .foregroundStyle(Color.primaryButton1)
+                                }
+                            }
+                            
+                            
+                            Spacer()
+                        }
+                        
+                        //Address
+                        HStack {
+                            Circle()
+                                .fill(
+                                    .shadow(.inner(color: Color.taskSearchBar.opacity(0.5), radius: 4))
+                                )
+                                .foregroundStyle(Color.white)
+                                .frame(width: 30, height: 30)
+                                .overlay {
+                                    Image(.locationPointerBlueIcon)
+                                }
+                            
+                            HStack(spacing: 0) {
+                                if let address1 = selectedTask?.address1 {
+                                    Text(address1)
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.medium)
+                                        .foregroundStyle(Color.subText)
+                                }else if let address2 = selectedTask?.address2 {
+                                    Text(address2)
+                                        .font(.system(size: 14, weight: .regular))
+                                        .fontWeight(.medium)
+                                        .foregroundStyle(Color.subText)
+                                }
+                            }
+                            
+                            
+                            Spacer()
+                        }
+                    }
+                    .frame(height: 120, alignment: .top)
+                    
+                   
+                    //MARK: Edit here
+                    VStack(alignment: .leading, spacing: 10) {
+                        Text("Stage of Task")
+                            .font(.system(size: 14, weight: .regular))
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color.subText)
+                            .padding(.bottom, 50)
+                        
+    //                    TaskStageDropDownView(selectionTitle: "Select task stage")
+                        
+                        Text("Task Volume")
+                            .font(.system(size: 14, weight: .regular))
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color.subText)
+                            .padding(.top, 5)
+                        
+                        RescheduleTextFieldView(text: $taskVolume, placeholder: "Task Volume")
+                            .keyboardType(.numberPad)
+                            .toolbarDoneButton()
+                        
+                        
+                        Text("Task value")
+                            .font(.system(size: 14, weight: .regular))
+                            .fontWeight(.semibold)
+                            .foregroundStyle(Color.subText)
+                            .padding(.top, 5)
+                        
+                        HStack(spacing: 0) {
+                            Rectangle()
+                                .fill(Color.taskSearchBar)
+                                .frame(width: 110, height: 43)
+                                .padding(.trailing, 10)
+                                .clipShape(RoundedRectangle(cornerRadius: 10))
+                                .overlay {
+                                    HStack(spacing: 30){
+                                        Text(selectedCurrency)
+                                        Image(systemName: "chevron.down")
+                                            .resizable()
+                                            .aspectRatio(contentMode: .fit)
+                                            .frame(width: 12.32, height: 15.13)
+                                    }
+                                    .font(.system(size: 15, weight: .regular))
+                                    .foregroundStyle(Color.white)
+                                    .onTapGesture {
+                                        showCurrencyPopup.toggle()
+                                    }
+                                }
+                            RescheduleTextFieldView(text: $taskValue, placeholder: "Enter Task Value")
+                                .keyboardType(.numberPad)
+                                .toolbarDoneButton()
+                                .offset(x: -10)
+                        }
+                        
+                        ScrollView {
+                            HStack(spacing: 20) {
+                                RescheduleTaskTime()
+                                    .onTapGesture {
+                                        withAnimation {
+                                            showCalendar.toggle()
+                                            setStartDate = true
+                                        }
+                                    }
+                                
+                                //To add new images
+                                AddPictureView()
+                                    .onTapGesture {
+    //                                    currentDetent = .fraction(0.05)
+                                        showTaskRescheduleSheet = false
+                                        
+    //                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                            if cameraViewModel.savedImages.count < 4 {
+                                                showCamera.toggle()
+                                                print("Camera btn tapped")
+                                            }else{
+                                                //TODO: Show alert
+                                            }
+    //                                    }
+                                            
+                                    }
+                                    .onChange(of: savedImageURLs) { _, _ in
+                                        Task {
+                                            //TODO: Upload the Images
+                                            print(savedImageURLs)
+                                            
+    //                                        createTaskViewModel.selectedImageURLs.removeAll() // ensuring every url is remove to fill new one only(remain one)
+    //                                        createTaskViewModel.images.removeAll() // removing the all Image
+                                            
+                                            
+                                            if !savedImageURLs.isEmpty{
+                                                
+                                                for image in savedImages {
+                                                    
+                                                    if let url = image.url {
+                                                        uploadFileViewModel.selectedImageURLs.append(url)
+                                                        await uploadFileViewModel.uploadImages()
+                                                    }
+                                                    
+//                                                    if let url = uploadFileViewModel.fetchedURL.first?.url {
+    //                                                    createTaskViewModel.addToImages(description: image.description, url: url)
+//                                                    }
+                                                    
+                                                    
+    //                                                createTaskViewModel.addLatestImageURLs(uploadFileViewModel.fetchedURL)
+                                                    
+                                                    uploadFileViewModel.selectedImageURLs.removeAll()
+                                                }
+                                            }
+                                            
+    //                                        print("Images URLs: \(createTaskViewModel.selectedImageURLs)")
+                                            print(uploadFileViewModel.fetchedURL)
+                                        }
+                                    }
+
+                            }
+                            .padding()
+                            
+                            //MARK: Pics Preview
+                            if !cameraViewModel.savedImages.isEmpty {
+                                HStack {
+                                    Text("Warning:")
+                                        .font(.system(size: 12, weight: .regular))
+                                        .fontWeight(.semibold)
+                                    Text("You can only add upto 4 images (Image =  \(cameraViewModel.savedImages.count))")
+                                        .font(.system(size: 12, weight: .regular))
+                                        .fontWeight(.medium)
+                                }
+                                .foregroundStyle(Color.absent)
+                                .frame(maxWidth: .infinity, alignment: .leading)
+                                .padding(.horizontal)
+                                
+                                //MARK: Captured Image Small Preview
+                                CaptureImageSmallPreview(cameraViewModel: cameraViewModel, selectedImage: $selectedImage, showImagePreview: $showImagePreview, savedImageURLs: $savedImageURLs)
+                                
+                            }
+                            
+                            
+                            //MARK: Update Task Buttons
+                            
+                            PrimaryThinButton(text: "Update Task") {
+                                //TODO: Update the task
+                                Task {
+                                    updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                    updateTaskViewModel.clientID = selectedTask?.clientID ?? ""
+                                    updateTaskViewModel.taskName = selectedTask?.taskName ?? ""
+                                    
+                                    if let startDate = startDate, let rescheduleStartTime = rescheduleStartTime {
+                                        updateTaskViewModel.startTime = FormatterHelper.shared.formatDateAndTime(dateString: startDate, timeString: rescheduleStartTime) ?? ""
+                                    }
+                                    if let startDate = startDate, let rescheduleStopTime = rescheduleStopTime {
+                                        updateTaskViewModel.endTime = FormatterHelper.shared.formatDateAndTime(dateString: startDate, timeString: rescheduleStopTime) ?? ""
+                                    }
+                                    
+                                    updateTaskViewModel.taskDescription = selectedTask?.taskDescription ?? ""
+                                    
+                                    if let startDate = startDate {
+                                        updateTaskViewModel.date = startDate
+                                    }
+                                    
+                                    updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                    
+                                    updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                    
+//                                    print("Up :\(updateTaskViewModel.startTime)")
+//                                    print("Up :\(updateTaskViewModel.endTime)")
+                                    
+                                    
+                                    try await updateTaskViewModel.updateTask()
+                                    
+                                    if NetworkManager.shared.statusCode == 200 {
+                                        currentDetent = .fraction(0.05)
+                                        
+                                        isDismiss = true
+                                    }else{
+                                        showWarningPopup.toggle()
+                                    }
+                                }
+                            }
+                            .disableWithOpacity(startDate == nil || rescheduleStartTime == nil || rescheduleStopTime == nil)
+
+                            HStack {
+//                                if showPause {
+//                                    RedBorderButton(text: "Pause") {
+//                                        //TODO: to pause the task
+//                                    }
+//                                }else{
+//                                    RedThinButton(text: "Resume") {
+//                                        //TODO: To resume the task
+//                                    }
+//                                }
+                                //MARK: Button
+                                if taskStatus[selectedTask?.id ?? ""] == 0 {
+                                    PrimaryThinButton(text: "Start") {
+                                        //TODO: To start the task
+                                        Task {
+                                            updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                            updateTaskViewModel.status = 1
+                                            updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                            updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                            updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+//                                            updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                            updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                            updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                            updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                            
+                                            
+                                            try await updateTaskViewModel.updateTaskStatus()
+                                            
+                                            if NetworkManager.shared.statusCode == 400 {
+                                                showWarningPopup = true
+                                            }
+                                            else{
+                                                taskStatus[selectedTask?.id ?? ""] = 1
+                                                refreshScreen.toggle()
+                                            }
+                                            
+                                        }
+                                    }
+                                }
+                                else if taskStatus[selectedTask?.id ?? ""] == 1 || taskStatus[selectedTask?.id ?? ""] == 3 {
+                                    RedThinButton(text: "Pause") {
+                                        //TODO: To pause the task
+                                        Task {
+                                            updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                            updateTaskViewModel.status = 2
+                                            updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                            updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                            updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+//                                            updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                            updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                            updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                            updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                            
+                                            
+                                            
+                                            try await updateTaskViewModel.updateTaskStatus()
+                                            
+                                            if NetworkManager.shared.statusCode == 400 {
+                                                showWarningPopup = true
+                                            }else{
+                                                taskStatus[selectedTask?.id ?? ""] = 2
+                                                refreshScreen.toggle()
+                                            }
+                                            
+                                        }
+                                    }
+                                }
+                                else if taskStatus[selectedTask?.id ?? ""] == 2 {
+                                    RedThinButton(text: "Resume") {
+                                        //TODO: To resume the task
+                                        Task {
+                                            updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                            updateTaskViewModel.status = 3
+                                            updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                            updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                            updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+//                                            updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                            updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                            updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                            updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                            
+                                            
+                                            try await updateTaskViewModel.updateTaskStatus()
+                                            
+                                            if NetworkManager.shared.statusCode == 400 {
+                                                showWarningPopup = true
+                                            }
+                                            else{
+                                                taskStatus[selectedTask?.id ?? ""] = 3
+                                                refreshScreen.toggle()
+                                            }
+                                        }
+                                    }
+                                }
+                                
+                                PrimaryThinButton(text: "Finish") {
+                                    //TODO: To update the task
+                                    
+                                    showFinishAlert.toggle()
+                                }
+                            }
+                        }
+                        
+                        
+                                                
+                    }
+                    .padding(.vertical)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    
+                }
+                .padding(.horizontal)
+                .frame(maxHeight: .infinity, alignment: .top)
+                .frame(maxWidth: .infinity)
+                .background(Color.white)
+                .padding(.top, 40)
+                .overlay(alignment: .top) {
+                    TaskStageDropDownView(selectedStage: $selectedStage, options: tagViewModel.tagDataList, selectedStageTitle: $selectedStageTitle)
+//                        .padding(.top, 250)
+                        .padding(.horizontal)
+                }
+                .onAppear {
+                    if let volume = selectedTask?.taskVolume {
+                        taskVolume = "\(volume)"
+                        }
+                    //TODO: to make api call for stage of task
+                    Task {
+                        try await tagViewModel.getTags()
+                    }
+
+                    
+                    //To manager the click/selectedImages
+                    savedImageURLs.removeAll()
+                    savedImages.removeAll()
+                    
+                    savedImageURLs = cameraViewModel.getCapturedImageURLs()
+                    savedImages = cameraViewModel.savedImages
+                    
+                    print("IMage URLs")
+                    print(savedImageURLs)
+                    
+                }
+//            }
+            
+            //MARK: Warning Popup
+            if showWarningPopup {
+                ZStack {
+                    WarningPopupView(titleText: "Try Again!", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .background(Color.black.opacity(0.5))
+                .onTapGesture {
+                    withAnimation {
+                        showWarningPopup.toggle()
+                    }
+                }
+                
+                
+            }
+            
+        }
+        .alert(isPresented: $showFinishAlert) {
+                // MARK: To complete the task
+                Alert(title: Text("Do you really want to complete the task ?"),
+                      primaryButton: .default(Text("Complete"), action: {
+                    
+                    withAnimation {
+                        //TODO: to remove with animation
+                    }
+                    
+                    updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                    updateTaskViewModel.status = 4
+                    updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                    updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                    updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+//                    updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "INR", amount: 0)
+                    updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                    updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                    updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                    
+                    Task {
+                        try await updateTaskViewModel.updateTaskStatus()
+                        
+                        if NetworkManager.shared.statusCode == 200 {
+                            taskStatus[selectedTask?.id ?? ""] = 4
+                        }else {
+                            showWarningPopup.toggle()
+                        }
+                    }
+                }),
+                      secondaryButton: .cancel())
+        }
+
+        
+        
+    }
+}
+
+//#Preview {
+//    TaskRescheduleSheetView(sheetHeight: .constant(0.99), currentDetent: .constant(.fraction(0.99)))
+//}
