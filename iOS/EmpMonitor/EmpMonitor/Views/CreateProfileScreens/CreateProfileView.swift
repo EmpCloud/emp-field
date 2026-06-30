@@ -39,6 +39,16 @@ struct CreateProfileView: View {
     //Email Validation Warning
     @State private var isValidEmail: Bool = false
     
+    //MARK: Form Validation
+    private var isFormValid: Bool {
+        let hasName = !createProfileViewModel.fullName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        let hasEmail = Validator.validateEmail(createProfileViewModel.email)
+        let hasPhone = HelperFunction.shared.isValidPhoneNumber(createProfileViewModel.phoneNumber)
+        let hasAge = !age.isEmpty && (Int(age) ?? -1) >= 0 && (Int(age) ?? 101) <= 100
+        let hasGender = !selectedGender.isEmpty
+        return hasName && hasEmail && hasPhone && hasAge && hasGender
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack(alignment: .top) {
@@ -65,6 +75,12 @@ struct CreateProfileView: View {
                                     Text("Full Name*")
                                         .font(.system(size: 15, weight: .semibold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
+                                    if createProfileViewModel.fullName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                        Text("Full name is required*")
+                                            .font(.system(size: 12, weight: .regular))
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .foregroundStyle(Color.absent)
+                                    }
                                     TextFieldEditableCreateProfileView(text: $createProfileViewModel.fullName, placeholder: "Enter Full Name")
                                 }
                                 .padding(.trailing, 20)
@@ -102,9 +118,15 @@ struct CreateProfileView: View {
                                 
                                 //MARK: Phone
                                 VStack(spacing: 3) {
-                                    Text("Mobile No.")
+                                    Text("Mobile No.*")
                                         .font(.system(size: 15, weight: .semibold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
+                                    if !HelperFunction.shared.isValidPhoneNumber(createProfileViewModel.phoneNumber) {
+                                        Text("Valid phone number is required*")
+                                            .font(.system(size: 12, weight: .regular))
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .foregroundStyle(Color.absent)
+                                    }
                                     TextFieldEditableCreateProfileView(text: $createProfileViewModel.phoneNumber, placeholder: "Enter mobile no.")
                                         .keyboardType(.numberPad)
                                         .toolbarDoneButton()
@@ -142,6 +164,12 @@ struct CreateProfileView: View {
                                     Text("Select Gender*")
                                         .font(.system(size: 15, weight: .semibold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
+                                    if selectedGender.isEmpty {
+                                        Text("Gender is required*")
+                                            .font(.system(size: 12, weight: .regular))
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .foregroundStyle(Color.absent)
+                                    }
                                     HStack{
                                         
                                         ForEach(["Male", "Female", "Other"], id: \.self) { gender in
@@ -180,6 +208,7 @@ struct CreateProfileView: View {
                                 //MARK: Button
                                 PrimaryButton(text: "Add Address") {
                                     //To add address
+                                    guard isFormValid else { return }
                                     
                                     createProfileViewModel.age = age
                                     createProfileViewModel.gender = selectedGender
@@ -187,7 +216,7 @@ struct CreateProfileView: View {
                                     
                                 }
                                 .padding(.horizontal, 50)
-                                .disableWithOpacity(createProfileViewModel.fullName.isEmpty || createProfileViewModel.email.isEmpty)
+                                .disableWithOpacity(!isFormValid)
 
                                 
                             }
@@ -228,6 +257,7 @@ struct CreateProfileView: View {
                     .navigationBarBackButtonHidden()
                     .environmentObject(searchLocationViewModel)
                     .environmentObject(createProfileViewModel)
+                    .environmentObject(profileImageLoader)
             }
 //            .onChange(of: selectedGender) { oldValue, newValue in
 //                createProfileViewModel.gender = newValue
