@@ -228,6 +228,7 @@ struct AddAddressView: View {
         .navigationBarTitleDisplayMode(.inline)
         .fullScreenCover(isPresented: $showHomeScreen) {
             TabMainView()
+                .environmentObject(profileImageLoader)
         }
 //        .navigationDestination(isPresented: $showHomeScreen) {
 //            TabMainView()

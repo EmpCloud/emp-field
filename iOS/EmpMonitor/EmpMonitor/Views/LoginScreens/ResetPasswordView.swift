@@ -84,7 +84,7 @@ struct ResetPasswordView: View {
         }
         .fullScreenCover(isPresented: $emailLoginScreen, content: {
             EmailLoginView()
-//                .environmentObject(profileImageLoader)
+                .environmentObject(profileImageLoader)
                 .navigationBarBackButtonHidden()
         })
         .toolbar {

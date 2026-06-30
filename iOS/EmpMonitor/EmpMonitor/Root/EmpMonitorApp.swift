@@ -19,6 +19,7 @@ struct EmpMonitorApp: App {
     @StateObject private var searchLocationViewModel = SearchLocationViewModel()
     @StateObject private var calendarViewModel = CalendarViewModel()
     @StateObject private var timerManager = TimerManager()
+    @StateObject private var profileImageLoader = ProfileImageLoader()
     
 //    init() {
 //        permissionManager.backgroundActivity = CLBackgroundActivitySession()
@@ -34,6 +35,7 @@ struct EmpMonitorApp: App {
                 .environmentObject(searchLocationViewModel)
                 .environmentObject(calendarViewModel)
                 .environmentObject(timerManager)
+                .environmentObject(profileImageLoader)
                 .onAppear {
                     permissionManager.backgroundActivity = CLBackgroundActivitySession()
                     permissionManager.startLocationUpdate()

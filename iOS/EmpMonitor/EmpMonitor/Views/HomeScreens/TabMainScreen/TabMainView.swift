@@ -154,6 +154,7 @@ struct TabMainView: View {
             .ignoresSafeArea(edges: .bottom)
             .sheet(isPresented: $showMapCheckInView) {
                 MapCheckInView(homeScreenViewModel: homeScreenViewModel, checkINViewModel: checkINViewModel, showCheckIN: $showCheckIN, showCheckOUT: $showCheckOUT, motViewModel: motViewModel, selecetedMode: $selectedMode, tappedMode: $tappedMode, isTaskRunning: $isTaskRunning)
+                    .environmentObject(profileImageLoader)
             }
             .sheet(isPresented: $isShareSheetPresented, content: {
                 if let pdfURL = pdfURL {
@@ -174,6 +175,7 @@ struct TabMainView: View {
             }
             .fullScreenCover(isPresented: $isLogout) {
                 LoginView()
+                    .environmentObject(profileImageLoader)
             }
             .toolbar{
                 if !showSideMenu {  // controlling the visiblity of the toolbar when the sideMenu is visible

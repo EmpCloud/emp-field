@@ -13,7 +13,11 @@ struct HolidaysView: View {
     
     var body: some View {
         ScrollView {
-            if holidaysViewModel.fetchStatusCode == 200 {
+            if holidaysViewModel.isLoading {
+                loadingPlaceholder
+            } else if holidaysViewModel.holidaysData.isEmpty {
+                emptyPlaceholder
+            } else {
                 LazyVGrid(columns: [GridItem(.fixed(UIScreen.main.bounds.width), alignment: .leading)]) {
                     
                     //MARK: Title
@@ -31,15 +35,12 @@ struct HolidaysView: View {
                     //MARK: Data
                     ForEach(holidaysViewModel.holidaysData, id: \.id) { holiday in
                         LazyHGrid(rows: [GridItem(.fixed(2))], spacing: 30) {
-                            // only to display the upcoming holidays
-//                            if FormatterHelper.shared.isFutureDate(dateString: holiday.holidayDate) {
                                 Text(holiday.holidayName)
                                     .frame(width: 200, alignment: .leading)
                                     .fontWeight(.medium)
                                     .multilineTextAlignment(.leading)
                                 Text(FormatterHelper.shared.formattedDateWithDay(from: holiday.holidayDate))
                                 .foregroundStyle(FormatterHelper.shared.isFutureDate(dateString: holiday.holidayDate) ? Color.primaryButton1 : Color.black)
-//                            }
                         }
                         .font(.custom("Montserrat", size: 12))
                         .padding(.leading, 25)
@@ -50,37 +51,41 @@ struct HolidaysView: View {
                 }
                 .background(Color.white)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
-                
-            }else{
-                VStack {
-                    Image(.noDataFound)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 114, height: 114)
-                    Text("No Data Found")
-                        .font(.custom("Montserrat", size: 14))
-                }
-                .frame(height: 500)
-                .frame(maxWidth: .infinity)
             }
         }
         .padding(.top, 10)
-        .overlay {
-            if holidaysViewModel.isLoading {
-                VStack {
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .scaleEffect(1.2)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.05))
-            }
-        }
         .onAppear {
             Task {
                 await holidaysViewModel.getHolidays()
             }
         }
+    }
+    
+    private var loadingPlaceholder: some View {
+        VStack(spacing: 12) {
+            ProgressView()
+                .scaleEffect(1.2)
+            Text("Loading...")
+                .font(.custom("Montserrat", size: 14))
+                .foregroundStyle(Color.subText)
+        }
+        .frame(maxWidth: .infinity, minHeight: 400)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+    }
+    
+    private var emptyPlaceholder: some View {
+        VStack(spacing: 12) {
+            Image(.noDataFound)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 114, height: 114)
+            Text("No holidays found")
+                .font(.custom("Montserrat", size: 14))
+        }
+        .frame(maxWidth: .infinity, minHeight: 400)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
 }
 

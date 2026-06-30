@@ -17,71 +17,77 @@ struct AttendanceHistoryView: View {
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: [GridItem(.fixed(1))], alignment: .leading) {
-                LazyHGrid(rows: [GridItem(.fixed(4))], spacing: 0) {
-                    Text("Date")
-                        .frame(width: 70, alignment: .leading)
-                    Text("Status")
-                        .frame(width: 105, alignment: .leading)
-                    Text("Clocked-in")
-                        .frame(width: 85)
-                    Text("Clocked-out")
-                        .frame(width: 90)
-//                        .padding(.leading, 3)
-                }
-                .font(.custom("Montserrat", size: 12))
-                .foregroundStyle(Color.attendanceTitleText)
-                .padding(.leading, 10)
-                .padding(.vertical, 10)
-                
-                ForEach(attendanceViewModel.attendanceData, id: \.date) { attendance in
-                    LazyHGrid(rows: [GridItem(.fixed(1))], spacing: 0) {
-                        Text(FormatterHelper.shared.formattedDate(from: attendance.date))
+            if attendanceViewModel.isLoading {
+                loadingPlaceholder
+            } else if attendanceViewModel.attendanceData.isEmpty {
+                emptyPlaceholder
+            } else {
+                LazyVGrid(columns: [GridItem(.fixed(1))], alignment: .leading) {
+                    LazyHGrid(rows: [GridItem(.fixed(4))], spacing: 0) {
+                        Text("Date")
                             .frame(width: 70, alignment: .leading)
-                        
-                        Text("\(checkAttendanceStatus(attendance: attendance))")
+                        Text("Status")
                             .frame(width: 105, alignment: .leading)
-                            .foregroundStyle(applyColor(status: checkAttendanceStatus(attendance: attendance)))
-                        
-                        if let clockedIN = FormatterHelper.shared.checkTimeFormatter(from: attendance.startTime ?? "") {
-                            Text(clockedIN)
-                                .frame(width: 85)
-                                .foregroundStyle(Color.present)
-                        }else{
-                            Text("--:--")
-                                .frame(width: 85)
-                        }
-                        
-                        HStack(spacing: 15) {
-                            if let clockedIN = FormatterHelper.shared.checkTimeFormatter(from: attendance.endTime ?? "") {
+                        Text("Clocked-in")
+                            .frame(width: 85)
+                        Text("Clocked-out")
+                            .frame(width: 90)
+//                        .padding(.leading, 3)
+                    }
+                    .font(.custom("Montserrat", size: 12))
+                    .foregroundStyle(Color.attendanceTitleText)
+                    .padding(.leading, 10)
+                    .padding(.vertical, 10)
+                    
+                    ForEach(attendanceViewModel.attendanceData, id: \.date) { attendance in
+                        LazyHGrid(rows: [GridItem(.fixed(1))], spacing: 0) {
+                            Text(FormatterHelper.shared.formattedDate(from: attendance.date))
+                                .frame(width: 70, alignment: .leading)
+                            
+                            Text("\(checkAttendanceStatus(attendance: attendance))")
+                                .frame(width: 105, alignment: .leading)
+                                .foregroundStyle(applyColor(status: checkAttendanceStatus(attendance: attendance)))
+                            
+                            if let clockedIN = FormatterHelper.shared.checkTimeFormatter(from: attendance.startTime ?? "") {
                                 Text(clockedIN)
-                                    .frame(width: 60)
-                                    .foregroundStyle(Color.absent)
+                                    .frame(width: 85)
+                                    .foregroundStyle(Color.present)
                             }else{
                                 Text("--:--")
-                                    .frame(width: 60)
+                                    .frame(width: 85)
                             }
                             
-                            Image(.editAttendanceIcon)
-                                .onTapGesture {
-                                    withAnimation {
-                                        editAttendanceViewModel.date = attendance.date
-                                        showEditAttendance.toggle()
-                                    }
+                            HStack(spacing: 15) {
+                                if let clockedIN = FormatterHelper.shared.checkTimeFormatter(from: attendance.endTime ?? "") {
+                                    Text(clockedIN)
+                                        .frame(width: 60)
+                                        .foregroundStyle(Color.absent)
+                                }else{
+                                    Text("--:--")
+                                        .frame(width: 60)
                                 }
+                                
+                                Image(.editAttendanceIcon)
+                                    .onTapGesture {
+                                        withAnimation {
+                                            editAttendanceViewModel.date = attendance.date
+                                            showEditAttendance.toggle()
+                                        }
+                                    }
+                            }
+                            .frame(width: 95)
                         }
-                        .frame(width: 95)
+                        LineView()
+                            .padding(.vertical, 7)
                     }
-                    LineView()
-                        .padding(.vertical, 7)
+                    .font(.custom("Montserrat", size: 11))
+                    .fontWeight(.semibold)
+                    .padding(.horizontal, 10)
                 }
-                .font(.custom("Montserrat", size: 11))
-                .fontWeight(.semibold)
-                .padding(.horizontal, 10)
+                .background(Color.white)
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .padding(.horizontal, 7)
             }
-            .background(Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
-            .padding(.horizontal, 7)
         }
         .padding(.top, 10)
         .onAppear {
@@ -102,6 +108,35 @@ struct AttendanceHistoryView: View {
                 
             }
         }
+    }
+    
+    private var loadingPlaceholder: some View {
+        VStack(spacing: 12) {
+            ProgressView()
+                .scaleEffect(1.2)
+            Text("Loading...")
+                .font(.custom("Montserrat", size: 14))
+                .foregroundStyle(Color.subText)
+        }
+        .frame(maxWidth: .infinity, minHeight: 400)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .padding(.horizontal, 7)
+    }
+    
+    private var emptyPlaceholder: some View {
+        VStack(spacing: 12) {
+            Image(.noDataFound)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 114, height: 114)
+            Text("No attendance records")
+                .font(.custom("Montserrat", size: 14))
+        }
+        .frame(maxWidth: .infinity, minHeight: 400)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+        .padding(.horizontal, 7)
     }
     
     private func checkAttendanceStatus(attendance: Attendance) -> String {

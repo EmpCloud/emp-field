@@ -9,7 +9,7 @@ import Foundation
 
 @MainActor
 class LeavesViewModel: ObservableObject {
-    @Published var isLoading: Bool = false
+    @Published var isLoading: Bool = true
     @Published var error: Error?
     
     @Published var startDate: String = ""

@@ -100,6 +100,7 @@ struct LoginView: View {
             }
             .navigationDestination(isPresented: $mobileScreen) {
                 MobileLoginView()
+                    .environmentObject(profileImageLoader)
             }
             .navigationDestination(isPresented: $emailScreen) {
                 EmailLoginView()

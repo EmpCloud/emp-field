@@ -9,9 +9,9 @@ struct ContentView: View {
     
     @EnvironmentObject var createProfileViewModel: CreateProfileViewModel
     @EnvironmentObject var permissionManager: PermissionManager
-    @StateObject private var appState = AppState.shared
+    @EnvironmentObject var profileImageLoader: ProfileImageLoader
     
-    @StateObject private var profileImageLoader: ProfileImageLoader = ProfileImageLoader()
+    @StateObject private var appState = AppState.shared
     
     @StateObject private var networkMonitor = NetworkMonitor()
     
@@ -28,7 +28,6 @@ struct ContentView: View {
                     SplashView(showSplashScreen: $showSplashScreen)
                 } else {
                     rootView
-                        .environmentObject(profileImageLoader)
                 }
                 
                 if AuthStore.shared.getAccessToken() != nil {

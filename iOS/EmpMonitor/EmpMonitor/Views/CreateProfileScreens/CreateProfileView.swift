@@ -29,8 +29,6 @@ struct CreateProfileView: View {
     
     @State private var showAddAddress: Bool = false
     
-    @FocusState private var isKeyboardShowing: Bool
-    
     //Camera
     @State private var showProfileCamera: Bool = false
     @State private var savedImageURL: URL?
@@ -54,182 +52,181 @@ struct CreateProfileView: View {
             ZStack(alignment: .top) {
                 LinearGradient(gradient: Gradient(colors: [Color.appBg1, Color.appBg2]), startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea(.all)
+                    .onTapGesture {
+                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    }
                 
-                VStack(){
-                    
-                    //MARK: Profile Image
-                    ProfileLargeWithCameraView(profileCameraViewModel: profileCameraViewModel, showCameraPermissionAlert: $showCameraPermissionAlert, showProfileCamera: $showProfileCamera)
-                        .environmentObject(profileImageLoader)
-                        .padding(.top, 100)
-                        .padding(.bottom, 10)
-                    
-                    RoundedRectangle(cornerRadius: 25.0)
-                        .fill(Color.white)
-                        .frame(width: 363, height: 556)
-                        .padding()
-                        .overlay {
-                            //MARK: Form
-                            VStack(alignment: .leading, spacing: 15){
-                                
-                                VStack(spacing: 3) {
-                                    Text("Full Name*")
-                                        .font(.system(size: 15, weight: .semibold))
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                    if createProfileViewModel.fullName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                                        Text("Full name is required*")
-                                            .font(.system(size: 12, weight: .regular))
+                ScrollView {
+                    VStack(){
+                        
+                        //MARK: Profile Image
+                        ProfileLargeWithCameraView(profileCameraViewModel: profileCameraViewModel, showCameraPermissionAlert: $showCameraPermissionAlert, showProfileCamera: $showProfileCamera)
+                            .environmentObject(profileImageLoader)
+                            .padding(.top, 100)
+                            .padding(.bottom, 10)
+                        
+                        RoundedRectangle(cornerRadius: 25.0)
+                            .fill(Color.white)
+                            .frame(width: 363, height: 556)
+                            .padding()
+                            .overlay {
+                                //MARK: Form
+                                VStack(alignment: .leading, spacing: 15){
+                                    
+                                    VStack(spacing: 3) {
+                                        Text("Full Name*")
+                                            .font(.system(size: 15, weight: .semibold))
                                             .frame(maxWidth: .infinity, alignment: .leading)
-                                            .foregroundStyle(Color.absent)
-                                    }
-                                    TextFieldEditableCreateProfileView(text: $createProfileViewModel.fullName, placeholder: "Enter Full Name")
-                                }
-                                .padding(.trailing, 20)
-                                .padding(.leading, 20)
-
-                                //MARK: Email
-                                VStack(spacing: 3) {
-                                    Text("Email ID*")
-                                        .font(.system(size: 15, weight: .semibold))
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                    
-                                    
-                                    //MARK: Email Validation warning
-                                    if !isValidEmail && !createProfileViewModel.email.isEmpty {
-                                        VStack(alignment: .leading) {
-                                            Text("Please enter a valid email*")
+                                        if createProfileViewModel.fullName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                            Text("Full name is required*")
                                                 .font(.system(size: 12, weight: .regular))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
                                                 .foregroundStyle(Color.absent)
                                         }
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                        .padding(.horizontal)
+                                        TextFieldEditableCreateProfileView(text: $createProfileViewModel.fullName, placeholder: "Enter Full Name")
                                     }
-                                    
-                                    
-                                    TextFieldCreateProfileView(text: $createProfileViewModel.email, isEditable: .constant(false), placeholder: "Enter Email ID")
-                                }
-                                .padding(.trailing, 20)
-                                .padding(.leading, 20)
-                                .onChange(of: createProfileViewModel.email) { _, newEmail in
-                                    withAnimation {
-                                        isValidEmail = Validator.validateEmail(newEmail)
-                                    }
-                                }
-                                
-                                
-                                //MARK: Phone
-                                VStack(spacing: 3) {
-                                    Text("Mobile No.*")
-                                        .font(.system(size: 15, weight: .semibold))
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                    if !HelperFunction.shared.isValidPhoneNumber(createProfileViewModel.phoneNumber) {
-                                        Text("Valid phone number is required*")
-                                            .font(.system(size: 12, weight: .regular))
+                                    .padding(.trailing, 20)
+                                    .padding(.leading, 20)
+
+                                    //MARK: Email
+                                    VStack(spacing: 3) {
+                                        Text("Email ID*")
+                                            .font(.system(size: 15, weight: .semibold))
                                             .frame(maxWidth: .infinity, alignment: .leading)
-                                            .foregroundStyle(Color.absent)
-                                    }
-                                    TextFieldEditableCreateProfileView(text: $createProfileViewModel.phoneNumber, placeholder: "Enter mobile no.")
-                                        .keyboardType(.numberPad)
-                                        .toolbarDoneButton()
-                                }
-                                .padding(.trailing, 20)
-                                .padding(.leading, 20)
-                                
-                                //MARK: Age
-                                VStack(spacing: 3) {
-                                    Text("Select Age")
-                                        .font(.system(size: 15, weight: .semibold))
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                    if Int(age) ?? 100 > 100 || Int(age) ?? 0 < 0 {
-                                        Text("Age Should be between 0-100*")
-                                            .font(.system(size: 12, weight: .regular))
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .foregroundStyle(Color.absent)
-                                    }
-                                    TextFieldEditableCreateProfileView(text: $age, placeholder: "Age")
-                                        .keyboardType(.numberPad)
-//                                        .toolbarDoneButton()
-                                        .focused($isKeyboardShowing)
-                                        .onTapGesture {
-                                            withAnimation {
-                                                isKeyboardShowing = false
-                                            }
-                                        }
-                                }
-                                .padding(.trailing, 20)
-                                .padding(.leading, 20)
-                                
-                                
-                                //MARK: Gender
-                                VStack(spacing: 3)  {
-                                    Text("Select Gender*")
-                                        .font(.system(size: 15, weight: .semibold))
-                                        .frame(maxWidth: .infinity, alignment: .leading)
-                                    if selectedGender.isEmpty {
-                                        Text("Gender is required*")
-                                            .font(.system(size: 12, weight: .regular))
-                                            .frame(maxWidth: .infinity, alignment: .leading)
-                                            .foregroundStyle(Color.absent)
-                                    }
-                                    HStack{
                                         
-                                        ForEach(["Male", "Female", "Other"], id: \.self) { gender in
-                                            Button {
-                                                selectedGender = gender
-                                            } label: {
-                                                Circle()
-                                                    .fill(gender == selectedGender.capitalized ? Color.blue: Color.white)
-                                                    .frame(width: 14, height: 14)
-                                                    .overlay {
-                                                        Circle()
-                                                            .stroke(Color(UIColor.lightGray), lineWidth: 3.0)
-                                                    }
-                                                Text(gender)
-                                                    .font(.system(size: 14, weight: .regular))
-                                                
+                                        
+                                        //MARK: Email Validation warning
+                                        if !isValidEmail && !createProfileViewModel.email.isEmpty {
+                                            VStack(alignment: .leading) {
+                                                Text("Please enter a valid email*")
+                                                    .font(.system(size: 12, weight: .regular))
+                                                    .foregroundStyle(Color.absent)
                                             }
-                                            .padding(.trailing, 20)
-
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                            .padding(.horizontal)
+                                        }
+                                        
+                                        
+                                        TextFieldCreateProfileView(text: $createProfileViewModel.email, isEditable: .constant(false), placeholder: "Enter Email ID")
+                                    }
+                                    .padding(.trailing, 20)
+                                    .padding(.leading, 20)
+                                    .onChange(of: createProfileViewModel.email) { _, newEmail in
+                                        withAnimation {
+                                            isValidEmail = Validator.validateEmail(newEmail)
                                         }
                                     }
-                                    .padding(.top, 3)
-                                    .foregroundStyle(Color(red: 95/255, green: 95/255, blue: 95/255, opacity: 1.0))
                                     
-                                }
-                                .padding(.trailing, 20)
-                                .padding(.leading, 20)
-                                
-                                
-                                //MARK: Line
-                                LineView()
-                                    .padding()
-                                    .padding(.horizontal)
-                                
-                                
-                                //MARK: Button
-                                PrimaryButton(text: "Add Address") {
-                                    //To add address
-                                    guard isFormValid else { return }
                                     
-                                    createProfileViewModel.age = age
-                                    createProfileViewModel.gender = selectedGender
-                                    showAddAddress = true
+                                    //MARK: Phone
+                                    VStack(spacing: 3) {
+                                        Text("Mobile No.*")
+                                            .font(.system(size: 15, weight: .semibold))
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                        if !HelperFunction.shared.isValidPhoneNumber(createProfileViewModel.phoneNumber) {
+                                            Text("Valid phone number is required*")
+                                                .font(.system(size: 12, weight: .regular))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .foregroundStyle(Color.absent)
+                                        }
+                                        TextFieldEditableCreateProfileView(text: $createProfileViewModel.phoneNumber, placeholder: "Enter mobile no.")
+                                            .keyboardType(.numberPad)
+                                    }
+                                    .padding(.trailing, 20)
+                                    .padding(.leading, 20)
                                     
-                                }
-                                .padding(.horizontal, 50)
-                                .disableWithOpacity(!isFormValid)
+                                    //MARK: Age
+                                    VStack(spacing: 3) {
+                                        Text("Select Age")
+                                            .font(.system(size: 15, weight: .semibold))
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                        if Int(age) ?? 100 > 100 || Int(age) ?? 0 < 0 {
+                                            Text("Age Should be between 0-100*")
+                                                .font(.system(size: 12, weight: .regular))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .foregroundStyle(Color.absent)
+                                        }
+                                        TextFieldEditableCreateProfileView(text: $age, placeholder: "Age")
+                                            .keyboardType(.numberPad)
+                                    }
+                                    .padding(.trailing, 20)
+                                    .padding(.leading, 20)
+                                    
+                                    
+                                    //MARK: Gender
+                                    VStack(spacing: 3)  {
+                                        Text("Select Gender*")
+                                            .font(.system(size: 15, weight: .semibold))
+                                            .frame(maxWidth: .infinity, alignment: .leading)
+                                        if selectedGender.isEmpty {
+                                            Text("Gender is required*")
+                                                .font(.system(size: 12, weight: .regular))
+                                                .frame(maxWidth: .infinity, alignment: .leading)
+                                                .foregroundStyle(Color.absent)
+                                        }
+                                        HStack{
+                                            
+                                            ForEach(["Male", "Female", "Other"], id: \.self) { gender in
+                                                Button {
+                                                    selectedGender = gender
+                                                } label: {
+                                                    Circle()
+                                                        .fill(gender == selectedGender.capitalized ? Color.blue: Color.white)
+                                                        .frame(width: 14, height: 14)
+                                                        .overlay {
+                                                            Circle()
+                                                                .stroke(Color(UIColor.lightGray), lineWidth: 3.0)
+                                                        }
+                                                    Text(gender)
+                                                        .font(.system(size: 14, weight: .regular))
+                                                    
+                                                }
+                                                .padding(.trailing, 20)
 
-                                
+                                            }
+                                        }
+                                        .padding(.top, 3)
+                                        .foregroundStyle(Color(red: 95/255, green: 95/255, blue: 95/255, opacity: 1.0))
+                                        
+                                    }
+                                    .padding(.trailing, 20)
+                                    .padding(.leading, 20)
+                                    
+                                    
+                                    //MARK: Line
+                                    LineView()
+                                        .padding()
+                                        .padding(.horizontal)
+                                    
+                                    
+                                    //MARK: Button
+                                    PrimaryButton(text: "Add Address") {
+                                        //To add address
+                                        guard isFormValid else { return }
+                                        
+                                        createProfileViewModel.age = age
+                                        createProfileViewModel.gender = selectedGender
+                                        showAddAddress = true
+                                        
+                                    }
+                                    .padding(.horizontal, 50)
+                                    .disableWithOpacity(!isFormValid)
+
+                                    
+                                }
+//                                .background(Color.red)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                                .padding()
+                                .padding(.top, 30)
                             }
-//                            .background(Color.red)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                            .padding()
-                            .padding(.top, 30)
-                        }
 
 
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                    .padding(.bottom, 70)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                .padding(.bottom, 70)
+                .scrollDismissesKeyboard(.immediately)
+                .toolbarDoneButton()
             }
             .onChange(of: savedImageURL) { oldSavedImageURL, newSavedImageURL in
                 Task {

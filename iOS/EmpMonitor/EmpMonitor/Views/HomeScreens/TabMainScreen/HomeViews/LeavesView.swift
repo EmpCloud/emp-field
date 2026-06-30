@@ -33,9 +33,11 @@ struct LeavesView: View {
     var body: some View {
         ScrollView {
             VStack {
-                
-                if leavesViewModel.fetchStatusCode == 200 {
-                    
+                if leavesViewModel.isLoading {
+                    loadingPlaceholder
+                } else if leavesViewModel.leavesData.isEmpty {
+                    emptyPlaceholder
+                } else {
                     LazyVGrid(columns: [GridItem(.fixed(1))], alignment: .leading, spacing: nil) {
                         
                         //MARK: Titles
@@ -83,14 +85,6 @@ struct LeavesView: View {
                                         .onTapGesture {
                                             
                                             Task {
-                                                //TODO: things to change here since now we are using same object
-    //                                            updateLeaveViewModel.leaveID = leave.id
-    //                                            updateLeaveViewModel.employeeName = leave.employeeName
-    //                                            updateLeaveViewModel.dayType = leave.dayType
-    //                                            updateLeaveViewModel.leaveType = leave.leaveType
-    //                                            updateLeaveViewModel.startDate = FormatterHelper.shared.formattedDateReverse(from: leave.startDate)
-    //                                            updateLeaveViewModel.endDate = FormatterHelper.shared.formattedDateReverse(from: leave.endDate)
-    //                                            updateLeaveViewModel.reason = leave.reason
                                                 updateLeaveViewModel.leaveID = leave.id
                                                 empName = leave.employeeName ?? ""
                                                 dateTypeSelection = LeaveHelper.shared.getLeaveDayType(status: leave.dayType)
@@ -101,19 +95,11 @@ struct LeavesView: View {
                                                         print("Typess: \(leaveTypeSelection?.name)")
                                                     }
                                                 }
-    //                                            updateLeaveViewModel.leaveType = leave.leaveType
                                                 startDate = FormatterHelper.shared.formattedDateReverse(from: leave.startDate)
                                                 endDate = FormatterHelper.shared.formattedDateReverse(from: leave.endDate)
                                                 reason = leave.reason ?? ""
                                                 print("Leave Data")
                                                 print("LeaveID: \(leave.id)")
-    //                                            print(updateLeaveViewModel.leaveID)
-    //                                            print(updateLeaveViewModel.employeeName)
-    //                                            print(updateLeaveViewModel.dayType)
-    //                                            print(updateLeaveViewModel.leaveType)
-    //                                            print(FormatterHelper.shared.formattedDateReverse(from: updateLeaveViewModel.startDate))
-    //                                            print(updateLeaveViewModel.endDate)
-    //                                            print(updateLeaveViewModel.reason)
                                                 showEditLeaves.toggle()
                                             }
                                         }
@@ -131,26 +117,9 @@ struct LeavesView: View {
                         Color.white
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 20))
-                    
-                    PrimaryBorderButton(text: "Add leaves") {
-                        //TODO: to show add leaves popup
-                        showAddLeaves.toggle()
-                    }
-                    
-                }else{
-                    VStack {
-                        Image(.noLeaves)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 114, height: 114)
-                        Text("No Leaves Found")
-                            .font(.custom("Montserrat", size: 14))
-                    }
-                    .frame(height: 300)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.white)
-                    .clipShape(RoundedRectangle(cornerRadius: 20))
-                    
+                }
+                
+                if !leavesViewModel.isLoading {
                     PrimaryBorderButton(text: "Add leaves") {
                         //TODO: to show add leaves popup
                         showAddLeaves.toggle()
@@ -199,6 +168,33 @@ struct LeavesView: View {
                 }
             }
         }
+    }
+    
+    private var loadingPlaceholder: some View {
+        VStack(spacing: 12) {
+            ProgressView()
+                .scaleEffect(1.2)
+            Text("Loading...")
+                .font(.custom("Montserrat", size: 14))
+                .foregroundStyle(Color.subText)
+        }
+        .frame(maxWidth: .infinity, minHeight: 400)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
+    }
+    
+    private var emptyPlaceholder: some View {
+        VStack(spacing: 12) {
+            Image(.noLeaves)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: 114, height: 114)
+            Text("No Leaves Found")
+                .font(.custom("Montserrat", size: 14))
+        }
+        .frame(maxWidth: .infinity, minHeight: 300)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: 20))
     }
     
     private func leaveTypeInitials(leaveOptions: [LeavesTypeResponseDetail], leaveTypeCode: Int) -> String {

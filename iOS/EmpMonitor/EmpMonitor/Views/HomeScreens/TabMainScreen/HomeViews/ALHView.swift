@@ -96,15 +96,6 @@ struct ALHView: View {
                                     HolidaysView()
                                 }
 
-                                if attendanceViewModel.isLoading || leavesViewModel.isLoading || leaveTypeViewModel.isLoading {
-                                    VStack {
-                                        ProgressView()
-                                            .progressViewStyle(CircularProgressViewStyle())
-                                            .scaleEffect(1.2)
-                                    }
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .background(Color.black.opacity(0.05))
-                                }
                             }
                             
                         }
