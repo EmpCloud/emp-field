@@ -138,6 +138,28 @@ final class NetworkManager {
     // MARK: - Response Decoding & Status Handling
     
     private func decodeResponse<U: Codable>(data: Data, httpStatus: Int, urlString: String) throws -> U {
+        // The API sometimes returns HTTP 200 with a wrapper statusCode that indicates failure.
+        // Check the wrapper statusCode before decoding the full expected response.
+        if let wrapperStatus = try? JSONDecoder().decode(APIStatusWrapper.self, from: data).statusCode,
+           wrapperStatus != 200 {
+            let message = decodeErrorMessage(from: data) ?? "Request failed"
+            print("[API] Wrapper status \(wrapperStatus) for \(urlString) — \(message)")
+            
+            switch wrapperStatus {
+            case 401:
+                AuthStore.shared.clearSession()
+                throw NetworkError.unauthorized
+            case 403:
+                throw NetworkError.forbidden
+            case 400...499:
+                throw NetworkError.clientError(wrapperStatus, message)
+            case 500...599:
+                throw NetworkError.serverError(wrapperStatus)
+            default:
+                throw NetworkError.unknown(wrapperStatus)
+            }
+        }
+        
         switch httpStatus {
         case 200...299:
             do {
@@ -177,5 +199,12 @@ final class NetworkManager {
     
     private func decodeErrorMessage(from data: Data) -> String? {
         return (try? JSONDecoder().decode(ErrorResponse.self, from: data))?.body.message
+            ?? (try? JSONDecoder().decode(ErrorResponse.self, from: data))?.body.error
     }
+}
+
+// MARK: - API Status Wrapper
+
+private struct APIStatusWrapper: Codable {
+    let statusCode: Int
 }

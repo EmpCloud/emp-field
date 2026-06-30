@@ -134,4 +134,16 @@ class HelperFunction {
             return ""
         }
     }
+    
+    /// Strips all non-numeric characters from a phone number.
+    /// The profile API expects `phoneNumber` to contain digits only.
+    func sanitizePhoneNumber(_ phoneNumber: String) -> String {
+        return phoneNumber.filter { $0.isNumber }
+    }
+    
+    /// Validates that a phone number contains only digits and meets a minimum length.
+    func isValidPhoneNumber(_ phoneNumber: String, minLength: Int = 8) -> Bool {
+        let sanitized = sanitizePhoneNumber(phoneNumber)
+        return sanitized.count >= minLength
+    }
 }

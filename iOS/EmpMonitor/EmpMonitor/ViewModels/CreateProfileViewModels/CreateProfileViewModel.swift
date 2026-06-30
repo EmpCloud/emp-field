@@ -37,6 +37,9 @@ extension CreateProfileViewModel {
         isLoading = true
         defer { self.isLoading = false }
         
+        // Ensure phone number is digits-only before sending to the API.
+        phoneNumber = HelperFunction.shared.sanitizePhoneNumber(phoneNumber)
+        
         let body = CreateProfileRequestModel(fullName: fullName, age: Int(age) ?? 0, gender: gender, email: email, profilePic: profilePic, address1: address1, address2: address2, latitude: latitude, longitude: longitude, city: city, state: state, country: country, zipCode: zipCode, phoneNumber: phoneNumber)
         
         let token = AuthStore.shared.getAccessToken()

@@ -24,6 +24,7 @@ struct AddAddressView: View {
     
     @State private var showMapAddress: Bool = false
     @State private var showHomeScreen: Bool = false
+    @State private var showPhoneValidationAlert: Bool = false
     
     //address
     @State private var address: String = ""
@@ -182,6 +183,14 @@ struct AddAddressView: View {
                         
                         
                         
+                        // Sanitize and validate phone number before submitting.
+                        createProfileViewModel.phoneNumber = HelperFunction.shared.sanitizePhoneNumber(createProfileViewModel.phoneNumber)
+                        
+                        guard HelperFunction.shared.isValidPhoneNumber(createProfileViewModel.phoneNumber) else {
+                            showPhoneValidationAlert = true
+                            return
+                        }
+                        
                         Task {
                             await createProfileViewModel.createProfile()
                             if createProfileViewModel.isProfileCreated {
@@ -192,6 +201,11 @@ struct AddAddressView: View {
                     .padding(.horizontal)
                     .padding(.bottom, 50)
                     .disableWithOpacity(searchLocationViewModel.selectedLocationTitle.isEmpty || searchLocationViewModel.selectedLocationCity.isEmpty || searchLocationViewModel.selectedLocationState.isEmpty)
+                    .alert("Invalid Phone Number", isPresented: $showPhoneValidationAlert) {
+                        Button("OK", role: .cancel) { }
+                    } message: {
+                        Text("Please enter a valid phone number with at least 8 digits.")
+                    }
                     
                     
                 }

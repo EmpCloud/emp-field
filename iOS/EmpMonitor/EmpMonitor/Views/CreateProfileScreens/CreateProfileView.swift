@@ -265,7 +265,8 @@ struct CreateProfileView: View {
                 
                 createProfileViewModel.fullName = userData?.body.data?.userData.fullName ?? ""
                 createProfileViewModel.email = userData?.body.data?.userData.email ?? ""
-                createProfileViewModel.phoneNumber = userData?.body.data?.userData.phoneNumber ?? ""
+                // The API expects phoneNumber to contain digits only.
+                createProfileViewModel.phoneNumber = HelperFunction.shared.sanitizePhoneNumber(userData?.body.data?.userData.phoneNumber ?? "")
                 
 //                createProfileViewModel.age = String(userData?.body.data.userData.age ?? 0)
 //                createProfileViewModel.age = age
