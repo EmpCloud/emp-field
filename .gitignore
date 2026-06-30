@@ -42,6 +42,17 @@ $RECYCLE.BIN/
 # Build
 *.tsbuildinfo
 
+# iOS / Xcode
+iOS/EmpMonitor/build/
+iOS/EmpMonitor/**/*.xcworkspace/xcuserdata/
+iOS/EmpMonitor/**/*.xcodeproj/xcuserdata/
+iOS/EmpMonitor/**/*.xcodeproj/project.xcworkspace/xcuserdata/
+iOS/EmpMonitor/DerivedData/
+iOS/EmpMonitor/*.ipa
+iOS/EmpMonitor/*.dSYM.zip
+iOS/EmpMonitor/*.dSYM
+iOS/EmpMonitor/.DS_Store
+
 # Docker volumes
 docker/data/
 
