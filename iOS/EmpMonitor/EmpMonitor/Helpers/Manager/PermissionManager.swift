@@ -206,7 +206,8 @@ class PermissionManager: NSObject, ObservableObject {
         
         
         // location permission taken after that
-        Task {
+        Task { [weak self] in
+            guard let self else { return }
             do {
                 
                 //Assign the CLBackgroundActivitySession to global var
@@ -219,19 +220,17 @@ class PermissionManager: NSObject, ObservableObject {
 //                print("Live update")
                 
                 // to fetch the filter location
+                let threshold = self.distanceThreshold
                 let locationUpdates = CLLocationUpdate.liveUpdates().filter { [weak self] update in
                     guard let self else { return false }
-                    guard let previousLocation = await self.previousLocation else {
-                        DispatchQueue.main.async {
-                            self.previousLocation = update.location
-                        }
+                    let previousLocation = await MainActor.run { self.previousLocation }
+                    guard let previousLocation = previousLocation else {
+                        await MainActor.run { self.previousLocation = update.location }
                         return true
                     }
                     let distanceMoved = update.location?.distance(from: previousLocation)
-                    if await distanceMoved ?? 0.0 >= distanceThreshold || update.isStationary {
-                        DispatchQueue.main.async {
-                            self.previousLocation = update.location
-                        }
+                    if distanceMoved ?? 0.0 >= threshold || update.isStationary {
+                        await MainActor.run { self.previousLocation = update.location }
                         return true
                     }
                     return false
@@ -240,7 +239,7 @@ class PermissionManager: NSObject, ObservableObject {
 //                print(locationUpdates)
                 
 //                var count = 1
-                checkTimeAndStopTrackingIfNeeded()  // to stop tracking at midnight
+                self.checkTimeAndStopTrackingIfNeeded()  // to stop tracking at midnight
                
 //                let currentTime = Date()
 //                if lastUpdateTime == nil || currentTime.timeIntervalSince(lastUpdateTime!) >= updateInterval {
@@ -253,29 +252,29 @@ class PermissionManager: NSObject, ObservableObject {
                             break
                         }
 
-                        checkTimeAndStopTrackingIfNeeded()  // to stop tracking at midnight
+                        self.checkTimeAndStopTrackingIfNeeded()  // to stop tracking at midnight
 
                         if let location = update.location {
-                            userLocation = location
+                            self.userLocation = location
 
                             let currentTime = Date()
 
-                            if prevLatitude == 0.0 || prevLatitude != location.coordinate.latitude {
-                                prevLatitude = location.coordinate.latitude
+                            if self.prevLatitude == 0.0 || self.prevLatitude != location.coordinate.latitude {
+                                self.prevLatitude = location.coordinate.latitude
 
-                                if lastUpdateTime == nil || currentTime.timeIntervalSince(lastUpdateTime!) >= updateInterval {
-                                    lastUpdateTime = currentTime
-                                    print("Last time: \(lastUpdateTime ?? Date())  & current Time: \(currentTime)")
+                                if self.lastUpdateTime == nil || currentTime.timeIntervalSince(self.lastUpdateTime!) >= self.updateInterval {
+                                    self.lastUpdateTime = currentTime
+                                    print("Last time: \(self.lastUpdateTime ?? Date())  & current Time: \(currentTime)")
                                     print("Location Lat: \(location.coordinate.latitude) & Long :\(location.coordinate.longitude)")
                                     print("=================")
-                                    sendLocationToServer(location: location)
+                                    self.sendLocationToServer(location: location)
                                 }
                             }
                         }
 
                         if update.isStationary {
                             // Upload any queued offline data but keep the loop running
-                            uploadOfflineLocations()
+                            self.uploadOfflineLocations()
                             print("user is stationary")
                         }
 
@@ -286,9 +285,9 @@ class PermissionManager: NSObject, ObservableObject {
 //                sendLocationToServer()
                 
             }catch {
-                debugPrint("Some live location error occured")
+                debugPrint("Some live location error occured: \(error)")
             }
-            checkTimeAndStopTrackingIfNeeded()  // to stop tracking at midnight
+            self.checkTimeAndStopTrackingIfNeeded()  // to stop tracking at midnight
         }
     }
     
@@ -363,70 +362,60 @@ class PermissionManager: NSObject, ObservableObject {
 
 
 extension PermissionManager: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        guard !locations.isEmpty else { return }
+    nonisolated func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        self.userLocation = location
-        self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
-//        print("Lat: \(userLocation?.coordinate.latitude)")
-//        print("Long: \(userLocation?.coordinate.latitude)")
-        locationManager.stopUpdatingLocation()
-        
-        // send location to server
-//        sendLocationToServer(location: location)
+        Task { @MainActor [weak self] in
+            self?.userLocation = location
+            self?.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
+        }
+        manager.stopUpdatingLocation()
     }
     
-    
-//    func locationManager(_ manager: CLLocationManager, didVisit visit: CLVisit) {
-//        // Handle significant location changes here
-//        let location = CLLocation(latitude: visit.coordinate.latitude, longitude: visit.coordinate.longitude)
-//        self.userLocation = location
-//        self.region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
-//        
-////         Send location to server
-//        self.sendLocationToServer(location: location)
-//    }
-    
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-            self.locationStatus = status
+    nonisolated func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        Task { @MainActor [weak self] in
+            self?.locationStatus = status
             switch status {
             case .notDetermined:
-                isLocationAuthorized = false
+                self?.isLocationAuthorized = false
                 print("Location status not determined")
             case .restricted:
-                isLocationAuthorized = false
+                self?.isLocationAuthorized = false
                 print("Location status restricted")
             case .denied:
                 print("Location status denied")
-                isLocationAuthorized = false
+                self?.isLocationAuthorized = false
             case .authorizedAlways:
                 print("Location status is always authorized")
-                isLocationAuthorized = true
+                self?.isLocationAuthorized = true
             case .authorizedWhenInUse:
                 print("Location status is when in use authorized")
-                isLocationAuthorized = true
+                self?.isLocationAuthorized = true
             @unknown default:
                 print("Location status unknown")
             }
         }
-    
+    }
     
     // MARK: Geo-fence delegate callbacks
-    func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
+    nonisolated func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         guard region.identifier == geoFenceRegionIdentifier else { return }
         print("GeoFence: entered org region")
         guard !UserDefaults.standard.bool(forKey: "isCheckedIN") else { return }
-        shouldAutoCheckIn = true
+        Task { @MainActor [weak self] in
+            self?.shouldAutoCheckIn = true
+        }
     }
 
-    func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
+    nonisolated func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         guard region.identifier == geoFenceRegionIdentifier else { return }
         print("GeoFence: exited org region")
         guard UserDefaults.standard.bool(forKey: "isCheckedIN") else { return }
-        shouldAutoCheckOut = true
+        Task { @MainActor [weak self] in
+            self?.shouldAutoCheckOut = true
+        }
     }
 
-    func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
+    nonisolated func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
         print("GeoFence monitoring failed: \(error.localizedDescription)")
     }
 
@@ -445,9 +434,10 @@ extension PermissionManager: CLLocationManagerDelegate {
         
 //        print(trackRequestData)
         if isOnline {
-            Task {
+            Task { [weak self] in
+                guard let self else { return }
                 TrackViewModel.shared.trackRequestData = trackRequestData
-                try await TrackViewModel.shared.trackUser()
+                await TrackViewModel.shared.trackUser()
 
                 // Apply any frequency/radius updates the server returned
                 let newFrequency = UserDefaults.standard.integer(forKey: "CurrentFrequency")
@@ -501,15 +491,14 @@ extension PermissionManager: CLLocationManagerDelegate {
         
         Task {
             TrackViewModel.shared.trackRequestData = offlineLocations
-            try await TrackViewModel.shared.trackUser()
+            await TrackViewModel.shared.trackUser()
             
             if NetworkManager.shared.statusCode == 200 {
                 print("Uploaded offline locations.")
                 print(offlineLocations)
-                
-                DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                    UserDefaults.standard.removeObject(forKey: "offlineLocations")
-                }
+                UserDefaults.standard.removeObject(forKey: "offlineLocations")
+            } else {
+                print("Failed to upload offline locations. Keeping queue for retry.")
             }
         }
         

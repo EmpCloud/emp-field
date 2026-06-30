@@ -59,11 +59,12 @@ extension UserLoginViewModel {
             NetworkManager.shared.statusCode = userLoginData.statusCode
             NetworkManager.shared.responseMessage = userLoginData.body.message
             
-            //MARK: saving it to userDefault
-//            Saving the object to UserDefault
-            UserDefaults.standard.setObject(userLoginData, forKey: "loggedInUser")
-            //Saving the bearer token to the userDefault
-            UserDefaults.standard.set(userLoginData.body.data?.accessToken, forKey: "x-access-token")
+            // Save session securely in Keychain via AuthStore
+            if let accessToken = userLoginData.body.data?.accessToken {
+                AuthStore.shared.saveAccessToken(accessToken)
+            }
+            AuthStore.shared.saveLoggedInUser(userLoginData)
+            AppState.shared.updateLoginState()
             
             // to store userProfile Data
             UserDefaults.standard.setValue(userLoginData.body.data?.userData.fullName, forKey: "UserName")

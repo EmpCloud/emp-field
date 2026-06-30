@@ -135,10 +135,9 @@ class SearchLocationViewModel: NSObject, ObservableObject {
 //MARK: MKLocalSearchCompleterDelegate
 
 extension SearchLocationViewModel: MKLocalSearchCompleterDelegate {
-    func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-//        DispatchQueue.main.async {
-//            self.results = completer.results
-//        }
-        self.results = completer.results
+    nonisolated func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
+        Task { @MainActor [weak self] in
+            self?.results = completer.results
+        }
     }
 }

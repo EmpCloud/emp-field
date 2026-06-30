@@ -199,7 +199,7 @@ struct SideMenuView: View {
                     .accessibility(addTraits: .isButton)
                     Button(action: {
                         UserDefaults.standard.set(false, forKey: "isCheckedIN")
-                        UserDefaults.standard.removeObject(forKey: "loggedInUser")
+                        AuthStore.shared.clearSession()
                         showSideMenu.toggle()
                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                             isLogout = true

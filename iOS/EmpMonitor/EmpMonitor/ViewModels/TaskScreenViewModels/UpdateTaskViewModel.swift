@@ -46,7 +46,7 @@ class UpdateTaskViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
+        let token = AuthStore.shared.getAccessToken()
         
         let body = UpdateTaskStatusRequestModel(taskID: taskID, status: status, currentDateTime: currentDateTime, latitude: latitude, longitude: longitude, value: taskValue, taskVolume: taskVolume, tagLogs: tagLogs)
         
@@ -72,7 +72,7 @@ class UpdateTaskViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
+        let token = AuthStore.shared.getAccessToken()
         
         let body = UpdateTaskRequestModel(taskID: taskID, clientID: clientID, taskName: taskName, startTime: startTime, endTime: endTime, taskDescription: taskDescription, date: date, files: files, images: images, value: taskValue, taskVolume: taskVolume, tagLogs: tagLogs)
         

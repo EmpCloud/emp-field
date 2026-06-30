@@ -18,7 +18,7 @@ class Constants {
         #if DEBUG
         return "https://staging-emp-api-m.empmonitor.com/v1"
         #else
-        return "https://emp-api-m.empmonitor.com/v1"
+        return "https://field-api.empmonitor.com/v1"
         #endif
     }
 

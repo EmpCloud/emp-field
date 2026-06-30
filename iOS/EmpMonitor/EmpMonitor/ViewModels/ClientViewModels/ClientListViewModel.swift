@@ -22,7 +22,7 @@ class ClientListViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
+        let token = AuthStore.shared.getAccessToken()
         
         do{
             let fetchData: ClientListResponseModel = try await NetworkManager.shared.getData(to: urlString, as: ClientListResponseModel.self, accessToken: token)

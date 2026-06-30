@@ -23,7 +23,7 @@ class HolidaysViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
+        let token = AuthStore.shared.getAccessToken()
         
         do{
             let holidaysResponse: HolidaysResponseModel = try await NetworkManager.shared.getData(to: urlString, as: HolidaysResponseModel.self, accessToken: token)

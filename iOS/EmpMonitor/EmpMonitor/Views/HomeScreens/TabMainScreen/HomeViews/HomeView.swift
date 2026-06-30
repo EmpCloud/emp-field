@@ -544,7 +544,7 @@ struct HomeView: View {
                             
                             if NetworkManager.shared.statusCode == 400 && NetworkManager.shared.responseMessage == "Invalid access token...." {
                                 //logout the user
-                                UserDefaults.standard.removeObject(forKey: "loggedInUser")
+                                AuthStore.shared.clearSession()
                             }
                             permissionManager.requestLocation()
                             
@@ -553,7 +553,7 @@ struct HomeView: View {
                             //Control the login/logout
                             //                AppState.shared.isLoggedIn = true
                             
-                            //                let userProfile = UserDefaults.standard.getObject(forKey: "UserProfile", as: CreateProfileResponseModel.self)
+                            //                let userProfile = AuthStore.shared.getUserProfileData(as: CreateProfileResponseModel.self)
                             self.name = UserDefaults.standard.string(forKey: "UserName") ?? ""
                             self.department = UserDefaults.standard.string(forKey: "UserDepartment") ?? ""
                             
@@ -620,11 +620,11 @@ struct HomeView: View {
                             
                             
                             // just for confirmation that data is present
-                            //                if let loggedInUser: UserLoginResponseModel = UserDefaults.standard.getObject(forKey: "loggedInUser", as: UserLoginResponseModel.self) {
+                            //                if let loggedInUser: UserLoginResponseModel = AuthStore.shared.getLoggedInUser() {
                             //                    print("Logged in info")
                             //                    print(loggedInUser)
                             //                }
-                            //                if let userProfile: CreateProfileResponseModel = UserDefaults.standard.getObject(forKey: "UserProfile", as: CreateProfileResponseModel.self) {
+                            //                if let userProfile: CreateProfileResponseModel = AuthStore.shared.getUserProfileData(as: CreateProfileResponseModel.self) {
                             //                    print("User Profile info")
                             //                    print(userProfile)
                             //                }

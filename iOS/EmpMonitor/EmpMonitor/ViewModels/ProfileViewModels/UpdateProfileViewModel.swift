@@ -35,7 +35,7 @@ class UpdateProfileViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
+        let token = AuthStore.shared.getAccessToken()
         
         let body = UpdateProfileRequestModel(fullName: fullName, age: Int(age) ?? 0, gender: gender, email: email, profilePic: profilePic, address1: address1, address2: address2, latitude: latitude, longitude: longitude, city: city, state: state, country: country, zipCode: zipCode, phoneNumber: phoneNumber)
         
@@ -44,8 +44,8 @@ class UpdateProfileViewModel: ObservableObject {
             
             print(fetchData.body.data.resultData.first)
             
-            // Updating & Storing users profile for later use and direct navigation to homescreen
-            UserDefaults.standard.setObject(fetchData, forKey: "UserProfile")
+            // Updating & Storing users profile securely for later use and direct navigation to homescreen
+            AuthStore.shared.saveUserProfileData(fetchData)
             
             
             // to store userProfile Data

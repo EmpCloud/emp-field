@@ -136,7 +136,7 @@ struct QRCodePopupView: View {
         }
         
         .onAppear {
-            let user = UserDefaults.standard.getObject(forKey: "loggedInUser", as: UserLoginResponseModel.self)
+            let user = AuthStore.shared.getLoggedInUser()
             
             if let userName = user?.body.data?.userData.fullName {
                 self.userName = userName

@@ -39,7 +39,7 @@ class CreateTaskViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
+        let token = AuthStore.shared.getAccessToken()
         
         let body = CreateTaskRequestModel(clientID: clientID, taskName: taskName, startTime: startTime, endTime: endTime, date: date, taskDescription: taskDescription, files: files, images: images, value: value, taskVolume: taskVolume, tagLogs: tagLogs)
         

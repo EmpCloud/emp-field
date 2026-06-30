@@ -62,12 +62,9 @@ struct PasswordLoginView: View {
                         
                         if NetworkManager.shared.statusCode == 200{
                             
-                            if let userProfile: CreateProfileResponseModel = UserDefaults.standard.getObject(forKey: "UserProfile", as: CreateProfileResponseModel.self){
+                            if AuthStore.shared.getUserProfileData(as: CreateProfileResponseModel.self) != nil {
                                 
                                 profileImageLoader.profileImageURL = UserDefaults.standard.string(forKey: "UserProfilePic") ?? ""
-                                
-//                                print("Profile Pic URL")
-//                                print(userProfile.body.data.resultData.first?.profilePic)
                                 
                                 showTabMainView = true
                                 

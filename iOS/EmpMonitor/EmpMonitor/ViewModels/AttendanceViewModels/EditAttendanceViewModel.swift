@@ -29,7 +29,7 @@ class EditAttendanceViewModel: ObservableObject {
         
         let body = EditAttendanceRequestModel(date: date, checkIn: checkIN, checkOut: checkOUT, reason: reason)
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
+        let token = AuthStore.shared.getAccessToken()
         
         do {
             let fetchData: EditAttendanceResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: EditAttendanceResponseModel.self, accessToken: token)

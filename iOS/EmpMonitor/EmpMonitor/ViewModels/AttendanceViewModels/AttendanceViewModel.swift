@@ -30,7 +30,7 @@ class AttendanceViewModel: ObservableObject {
         
         let body = AttendanceRequestModel(startDate: attendanceStartDate, endDate: attendanceEndDate)
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
+        let token = AuthStore.shared.getAccessToken()
         
         do {
             let fetchData: AttendanceResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: AttendanceResponseModel.self, accessToken: token)

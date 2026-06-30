@@ -2,38 +2,44 @@
 //  TimerManager.swift
 //  EmpMonitor
 //
-//  Created by Sumit Ghosh on 20/08/24.
-//
 
 import Foundation
 
 @MainActor
-class TimerManager: ObservableObject {
+final class TimerManager: ObservableObject {
     
     @Published var activeTime: TimeInterval = 0
     @Published var isActiveTimeRunning: Bool?
     
-    
     private var activeTimer: Timer?
+    
+    deinit {
+        activeTimer?.invalidate()
+    }
     
     //MARK: Start Active Timer
     func startActiveTimer() {
         activeTimer?.invalidate()
         isActiveTimeRunning = true
-        activeTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { _ in
-            self.activeTime += 1
+        activeTimer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                self.activeTime += 1
+            }
         }
     }
     
     //MARK: Stop Active Timer
     func stopActiveTimer() {
         activeTimer?.invalidate()
+        activeTimer = nil
         isActiveTimeRunning = false
     }
     
     func getActiveTime() -> TimeInterval {
         return activeTime
     }
+    
     func isTimerRunning() -> Bool {
         return isActiveTimeRunning ?? false
     }
@@ -48,31 +54,19 @@ class TimerManager: ObservableObject {
     
     //MARK: TO calculate the time difference
     func timeDifference(from checkINTimeString: String, to checkOUTTimeString: String?) -> TimeInterval? {
-        
-        //create a DateFormatter to parse the input String
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        //Convert the input string to a date Object
         guard let checkINDate = dateFormatter.date(from: checkINTimeString) else {
-            return nil // return nill if the string couldn't be parsed
+            return nil
         }
         
-        //Check if check-out time is present
         if let checkOUTTimeString = checkOUTTimeString,
            let checkOUTDate = dateFormatter.date(from: checkOUTTimeString) {
-            //calculate the time difference between check-in/out time
             return checkOUTDate.timeIntervalSince(checkINDate)
-            
-        }else{
-            //Get the current Date and time
+        } else {
             let currentDate = Date()
-            
-            //Calculate the time differnce in seconds
-            let timeDifference = currentDate.timeIntervalSince(checkINDate)
-            return timeDifference
+            return currentDate.timeIntervalSince(checkINDate)
         }
-        
-        
     }
 }

@@ -2,8 +2,6 @@
 //  CameraViewModel.swift
 //  EmpMonitor
 //
-//  Created by Sumit Ghosh on 23/08/24.
-//
 
 import Foundation
 import AVFoundation
@@ -17,20 +15,22 @@ struct SavedImage {
     let url: URL?
 }
 
-
-class CameraViewModel: NSObject, ObservableObject {
+final class CameraViewModel: NSObject, ObservableObject {
     
     @Published var isTaken: Bool = false
     @Published var alert = false
-    @Published var session = AVCaptureSession()
-    @Published var output = AVCapturePhotoOutput()
-    @Published var preview: AVCaptureVideoPreviewLayer!
-    @Published var capturedImage: UIImage? // to capture that particular image
-    @Published var savedImages: [SavedImage] = []  // to save the captured Images
-    @Published var currentDevice: AVCaptureDevice?
+    @Published var capturedImage: UIImage?
+    @Published var savedImages: [SavedImage] = []
     @Published var isFlashLightON: Bool = false
     @Published var cameraAuthStatus: Bool = false
     
+    // Non-published AVFoundation objects: they are heavy and mutated on a background queue.
+    var session = AVCaptureSession()
+    var output = AVCapturePhotoOutput()
+    var preview: AVCaptureVideoPreviewLayer?
+    var currentDevice: AVCaptureDevice?
+    
+    private let sessionQueue = DispatchQueue(label: "com.empmonitor.camera.session")
     private var isUsingFrontCamera = false
     
     override init() {
@@ -45,10 +45,13 @@ class CameraViewModel: NSObject, ObservableObject {
             cameraAuthStatus = true
             print("to set the camera")
         case .notDetermined:
-            AVCaptureDevice.requestAccess(for: .video) { granted in
-                if granted {
-                    self.cameraAuthStatus = true
-                    self.setUpCamera()
+            AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
+                Task { @MainActor [weak self] in
+                    guard let self else { return }
+                    self.cameraAuthStatus = granted
+                    if granted {
+                        self.setUpCamera()
+                    }
                 }
             }
         case .denied, .restricted:
@@ -60,137 +63,119 @@ class CameraViewModel: NSObject, ObservableObject {
     }
     
     func setUpCamera() {
-        session.beginConfiguration()
-        do {
-            let device = isUsingFrontCamera ? AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front) : AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
-
-            guard let device = device else {
-                print("Camera device not available")
-                session.commitConfiguration()
-                return
+        sessionQueue.async { [weak self] in
+            guard let self else { return }
+            self.session.beginConfiguration()
+            defer { self.session.commitConfiguration() }
+            
+            do {
+                let device = self.isUsingFrontCamera
+                    ? AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .front)
+                    : AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
+                
+                guard let device = device else {
+                    print("Camera device not available")
+                    return
+                }
+                let input = try AVCaptureDeviceInput(device: device)
+                
+                Task { @MainActor [weak self] in
+                    self?.currentDevice = device
+                }
+                
+                if self.session.canAddInput(input) {
+                    self.session.addInput(input)
+                }
+                if self.session.canAddOutput(self.output) {
+                    self.session.addOutput(self.output)
+                }
+            } catch {
+                print("Camera setup failed: \(error.localizedDescription)")
             }
-            let input = try AVCaptureDeviceInput(device: device)
-            currentDevice = device
-
-            if session.canAddInput(input) {
-                session.addInput(input)
-            }
-            if session.canAddOutput(output) {
-                session.addOutput(output)
-            }
-            session.commitConfiguration()
-        } catch {
-            print("Camera setup failed: \(error.localizedDescription)")
         }
     }
     
     func takePicture() {
         let settings = AVCapturePhotoSettings()
-        output.capturePhoto(with: settings, delegate: self)
+        sessionQueue.async { [weak self] in
+            guard let self else { return }
+            self.output.capturePhoto(with: settings, delegate: self)
+        }
     }
     
     func retake() {
-        DispatchQueue.main.async {
-            if self.isTaken {
-//                self.savedImages.removeLast()
-                self.capturedImage = nil        // removing the last captured Image
-            }
-            self.isTaken = false
+        if isTaken {
+            capturedImage = nil
         }
-        DispatchQueue.global().async {
-            self.session.startRunning()
+        isTaken = false
+        sessionQueue.async { [weak self] in
+            self?.session.startRunning()
         }
     }
     
     func toggleFlashlight() {
         guard let device = currentDevice, device.hasTorch else { return }
         
-        do{
-            try device.lockForConfiguration()
-            if device.torchMode == .on {
-                device.torchMode = .off
-                isFlashLightON = false
-            }else {
-                try device.setTorchModeOn(level: 1.0)
-                isFlashLightON = true
+        sessionQueue.async { [weak self] in
+            guard let self else { return }
+            do {
+                try device.lockForConfiguration()
+                if device.torchMode == .on {
+                    device.torchMode = .off
+                    Task { @MainActor in self.isFlashLightON = false }
+                } else {
+                    try device.setTorchModeOn(level: 1.0)
+                    Task { @MainActor in self.isFlashLightON = true }
+                }
+                device.unlockForConfiguration()
+            } catch {
+                print("Flashlight could not be used: \(error.localizedDescription)")
             }
-            device.unlockForConfiguration()
-        }catch {
-            print("Flashlight could not be used: \(error.localizedDescription)")
         }
     }
     
     func flipCamera() {
-        session.beginConfiguration()
-        
-        session.inputs.forEach { input in
-            session.removeInput(input)
+        sessionQueue.async { [weak self] in
+            guard let self else { return }
+            self.session.beginConfiguration()
+            self.session.inputs.forEach { self.session.removeInput($0) }
+            self.isUsingFrontCamera.toggle()
+            self.setUpCamera()
+            self.session.commitConfiguration()
         }
-        
-        isUsingFrontCamera.toggle()
-        setUpCamera()
-        
-        session.commitConfiguration()
     }
     
-    //temporary
     func saveImage(_ image: UIImage, description: String) {
         guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
         
         let fileName = UUID().uuidString + ".jpg"
         let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
         
-        do{
+        do {
             try imageData.write(to: fileURL)
             let capturedImage = SavedImage(image: image, description: description, url: fileURL)
             savedImages.append(capturedImage)
-        }catch {
+        } catch {
             print("Error: Failed to save images: \(error.localizedDescription)")
         }
     }
-    
-    
-//    func saveImage(_ image: UIImage, description: String) {
-//        guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
-//
-//        let fileName = UUID().uuidString + ".jpg"
-//        let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-//        let fileURL = documentsDirectory.appendingPathComponent(fileName)
-//
-//        do {
-//            try imageData.write(to: fileURL)
-//            let capturedImage = SavedImage(image: image, description: description, url: fileURL)
-//            savedImages.append(capturedImage)
-//        } catch {
-//            print("Error: Failed to save image: \(error.localizedDescription)")
-//        }
-//    }
     
     func getCapturedImageURLs() -> [URL] {
         return savedImages.compactMap { $0.url }
     }
 }
 
-
-
-
 extension CameraViewModel: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let data = photo.fileDataRepresentation() else { return }
         if let image = UIImage(data: data) {
             if savedImages.count < 4 {
-                DispatchQueue.main.async {
-//                    self.savedImages.append(SavedImage(image: image, description: "", url: nil))
-                    self.capturedImage = image
-                    
-//        capturedImage = UIImage(data: data
-                }
+                capturedImage = image
             }
         }
-
-        DispatchQueue.main.async {
-            self.isTaken = true
-            self.session.stopRunning()
+        isTaken = true
+        sessionQueue.async { [weak self] in
+            self?.session.stopRunning()
         }
     }
 }

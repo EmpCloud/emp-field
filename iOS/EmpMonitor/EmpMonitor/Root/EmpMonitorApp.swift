@@ -43,7 +43,7 @@ struct EmpMonitorApp: App {
 
                     if NetworkManager.shared.statusCode == 401 {
                         AppState.shared.isLoggedIn = false
-                        UserDefaults.standard.removeUser(forkey: "loggedInUser")
+                        AuthStore.shared.clearSession()
                     }
                 }
         }

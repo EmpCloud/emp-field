@@ -247,7 +247,7 @@ struct CreateProfileView: View {
                 //when this screen appears click image should be populate if click/selected
                 savedImageURL = profileCameraViewModel.getCapturedImageURLs()
                 
-                let userData = UserDefaults.standard.getObject(forKey: "loggedInUser", as: UserLoginResponseModel.self)
+                let userData = AuthStore.shared.getLoggedInUser()
                 
     //            name = userData?.body.data.userData.fullName ?? ""
     //            email = userData?.body.data.userData.email ?? ""

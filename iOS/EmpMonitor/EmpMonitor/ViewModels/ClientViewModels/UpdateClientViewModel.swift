@@ -37,7 +37,7 @@ class UpdateClientViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
+        let token = AuthStore.shared.getAccessToken()
         
         let body = UpdateClientRequestModel(clientName: clientName, emailID: emailID, contactNumber: contactNumber, clientProfilePic: clientProfilePic, category: category, countryCode: countryCode, address1: address1, address2: address2, country: country, state: state, city: city, zipCode: zipCode, latitude: latitude, longitude: longitude)
         print("Client ID: \(clientID)")

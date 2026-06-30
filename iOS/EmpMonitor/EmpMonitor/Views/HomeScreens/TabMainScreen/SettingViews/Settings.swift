@@ -202,7 +202,7 @@ struct Settings: View {
                         
                         Button(action: {
                             UserDefaults.standard.set(false, forKey: "isCheckedIN")
-                            UserDefaults.standard.removeObject(forKey: "loggedInUser")
+                            AuthStore.shared.clearSession()
                             isLogout.toggle()
                         }) {
                             HStack {
@@ -245,7 +245,7 @@ struct Settings: View {
             
         }
         .onAppear {
-//            let userData = UserDefaults.standard.getObject(forKey: "loggedInUser", as: UserLoginResponseModel.self)
+//            let userData = AuthStore.shared.getLoggedInUser()
             
             userName = UserDefaults.standard.string(forKey: "UserName") ?? "User Name"
             department = UserDefaults.standard.string(forKey: "UserDepartment") ?? "Department"

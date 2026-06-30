@@ -30,7 +30,7 @@ class DeleteTaskViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
+        let token = AuthStore.shared.getAccessToken()
         
         let body = DeleteTaskRequestModel(taskID: taskID, status: status, currentDateTime: currentDateTime, latitude: latitude, longitude: longitude, value: value, taskVolume: taskVolume, tagLogs: tagLogs)
         

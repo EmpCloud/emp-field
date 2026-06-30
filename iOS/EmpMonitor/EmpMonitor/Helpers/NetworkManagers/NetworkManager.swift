@@ -2,266 +2,180 @@
 //  NetworkManager.swift
 //  EmpMonitor
 //
-//  Created by Sambhav Globussoft on 20/06/24.
-//
 
 import Foundation
 
-class NetworkManager {
+@MainActor
+final class NetworkManager {
     
     static let shared = NetworkManager()
     
+    // Retained for backward compatibility with existing view code.
+    // Prefer the typed errors thrown by network methods for new code.
     @Published var responseMessage: String = ""
     @Published var errorMessage: String = ""
     @Published var statusCode: Int = 0
     
     private init() { }
     
-    //MARK: GET Request
+    // MARK: - GET Request
+    
     func getData<U: Codable>(to urlString: String, as type: U.Type, accessToken: String?) async throws -> U {
-
-        guard let url = URL(string: urlString) else {
-            print("[API] GET \(urlString) — Error: Invalid URL")
-            throw NetworkError.invalidURL
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        if let token = accessToken {
-            request.setValue("\(token)", forHTTPHeaderField: "x-access-token")
-        }
-
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        print("[API] GET \(urlString)")
-        let (data, response) = try await URLSession.shared.data(for: request)
-        let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
-        let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
-        print("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
-
-        guard httpStatus == 200 else {
-            if httpStatus == 400 {
-                guard let networkResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else {
-                    print("[API] Error: Invalid Data Error in getData Error Response")
-                    throw NetworkError.invalidData
-                }
-                NetworkManager.shared.responseMessage = networkResponse.body.message
-                NetworkManager.shared.statusCode = networkResponse.statusCode
-            }
-            if httpStatus == 401 {
-                UserDefaults.standard.removeObject(forKey: "loggedInUser")
-                guard let networkResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else {
-                    print("[API] Error: Invalid Data Error in getData Error Response")
-                    throw NetworkError.invalidData
-                }
-                NetworkManager.shared.responseMessage = networkResponse.body.message
-                NetworkManager.shared.statusCode = networkResponse.statusCode
-            }
-            throw NetworkError.invalidResponse
-        }
-
-        do {
-            let decodeData = try JSONDecoder().decode(U.self, from: data)
-            return decodeData
-        } catch {
-            print("[API] Error: Decode failed in getData — \(error)")
-            throw NetworkError.invalidData
-        }
+        let (data, httpStatus) = try await performRequest(
+            urlString: urlString,
+            method: "GET",
+            body: Optional<Data>.none,
+            accessToken: accessToken
+        )
+        return try decodeResponse(data: data, httpStatus: httpStatus, urlString: urlString)
     }
     
-    //MARK: GET Request with Query Parameters
+    // MARK: - GET Request with Query Parameters
+    
     func getDataWithQuery<U: Codable>(to urlString: String, as type: U.Type, accessToken: String?, queryParameters: [String: String]?) async throws -> U {
-
         guard var urlComponents = URLComponents(string: urlString) else {
             print("[API] GET \(urlString) — Error: Invalid URL")
             throw NetworkError.invalidURL
         }
-
+        
         if let params = queryParameters {
             urlComponents.queryItems = params.map { URLQueryItem(name: $0.key, value: $0.value) }
         }
-
+        
         guard let finalURL = urlComponents.url else {
             print("[API] GET \(urlString) — Error: Invalid URL with query params")
             throw NetworkError.invalidURL
         }
-
-        var request = URLRequest(url: finalURL)
-        request.httpMethod = "GET"
-
-        if let token = accessToken {
-            request.setValue(token, forHTTPHeaderField: "x-access-token")
-        }
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        print("[API] GET \(finalURL.absoluteString)")
-        let (data, response) = try await URLSession.shared.data(for: request)
-        let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
-        let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
-        print("[API] Response (\(httpStatus)) \(finalURL.absoluteString)\n\(rawBody)")
-
-        guard httpStatus == 200 else {
-            if httpStatus == 400 {
-                guard let networkResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else {
-                    print("[API] Error: Invalid Data in getDataWithQuery Error Response")
-                    throw NetworkError.invalidData
-                }
-                NetworkManager.shared.responseMessage = networkResponse.body.message ?? ""
-                NetworkManager.shared.statusCode = networkResponse.statusCode
-            }
-            throw NetworkError.invalidResponse
-        }
-
-        do {
-            let decodeData = try JSONDecoder().decode(U.self, from: data)
-            return decodeData
-        } catch {
-            print("[API] Error: Decode failed in getDataWithQuery — \(error)")
-            throw NetworkError.invalidData
-        }
+        
+        let (data, httpStatus) = try await performRequest(
+            urlString: finalURL.absoluteString,
+            method: "GET",
+            body: Optional<Data>.none,
+            accessToken: accessToken
+        )
+        return try decodeResponse(data: data, httpStatus: httpStatus, urlString: finalURL.absoluteString)
     }
     
-    //MARK: POST Request
-    //Generic
+    // MARK: - POST Request
+    
     func postData<T: Codable, U: Codable>(to urlString: String, body: T, as type: U.Type, accessToken: String?) async throws -> U {
-
-        guard let url = URL(string: urlString) else {
-            print("[API] POST \(urlString) — Error: Invalid URL")
-            throw NetworkError.invalidURL
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-
-        if let token = accessToken {
-            request.setValue("\(token)", forHTTPHeaderField: "x-access-token")
-        }
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONEncoder().encode(body)
-
-        print("[API] POST \(urlString)")
-        let (data, response) = try await URLSession.shared.data(for: request)
-        let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
-        let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
-        print("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
-
-        guard httpStatus == 200 else {
-            if httpStatus == 400 {
-                guard let networkResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else {
-                    print("[API] Error: Invalid Data in postData Error Response")
-                    throw NetworkError.invalidData
-                }
-                NetworkManager.shared.responseMessage = networkResponse.body.message
-                NetworkManager.shared.statusCode = networkResponse.statusCode
-            }
-            throw NetworkError.invalidResponse
-        }
-
-        do {
-            let decodeData = try JSONDecoder().decode(U.self, from: data)
-            return decodeData
-        } catch {
-            print("[API] Error: Decode failed in postData — \(error)")
-            throw NetworkError.invalidData
-        }
+        let bodyData = try JSONEncoder().encode(body)
+        let (data, httpStatus) = try await performRequest(
+            urlString: urlString,
+            method: "POST",
+            body: bodyData,
+            accessToken: accessToken
+        )
+        return try decodeResponse(data: data, httpStatus: httpStatus, urlString: urlString)
     }
     
-    //POST without body
+    // MARK: - POST without body
+    
     func postDataWithoutParameter<U: Codable>(to urlString: String, as type: U.Type, accessToken: String?) async throws -> U {
-
-        guard let url = URL(string: urlString) else {
-            print("[API] POST \(urlString) — Error: Invalid URL")
-            throw NetworkError.invalidURL
-        }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-
-        if let token = accessToken {
-            request.setValue("\(token)", forHTTPHeaderField: "x-access-token")
-        }
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-
-        print("[API] POST \(urlString)")
-        let (data, response) = try await URLSession.shared.data(for: request)
-        let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
-        let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
-        print("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
-
-        guard httpStatus == 200 else {
-            if httpStatus == 400 {
-                guard let networkResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else {
-                    print("[API] Error: Invalid Data in postDataWithoutParameter Error Response")
-                    throw NetworkError.invalidData
-                }
-                NetworkManager.shared.responseMessage = networkResponse.body.message
-                NetworkManager.shared.statusCode = networkResponse.statusCode
-            }
-            throw NetworkError.invalidResponse
-        }
-
-        do {
-            let decodeData = try JSONDecoder().decode(U.self, from: data)
-            return decodeData
-        } catch {
-            print("[API] Error: Decode failed in postDataWithoutParameter — \(error)")
-            throw NetworkError.invalidData
-        }
+        let (data, httpStatus) = try await performRequest(
+            urlString: urlString,
+            method: "POST",
+            body: Optional<Data>.none,
+            accessToken: accessToken
+        )
+        return try decodeResponse(data: data, httpStatus: httpStatus, urlString: urlString)
     }
     
+    // MARK: - PUT Request
     
-    //MARK: PUT Request
-    //Generic
     func putData<T: Codable, U: Codable>(to urlString: String, body: T, as type: U.Type, accessToken: String?, queryParams: String?) async throws -> U {
-
         guard var urlComponents = URLComponents(string: urlString) else {
             print("[API] PUT \(urlString) — Error: Invalid URL")
             throw NetworkError.invalidURL
         }
-
+        
         if let queryParams = queryParams {
             urlComponents.queryItems = [URLQueryItem(name: "clientId", value: queryParams)]
         }
-
+        
         guard let url = urlComponents.url else {
             print("[API] PUT \(urlString) — Error: Invalid URL after adding query params")
             throw NetworkError.invalidURL
         }
-
-        var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
-
-        if let token = accessToken {
-            request.setValue("\(token)", forHTTPHeaderField: "x-access-token")
+        
+        let bodyData = try JSONEncoder().encode(body)
+        let (data, httpStatus) = try await performRequest(
+            urlString: url.absoluteString,
+            method: "PUT",
+            body: bodyData,
+            accessToken: accessToken
+        )
+        return try decodeResponse(data: data, httpStatus: httpStatus, urlString: url.absoluteString)
+    }
+    
+    // MARK: - Request Core
+    
+    private func performRequest(urlString: String, method: String, body: Data?, accessToken: String?) async throws -> (Data, Int) {
+        guard let url = URL(string: urlString) else {
+            print("[API] \(method) \(urlString) — Error: Invalid URL")
+            throw NetworkError.invalidURL
         }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = method
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = try JSONEncoder().encode(body)
-
-        print("[API] PUT \(url.absoluteString)")
+        if let token = accessToken {
+            request.setValue(token, forHTTPHeaderField: "x-access-token")
+        }
+        if let body = body {
+            request.httpBody = body
+        }
+        
+        print("[API] \(method) \(urlString)")
         let (data, response) = try await URLSession.shared.data(for: request)
         let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
         let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
-        print("[API] Response (\(httpStatus)) \(url.absoluteString)\n\(rawBody)")
-
-        guard httpStatus == 200 else {
-            if httpStatus == 400 {
-                guard let networkResponse = try? JSONDecoder().decode(ErrorResponse.self, from: data) else {
-                    print("[API] Error: Invalid Data in putData Error Response")
-                    throw NetworkError.invalidData
-                }
-                NetworkManager.shared.responseMessage = networkResponse.body.message
-                NetworkManager.shared.statusCode = networkResponse.statusCode
+        print("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
+        
+        return (data, httpStatus)
+    }
+    
+    // MARK: - Response Decoding & Status Handling
+    
+    private func decodeResponse<U: Codable>(data: Data, httpStatus: Int, urlString: String) throws -> U {
+        switch httpStatus {
+        case 200...299:
+            do {
+                let decoded = try JSONDecoder().decode(U.self, from: data)
+                return decoded
+            } catch {
+                print("[API] Error: Decode failed for \(urlString) — \(error)")
+                throw NetworkError.invalidData
             }
-            throw NetworkError.invalidResponse
-        }
-
-        do {
-            let decodeData = try JSONDecoder().decode(U.self, from: data)
-            return decodeData
-        } catch {
-            print("[API] Error: Decode failed in putData — \(error)")
-            throw NetworkError.invalidData
+            
+        case 401:
+            let message = decodeErrorMessage(from: data)
+            print("[API] 401 Unauthorized — \(message ?? "No message")")
+            AuthStore.shared.clearSession()
+            throw NetworkError.unauthorized
+            
+        case 403:
+            let message = decodeErrorMessage(from: data)
+            print("[API] 403 Forbidden — \(message ?? "No message")")
+            throw NetworkError.forbidden
+            
+        case 400...499:
+            let message = decodeErrorMessage(from: data)
+            print("[API] \(httpStatus) Client Error — \(message ?? "No message")")
+            throw NetworkError.clientError(httpStatus, message)
+            
+        case 500...599:
+            let message = decodeErrorMessage(from: data)
+            print("[API] \(httpStatus) Server Error — \(message ?? "No message")")
+            throw NetworkError.serverError(httpStatus)
+            
+        default:
+            print("[API] \(httpStatus) Unknown response")
+            throw NetworkError.unknown(httpStatus)
         }
     }
     
+    private func decodeErrorMessage(from data: Data) -> String? {
+        return (try? JSONDecoder().decode(ErrorResponse.self, from: data))?.body.message
+    }
 }

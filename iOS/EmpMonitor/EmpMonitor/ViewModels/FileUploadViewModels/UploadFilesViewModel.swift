@@ -27,7 +27,7 @@ class UploadFilesViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let accessToken = UserDefaults.standard.string(forKey: "x-access-token")
+        let accessToken = AuthStore.shared.getAccessToken()
         
         guard let token = accessToken else { return }
         
@@ -50,7 +50,7 @@ class UploadFilesViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let accessToken = UserDefaults.standard.string(forKey: "x-access-token")
+        let accessToken = AuthStore.shared.getAccessToken()
         
         guard let token = accessToken else { return }
         
@@ -76,7 +76,7 @@ class UploadFilesViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let accessToken = UserDefaults.standard.string(forKey: "x-access-token")
+        let accessToken = AuthStore.shared.getAccessToken()
         
         guard let token = accessToken else { return }
         
@@ -104,7 +104,7 @@ class UploadFilesViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let accessToken = UserDefaults.standard.string(forKey: "x-access-token")
+        let accessToken = AuthStore.shared.getAccessToken()
         
         guard let token = accessToken else { return }
         

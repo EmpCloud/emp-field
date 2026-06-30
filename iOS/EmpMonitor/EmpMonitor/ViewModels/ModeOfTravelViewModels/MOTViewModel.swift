@@ -22,7 +22,7 @@ class MOTViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
+        let token = AuthStore.shared.getAccessToken()
         
         let body = MOTRequestModel(currentMode: currentModeOfTravel)
         

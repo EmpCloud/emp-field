@@ -2,12 +2,11 @@
 //  CreateProfileViewModel.swift
 //  EmpMonitor
 //
-//  Created by Sumit Ghosh on 11/07/24.
-//
 
 import Foundation
 
-class CreateProfileViewModel: ObservableObject {
+@MainActor
+final class CreateProfileViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var error: Error?
     @Published var isProfileCreated: Bool = false
@@ -34,27 +33,22 @@ class CreateProfileViewModel: ObservableObject {
 
 extension CreateProfileViewModel {
     
-    @MainActor
-    func createProfile() async throws {
+    func createProfile() async {
         isLoading = true
-        defer {self.isLoading = false}
+        defer { self.isLoading = false }
         
-        if profilePic == nil {
-            
-        }
-            
         let body = CreateProfileRequestModel(fullName: fullName, age: Int(age) ?? 0, gender: gender, email: email, profilePic: profilePic, address1: address1, address2: address2, latitude: latitude, longitude: longitude, city: city, state: state, country: country, zipCode: zipCode, phoneNumber: phoneNumber)
         
-        let token = UserDefaults.standard.string(forKey: "x-access-token")
-//        print(token)
+        let token = AuthStore.shared.getAccessToken()
         
         do {
             let fetchedData: CreateProfileResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: CreateProfileResponseModel.self, accessToken: token)
             
             NetworkManager.shared.statusCode = fetchedData.statusCode
             
-            // Storing users profile for later use and direct navigation to homescreen
-            UserDefaults.standard.setObject(fetchedData, forKey: "UserProfile")
+            // Storing users profile securely for later use and direct navigation to homescreen
+            AuthStore.shared.saveUserProfileData(fetchedData)
+            AppState.shared.updateLoginState()
             
             // to store userProfile Data
             UserDefaults.standard.setValue(fetchedData.body.data.resultData.first?.fullName, forKey: "UserName")
@@ -64,7 +58,9 @@ extension CreateProfileViewModel {
             //to update the profile pic
             ProfileHelper.shared.updateProfilePic(with: URL(string: fetchedData.body.data.resultData.first?.profilePic ?? ""))
             
-        }catch{
+            self.isProfileCreated = true
+            
+        } catch {
             self.error = error
         }
     }

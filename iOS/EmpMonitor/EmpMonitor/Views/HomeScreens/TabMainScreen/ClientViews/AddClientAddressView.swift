@@ -219,7 +219,7 @@ struct AddClientAddressView: View {
         .onAppear {
             
             //taking data from UserDefault and passing it to createProfileViewModel
-//            let userData = UserDefaults.standard.getObject(forKey: "loggedInUser", as: UserLoginResponseModel.self)
+//            let userData = AuthStore.shared.getLoggedInUser()
             
 //            createProfileViewModel.address1 = userData?.body.data.userData.address1 ?? ""
 //            createProfileViewModel.address2 = userData?.body.data.userData.address2 ?? ""
