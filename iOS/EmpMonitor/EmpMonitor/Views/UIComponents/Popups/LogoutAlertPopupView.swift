@@ -76,7 +76,7 @@ struct LogoutAlertPopupView: View {
                                     showWarningPopup.toggle()
                                 }else {
                                     //Check if there is offline data,  upload it then checkOUT
-                                    permissionManager.uploadOfflineLocations()
+                                    await permissionManager.uploadOfflineLocations()
                                     
                                     try await checkINViewModel.markCheckOUTAttendance()
                                     

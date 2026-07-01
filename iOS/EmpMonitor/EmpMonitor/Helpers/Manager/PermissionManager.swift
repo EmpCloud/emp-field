@@ -13,6 +13,7 @@ import CoreMotion
 import AVFoundation
 import Photos
 import Network
+import SwiftData
 
 @MainActor
 class PermissionManager: NSObject, ObservableObject {
@@ -91,11 +92,15 @@ class PermissionManager: NSObject, ObservableObject {
    
     //MARK: Setting up Network monitor to upload the offline data
     func setupNetworkMonitor() {
+        Task {
+            await LocationQueueService.shared.migrateLegacyQueue()
+        }
+        
         monitor.pathUpdateHandler = { [weak self] path in
-            DispatchQueue.main.async { 
+            Task { @MainActor [weak self] in
                 self?.isOnline = path.status == .satisfied
                 if self?.isOnline == true {
-                    self?.uploadOfflineLocations()
+                    await self?.uploadOfflineLocations()
                 }
             }
         }
@@ -274,7 +279,7 @@ class PermissionManager: NSObject, ObservableObject {
 
                         if update.isStationary {
                             // Upload any queued offline data but keep the loop running
-                            self.uploadOfflineLocations()
+                            await self.uploadOfflineLocations()
                             print("user is stationary")
                         }
 
@@ -450,10 +455,11 @@ extension PermissionManager: CLLocationManagerDelegate {
                 }
             }
         }
-        else{
-            saveLocationOffline(newLocationData)
-            print("Stored offline location")
-            print(newLocationData)
+        else {
+            Task {
+                await LocationQueueService.shared.enqueue(latitude: latitude, longitude: longitude)
+                print("Stored offline location: \(latitude), \(longitude)")
+            }
         }
         
         
@@ -464,44 +470,29 @@ extension PermissionManager: CLLocationManagerDelegate {
 //        }
     }
     
-    //Save the offline location
-    func saveLocationOffline(_ data: TrackRequestModelData) {
-        var offlineLocations = getOfflineLocations()
-        offlineLocations.append(data)  // adding new location data to the data already present
-        
-        if let encoded = try? JSONEncoder().encode(offlineLocations) {
-            UserDefaults.standard.set(encoded, forKey: "offlineLocations")
-        }
-    }
-    
-    func getOfflineLocations() -> [TrackRequestModelData] {
-        if let savedData = UserDefaults.standard.data(forKey: "offlineLocations"),
-           let decodedData = try? JSONDecoder().decode([TrackRequestModelData].self, from: savedData) {
-            return decodedData
-        }
-        return []
-    }
-    
-    func uploadOfflineLocations() {
-        let offlineLocations = getOfflineLocations()
-        guard !offlineLocations.isEmpty else { return }
-        
-        print("Stored Offline Locations:")
-        print(offlineLocations)
-        
-        Task {
-            TrackViewModel.shared.trackRequestData = offlineLocations
+    //MARK: Upload any queued offline locations to the server
+    func uploadOfflineLocations() async {
+        do {
+            let logs = try await LocationQueueService.shared.fetchUnsent(limit: 100)
+            guard !logs.isEmpty else { return }
+            
+            let trackData = logs.map(\.trackRequestData)
+            print("Uploading offline locations:")
+            print(trackData)
+            
+            TrackViewModel.shared.trackRequestData = trackData
             await TrackViewModel.shared.trackUser()
             
             if NetworkManager.shared.statusCode == 200 {
+                try await LocationQueueService.shared.delete(logs)
                 print("Uploaded offline locations.")
-                print(offlineLocations)
-                UserDefaults.standard.removeObject(forKey: "offlineLocations")
             } else {
+                try await LocationQueueService.shared.incrementRetry(logs)
                 print("Failed to upload offline locations. Keeping queue for retry.")
             }
+        } catch {
+            print("Error uploading offline locations: \(error)")
         }
-        
     }
     
     func checkTimeAndStopTrackingIfNeeded() {
@@ -513,7 +504,9 @@ extension PermissionManager: CLLocationManagerDelegate {
             //stop location tracking
             self.stopLocationUpdates()
             print("Location tracking stopped at midnight")
-            UserDefaults.standard.removeObject(forKey: "offlineLocations")  // deleting yesterday tracking data
+            Task {
+                try? await LocationQueueService.shared.deleteAll()
+            }  // deleting yesterday tracking data
         }
     }
     
@@ -648,3 +641,97 @@ extension PermissionManager: CLLocationManagerDelegate {
 //        }
 //    }
 //}
+
+
+// MARK: - Offline Location Queue Service
+
+/// Persists location updates that could not be uploaded immediately and replays them
+/// when connectivity returns. Uses SwiftData instead of UserDefaults so the queue can
+/// grow safely and support per-entry retry tracking.
+@ModelActor
+actor LocationQueueService {
+
+    static let shared: LocationQueueService = {
+        do {
+            let container = try ModelContainer(for: LocationLog.self)
+            return LocationQueueService(modelContainer: container)
+        } catch {
+            fatalError("Failed to create LocationQueueService container: \(error)")
+        }
+    }()
+
+    /// Stores a single location update for later upload.
+    func enqueue(latitude: Double, longitude: Double) async {
+        let log = LocationLog(latitude: latitude, longitude: longitude)
+        modelContext.insert(log)
+        do {
+            try modelContext.save()
+        } catch {
+            print("[LocationQueueService] Failed to enqueue location: \(error)")
+        }
+    }
+
+    /// Returns the oldest unsent location logs, capped to a sane batch size.
+    func fetchUnsent(limit: Int = 100) async throws -> [LocationLog] {
+        var descriptor = FetchDescriptor<LocationLog>(
+            predicate: #Predicate { $0.isUploaded == false },
+            sortBy: [SortDescriptor(\.timestamp, order: .forward)]
+        )
+        descriptor.fetchLimit = limit
+        return try modelContext.fetch(descriptor)
+    }
+
+    /// Removes successfully uploaded logs from the queue.
+    func delete(_ logs: [LocationLog]) async throws {
+        for log in logs {
+            modelContext.delete(log)
+        }
+        try modelContext.save()
+    }
+
+    /// Increments the retry counter for failed logs so backoff logic can be added later.
+    func incrementRetry(_ logs: [LocationLog]) async throws {
+        for log in logs {
+            log.retryCount += 1
+        }
+        try modelContext.save()
+    }
+
+    /// Deletes every stored log. Used when ending the tracking session (e.g. at midnight).
+    func deleteAll() async throws {
+        let all = try await fetchUnsent(limit: Int.max)
+        try await delete(all)
+    }
+
+    /// Imports any locations that were previously queued in UserDefaults so they are not lost.
+    func migrateLegacyQueue() async {
+        guard let savedData = UserDefaults.standard.data(forKey: "offlineLocations"),
+              let legacy = try? JSONDecoder().decode([TrackRequestModelData].self, from: savedData),
+              !legacy.isEmpty else {
+            return
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone.current
+
+        for entry in legacy {
+            let dateString = "\(entry.date) \(entry.time)"
+            let timestamp = dateFormatter.date(from: dateString) ?? Date()
+            let log = LocationLog(
+                timestamp: timestamp,
+                latitude: entry.latitude,
+                longitude: entry.longitude
+            )
+            modelContext.insert(log)
+        }
+
+        do {
+            try modelContext.save()
+            UserDefaults.standard.removeObject(forKey: "offlineLocations")
+            print("[LocationQueueService] Migrated \(legacy.count) legacy offline locations to SwiftData.")
+        } catch {
+            print("[LocationQueueService] Failed to migrate legacy queue: \(error)")
+        }
+    }
+}
