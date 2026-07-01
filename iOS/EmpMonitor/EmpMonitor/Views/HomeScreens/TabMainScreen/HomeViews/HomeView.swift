@@ -414,18 +414,18 @@ struct HomeView: View {
                                                             }
                                                         }
                                                     }else{ // if mobileDevice is not enabled
-                                                        if let bioMetrix = homeScreenViewModel.homeScreenData?.isBioMetricEnabled, bioMetrix == 1, let web = homeScreenViewModel.homeScreenData?.isWebEnabled, web == 1 {
-                                                            
+                                                        if let bioMetrix = homeScreenViewModel.homeScreenData?.isBioMetricEnabled, bioMetrix == 1,
+                                                           let web = homeScreenViewModel.homeScreenData?.isWebEnabled, web == 1 {
                                                             CheckINViaWebBioView()
                                                         }
                                                         else if let bioMetrix = homeScreenViewModel.homeScreenData?.isBioMetricEnabled, bioMetrix == 1 {
                                                             CheckINBioMetrixView()
                                                         }
                                                         else if let web = homeScreenViewModel.homeScreenData?.isWebEnabled, web == 1 {
-                                                            CheckINBioMetrixView()
+                                                            CheckINWebView()
                                                         }
                                                         else {
-                                                            CheckINViaWebBioView()
+                                                            EmptyView()
                                                         }
                                                     }
                                                     
@@ -719,6 +719,7 @@ struct HomeView: View {
             showCheckOUT = false
             timerManager.stopActiveTimer()
             permissionManager.stopLocationUpdates()
+            UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
             try? await homeScreenViewModel.getHomeScreenData()
         }
     }
