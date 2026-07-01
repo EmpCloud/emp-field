@@ -84,6 +84,8 @@ struct CreateProfileView: View {
                                                 .foregroundStyle(Color.absent)
                                         }
                                         TextFieldEditableCreateProfileView(text: $createProfileViewModel.fullName, placeholder: "Enter Full Name")
+                                            .textInputAutocapitalization(.words)
+                                            .autocorrectionDisabled()
                                     }
                                     .padding(.trailing, 20)
                                     .padding(.leading, 20)
@@ -107,7 +109,11 @@ struct CreateProfileView: View {
                                         }
                                         
                                         
-                                        TextFieldCreateProfileView(text: $createProfileViewModel.email, isEditable: .constant(false), placeholder: "Enter Email ID")
+                                        TextFieldEditableCreateProfileView(text: $createProfileViewModel.email, placeholder: "Enter Email ID")
+                                            .keyboardType(.emailAddress)
+                                            .textContentType(.emailAddress)
+                                            .autocapitalization(.none)
+                                            .autocorrectionDisabled()
                                     }
                                     .padding(.trailing, 20)
                                     .padding(.leading, 20)
@@ -249,6 +255,17 @@ struct CreateProfileView: View {
             }
             .navigationTitle("Create Profile")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarLeading) {
+                    Button("Sign Out") {
+                        Task { @MainActor in
+                            AuthStore.shared.clearSession()
+                            AppState.shared.updateLoginState()
+                        }
+                    }
+                    .foregroundStyle(.white)
+                }
+            }
             .navigationDestination(isPresented: $showAddAddress) {
                 AddAddressView()
                     .navigationBarBackButtonHidden()

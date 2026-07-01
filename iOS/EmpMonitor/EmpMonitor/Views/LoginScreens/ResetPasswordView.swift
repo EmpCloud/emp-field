@@ -43,9 +43,11 @@ struct ResetPasswordView: View {
                     .padding(.bottom, 20)
                 
                 AuthPasswordTextField(text: $passwordText, showPassword: $showNewPassword, placeholder: "New Password")
+                    .textContentType(.newPassword)
                     .padding(.horizontal, 50)
-                
+
                 AuthPasswordTextField(text: $confirmPasswordText, showPassword: $showConfirmPassword, placeholder: "Confirm Password")
+                    .textContentType(.newPassword)
                     .padding(.horizontal, 50)
                 
                 //MARK: Send Password Button

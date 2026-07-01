@@ -120,35 +120,46 @@ struct AddAddressView: View {
                                         VStack(alignment: .leading) {
                                             Text("Address line 1*")
                                             AddressTextFieldView(text: $searchLocationViewModel.selectedLocationTitle, placeholder: "")
+                                                .textContentType(.streetAddressLine1)
+                                                .autocorrectionDisabled()
                                         }
                                         .padding(.horizontal)
-                                        
+
                                         VStack(alignment: .leading) {
                                             Text("Address line 2")
                                             AddressTextFieldView(text: $searchLocationViewModel.selectedLocationSubtitle, placeholder: "")
+                                                .textContentType(.streetAddressLine2)
+                                                .autocorrectionDisabled()
                                         }
                                         .padding(.horizontal)
-                                        
+
                                         VStack(alignment: .leading) {
                                             Text("State*")
                                             AddressTextFieldView(text: $searchLocationViewModel.selectedLocationState, placeholder: "")
+                                                .textContentType(.addressState)
+                                                .textInputAutocapitalization(.words)
+                                                .autocorrectionDisabled()
                                         }
                                         .padding(.horizontal)
-                                        
+
                                         VStack(alignment: .leading) {
                                             Text("City*")
                                             AddressTextFieldView(text: $searchLocationViewModel.selectedLocationCity, placeholder: "")
+                                                .textContentType(.addressCity)
+                                                .textInputAutocapitalization(.words)
+                                                .autocorrectionDisabled()
                                         }
                                         .padding(.horizontal)
-                                        
+
                                         VStack(alignment: .leading) {
                                             Text("Zip Code")
                                             AddressTextFieldView(text: $searchLocationViewModel.selectedLocationZipcode, placeholder: "")
                                                 .keyboardType(.numberPad)
+                                                .textContentType(.postalCode)
                                                 .toolbarDoneButton()
                                         }
                                         .padding(.horizontal)
-                                        
+
                                     }
                                     .font(.system(size: 12, weight: .regular))
                                     .foregroundStyle(Color.addressText2)

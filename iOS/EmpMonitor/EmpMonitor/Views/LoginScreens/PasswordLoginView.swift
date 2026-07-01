@@ -32,6 +32,13 @@ struct PasswordLoginView: View {
     //Hide the password
     @State private var showPassword: Bool = false
     
+    private func hasExistingProfile() -> Bool {
+        let createProfile = AuthStore.shared.getUserProfileData(as: CreateProfileResponseModel.self)
+        let fetchedProfile = AuthStore.shared.getUserProfileData(as: ProfileResponseModel.self)
+        return createProfile?.body.data.resultData.first != nil
+            || fetchedProfile?.body.data.resultData.first != nil
+    }
+    
     var body: some View {
         ZStack(alignment: .top){
             Color.white
@@ -52,6 +59,7 @@ struct PasswordLoginView: View {
                     .padding(.bottom, 20)
                 
                 AuthPasswordTextField(text: $userLoginViewModel.password, showPassword: $showPassword, placeholder: "Enter Password")
+                    .textContentType(.password)
                     .padding(.horizontal, 50)
                 
                 //MARK: Login Button
@@ -62,7 +70,7 @@ struct PasswordLoginView: View {
                         
                         if NetworkManager.shared.statusCode == 200{
                             
-                            if AuthStore.shared.getUserProfileData(as: CreateProfileResponseModel.self) != nil {
+                            if hasExistingProfile() {
                                 
                                 profileImageLoader.profileImageURL = UserDefaults.standard.string(forKey: "UserProfilePic") ?? ""
                                 

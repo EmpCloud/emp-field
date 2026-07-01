@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AuthTextField: View {
-    
+
     @Binding var text: String
     var placeholder: String
     var body: some View {
@@ -22,7 +22,10 @@ struct AuthTextField: View {
                 .background(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .shadow(color: Color.textFieldShadow, radius: 19)
+                .keyboardType(.emailAddress)
+                .textContentType(.emailAddress)
                 .autocapitalization(.none)
+                .autocorrectionDisabled()
         }
     }
 }

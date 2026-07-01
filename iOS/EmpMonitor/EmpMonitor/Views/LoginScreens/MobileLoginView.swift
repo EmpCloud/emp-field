@@ -55,7 +55,6 @@ struct MobileLoginView: View {
                     MobileTextField(text: $mobileNumber, placeholder: "Mobile Number")
                         .padding(.horizontal, 50)
                         .padding(.vertical)
-                        .keyboardType(.numbersAndPunctuation)
                         .focused($keyIsFocused)
                         .onReceive(Just(mobileNumber)) { _ in
                             applyPatternOnNumbers(&mobileNumber, pattern: countryPattern, replacementCharacter: "#")

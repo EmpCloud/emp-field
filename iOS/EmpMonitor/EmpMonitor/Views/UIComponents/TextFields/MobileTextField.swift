@@ -24,7 +24,7 @@ struct MobileTextField: View {
                 .background(.white)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .shadow(color: Color.textFieldShadow, radius: 19)
-                .keyboardType(.numberPad)
+                .keyboardType(.phonePad)
         }
     }
 }
