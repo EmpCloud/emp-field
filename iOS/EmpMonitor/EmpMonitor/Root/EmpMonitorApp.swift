@@ -39,7 +39,6 @@ struct EmpMonitorApp: App {
                 .onAppear {
                     permissionManager.backgroundActivity = CLBackgroundActivitySession()
                     permissionManager.startLocationUpdate()
-
                     // Remove legacy image blob stored in UserDefaults (caused ~5MB limit warning)
                     UserDefaults.standard.removeObject(forKey: "ProfilePic")
 

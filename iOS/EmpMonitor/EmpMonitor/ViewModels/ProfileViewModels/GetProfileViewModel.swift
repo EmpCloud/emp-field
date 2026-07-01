@@ -29,6 +29,11 @@ class GetProfileViewModel: ObservableObject {
             
             profileDetail = fetchData.body.data.resultData
             
+            // Persist the fetched profile so the app can route directly to Home on next launch.
+            if !fetchData.body.data.resultData.isEmpty {
+                AuthStore.shared.saveUserProfileData(fetchData)
+            }
+            
             // Updating & Storing users profile for later use and direct navigation to homescreen
 //            UserDefaults.standard.setObject(fetchData, forKey: "UserProfile")         // since department is not there it casuing the deletion of "UserProfile" in UserDefault
             

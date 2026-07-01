@@ -73,6 +73,10 @@ extension UserLoginViewModel {
             UserDefaults.standard.setValue(userLoginData.body.data?.userData.profilePic, forKey: "UserProfilePic")
 //            UserDefaults.standard.setValue(false, forKey: "showLocationPermissionAlert")
 
+            // Fetch and persist the user's profile so the app can route directly to Home on next launch.
+            let profileVM = GetProfileViewModel()
+            try await profileVM.getProfile()
+
             // Fetch tracking settings immediately after login so auto check-in flags are ready
             await TrackingSettingsViewModel.shared.fetchTrackingSettings()
 

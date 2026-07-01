@@ -202,6 +202,7 @@ struct Settings: View {
                         
                         Button(action: {
                             UserDefaults.standard.set(false, forKey: "isCheckedIN")
+                            UserDefaults.standard.set(false, forKey: "hasAcceptedTerms")
                             AuthStore.shared.clearSession()
                             isLogout.toggle()
                         }) {

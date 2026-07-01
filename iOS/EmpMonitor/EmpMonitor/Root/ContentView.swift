@@ -21,10 +21,12 @@ struct ContentView: View {
     
     @State private var showInternetAlert: Bool = false
     
+    @State private var isProfileChecked: Bool = false
+    
     var body: some View {
         NavigationStack{
             ZStack {
-                if showSplashScreen {
+                if showSplashScreen || !isProfileChecked {
                     SplashView(showSplashScreen: $showSplashScreen)
                 } else {
                     rootView
@@ -42,9 +44,20 @@ struct ContentView: View {
             }
             .onAppear {
                 checkLocationStatus()
+                restoreUserInfoFromSavedProfileIfNeeded()
                 
                 profileImageLoader.profileImageURL = UserDefaults.standard.string(forKey: "UserProfilePic") ?? ""
                 profileImageLoader.loadProfileImage()
+                
+                Task {
+                    await verifyProfileForExistingSession()
+                    
+                    // Refresh tracking settings once on cold start so the latest login/tracking style is applied.
+                    if AuthStore.shared.getLoggedInUser() != nil,
+                       AuthStore.shared.getAccessToken() != nil {
+                        await TrackingSettingsViewModel.shared.fetchTrackingSettings()
+                    }
+                }
             }
             .onChange(of: permissionManager.locationStatus) { _, newValue in
                 checkLocationStatus()
@@ -69,18 +82,61 @@ struct ContentView: View {
     
     @ViewBuilder
     private var rootView: some View {
+        let hasToken = AuthStore.shared.getAccessToken() != nil
         let hasLogin = AuthStore.shared.getLoggedInUser() != nil
-        let hasProfile = AuthStore.shared.getUserProfileData(as: CreateProfileResponseModel.self) != nil
-        
+        let hasProfile = hasExistingProfile()
+
         if hasLogin && hasProfile {
             TabMainView()
-        } else if hasLogin {
+        } else if hasLogin && hasToken {
+            // New user with an active session still needs to complete profile setup.
             CreateProfileView()
-        } else if hasProfile {
+        } else if hasProfile || hasAcceptedTerms {
+            // Expired/cleared token or logged-out state — go straight to login.
             LoginView()
         } else {
             WelcomeView()
         }
+    }
+    
+    private var hasAcceptedTerms: Bool {
+        UserDefaults.standard.bool(forKey: "hasAcceptedTerms")
+    }
+    
+    private func hasExistingProfile() -> Bool {
+        let createProfile = AuthStore.shared.getUserProfileData(as: CreateProfileResponseModel.self)
+        let fetchedProfile = AuthStore.shared.getUserProfileData(as: ProfileResponseModel.self)
+        return createProfile?.body.data.resultData.first != nil
+            || fetchedProfile?.body.data.resultData.first != nil
+    }
+    
+    /// After a reinstall Keychain persists but UserDefaults do not, so repopulate the
+    /// display name and avatar URL from the saved profile if they are missing.
+    private func restoreUserInfoFromSavedProfileIfNeeded() {
+        let name = UserDefaults.standard.string(forKey: "UserName")
+        guard name == nil || name?.isEmpty == true else { return }
+        
+        if let createProfile = AuthStore.shared.getUserProfileData(as: CreateProfileResponseModel.self),
+           let detail = createProfile.body.data.resultData.first {
+            UserDefaults.standard.set(detail.fullName, forKey: "UserName")
+            UserDefaults.standard.set(detail.department, forKey: "UserDepartment")
+            UserDefaults.standard.set(detail.profilePic, forKey: "UserProfilePic")
+        } else if let fetchedProfile = AuthStore.shared.getUserProfileData(as: ProfileResponseModel.self),
+                  let detail = fetchedProfile.body.data.resultData.first {
+            UserDefaults.standard.set(detail.fullName, forKey: "UserName")
+            UserDefaults.standard.set(detail.profilePic, forKey: "UserProfilePic")
+        }
+    }
+    
+    @MainActor
+    private func verifyProfileForExistingSession() async {
+        defer { isProfileChecked = true }
+        guard AuthStore.shared.getLoggedInUser() != nil,
+              AuthStore.shared.getAccessToken() != nil else { return }
+        guard !hasExistingProfile() else { return }
+
+        let profileVM = GetProfileViewModel()
+        try? await profileVM.getProfile()
     }
     
     func checkLocationStatus() {

@@ -119,6 +119,7 @@ struct WelcomeView: View {
     
     func startDelay(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 1){
+            UserDefaults.standard.set(true, forKey: "hasAcceptedTerms")
             nextScreen = true
         }
     }
