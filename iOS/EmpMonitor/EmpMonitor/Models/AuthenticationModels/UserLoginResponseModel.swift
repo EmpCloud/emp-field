@@ -36,7 +36,7 @@ struct UserLoginData: Codable {
     let empID, orgID: String
     let address1, address2, latitude, longitude: String?
     let city, state, country, zipCode: String?
-    let phoneNumber, timezone: String
+    let phoneNumber, timezone: String?
     let isSuspended: Bool
     let isGeoFencingOn, isMobileDeviceEnabled, isBioMetricEnabled, isWebEnabled: Int
     let frequency: Int
@@ -86,8 +86,8 @@ struct UserLoginData: Codable {
         state = try container.decodeIfPresent(String.self, forKey: .state)
         country = try container.decodeIfPresent(String.self, forKey: .country)
         zipCode = try container.decodeIfPresent(String.self, forKey: .zipCode)
-        phoneNumber = try container.decode(String.self, forKey: .phoneNumber)
-        timezone = try container.decode(String.self, forKey: .timezone)
+        phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber)
+        timezone = try container.decodeIfPresent(String.self, forKey: .timezone)
         isSuspended = try container.decode(Bool.self, forKey: .isSuspended)
         isGeoFencingOn = try container.decode(Int.self, forKey: .isGeoFencingOn)
         isMobileDeviceEnabled = try container.decode(Int.self, forKey: .isMobileDeviceEnabled)
