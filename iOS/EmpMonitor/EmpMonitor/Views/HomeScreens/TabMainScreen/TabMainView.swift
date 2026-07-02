@@ -246,6 +246,12 @@ struct TabMainView: View {
                 UINavigationBar.appearance().titleTextAttributes = [
                     .foregroundColor: UIColor.white
                 ]
+                // Kick off geo-fence monitoring early so didDetermineState can resolve
+                // before HomeView's onAppear Task fetches home data.
+                if UserDefaults.standard.integer(forKey: "isGeoFencingOn") == 1 {
+                    permissionManager.startGeoFenceMonitoring()
+                    permissionManager.requestGeoFenceState()
+                }
             }
         }
     }

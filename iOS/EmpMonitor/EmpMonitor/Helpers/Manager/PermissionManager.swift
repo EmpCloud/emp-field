@@ -56,6 +56,7 @@ class PermissionManager: NSObject, ObservableObject {
     // Geo-fence auto check-in / check-out signals observed by HomeView
     @Published var shouldAutoCheckIn: Bool = false
     @Published var shouldAutoCheckOut: Bool = false
+    @Published var isInsideGeoFence: Bool = false
     private let geoFenceRegionIdentifier = "OrgGeoFence"
     
     
@@ -337,6 +338,24 @@ class PermissionManager: NSObject, ObservableObject {
         }
     }
 
+    /// Asks Core Location for the user's current state relative to the geo-fence region.
+    /// The result arrives in `locationManager(_:didDetermineState:for:)`.
+    func requestGeoFenceState() {
+        guard let orgLat = Double(UserDefaults.standard.string(forKey: "OrgLatitude") ?? ""),
+              let orgLong = Double(UserDefaults.standard.string(forKey: "OrgLongitude") ?? "") else {
+            print("GeoFence: cannot request state — missing org location")
+            return
+        }
+        let orgRadius = Double(UserDefaults.standard.integer(forKey: "OrgRadius"))
+        let clampedRadius = min(max(orgRadius, 1), locationManager.maximumRegionMonitoringDistance)
+        let region = CLCircularRegion(
+            center: CLLocationCoordinate2D(latitude: orgLat, longitude: orgLong),
+            radius: clampedRadius,
+            identifier: geoFenceRegionIdentifier
+        )
+        locationManager.requestState(for: region)
+    }
+
     func addUniqueLocationData(latitude: Double, longitude: Double) -> TrackRequestModelData {
         //Get the current data and time
         let currentDate = Date()
@@ -402,11 +421,25 @@ extension PermissionManager: CLLocationManagerDelegate {
     }
     
     // MARK: Geo-fence delegate callbacks
+
+    nonisolated func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
+        guard region.identifier == geoFenceRegionIdentifier else { return }
+        let inside = (state == .inside)
+        print("GeoFence: initial state = \(inside ? "inside" : "outside/unknown")")
+        Task { @MainActor [weak self] in
+            self?.isInsideGeoFence = inside
+            if inside && !UserDefaults.standard.bool(forKey: "isCheckedIN") {
+                self?.shouldAutoCheckIn = true
+            }
+        }
+    }
+
     nonisolated func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         guard region.identifier == geoFenceRegionIdentifier else { return }
         print("GeoFence: entered org region")
-        guard !UserDefaults.standard.bool(forKey: "isCheckedIN") else { return }
         Task { @MainActor [weak self] in
+            self?.isInsideGeoFence = true
+            guard !UserDefaults.standard.bool(forKey: "isCheckedIN") else { return }
             self?.shouldAutoCheckIn = true
         }
     }
@@ -414,8 +447,9 @@ extension PermissionManager: CLLocationManagerDelegate {
     nonisolated func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         guard region.identifier == geoFenceRegionIdentifier else { return }
         print("GeoFence: exited org region")
-        guard UserDefaults.standard.bool(forKey: "isCheckedIN") else { return }
         Task { @MainActor [weak self] in
+            self?.isInsideGeoFence = false
+            guard UserDefaults.standard.bool(forKey: "isCheckedIN") else { return }
             self?.shouldAutoCheckOut = true
         }
     }
