@@ -32,7 +32,8 @@ struct UserLoginData: Codable {
     let profilePic: String?
     let location, department: String
     let status: Int
-    let role, empID, orgID: String
+    let role: String?
+    let empID, orgID: String
     let address1, address2, latitude, longitude: String?
     let city, state, country, zipCode: String?
     let phoneNumber, timezone: String
@@ -74,7 +75,7 @@ struct UserLoginData: Codable {
         location = try container.decode(String.self, forKey: .location)
         department = try container.decode(String.self, forKey: .department)
         status = try container.decode(Int.self, forKey: .status)
-        role = try container.decode(String.self, forKey: .role)
+        role = try container.decodeIfPresent(String.self, forKey: .role)
         empID = try container.decode(String.self, forKey: .empID)
         orgID = try container.decode(String.self, forKey: .orgID)
         address1 = try container.decodeIfPresent(String.self, forKey: .address1)
