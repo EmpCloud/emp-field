@@ -82,17 +82,12 @@ struct ContentView: View {
     
     @ViewBuilder
     private var rootView: some View {
-        let hasToken = AuthStore.shared.getAccessToken() != nil
         let hasLogin = AuthStore.shared.getLoggedInUser() != nil
         let hasProfile = hasExistingProfile()
 
         if hasLogin && hasProfile {
             TabMainView()
-        } else if hasLogin && hasToken {
-            // New user with an active session still needs to complete profile setup.
-            CreateProfileView()
         } else if hasProfile || hasAcceptedTerms {
-            // Expired/cleared token or logged-out state — go straight to login.
             LoginView()
         } else {
             WelcomeView()
