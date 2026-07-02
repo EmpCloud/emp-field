@@ -35,6 +35,7 @@ struct HomeView: View {
     
     @State private var isBioMetrixCheckIN: Int = 0
     @State private var isWebCheckIN: Int = 0
+    @State private var showFaceCheckIn: Bool = false
     
     @State private var date = Date()
     
@@ -422,12 +423,40 @@ struct HomeView: View {
 
                                                     } else {
                                                         // Mobile device not enabled — biometric / web check-in
-                                                        if let bioMetrix = homeScreenViewModel.homeScreenData?.isBioMetricEnabled, bioMetrix == 1,
-                                                           let web = homeScreenViewModel.homeScreenData?.isWebEnabled, web == 1 {
-                                                            CheckINViaWebBioView()
-                                                        } else if let bioMetrix = homeScreenViewModel.homeScreenData?.isBioMetricEnabled, bioMetrix == 1 {
-                                                            CheckINBioMetrixView()
-                                                        } else if let web = homeScreenViewModel.homeScreenData?.isWebEnabled, web == 1 {
+                                                        let bioOn = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
+                                                        let webOn = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+
+                                                        if bioOn == 1 && webOn == 1 {
+                                                            // Both: show face biometric button first, then web
+                                                            VStack(spacing: 10) {
+                                                                if showCheckIN {
+                                                                    CheckINBioMetrixView()
+                                                                        .onTap { showFaceCheckIn = true }
+                                                                }
+                                                                CheckINViaWebBioView()
+                                                            }
+                                                        } else if bioOn == 1 {
+                                                            if showCheckIN {
+                                                                CheckINBioMetrixView()
+                                                                    .onTap { showFaceCheckIn = true }
+                                                            }
+                                                            if showCheckOUT {
+                                                                CheckOutSwipeButtonView()
+                                                                    .onSwipeSuccess {
+                                                                        showCheckOUT = false
+                                                                        Task {
+                                                                            checkINViewModel.checkINTime = currentDeviceTime
+                                                                            if let lat = permissionManager.userLocation?.coordinate.latitude {
+                                                                                checkINViewModel.checkINLatitude = Double(lat)
+                                                                            }
+                                                                            if let long = permissionManager.userLocation?.coordinate.longitude {
+                                                                                checkINViewModel.checkINLongitude = Double(long)
+                                                                            }
+                                                                            showCheckOUTAlert.toggle()
+                                                                        }
+                                                                    }
+                                                            }
+                                                        } else if webOn == 1 {
                                                             CheckINWebView()
                                                         } else {
                                                             EmptyView()
@@ -531,9 +560,26 @@ struct HomeView: View {
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                                 .background(Color.white.opacity(0.5))
                             }
-                            
+
                         }
                             .frame(maxWidth: .infinity, alignment: .topLeading)
+                            .fullScreenCover(isPresented: $showFaceCheckIn) {
+                                FaceCheckInView { checkedInTime in
+                                    // Biometric face check-in succeeded
+                                    showCheckIN = false
+                                    showCheckOUT = true
+                                    currentDeviceTime = checkedInTime
+                                    homeScreenViewModel.checkINTime = checkedInTime
+                                    showFaceCheckIn = false
+                                    UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+                                    permissionManager.startLocationUpdate()
+                                    timerManager.startActiveTimer()
+                                    Task {
+                                        try? await homeScreenViewModel.getHomeScreenData()
+                                    }
+                                }
+                                .environmentObject(permissionManager)
+                            }
                         //MARK: Navigation
                         .navigationDestination(isPresented: $showALHView)  {
                             ALHView(empName: $name, selection: $selectedALHView)

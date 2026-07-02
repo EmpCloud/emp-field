@@ -283,6 +283,11 @@
 		DAE115192C81F5BB00AE9C6F /* ProfileUploadResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE115182C81F5BB00AE9C6F /* ProfileUploadResponseModel.swift */; };
 		DAE1151B2C8201F600AE9C6F /* EditAddressTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAE1151A2C8201F600AE9C6F /* EditAddressTextField.swift */; };
 		DAEE711D2CC271CC00B208BA /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAEE711C2CC271CC00B208BA /* NetworkMonitor.swift */; };
+		FACE00032C900000FA000002 /* FaceVerifyResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE00032C900000FA000001 /* FaceVerifyResponseModel.swift */; };
+		FACE00042C900000FA000002 /* FaceVerifyService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE00042C900000FA000001 /* FaceVerifyService.swift */; };
+		FACE00052C900000FA000002 /* FaceLivenessViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE00052C900000FA000001 /* FaceLivenessViewModel.swift */; };
+		FACE00062C900000FA000002 /* FaceCheckInViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE00062C900000FA000001 /* FaceCheckInViewModel.swift */; };
+		FACE00072C900000FA000002 /* FaceCheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FACE00072C900000FA000001 /* FaceCheckInView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -563,6 +568,11 @@
 		DAE115182C81F5BB00AE9C6F /* ProfileUploadResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUploadResponseModel.swift; sourceTree = "<group>"; };
 		DAE1151A2C8201F600AE9C6F /* EditAddressTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditAddressTextField.swift; sourceTree = "<group>"; };
 		DAEE711C2CC271CC00B208BA /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		FACE00032C900000FA000001 /* FaceVerifyResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceVerifyResponseModel.swift; sourceTree = "<group>"; };
+		FACE00042C900000FA000001 /* FaceVerifyService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceVerifyService.swift; sourceTree = "<group>"; };
+		FACE00052C900000FA000001 /* FaceLivenessViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceLivenessViewModel.swift; sourceTree = "<group>"; };
+		FACE00062C900000FA000001 /* FaceCheckInViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceCheckInViewModel.swift; sourceTree = "<group>"; };
+		FACE00072C900000FA000001 /* FaceCheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FaceCheckInView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -605,6 +615,7 @@
 			isa = PBXGroup;
 			children = (
 				DA7D4A3C2C3FE85000C8741D /* HomeView.swift */,
+				FACE00072C900000FA000001 /* FaceCheckInView.swift */,
 				DA5D7A682C5234BD004A1BCA /* MapCheckInView.swift */,
 				DA5D7A6A2C52448D004A1BCA /* ALHView.swift */,
 				DA5D7A722C576DDB004A1BCA /* LeavesView.swift */,
@@ -888,6 +899,7 @@
 		DA5DCD422C24316C00F2BA5C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FACE00012C900000FA000001 /* BiometricModels */,
 				DA618DB52CA5417F002F8C44 /* TrackModels */,
 				DA618DE42CB20004002F8C44 /* TrackingSettingsModels */,
 				DAB98F942C9AF34900250C6D /* ModeOfTravelModels */,
@@ -912,6 +924,7 @@
 		DA5DCD432C24317200F2BA5C /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				FACE00022C900000FA000001 /* BiometricViewModels */,
 				DA618DB82CA547F6002F8C44 /* TrackViewModel */,
 				DA618DE52CB20005002F8C44 /* TrackingSettingsViewModels */,
 				DAB98F992C9AF3F100250C6D /* ModeOfTravelViewModels */,
@@ -997,6 +1010,7 @@
 			children = (
 				DA5DCD4F2C24358700F2BA5C /* NetworkError.swift */,
 				DA5DCD532C24368400F2BA5C /* NetworkManager.swift */,
+				FACE00042C900000FA000001 /* FaceVerifyService.swift */,
 			);
 			path = NetworkManagers;
 			sourceTree = "<group>";
@@ -1700,6 +1714,23 @@
 			path = Network;
 			sourceTree = "<group>";
 		};
+		FACE00012C900000FA000001 /* BiometricModels */ = {
+			isa = PBXGroup;
+			children = (
+				FACE00032C900000FA000001 /* FaceVerifyResponseModel.swift */,
+			);
+			path = BiometricModels;
+			sourceTree = "<group>";
+		};
+		FACE00022C900000FA000001 /* BiometricViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				FACE00052C900000FA000001 /* FaceLivenessViewModel.swift */,
+				FACE00062C900000FA000001 /* FaceCheckInViewModel.swift */,
+			);
+			path = BiometricViewModels;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2049,6 +2080,11 @@
 				DAB98F932C94629400250C6D /* PDFRenderer.swift in Sources */,
 				DAD2EE222C69F17F00D519B8 /* HomeScreenResponseModel.swift in Sources */,
 				DAB98F902C94447D00250C6D /* QrDownloadButton.swift in Sources */,
+				FACE00032C900000FA000002 /* FaceVerifyResponseModel.swift in Sources */,
+				FACE00042C900000FA000002 /* FaceVerifyService.swift in Sources */,
+				FACE00052C900000FA000002 /* FaceLivenessViewModel.swift in Sources */,
+				FACE00062C900000FA000002 /* FaceCheckInViewModel.swift in Sources */,
+				FACE00072C900000FA000002 /* FaceCheckInView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
