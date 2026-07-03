@@ -428,9 +428,10 @@ extension PermissionManager: CLLocationManagerDelegate {
         print("GeoFence: initial state = \(inside ? "inside" : "outside/unknown")")
         Task { @MainActor [weak self] in
             self?.isInsideGeoFence = inside
-            if inside && !UserDefaults.standard.bool(forKey: "isCheckedIN") {
-                self?.shouldAutoCheckIn = true
-            }
+            guard inside,
+                  !UserDefaults.standard.bool(forKey: "isCheckedIN"),
+                  UserDefaults.standard.integer(forKey: "autoCheckInByGeoFencing") == 1 else { return }
+            self?.shouldAutoCheckIn = true
         }
     }
 
@@ -439,7 +440,8 @@ extension PermissionManager: CLLocationManagerDelegate {
         print("GeoFence: entered org region")
         Task { @MainActor [weak self] in
             self?.isInsideGeoFence = true
-            guard !UserDefaults.standard.bool(forKey: "isCheckedIN") else { return }
+            guard !UserDefaults.standard.bool(forKey: "isCheckedIN"),
+                  UserDefaults.standard.integer(forKey: "autoCheckInByGeoFencing") == 1 else { return }
             self?.shouldAutoCheckIn = true
         }
     }
@@ -449,7 +451,8 @@ extension PermissionManager: CLLocationManagerDelegate {
         print("GeoFence: exited org region")
         Task { @MainActor [weak self] in
             self?.isInsideGeoFence = false
-            guard UserDefaults.standard.bool(forKey: "isCheckedIN") else { return }
+            guard UserDefaults.standard.bool(forKey: "isCheckedIN"),
+                  UserDefaults.standard.integer(forKey: "autoCheckInByGeoFencing") == 1 else { return }
             self?.shouldAutoCheckOut = true
         }
     }
