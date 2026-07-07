@@ -45,6 +45,7 @@ struct TabMainView: View {
     
     //Notification
     @State private var showNotification: Bool = false
+    @StateObject private var notificationViewModel = NotificationViewModel()
     
     //QRCode
     @State private var showQRCode: Bool = false
@@ -173,6 +174,11 @@ struct TabMainView: View {
                 NotificationView()
                     .navigationBarBackButtonHidden()
             }
+            .onChange(of: showNotification) { _, isShowing in
+                if !isShowing {
+                    Task { try? await notificationViewModel.getNotificationList() }
+                }
+            }
             .fullScreenCover(isPresented: $isLogout) {
                 LoginView()
                     .environmentObject(profileImageLoader)
@@ -199,7 +205,7 @@ struct TabMainView: View {
                             }
                     }
                     ToolbarItem(placement: .topBarTrailing) {
-                        BellIconView()
+                        BellIconView(hasNotifications: !notificationViewModel.notificationList.isEmpty)
                             .onTapGesture {
                                 withAnimation {
                                     showNotification.toggle()
@@ -252,6 +258,7 @@ struct TabMainView: View {
                     permissionManager.startGeoFenceMonitoring()
                     permissionManager.requestGeoFenceState()
                 }
+                Task { try? await notificationViewModel.getNotificationList() }
             }
         }
     }

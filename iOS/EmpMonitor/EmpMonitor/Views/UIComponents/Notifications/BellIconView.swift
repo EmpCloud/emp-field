@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct BellIconView: View {
+    var hasNotifications: Bool = false
+
     var body: some View {
         ZStack {
             Image(.bellIcon)
@@ -18,19 +20,18 @@ struct BellIconView: View {
                     Circle()
                         .frame(width: 40, height: 40)
                         .foregroundStyle(.white)
-                        .overlay(alignment: .topTrailing, content: {
-                            Circle()
-                                .fill(Color.notification)
-                                .frame(width: 10, height: 10)
-                                .offset(x: -1, y: 1)
-                        })
+                        .overlay(alignment: .topTrailing) {
+                            if hasNotifications {
+                                Circle()
+                                    .fill(Color.notification)
+                                    .frame(width: 10, height: 10)
+                                    .offset(x: -1, y: 1)
+                            }
+                        }
                 )
                 .padding()
         }
-//        .padding()
-//        .background(Color.black)
     }
-        
 }
 
 #Preview {
