@@ -30,22 +30,31 @@ class LeavesViewModel: ObservableObject {
         
         let body = LeavesRequestModel(startDate: startDate, endDate: endDate)
         
-        do{
+        do {
             let fetchData: LeavesResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: LeavesResponseModel.self, accessToken: token)
-            
+
             NetworkManager.shared.responseMessage = fetchData.body.message
             NetworkManager.shared.statusCode = fetchData.statusCode
-            
+
             leavesData = fetchData.body.data ?? []
             fetchStatusCode = fetchData.statusCode
-            
+
             print("Leaves Data:")
             print(leavesData)
-            
-        }catch{
-            print("Error: error in getleaves")
+
+        } catch let networkError as NetworkError {
+            // Backend returns 400 "No Leaves found" when the employee has no leave records.
+            // This is an expected empty-state response, not a real failure.
+            if case .clientError(400, _) = networkError {
+                leavesData = []
+                fetchStatusCode = 400
+            } else {
+                print("Error: error in getleaves — \(networkError)")
+                self.error = networkError
+            }
+        } catch {
+            print("Error: error in getleaves — \(error)")
             self.error = error
-            
         }
     }
 }

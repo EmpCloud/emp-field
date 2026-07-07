@@ -28,7 +28,7 @@ struct AttendanceResponseModelData: Codable {
     let location: String?
     let departmentID: Int
     let department, empCode: String
-    let shiftID: Int
+    let shiftID: Int?
     let shiftName: String?
     let totalCount, orgTotalCount: Int
     let geolocation: JSONNull?
