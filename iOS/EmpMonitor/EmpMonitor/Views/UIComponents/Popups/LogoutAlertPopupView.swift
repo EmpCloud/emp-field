@@ -18,9 +18,11 @@ struct LogoutAlertPopupView: View {
     @Binding var showCheckOUTAlert: Bool
     @Binding var yesCheckout: Bool
     @Binding var showWarningPopup: Bool
-    
+
     //Task Status used to manage the checkOUT
     @Binding var isTaskRunning: Bool
+
+    var onCheckoutSuccess: () -> Void = {}
     
     var body: some View {
         
@@ -82,18 +84,19 @@ struct LogoutAlertPopupView: View {
                                     
                                     if NetworkManager.shared.statusCode == 200 {
                                         print("CheckOUT: Attendance marked")
-                                        
+
                                         timerManager.stopActiveTimer()
                                         UserDefaults.standard.setValue(false, forKey: "isCheckedIN") // stop the tracking
-                                        
+
                                         // stop tracking
                                         permissionManager.stopLocationUpdates()
-                                        
+
                                         // to refresh the screen after checkOUT
                                         try await homeScreenViewModel.getHomeScreenData()
-                                        
+
                                         yesCheckout = false
-                                        
+                                        onCheckoutSuccess()
+
                                         withAnimation {
                                             showCheckOUTAlert.toggle()
                                         }

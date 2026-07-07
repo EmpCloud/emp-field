@@ -42,6 +42,7 @@ struct ProfileView: View {
     @State private var showCameraPermissionAlert: Bool = false
     @State private var showUpdateError: Bool = false
     @State private var updateErrorMessage: String = ""
+    @State private var toastMessage: ToastMessage?
     
     @FocusState private var isKeyboardShowing: Bool
     
@@ -200,6 +201,8 @@ struct ProfileView: View {
                             Task {
                                 do {
                                     try await updateProfileViewModel.updateProfile()
+                                    toastMessage = ToastMessage(style: .success, message: "Profile updated successfully")
+                                    try? await Task.sleep(for: .seconds(1))
                                     dismiss()
                                 } catch let networkError as NetworkError {
                                     // Use the message carried in the error — avoids reading stale
@@ -254,7 +257,9 @@ struct ProfileView: View {
                     .onTapGesture {
                         showUpdateError = false
                     }
-                }            }
+                }
+            }
+            .toast(message: $toastMessage)
             .onChange(of: savedImageURL) { _, _ in
                 Task {
                     if let imageURL = savedImageURL {

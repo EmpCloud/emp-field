@@ -46,6 +46,9 @@ struct HomeView: View {
     
     //Warning
     @State private var showWarning: Bool = false
+
+    //Toast
+    @State private var toastMessage: ToastMessage?
     
     
     //Mode of travel
@@ -304,6 +307,7 @@ struct HomeView: View {
                                                                         }
                                                                         homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
                                                                         timerManager.startActiveTimer()
+                                                                        toastMessage = ToastMessage(style: .success, message: "Checked in successfully")
                                                                         UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
                                                                         permissionManager.startLocationUpdate()
                                                                         try await homeScreenViewModel.getHomeScreenData()
@@ -379,6 +383,7 @@ struct HomeView: View {
                                                                         }
                                                                         homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
                                                                         timerManager.startActiveTimer()
+                                                                        toastMessage = ToastMessage(style: .success, message: "Checked in successfully")
                                                                         UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
                                                                         permissionManager.startLocationUpdate()
                                                                         try await homeScreenViewModel.getHomeScreenData()
@@ -507,7 +512,7 @@ struct HomeView: View {
                             //MARK: CheckOUT Popup
                             if showCheckOUTAlert {
                                 ZStack {
-                                    LogoutAlertPopupView(checkINViewModel: checkINViewModel, homeScreenViewModel: homeScreenViewModel, showCheckOUTAlert: $showCheckOUTAlert, yesCheckout: $yesCheckOut, showWarningPopup: $showWarning, isTaskRunning: $isTaskRunning)
+                                    LogoutAlertPopupView(checkINViewModel: checkINViewModel, homeScreenViewModel: homeScreenViewModel, showCheckOUTAlert: $showCheckOUTAlert, yesCheckout: $yesCheckOut, showWarningPopup: $showWarning, isTaskRunning: $isTaskRunning, onCheckoutSuccess: { toastMessage = ToastMessage(style: .success, message: "Checked out successfully") })
                                         .environmentObject(permissionManager)
                                 }
                                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -576,6 +581,7 @@ struct HomeView: View {
                                     UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
                                     permissionManager.startLocationUpdate()
                                     timerManager.startActiveTimer()
+                                    toastMessage = ToastMessage(style: .success, message: "Biometric check-in successful")
                                     Task {
                                         try? await homeScreenViewModel.getHomeScreenData()
                                     }
@@ -736,6 +742,7 @@ struct HomeView: View {
 //                    }
                 }
         }
+        .toast(message: $toastMessage)
     }
 
     private func performAutoCheckIn() async {
@@ -760,6 +767,7 @@ struct HomeView: View {
         // Don't show MOT popup for automatic check-in — user didn't initiate it manually
         homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
         timerManager.startActiveTimer()
+        toastMessage = ToastMessage(style: .success, message: "Auto check-in successful at \(time)")
         UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
         UserDefaults.standard.set(Date(), forKey: "lastAutoCheckInTime")
         permissionManager.startLocationUpdate()
@@ -789,6 +797,7 @@ struct HomeView: View {
             timerManager.stopActiveTimer()
             permissionManager.stopLocationUpdates()
             UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+            toastMessage = ToastMessage(style: .success, message: "Auto check-out successful")
             try? await homeScreenViewModel.getHomeScreenData()
         }
     }
