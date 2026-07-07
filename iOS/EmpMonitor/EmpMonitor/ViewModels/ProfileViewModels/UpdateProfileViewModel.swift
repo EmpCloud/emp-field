@@ -37,7 +37,7 @@ class UpdateProfileViewModel: ObservableObject {
         
         let token = AuthStore.shared.getAccessToken()
         
-        let body = UpdateProfileRequestModel(fullName: fullName, age: Int(age) ?? 0, gender: gender, email: email, profilePic: profilePic, address1: address1, address2: address2, latitude: latitude, longitude: longitude, city: city, state: state, country: country, zipCode: zipCode, phoneNumber: phoneNumber)
+        let body = UpdateProfileRequestModel(fullName: fullName, age: Int(age) ?? 0, gender: gender, email: email, profilePic: profilePic.isEmpty ? nil : profilePic, address1: address1, address2: address2, latitude: latitude, longitude: longitude, city: city, state: state, country: country, zipCode: zipCode, phoneNumber: phoneNumber)
         
         do {
             let fetchData: UpdateProfileResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: UpdateProfileResponseModel.self, accessToken: token)
