@@ -37,28 +37,35 @@ class UpdateProfileViewModel: ObservableObject {
         
         let token = AuthStore.shared.getAccessToken()
         
-        let body = UpdateProfileRequestModel(fullName: fullName, age: Int(age) ?? 0, gender: gender, email: email, profilePic: profilePic.isEmpty ? nil : profilePic, address1: address1, address2: address2, latitude: latitude, longitude: longitude, city: city, state: state, country: country, zipCode: zipCode, phoneNumber: phoneNumber)
-        
+        let body = UpdateProfileRequestModel(
+            fullName: fullName,
+            age: age.isEmpty ? nil : age,
+            gender: gender.isEmpty ? nil : gender,
+            email: email,
+            profilePic: profilePic.isEmpty ? nil : profilePic,
+            address1: address1, address2: address2,
+            latitude: latitude, longitude: longitude,
+            city: city, state: state, country: country, zipCode: zipCode,
+            phoneNumber: phoneNumber
+        )
+
         do {
             let fetchData: UpdateProfileResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: UpdateProfileResponseModel.self, accessToken: token)
-            
-            print(fetchData.body.data.resultData.first)
-            
-            // Updating & Storing users profile securely for later use and direct navigation to homescreen
+
+            print(fetchData.body.data.resultData.first as Any)
+
             AuthStore.shared.saveUserProfileData(fetchData)
-            
-            
-            // to store userProfile Data
+
             UserDefaults.standard.setValue(fetchData.body.data.resultData.first?.fullName, forKey: "UserName")
             UserDefaults.standard.setValue(fetchData.body.data.resultData.first?.department, forKey: "UserDepartment")
             UserDefaults.standard.setValue(fetchData.body.data.resultData.first?.profilePic, forKey: "UserProfilePic")
-            
-            //to update the profile pic
+
             ProfileHelper.shared.updateProfilePic(with: URL(string: fetchData.body.data.resultData.first?.profilePic ?? ""))
-            
-        }catch {
-            print("Error: Get Profile error -> \(error.localizedDescription)")
+
+        } catch {
+            print("Error: Update Profile -> \(error.localizedDescription)")
             self.error = error
+            throw error
         }
     }
 }

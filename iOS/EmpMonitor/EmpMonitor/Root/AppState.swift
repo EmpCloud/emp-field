@@ -193,7 +193,7 @@ final class AuthStore: ObservableObject {
             "isMobileDeviceEnabled", "isGeoFencingOn",
             "OrgLatitude", "OrgLongitude", "OrgRadius",
             "CurrentFrequency", "CurrentRadius",
-            "offlineLocations"
+            "offlineLocations", "lastAutoCheckInTime"
         ]
         keysToRemove.forEach { UserDefaults.standard.removeObject(forKey: $0) }
         Task { try? await LocationQueueService.shared.deleteAll() }

@@ -74,16 +74,21 @@ struct PasswordLoginView: View {
                     Task {
                         try await userLoginViewModel.loginUser()
 
-                        if NetworkManager.shared.statusCode == 200{
+                        if NetworkManager.shared.statusCode == 200 {
+                            // Fetch profile and tracking settings here so loginUser() stays fast
+                            let profileVM = GetProfileViewModel()
+                            try? await profileVM.getProfile()
+                            await TrackingSettingsViewModel.shared.fetchTrackingSettings()
 
-                            if hasExistingProfile() {
+                            profileImageLoader.profileImageURL = UserDefaults.standard.string(forKey: "UserProfilePic") ?? ""
 
-                                profileImageLoader.profileImageURL = UserDefaults.standard.string(forKey: "UserProfilePic") ?? ""
-
-                                showTabMainView = true
-
-                            }else{
+                            // Only route to CreateProfile when the API confirmed no profile exists.
+                            // If getProfile() itself failed (network error), fall through to TabMain
+                            // to avoid erroneously sending an existing user to the create-profile flow.
+                            if profileVM.error == nil && !hasExistingProfile() {
                                 createProfileScreen = true
+                            } else {
+                                showTabMainView = true
                             }
 
                             //-------------logout changes -------

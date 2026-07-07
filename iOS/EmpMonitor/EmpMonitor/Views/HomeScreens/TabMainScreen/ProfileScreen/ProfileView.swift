@@ -40,6 +40,8 @@ struct ProfileView: View {
     
     //Alert:
     @State private var showCameraPermissionAlert: Bool = false
+    @State private var showUpdateError: Bool = false
+    @State private var updateErrorMessage: String = ""
     
     @FocusState private var isKeyboardShowing: Bool
     
@@ -195,15 +197,17 @@ struct ProfileView: View {
                         
                         //MARK: Save Button
                         PrimaryThinButton(text: "Save") {
-                            //TODO: make api call to save the changes
-                            
                             Task {
-                                try await updateProfileViewModel.updateProfile()
-                                
+                                do {
+                                    try await updateProfileViewModel.updateProfile()
+                                    dismiss()
+                                } catch {
+                                    updateErrorMessage = NetworkManager.shared.responseMessage.isEmpty
+                                        ? "Failed to update profile. Please try again."
+                                        : NetworkManager.shared.responseMessage
+                                    showUpdateError = true
+                                }
                             }
-                            
-                            dismiss()
-                            
                         }
                         .padding(.bottom, 50)
                         .padding(.horizontal)
@@ -233,6 +237,18 @@ struct ProfileView: View {
                     .background(Color.black.opacity(0.5))
                     .onTapGesture {
                         showCameraPermissionAlert.toggle()
+                    }
+                }
+
+                //MARK: Update Error Alert
+                if showUpdateError {
+                    ZStack {
+                        WarningPopupView(titleText: "Update Failed", description: updateErrorMessage, showWarningPopup: $showUpdateError)
+                    }
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .background(Color.black.opacity(0.5))
+                    .onTapGesture {
+                        showUpdateError = false
                     }
                 }            }
             .onChange(of: savedImageURL) { _, _ in

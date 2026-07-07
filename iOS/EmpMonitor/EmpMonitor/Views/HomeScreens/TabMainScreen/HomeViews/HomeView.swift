@@ -757,15 +757,22 @@ struct HomeView: View {
         }
         showCheckIN = false
         showCheckOUT = true
-        showMOTPopup = true
+        // Don't show MOT popup for automatic check-in — user didn't initiate it manually
         homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
         timerManager.startActiveTimer()
         UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+        UserDefaults.standard.set(Date(), forKey: "lastAutoCheckInTime")
         permissionManager.startLocationUpdate()
         try? await homeScreenViewModel.getHomeScreenData()
     }
 
     private func performAutoCheckOut() async {
+        // Require at least 5 minutes since auto check-in to prevent GPS jitter from triggering
+        // an immediate checkout right after a successful auto check-in.
+        if let lastCheckIn = UserDefaults.standard.object(forKey: "lastAutoCheckInTime") as? Date,
+           Date().timeIntervalSince(lastCheckIn) < 300 {
+            return
+        }
         guard showCheckOUT, UserDefaults.standard.bool(forKey: "isCheckedIN") else { return }
         let time = HelperFunction.shared.currentTime()
         checkINViewModel.checkINTime = time

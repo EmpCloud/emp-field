@@ -60,32 +60,25 @@ extension UserLoginViewModel {
             
             NetworkManager.shared.statusCode = userLoginData.statusCode
             NetworkManager.shared.responseMessage = userLoginData.body.message
-            
-            // Save session securely in Keychain via AuthStore
-            if let accessToken = userLoginData.body.data?.accessToken {
-                AuthStore.shared.saveAccessToken(accessToken)
+
+            // Only continue if business-level login succeeded and a token was issued
+            guard userLoginData.statusCode == 200,
+                  let accessToken = userLoginData.body.data?.accessToken else {
+                return
             }
+
+            // Save session securely in Keychain via AuthStore
+            AuthStore.shared.saveAccessToken(accessToken)
             AuthStore.shared.saveLoggedInUser(userLoginData)
             AppState.shared.updateLoginState()
-            
+
             // to store userProfile Data
             UserDefaults.standard.setValue(userLoginData.body.data?.userData.fullName, forKey: "UserName")
             UserDefaults.standard.setValue(userLoginData.body.data?.userData.department, forKey: "UserDepartment")
             UserDefaults.standard.removeObject(forKey: "UserProfilePic")
             UserDefaults.standard.setValue(userLoginData.body.data?.userData.profilePic, forKey: "UserProfilePic")
-//            UserDefaults.standard.setValue(false, forKey: "showLocationPermissionAlert")
+            // Profile fetch and tracking settings are handled by the caller after loginUser() returns.
 
-            // Fetch and persist the user's profile so the app can route directly to Home on next launch.
-            let profileVM = GetProfileViewModel()
-            try await profileVM.getProfile()
-
-            // Fetch tracking settings immediately after login so auto check-in flags are ready
-            await TrackingSettingsViewModel.shared.fetchTrackingSettings()
-
-            // handle login
-            
-//            self.isLoggedIn = true
-//            print("Logged In: \(isLoggedIn)")     //-------------logout changes -------
         }catch{
             self.error = error
             print("Error: UserLoginViewModel")
