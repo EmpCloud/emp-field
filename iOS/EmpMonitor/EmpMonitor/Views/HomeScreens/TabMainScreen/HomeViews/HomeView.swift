@@ -144,22 +144,26 @@ struct HomeView: View {
                                                     
                                                     
                                                     //MARK: Attendence, Leaves, Holidays
-                                                    HStack{
+                                                    HStack(spacing: 0) {
+                                                        Spacer(minLength: 0)
                                                         AttendenceHistoryBoxView()
                                                             .onTapGesture {
                                                                 selectedALHView = "Attendance History"
                                                                 showALHView.toggle()
                                                             }
+                                                        Spacer(minLength: 0)
                                                         LeavesBoxView()
                                                             .onTapGesture {
                                                                 selectedALHView = "Leaves"
                                                                 showALHView.toggle()
                                                             }
+                                                        Spacer(minLength: 0)
                                                         HolidayBoxView()
                                                             .onTapGesture {
                                                                 selectedALHView = "Holidays"
                                                                 showALHView.toggle()
                                                             }
+                                                        Spacer(minLength: 0)
                                                     }
                                                     .padding(.top)
                                                     .padding(.bottom, 50)
@@ -292,21 +296,21 @@ struct HomeView: View {
                                                                         print("CheckIN (geo-fence manual): Attendance marked")
                                                                         if NetworkManager.shared.statusCode != 200 {
                                                                             showWarning.toggle()
+                                                                            showMOTPopup = false
+                                                                            showCheckIN = true
+                                                                            showCheckOUT = false
                                                                             UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                                            return
                                                                         }
-                                                                        if checkINViewModel.checkINTime != "" {
-                                                                            homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
-                                                                            timerManager.startActiveTimer()
-                                                                            UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
-                                                                            permissionManager.startLocationUpdate()
-                                                                            try await homeScreenViewModel.getHomeScreenData()
-                                                                        }
+                                                                        homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
+                                                                        timerManager.startActiveTimer()
+                                                                        UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+                                                                        permissionManager.startLocationUpdate()
+                                                                        try await homeScreenViewModel.getHomeScreenData()
                                                                     }
                                                                 }
                                                                 .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
-                                                        }
-
-                                                        if showCheckOUT {
+                                                        } else if showCheckOUT {
                                                             CheckOutSwipeButtonView()
                                                                 .onSwipeSuccess {
                                                                     showCheckOUT = false
@@ -342,7 +346,6 @@ struct HomeView: View {
                                                                     }
                                                                 }
                                                                 .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
-                                                                .onDisappear { showCheckOUT = true }
                                                         }
 
                                                     } else if let mobileEnable = homeScreenViewModel.homeScreenData?.isMobileDeviceEnabled, mobileEnable == 1 {
@@ -368,21 +371,21 @@ struct HomeView: View {
                                                                         print("CheckIN: Attendance marked")
                                                                         if NetworkManager.shared.statusCode != 200 {
                                                                             showWarning.toggle()
+                                                                            showMOTPopup = false
+                                                                            showCheckIN = true
+                                                                            showCheckOUT = false
                                                                             UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                                            return
                                                                         }
-                                                                        if checkINViewModel.checkINTime != "" {
-                                                                            homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
-                                                                            timerManager.startActiveTimer()
-                                                                            UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
-                                                                            permissionManager.startLocationUpdate()
-                                                                            try await homeScreenViewModel.getHomeScreenData()
-                                                                        }
+                                                                        homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
+                                                                        timerManager.startActiveTimer()
+                                                                        UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+                                                                        permissionManager.startLocationUpdate()
+                                                                        try await homeScreenViewModel.getHomeScreenData()
                                                                     }
                                                                 }
                                                                 .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
-                                                        }
-
-                                                        if showCheckOUT {
+                                                        } else if showCheckOUT {
                                                             CheckOutSwipeButtonView()
                                                                 .onSwipeSuccess {
                                                                     showCheckOUT = false
@@ -418,7 +421,6 @@ struct HomeView: View {
                                                                     }
                                                                 }
                                                                 .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
-                                                                .onDisappear { showCheckOUT = true }
                                                         }
 
                                                     } else {
