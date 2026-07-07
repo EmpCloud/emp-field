@@ -187,10 +187,16 @@ final class AuthStore: ObservableObject {
         deleteAccessToken()
         deleteLoggedInUser()
         deleteUserProfile()
-        UserDefaults.standard.removeObject(forKey: "isCheckedIN")
-        UserDefaults.standard.removeObject(forKey: "UserName")
-        UserDefaults.standard.removeObject(forKey: "UserDepartment")
-        UserDefaults.standard.removeObject(forKey: "UserProfilePic")
+        let keysToRemove = [
+            "isCheckedIN", "UserName", "UserDepartment", "UserProfilePic",
+            "autoCheckInByGeoFencing", "autoCheckInByMobile",
+            "isMobileDeviceEnabled", "isGeoFencingOn",
+            "OrgLatitude", "OrgLongitude", "OrgRadius",
+            "CurrentFrequency", "CurrentRadius",
+            "offlineLocations"
+        ]
+        keysToRemove.forEach { UserDefaults.standard.removeObject(forKey: $0) }
+        Task { try? await LocationQueueService.shared.deleteAll() }
     }
     
     // MARK: Migration
