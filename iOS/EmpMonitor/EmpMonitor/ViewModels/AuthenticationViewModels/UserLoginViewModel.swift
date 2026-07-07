@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 
 class UserLoginViewModel: ObservableObject {
@@ -35,7 +36,8 @@ extension UserLoginViewModel {
                 throw NetworkError.invalidURL
             }
             
-            let credentials = UserRequestModel(userMail: email, password: password)
+            let deviceId = UIDevice.current.identifierForVendor?.uuidString ?? ""
+            let credentials = UserRequestModel(userMail: email, password: password, deviceId: deviceId)
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
