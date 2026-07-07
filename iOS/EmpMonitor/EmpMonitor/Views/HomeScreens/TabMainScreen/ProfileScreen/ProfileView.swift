@@ -201,10 +201,14 @@ struct ProfileView: View {
                                 do {
                                     try await updateProfileViewModel.updateProfile()
                                     dismiss()
+                                } catch let networkError as NetworkError {
+                                    // Use the message carried in the error — avoids reading stale
+                                    // NetworkManager.shared.responseMessage from a previous API call.
+                                    updateErrorMessage = networkError.errorDescription
+                                        ?? "Failed to update profile. Please try again."
+                                    showUpdateError = true
                                 } catch {
-                                    updateErrorMessage = NetworkManager.shared.responseMessage.isEmpty
-                                        ? "Failed to update profile. Please try again."
-                                        : NetworkManager.shared.responseMessage
+                                    updateErrorMessage = "Failed to update profile. Please try again."
                                     showUpdateError = true
                                 }
                             }
