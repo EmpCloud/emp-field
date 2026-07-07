@@ -28,6 +28,7 @@ struct PasswordLoginView: View {
     
     //warning Popup
     @State private var showWarning: Bool = false
+    @State private var warningMessage: String = ""
     
     //Hide the password
     @State private var showPassword: Bool = false
@@ -65,30 +66,38 @@ struct PasswordLoginView: View {
                 //MARK: Login Button
                 PrimaryButton(text: "Login") {
                     //next screen
+                    guard !userLoginViewModel.password.isEmpty else {
+                        warningMessage = "Please enter your password."
+                        showWarning = true
+                        return
+                    }
                     Task {
                         try await userLoginViewModel.loginUser()
-                        
+
                         if NetworkManager.shared.statusCode == 200{
-                            
+
                             if hasExistingProfile() {
-                                
+
                                 profileImageLoader.profileImageURL = UserDefaults.standard.string(forKey: "UserProfilePic") ?? ""
-                                
+
                                 showTabMainView = true
-                                
+
                             }else{
                                 createProfileScreen = true
                             }
-                            
+
                             //-------------logout changes -------
                         }
                         else {
-                            showWarning.toggle()
+                            warningMessage = NetworkManager.shared.responseMessage.isEmpty
+                                ? "Something went wrong. Please try again."
+                                : NetworkManager.shared.responseMessage
+                            showWarning = true
                         }
-                        
+
                         //                        appState.showToaster.toggle()
                     }
-                    
+
                 }
                 .padding(.horizontal, 50)
                 .disableWithOpacity(disableButton)
@@ -108,8 +117,11 @@ struct PasswordLoginView: View {
                                 //                                        print(userLoginViewModel.email)
                                 showEmailOTPScreen = true
                             }else {
+                                warningMessage = NetworkManager.shared.responseMessage.isEmpty
+                                    ? "Something went wrong. Please try again."
+                                    : NetworkManager.shared.responseMessage
                                 withAnimation {
-                                    showWarning.toggle()
+                                    showWarning = true
                                 }
                             }
                         }
@@ -146,7 +158,7 @@ struct PasswordLoginView: View {
             //Warning Popup
             if showWarning {
                 ZStack {
-                    WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarning)
+                    WarningPopupView(titleText: "Try Again", description: warningMessage, showWarningPopup: $showWarning)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.black.opacity(0.5))
