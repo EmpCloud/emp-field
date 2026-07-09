@@ -57,6 +57,7 @@ class LoginViewModel @Inject constructor(private val repository: NetworkReposito
         viewModelScope.launch {
             repository.getTrackingSettings(accessToken).collect { response ->
                 trackingSettingsFlow.send(response)
+                Log.d("data", "$response")
             }
         }
     }

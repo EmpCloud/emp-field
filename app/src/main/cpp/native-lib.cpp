@@ -14,6 +14,7 @@ Java_com_empcloud_empmonitor_utils_NativeLib_getBaseUrlDev(
         JNIEnv* env,
 jobject /* this */) {
     std::string base_url = "https://staging-emp-api-m.empmonitor.com/v1/";
+//      std::string base_url = "https://administered-mortality-wells-classroom.trycloudflare.com/api-doc/";
 return env->NewStringUTF(base_url.c_str());
 }
 

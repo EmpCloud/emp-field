@@ -7,5 +7,7 @@ data class LoginDataModel(
     @SerializedName("userMail")
     val userMail:String,
     @SerializedName("password")
-    val password:String
+    val password:String,
+    @SerializedName("deviceId")
+    val deviceId:String
 ):Serializable

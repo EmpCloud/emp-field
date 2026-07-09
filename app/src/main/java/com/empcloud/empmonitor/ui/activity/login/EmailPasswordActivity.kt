@@ -1,10 +1,12 @@
 package com.empcloud.empmonitor.ui.activity.login
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
+import android.provider.Settings
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
@@ -92,7 +94,7 @@ class EmailPasswordActivity : AppCompatActivity() {
             pref.edit().putString(Constants.PASSWORD,password.text.toString()).apply()
 
 //            Log.d("Password",password.text.toString())
-            val loginDataModel = LoginDataModel(email!!,password.text.toString())
+            val loginDataModel = LoginDataModel(email!!,password.text.toString(),fetchDeviceId())
             loginRequestCall(loginDataModel)
 
         }
@@ -136,6 +138,11 @@ class EmailPasswordActivity : AppCompatActivity() {
 
         viewModel.invokeLoginCall(loginDataModel)
 
+    }
+
+    @SuppressLint("HardwareIds")
+    private fun fetchDeviceId(): String {
+        return Settings.Secure.getString(contentResolver, Settings.Secure.ANDROID_ID) ?: ""
     }
 
     private fun observeLoginData(){
