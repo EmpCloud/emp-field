@@ -144,10 +144,18 @@ final class NetworkManager {
            wrapperStatus != 200 {
             let message = decodeErrorMessage(from: data) ?? "Request failed"
             print("[API] Wrapper status \(wrapperStatus) for \(urlString) — \(message)")
-            
+
+            // The backend sometimes reports an expired session with a non-401 wrapper
+            // status (e.g. 400 "Session expired. Logged in on another device."), so match
+            // on the message as well as the status code before forcing a logout.
+            if isSessionExpired(status: wrapperStatus, message: message) {
+                AppState.shared.handleSessionExpired(message: message)
+                throw NetworkError.unauthorized
+            }
+
             switch wrapperStatus {
             case 401:
-                AuthStore.shared.clearSession()
+                AppState.shared.handleSessionExpired(message: message)
                 throw NetworkError.unauthorized
             case 403:
                 throw NetworkError.forbidden
@@ -173,17 +181,21 @@ final class NetworkManager {
         case 401:
             let message = decodeErrorMessage(from: data)
             print("[API] 401 Unauthorized — \(message ?? "No message")")
-            AuthStore.shared.clearSession()
+            AppState.shared.handleSessionExpired(message: message)
             throw NetworkError.unauthorized
-            
+
         case 403:
             let message = decodeErrorMessage(from: data)
             print("[API] 403 Forbidden — \(message ?? "No message")")
             throw NetworkError.forbidden
-            
+
         case 400...499:
             let message = decodeErrorMessage(from: data)
             print("[API] \(httpStatus) Client Error — \(message ?? "No message")")
+            if isSessionExpired(status: httpStatus, message: message) {
+                AppState.shared.handleSessionExpired(message: message)
+                throw NetworkError.unauthorized
+            }
             throw NetworkError.clientError(httpStatus, message)
             
         case 500...599:
@@ -200,6 +212,16 @@ final class NetworkManager {
     private func decodeErrorMessage(from data: Data) -> String? {
         return (try? JSONDecoder().decode(ErrorResponse.self, from: data))?.body.message
             ?? (try? JSONDecoder().decode(ErrorResponse.self, from: data))?.body.error
+    }
+
+    /// A response is treated as an expired session when it is a 401 or when the
+    /// server message signals the session was invalidated (e.g. logged in elsewhere),
+    /// regardless of the numeric status code the backend returned.
+    private func isSessionExpired(status: Int, message: String?) -> Bool {
+        if status == 401 { return true }
+        guard let message = message?.lowercased() else { return false }
+        return message.contains("session expired")
+            || message.contains("logged in on another device")
     }
 }
 

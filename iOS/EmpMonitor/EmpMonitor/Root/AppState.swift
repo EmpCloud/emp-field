@@ -244,14 +244,30 @@ private extension KeychainManager {
 @MainActor
 final class AppState: ObservableObject {
     static let shared = AppState()
-    
+
     @Published var isLoggedIn: Bool = false
-    
+
+    /// Non-nil when the backend reported the session as invalid (e.g. logged in on
+    /// another device / token expired). The UI observes this to present a logout alert.
+    @Published var sessionExpiredMessage: String? = nil
+
     private init() {
         self.isLoggedIn = AuthStore.shared.isLoggedIn
     }
-    
+
     func updateLoginState() {
         self.isLoggedIn = AuthStore.shared.isLoggedIn
+    }
+
+    /// Forces a logout when the backend reports the session is no longer valid.
+    /// Clears stored credentials and surfaces a message the UI can alert on.
+    /// Guarded so overlapping API failures only trigger a single alert/logout.
+    func handleSessionExpired(message: String?) {
+        guard sessionExpiredMessage == nil else { return }
+        AuthStore.shared.clearSession()
+        self.isLoggedIn = false
+        self.sessionExpiredMessage = message?.isEmpty == false
+            ? message
+            : "Your session has expired. Please log in again."
     }
 }

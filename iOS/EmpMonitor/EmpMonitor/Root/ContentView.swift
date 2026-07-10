@@ -77,6 +77,17 @@ struct ContentView: View {
                     dismissButton: .default(Text("OK"))
                 )
             }
+            .alert("Session Expired", isPresented: Binding(
+                get: { appState.sessionExpiredMessage != nil },
+                set: { if !$0 { appState.sessionExpiredMessage = nil } }
+            )) {
+                Button("OK", role: .cancel) {
+                    appState.sessionExpiredMessage = nil
+                    appState.updateLoginState()
+                }
+            } message: {
+                Text(appState.sessionExpiredMessage ?? "Your session has expired. Please log in again.")
+            }
         }
     }
     
