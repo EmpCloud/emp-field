@@ -290,21 +290,21 @@ class UpdateProfileFragment constructor(private val listener: OnFragmentChangedL
                     binding.userPic.visibility = View.GONE
                 }
 
-                val genderRecieve = userdata[0].gender
+                val genderRecieve = userdata[0].gender?.trim()
                 gender = userdata[0].gender
 //                Log.d("gajg", genderRecieve.toString())
 
-                if (genderRecieve.equals("Male")) {
+                if (genderRecieve.equals("Male", ignoreCase = true)) {
 
 //                binding.male.isChecked = true
                     maleSelection()
 
-                } else if (genderRecieve.equals("Female")) {
+                } else if (genderRecieve.equals("Female", ignoreCase = true)) {
 
 //                binding.female.isChecked = true
                     femaleSelection()
 
-                } else if (genderRecieve.equals("Other")) {
+                } else if (genderRecieve.equals("Other", ignoreCase = true)) {
 
 //                binding.other.isChecked = true
                     otherSelection()

@@ -143,11 +143,21 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
     private var geofenceLocations: List<GeofenceLocation> = emptyList()
     private var currentPolyline: Polyline? = null
 
+    // BUG_06: hysteresis counter so transient GPS jitter doesn't flip to "out of range"
+    private var consecutiveOutsideFixes = 0
+
+    // BUG_04: prevent overlapping Directions requests stacking multiple route polylines
+    @Volatile private var isRouteRequestInFlight = false
+
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
         private var YOUR_GEOFENCE_LATITUDE = 0.0 // Replace with your geofence latitude
         private var YOUR_GEOFENCE_LONGITUDE = 0.0 // Replace with your geofence longitude
+        // BUG_06: discard fixes worse than this accuracy (meters) and require N consecutive
+        // outside fixes before showing "out of range"
+        private const val ACCURACY_THRESHOLD_M = 50f
+        private const val OUTSIDE_FIX_THRESHOLD = 3
     }
 
 
@@ -909,12 +919,26 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
         override fun onLocationResult(locationResult: LocationResult) {
             super.onLocationResult(locationResult)
             locationResult.lastLocation?.let { currentLocation ->
+                // BUG_06: ignore low-accuracy fixes so GPS jitter doesn't flip in/out state
+                if (!currentLocation.hasAccuracy() || currentLocation.accuracy > ACCURACY_THRESHOLD_M) {
+                    return@let
+                }
                 geoCurrentLat = currentLocation.latitude
                 geoCurrentLon = currentLocation.longitude
                 renderMap(currentLocation)
 
                 val activeGeofence = findMatchingGeofence(currentLocation) ?: findNearestGeofence(currentLocation)
-                isInsideGeofence = activeGeofence?.let { isWithinGeofence(currentLocation, it) } == true
+                val rawInside = activeGeofence?.let { isWithinGeofence(currentLocation, it) } == true
+
+                // BUG_06: require OUTSIDE_FIX_THRESHOLD consecutive outside fixes before declaring
+                // "out of range"; inside is applied immediately so a valid user can check in.
+                if (rawInside) {
+                    consecutiveOutsideFixes = 0
+                    isInsideGeofence = true
+                } else {
+                    consecutiveOutsideFixes++
+                    isInsideGeofence = consecutiveOutsideFixes < OUTSIDE_FIX_THRESHOLD
+                }
 
                 if (isInsideGeofence) {
                     Log.d("AutoCheckIn", "MapFragment: User is INSIDE geofence, isAutoCheckInByGeoFencing=$isAutoCheckInByGeoFencing")
@@ -989,6 +1013,10 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
         val currentLat = geoCurrentLat ?: return
         val currentLon = geoCurrentLon ?: return
 
+        // BUG_04: skip if a route request is already running, so async responses can't stack polylines
+        if (isRouteRequestInFlight) return
+        isRouteRequestInFlight = true
+
                         val call = viewModelMap.mMapApiService.getDirections(
                             "$currentLat,$currentLon",
                             "${targetGeofence.latLng.latitude},${targetGeofence.latLng.longitude}",
@@ -1000,6 +1028,7 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
                                 call: Call<DirectionsResponse>,
                                 response: Response<DirectionsResponse>
                             ) {
+                                isRouteRequestInFlight = false
                                 if (response.isSuccessful) {
 
                                     val directionsResponse = response.body()
@@ -1020,6 +1049,7 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
                             }
 
                             override fun onFailure(call: Call<DirectionsResponse>, t: Throwable) {
+                                isRouteRequestInFlight = false
                                 // Handle failure
                                 Toast.makeText(
                                     requireContext(),
@@ -1382,7 +1412,9 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
     }
 
     private fun isWithinGeofence(location: Location, geofenceLocation: GeofenceLocation): Boolean {
-        return distanceToGeofence(location, geofenceLocation) <= geofenceLocation.radius
+        // BUG_06: allow for the fix's own accuracy so a jittered-but-inside point still counts as inside
+        val buffer = if (location.hasAccuracy()) location.accuracy else 0f
+        return distanceToGeofence(location, geofenceLocation) <= geofenceLocation.radius + buffer
     }
 
     private fun distanceToGeofence(location: Location, geofenceLocation: GeofenceLocation): Float {

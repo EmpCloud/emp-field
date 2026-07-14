@@ -60,6 +60,8 @@ class LocationService: Service() {
 
     companion object {
         const val ACTION_NETWORK_AVAILABLE = "com.empcloud.empmonitor.ACTION_NETWORK_AVAILABLE"
+        // BUG_04: reject fixes worse than this accuracy (meters) before recording/uploading
+        private const val ACCURACY_THRESHOLD_M = 50f
     }
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -99,6 +101,14 @@ class LocationService: Service() {
                 super.onLocationResult(locationResult)
                 for (location in locationResult.locations) {
                     Log.d("LocationService", "Location: ${location.latitude}, ${location.longitude}")
+
+                    // BUG_04: drop garbage fixes (poor accuracy or null-island 0,0) so they don't
+                    // become phantom waypoints in the recorded travel route.
+                    if (!location.hasAccuracy() || location.accuracy > ACCURACY_THRESHOLD_M ||
+                        (location.latitude == 0.0 && location.longitude == 0.0)) {
+                        Log.d("LocationService", "Skipping low-quality fix: accuracy=${if (location.hasAccuracy()) location.accuracy else -1f}")
+                        continue
+                    }
 //                    val locationEntity = LocationEntity(
 //                        latitude = location.latitude,
 //                        longitude = location.longitude,

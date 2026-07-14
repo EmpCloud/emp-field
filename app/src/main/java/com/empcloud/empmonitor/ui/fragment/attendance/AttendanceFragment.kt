@@ -439,7 +439,7 @@ class AttendanceFragment constructor(private val listener: OnFragmentChangedList
             },
             hour,
             minute,
-            true // 24-hour time format
+            false // 12-hour format so the picker shows AM/PM (wire format stays HH:mm)
         )
 
         timePickerDialog.show()

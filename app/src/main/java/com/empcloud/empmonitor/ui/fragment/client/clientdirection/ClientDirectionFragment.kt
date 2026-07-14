@@ -192,6 +192,16 @@ class ClientDirectionFragment  constructor(private val listener: OnFragmentChang
             binding.bottomSheet.message.visibility = View.VISIBLE
             binding.bottomSheet.selectMessage.visibility = View.GONE
 
+            val lat = arguments?.getDouble(Constants.LAT) ?: 0.0
+            val lon = arguments?.getDouble(Constants.LON) ?: 0.0
+            val navIntent = Intent(Intent.ACTION_VIEW, Uri.parse("google.navigation:q=$lat,$lon"))
+                .setPackage("com.google.android.apps.maps")
+            if (navIntent.resolveActivity(requireActivity().packageManager) != null) {
+                startActivity(navIntent)
+            } else {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("geo:$lat,$lon?q=$lat,$lon")))
+            }
+
         }
 
         binding.backbtn.setOnClickListener {

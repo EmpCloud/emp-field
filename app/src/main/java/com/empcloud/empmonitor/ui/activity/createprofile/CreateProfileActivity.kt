@@ -280,23 +280,23 @@ class CreateProfileActivity : AppCompatActivity() {
 //        binding.mobileNo.isEnabled = false
 //        pref.edit().putString(Constants.CREATE_USER_PHONE,binding.mobileNo.text.toString()).apply()
 
-            val genderRecieve = userdata[0].gender
+            val genderRecieve = userdata[0].gender?.trim()
 //            Log.d("genderChecking",genderRecieve.toString())
-            if (genderRecieve.equals("Male")){
+            if (genderRecieve.equals("Male", ignoreCase = true)){
 
                 binding.male.isChecked = true
                 binding.female.isChecked = false
                 binding.other.isChecked = false
 
 
-            }else if (  genderRecieve.equals("Female")){
+            }else if (  genderRecieve.equals("Female", ignoreCase = true)){
 
                 binding.female.isChecked = true
                 binding.male.isChecked = false
                 binding.other.isChecked = false
 
 
-            }else if ( genderRecieve.equals("Other")){
+            }else if ( genderRecieve.equals("Other", ignoreCase = true)){
 
                 binding.other.isChecked = true
                 binding.male.isChecked = false
@@ -308,9 +308,11 @@ class CreateProfileActivity : AppCompatActivity() {
         val sp = getSharedPreferences(Constants.NAME, MODE_PRIVATE)
         sp.edit().putString(Constants.NAME,it.body.data.resultData[0].fullName).apply()
 
-        if(it.body.data.resultData[0].profilePic != null){
-            profileLink = it.body.data.resultData[0].profilePic
-            Picasso.get().load(it.body.data.resultData[0].profilePic).into(binding.userPic)
+        val profilePic = it.body.data.resultData[0].profilePic
+        if(!profilePic.isNullOrEmpty()){
+            profileLink = profilePic
+            Picasso.get().load(profilePic).into(binding.userPic)
+            CommonMethods.saveSharedPrefernce(this@CreateProfileActivity, Constants.PROFILE_PIC_URL_USER, Constants.PROFILE_PIC_URL_USER, profilePic)
         }
 
         val data = userdata[0]
