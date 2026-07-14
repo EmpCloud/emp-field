@@ -375,6 +375,9 @@ class MobileOtpActivity : AppCompatActivity(),SmsBroadcastReceiver.SmsBroadcastL
         val spMob = getSharedPreferences(Constants.IS_MOBILE_DEVICE_ENABLED, MODE_PRIVATE)
         spMob.edit().putInt(Constants.IS_MOBILE_DEVICE_ENABLED, data.isMobileDeviceEnabled).apply()
 
+        val spMode = getSharedPreferences(Constants.CURRENT_ATTENDANCE_MODE, MODE_PRIVATE)
+        spMode.edit().putString(Constants.CURRENT_ATTENDANCE_MODE, data.currentMode).apply()
+
         val sp4 = getSharedPreferences(Constants.ORG_LATITUDE, MODE_PRIVATE)
         sp4.edit().putString(Constants.ORG_LATITUDE, data.latitude).apply()
 
@@ -480,11 +483,10 @@ class MobileOtpActivity : AppCompatActivity(),SmsBroadcastReceiver.SmsBroadcastL
             "AutoCheckIn",
             "Using $locationSource location for auto check-in: lat=${location.latitude}, lon=${location.longitude}"
         )
-        val shouldValidateGeofence = data.isGeoFencingOn == 1
-        val canAutoCheckIn = if (shouldValidateGeofence) {
-            isUserInsideAnyGeofence(location, data)
-        } else {
-            true
+        val canAutoCheckIn = when {
+            data.autoCheckInByMobile == 1 -> true
+            data.isGeoFencingOn == 1 && data.autoCheckInByGeoFencing == 1 -> isUserInsideAnyGeofence(location, data)
+            else -> false
         }
 
         if (canAutoCheckIn) {
