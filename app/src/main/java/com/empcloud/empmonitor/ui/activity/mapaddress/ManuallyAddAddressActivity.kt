@@ -227,8 +227,6 @@ class ManuallyAddAddressActivity : AppCompatActivity() {
 //                                saveUserData(it)
                                 android.widget.Toast.makeText(applicationContext,it.body.message,
                                     android.widget.Toast.LENGTH_SHORT).show()
-                                val prefShared = getSharedPreferences(Constants.CREATE_SECTION, MODE_PRIVATE)
-                                prefShared.edit().putBoolean(Constants.CREATE_SECTION,true).apply()
                                 val intent = Intent(applicationContext,MainActivity::class.java)
                                 startActivity(intent)
                                 finish()

@@ -80,14 +80,8 @@ class CreateProfileActivity : AppCompatActivity() {
 
         binding = ActivityCreateProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.root.visibility = View.INVISIBLE
 
-        val sp = getSharedPreferences(Constants.CREATE_SECTION, MODE_PRIVATE)
-        val run = sp.getBoolean(Constants.CREATE_SECTION,false)
-
-        if(run){
-
-            openMain()
-        }
         apiCall()
 
         camerLayout = binding.cameraProfile
@@ -238,6 +232,7 @@ class CreateProfileActivity : AppCompatActivity() {
                             }
                             if (it.code == 400){
                                 Toast.makeText(applicationContext,it.body.message,Toast.LENGTH_SHORT).show()
+                                binding.root.visibility = View.VISIBLE
                             }
 
 
@@ -317,6 +312,19 @@ class CreateProfileActivity : AppCompatActivity() {
             profileLink = it.body.data.resultData[0].profilePic
             Picasso.get().load(it.body.data.resultData[0].profilePic).into(binding.userPic)
         }
+
+        val data = userdata[0]
+        val isProfileComplete = listOf(
+            data.fullName, data.age, data.gender, data.phoneNumber,
+            data.address1, data.city, data.state, data.country, data.zipCode
+        ).all { !it.isNullOrBlank() }
+
+        if (isProfileComplete) {
+            openMain()
+            return@launch
+        }
+
+        binding.root.visibility = View.VISIBLE
 
         }
 
