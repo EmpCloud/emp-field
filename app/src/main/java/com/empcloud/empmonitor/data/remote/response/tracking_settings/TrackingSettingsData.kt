@@ -3,8 +3,8 @@ package com.empcloud.empmonitor.data.remote.response.tracking_settings
 import java.io.Serializable
 
 data class TrackingSettingsData(
-    val latitude: String,
-    val longitude: String,
+    val latitude: String?,
+    val longitude: String?,
     val orgRadius: Int,
     val isBioMetricEnabled: Int,
     val isWebEnabled: Int,

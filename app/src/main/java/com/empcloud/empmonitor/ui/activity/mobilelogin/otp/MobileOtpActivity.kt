@@ -514,8 +514,8 @@ class MobileOtpActivity : AppCompatActivity(),SmsBroadcastReceiver.SmsBroadcastL
         if (!locations.isNullOrEmpty()) {
             Log.d("AutoCheckIn", "Checking ${locations.size} employee locations")
             for (empLocation in locations) {
-                val empLat = empLocation.latitude.toDoubleOrNull()
-                val empLon = empLocation.longitude.toDoubleOrNull()
+                val empLat = empLocation.latitude?.toDoubleOrNull()
+                val empLon = empLocation.longitude?.toDoubleOrNull()
                 if (empLat != null && empLon != null) {
                     val orgLocation = android.location.Location("").apply {
                         latitude = empLat
@@ -532,8 +532,8 @@ class MobileOtpActivity : AppCompatActivity(),SmsBroadcastReceiver.SmsBroadcastL
         }
 
         Log.d("AutoCheckIn", "No employee locations, using fallback orgLat/orgLon/orgRadius")
-        val orgLat = data.latitude.toDoubleOrNull()
-        val orgLon = data.longitude.toDoubleOrNull()
+        val orgLat = data.latitude?.toDoubleOrNull()
+        val orgLon = data.longitude?.toDoubleOrNull()
         if (orgLat != null && orgLon != null) {
             val orgLocation = android.location.Location("").apply {
                 latitude = orgLat

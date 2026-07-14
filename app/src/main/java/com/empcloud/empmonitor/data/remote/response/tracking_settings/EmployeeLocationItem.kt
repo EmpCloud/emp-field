@@ -6,8 +6,8 @@ import java.io.Serializable
 data class EmployeeLocationItem(
     @SerializedName("_id")
     val id: String,
-    val latitude: String,
-    val longitude: String,
+    val latitude: String?,
+    val longitude: String?,
     @SerializedName("geo_fencing")
     val geoFencing: Boolean,
     val range: Int,
