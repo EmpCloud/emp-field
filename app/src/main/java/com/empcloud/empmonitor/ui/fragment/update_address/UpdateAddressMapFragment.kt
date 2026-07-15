@@ -29,8 +29,12 @@ import com.empcloud.empmonitor.ui.adapters.SearchResultsAdapter
 import com.empcloud.empmonitor.utils.CommonMethods
 import com.empcloud.empmonitor.utils.Constants
 import com.empcloud.empmonitor.utils.NativeLib
+import android.widget.Toast
+import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
+import com.google.android.gms.tasks.CancellationTokenSource
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -218,12 +222,27 @@ class UpdateAddressMapFragment : Fragment(),OnMapReadyCallback {
             checkSelfPermission(requireContext(),android.Manifest.permission.ACCESS_COARSE_LOCATION) != PermissionChecker.PERMISSION_GRANTED) {
             return
         }
-        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-            location?.let {
-                val currentLatLng = LatLng(location.latitude, location.longitude)
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLatLng, 15f))
+        val currentLocationRequest = CurrentLocationRequest.Builder()
+            .setPriority(Priority.PRIORITY_HIGH_ACCURACY)
+            .setMaxUpdateAgeMillis(0)
+            .build()
+        fusedLocationClient.getCurrentLocation(currentLocationRequest, CancellationTokenSource().token)
+            .addOnSuccessListener { location: Location? ->
+                if (location != null) {
+                    map.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(location.latitude, location.longitude), 15f))
+                } else {
+                    fusedLocationClient.lastLocation.addOnSuccessListener { last: Location? ->
+                        if (last != null) {
+                            map.animateCamera(CameraUpdateFactory.newLatLngZoom(LatLng(last.latitude, last.longitude), 15f))
+                        } else {
+                            Toast.makeText(requireContext(), "Unable to fetch current location", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
-        }
+            .addOnFailureListener {
+                Toast.makeText(requireContext(), "Unable to fetch current location", Toast.LENGTH_SHORT).show()
+            }
     }
 
 
