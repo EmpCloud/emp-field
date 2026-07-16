@@ -31,7 +31,7 @@ class SearchLocationViewModel: NSObject, ObservableObject {
     
     var queryFragment: String = "" {
         didSet{
-            print("DEBUG: Query fragment is \(queryFragment)")
+            AppLog.debug("DEBUG: Query fragment is \(queryFragment)")
             searchCompleter.queryFragment = queryFragment
         }
     }
@@ -50,7 +50,7 @@ class SearchLocationViewModel: NSObject, ObservableObject {
             guard let self = self else { return }
 
             if let error = error {
-                print("DEBUG: Location search failed with error \(error)")
+                AppLog.debug("DEBUG: Location search failed with error \(error)")
                 return
             }
 
@@ -60,10 +60,10 @@ class SearchLocationViewModel: NSObject, ObservableObject {
 //
 //
 //            for item in response.mapItems {
-//                print("Name: \(item.name)")
-//                print("Address: \(item.placemark.title)")
-//                print("SelectedLocation : \(self.selectedLocation?.title)")
-//                print("Local Search Location : \(localSearchLocation.title)")
+//                AppLog.debug("Name: \(item.name)")
+//                AppLog.debug("Address: \(item.placemark.title)")
+//                AppLog.debug("SelectedLocation : \(self.selectedLocation?.title)")
+//                AppLog.debug("Local Search Location : \(localSearchLocation.title)")
 //                if item.name == localSearchLocation.title  {
 //                    matchingCoordinate = item.placemark.coordinate
 //                    break
@@ -72,9 +72,9 @@ class SearchLocationViewModel: NSObject, ObservableObject {
 //
 //            if let coordinate = matchingCoordinate {
 //                self.selectedLocationCoordinate = coordinate
-//                print("DEBUG: Location coordinates \(coordinate)")
+//                AppLog.debug("DEBUG: Location coordinates \(coordinate)")
 //            }else {
-//                print("DEBUG: No matching coordinates found for selected location")
+//                AppLog.debug("DEBUG: No matching coordinates found for selected location")
 //            }
 
 
@@ -83,10 +83,10 @@ class SearchLocationViewModel: NSObject, ObservableObject {
             self.selectedLocationCoordinate = coordinate
 //            DispatchQueue.main.async {
 //                self.selectedLocationCoordinate = coordinate
-//                print("DEBUG: Location coordinates \(coordinate)")
+//                AppLog.debug("DEBUG: Location coordinates \(coordinate)")
 //            }
 
-            print("DEBUG: Location coordinates \(coordinate)")
+            AppLog.debug("DEBUG: Location coordinates \(coordinate)")
             
             //This will add address in the address view just after search
             let title = item.placemark.name ?? "Unkown location"
@@ -107,13 +107,13 @@ class SearchLocationViewModel: NSObject, ObservableObject {
                 self.selectedLocationLatitude = coordinate.latitude
                 self.selectedLocationLongitude = coordinate.longitude
                 
-                print("Location: \(title), \(subtitle)")
-                print("State: \(state)")
-                print("City: \(city)")
-                print("Country: \(country)")
-                print("ZipCode: \(zipCode)")
-                print("Search Coordinate")
-                print("Coordinate: \(coordinate.latitude), \(coordinate.longitude)")
+                AppLog.debug("Location: \(title), \(subtitle)")
+                AppLog.debug("State: \(state)")
+                AppLog.debug("City: \(city)")
+                AppLog.debug("Country: \(country)")
+                AppLog.debug("ZipCode: \(zipCode)")
+                AppLog.debug("Search Coordinate")
+                AppLog.debug("Coordinate: \(coordinate.latitude), \(coordinate.longitude)")
 
             }
         }

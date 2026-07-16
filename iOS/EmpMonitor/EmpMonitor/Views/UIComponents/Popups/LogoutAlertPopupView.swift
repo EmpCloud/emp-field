@@ -83,7 +83,7 @@ struct LogoutAlertPopupView: View {
                                     try await checkINViewModel.markCheckOUTAttendance()
                                     
                                     if NetworkManager.shared.statusCode == 200 {
-                                        print("CheckOUT: Attendance marked")
+                                        AppLog.debug("CheckOUT: Attendance marked")
 
                                         timerManager.stopActiveTimer()
                                         UserDefaults.standard.setValue(false, forKey: "isCheckedIN") // stop the tracking

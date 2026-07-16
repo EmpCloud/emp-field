@@ -45,7 +45,7 @@ struct LoginView: View {
                         ForEach(buttons, id:\.self){button in
                             Button(action: {
                                 selectedButton = button
-    //                            print(selectedButton)
+    //                            AppLog.debug(selectedButton)
                             }, label: {
                                 HStack{
                                     Circle()
@@ -80,7 +80,7 @@ struct LoginView: View {
                     
                     //MARK: Continue button
                     PrimaryButton(text: "Continue") {
-    //                    print(selectedButton)
+    //                    AppLog.debug(selectedButton)
                         
                         if selectedButton == "Email" {
                             

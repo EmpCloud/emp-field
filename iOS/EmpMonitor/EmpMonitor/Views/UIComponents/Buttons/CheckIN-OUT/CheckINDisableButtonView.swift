@@ -89,12 +89,12 @@ struct CheckOUTDisableButtonView: View {
 
 #Preview {
     CheckINDisableButtonView(text: "Swipe to check IN"){
-        print("clicked")
+        AppLog.debug("clicked")
     }
 }
 
 #Preview {
     CheckOUTDisableButtonView(text: "Swipe to check OUT"){
-        print("clicked")
+        AppLog.debug("clicked")
     }
 }

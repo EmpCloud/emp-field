@@ -18,7 +18,7 @@ class FileUploadService {
     func uploadFile(to urlString: String, files: [URL], accessToken: String) async throws -> FileUploadResponseModel {
         
         guard let url = URL(string: urlString) else {
-            print("uploadfile url error")
+            AppLog.debug("uploadfile url error")
             throw NetworkError.invalidURL
         }
         var request = URLRequest(url: url)
@@ -40,11 +40,11 @@ class FileUploadService {
         let body = try createMultipartBody(with: files, boundary: boundary)
         request.httpBody = body
         
-        print("[API] POST \(urlString)")
+        AppLog.debug("[API] POST \(urlString)")
         let(data, response) = try await URLSession.shared.data(for: request)
         let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
         let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
-        print("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
+        AppLog.debug("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
 
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
             throw NetworkError.invalidResponse
@@ -57,7 +57,7 @@ class FileUploadService {
     func uploadImage(to urlString: String, files: [URL], accessToken: String) async throws -> FileUploadResponseModel {
         
         guard let url = URL(string: urlString) else {
-            print("uploadfile url error")
+            AppLog.debug("uploadfile url error")
             throw NetworkError.invalidURL
         }
         var request = URLRequest(url: url)
@@ -79,11 +79,11 @@ class FileUploadService {
         let body = try createMultipartBodyImage(with: files, boundary: boundary)
         request.httpBody = body
         
-        print("[API] POST \(urlString)")
+        AppLog.debug("[API] POST \(urlString)")
         let(data, response) = try await URLSession.shared.data(for: request)
         let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
         let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
-        print("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
+        AppLog.debug("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
 
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
             throw NetworkError.invalidResponse
@@ -96,7 +96,7 @@ class FileUploadService {
     func uploadProfileImage(to urlString: String, files: [URL], accessToken: String) async throws -> ProfileUploadResponseModel {
         
         guard let url = URL(string: urlString) else {
-            print("uploadfile url error")
+            AppLog.debug("uploadfile url error")
             throw NetworkError.invalidURL
         }
         var request = URLRequest(url: url)
@@ -118,11 +118,11 @@ class FileUploadService {
         let body = try createMultipartBodyImage(with: files, boundary: boundary)
         request.httpBody = body
         
-        print("[API] POST \(urlString)")
+        AppLog.debug("[API] POST \(urlString)")
         let(data, response) = try await URLSession.shared.data(for: request)
         let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
         let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
-        print("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
+        AppLog.debug("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
 
         guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
             throw NetworkError.invalidResponse
@@ -136,7 +136,7 @@ class FileUploadService {
            var body = Data()
            let boundaryPrefix = "--\(boundary)\r\n"
            
-//        print("Files: \(files)")
+//        AppLog.debug("Files: \(files)")
         
         for fileURL in files {
             if fileURL.startAccessingSecurityScopedResource() {
@@ -154,13 +154,13 @@ class FileUploadService {
                     let fileData = try Data(contentsOf: fileURL)
                     body.append(fileData)
                 } catch {
-                    print("Failed to load file data from URL: \(fileURL). Error: \(error.localizedDescription)")
+                    AppLog.debug("Failed to load file data from URL: \(fileURL). Error: \(error.localizedDescription)")
                     throw error
                 }
                 
                 body.append("\r\n")
             }else{
-                print("Could,t access security-scoped URL: \(fileURL)")
+                AppLog.debug("Could,t access security-scoped URL: \(fileURL)")
             }
             
         }
@@ -191,7 +191,7 @@ class FileUploadService {
            var body = Data()
            let boundaryPrefix = "--\(boundary)\r\n"
            
-//        print("Files: \(files)")
+//        AppLog.debug("Files: \(files)")
         
         for fileURL in files {
             if fileURL.startAccessingSecurityScopedResource() {
@@ -208,13 +208,13 @@ class FileUploadService {
                     let fileData = try Data(contentsOf: fileURL)
                     body.append(fileData)
                 } catch {
-                    print("Failed to load file data from URL: \(fileURL). Error: \(error.localizedDescription)")
+                    AppLog.debug("Failed to load file data from URL: \(fileURL). Error: \(error.localizedDescription)")
                     throw error
                 }
 
                 body.append("\r\n")
             } else {
-                print("Could not access security-scoped URL: \(fileURL)")
+                AppLog.debug("Could not access security-scoped URL: \(fileURL)")
                 throw NSError(domain: "FileUpload", code: -1, userInfo: [NSLocalizedDescriptionKey: "Cannot access file: \(fileURL)"])
             }
         }

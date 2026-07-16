@@ -234,7 +234,7 @@ struct AddTaskView: View {
                                             createTaskViewModel.selectedPDFURLs.removeAll()
                                             createTaskViewModel.files.removeAll()
                                             
-                                            print("PDF URLS: \(createTaskViewModel.selectedPDFURLs)")
+                                            AppLog.debug("PDF URLS: \(createTaskViewModel.selectedPDFURLs)")
                                             
                                             if !selectedPDF.isEmpty{
                                                 
@@ -354,9 +354,9 @@ struct AddTaskView: View {
                                             createTaskViewModel.selectedImageURLs.removeAll() // ensuring every url is remove to fill new one only(remain one)
                                             createTaskViewModel.images.removeAll() // removing the all Image
                                             
-//                                            print("Images URLS: \(createTaskViewModel.selectedImageURLs)")
+//                                            AppLog.debug("Images URLS: \(createTaskViewModel.selectedImageURLs)")
 //                                            
-//                                            print("SavedURLs: \(savedImageURLs)")
+//                                            AppLog.debug("SavedURLs: \(savedImageURLs)")
                                             
                                             if !savedImageURLs.isEmpty{
                                                 
@@ -368,10 +368,10 @@ struct AddTaskView: View {
                                                     }
                                                     
                                                     
-//                                                    print("Response Message: \(NetworkManager.shared.responseMessage)")
-//                                                    print("Status Code: \(NetworkManager.shared.statusCode)")
+//                                                    AppLog.debug("Response Message: \(NetworkManager.shared.responseMessage)")
+//                                                    AppLog.debug("Status Code: \(NetworkManager.shared.statusCode)")
 //                                                    
-//                                                    print("FetchURL: \(uploadFileViewModel.fetchedURL)")
+//                                                    AppLog.debug("FetchURL: \(uploadFileViewModel.fetchedURL)")
                                                     
                                                     
                                                     if let url = uploadFileViewModel.fetchedURL.first?.url {
@@ -386,13 +386,13 @@ struct AddTaskView: View {
 //                                                uploadFileViewModel.selectedImageURLs = savedImageURLs
 //                                                await uploadFileViewModel.uploadImages()
                                                 
-//                                                print("Response Message: \(NetworkManager.shared.responseMessage)")
-//                                                print("Status Code: \(NetworkManager.shared.statusCode)")
+//                                                AppLog.debug("Response Message: \(NetworkManager.shared.responseMessage)")
+//                                                AppLog.debug("Status Code: \(NetworkManager.shared.statusCode)")
                                                 
 //                                                createTaskViewModel.addLatestImageURLs(uploadFileViewModel.fetchedURL)
                                             }
                                             
-                                            print("Images URLs: \(createTaskViewModel.selectedImageURLs)")
+                                            AppLog.debug("Images URLs: \(createTaskViewModel.selectedImageURLs)")
                                             
                                         }
                                     }
@@ -539,8 +539,8 @@ struct AddTaskView: View {
         
         
         .onAppear{
-//            print("Image")
-//            print(cameraViewModel.savedImages.description)
+//            AppLog.debug("Image")
+//            AppLog.debug(cameraViewModel.savedImages.description)
             
             savedImageURLs.removeAll()
             savedImages.removeAll()
@@ -548,8 +548,8 @@ struct AddTaskView: View {
             savedImageURLs = cameraViewModel.getCapturedImageURLs()
             savedImages = cameraViewModel.savedImages
             
-            print("IMage URLs")
-            print(savedImageURLs)
+            AppLog.debug("IMage URLs")
+            AppLog.debug(savedImageURLs)
         }
         .navigationDestination(isPresented: $showSelectClient) {
             SelectClientView(selectedClient: $selectedClientData)

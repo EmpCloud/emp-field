@@ -30,13 +30,13 @@ class LeaveTypeViewModel: ObservableObject {
             NetworkManager.shared.statusCode = fetchedData.statusCode
             NetworkManager.shared.responseMessage = fetchedData.body.message
             
-//            print("Fetch Data:")
-//            print(fetchedData)
+//            AppLog.debug("Fetch Data:")
+//            AppLog.debug(fetchedData)
             
             leaveTypeData = fetchedData.body.data.data
             
         }catch{
-            print("Error: FetchLeaveType Error in View Model")
+            AppLog.debug("Error: FetchLeaveType Error in View Model")
             self.error = error
         }
     }

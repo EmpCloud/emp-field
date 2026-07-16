@@ -52,7 +52,7 @@ class UpdateProfileViewModel: ObservableObject {
         do {
             let fetchData: UpdateProfileResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: UpdateProfileResponseModel.self, accessToken: token)
 
-            print(fetchData.body.data.resultData.first as Any)
+            AppLog.debug(fetchData.body.data.resultData.first as Any)
 
             AuthStore.shared.saveUserProfileData(fetchData)
 
@@ -63,7 +63,7 @@ class UpdateProfileViewModel: ObservableObject {
             ProfileHelper.shared.updateProfilePic(with: URL(string: fetchData.body.data.resultData.first?.profilePic ?? ""))
 
         } catch {
-            print("Error: Update Profile -> \(error.localizedDescription)")
+            AppLog.debug("Error: Update Profile -> \(error.localizedDescription)")
             self.error = error
             throw error
         }

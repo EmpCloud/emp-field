@@ -81,8 +81,8 @@ struct EmailOTPView: View {
                     Task {
                         resetPasswordViewModel.verifyToken = emailOTP
                         resetPasswordViewModel.email = forgetPasswordViewModel.email
-//                        print(forgetPasswordViewModel.email)
-//                        print(emailOTP)
+//                        AppLog.debug(forgetPasswordViewModel.email)
+//                        AppLog.debug(emailOTP)
                         
                         try await verifyEmailOTPViewModel.verifyEmailOTP(email: forgetPasswordViewModel.email, emailOTP: emailOTP)
                         
@@ -113,7 +113,7 @@ struct EmailOTPView: View {
                                 
                                 //next screen
                                 if NetworkManager.shared.statusCode == 200 {
-                                    //                                        print(userLoginViewModel.email)
+                                    //                                        AppLog.debug(userLoginViewModel.email)
                                     showOTPSendConfirmation = true
                                 }else {
                                     withAnimation {

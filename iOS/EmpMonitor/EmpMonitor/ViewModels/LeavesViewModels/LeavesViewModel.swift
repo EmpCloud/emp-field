@@ -39,8 +39,8 @@ class LeavesViewModel: ObservableObject {
             leavesData = fetchData.body.data ?? []
             fetchStatusCode = fetchData.statusCode
 
-            print("Leaves Data:")
-            print(leavesData)
+            AppLog.debug("Leaves Data:")
+            AppLog.debug(leavesData)
 
         } catch let networkError as NetworkError {
             // Backend returns 400 "No Leaves found" when the employee has no leave records.
@@ -49,11 +49,11 @@ class LeavesViewModel: ObservableObject {
                 leavesData = []
                 fetchStatusCode = 400
             } else {
-                print("Error: error in getleaves — \(networkError)")
+                AppLog.debug("Error: error in getleaves — \(networkError)")
                 self.error = networkError
             }
         } catch {
-            print("Error: error in getleaves — \(error)")
+            AppLog.debug("Error: error in getleaves — \(error)")
             self.error = error
         }
     }

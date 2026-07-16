@@ -189,8 +189,8 @@ struct ProfileCameraView: View {
     
 //    func saveImage(_ image: UIImage) {
 //        // Implement your save or upload logic here
-//        print("Image saved or uploaded")
-////        print(i)
+//        AppLog.debug("Image saved or uploaded")
+////        AppLog.debug(i)
 //    }
 }
 

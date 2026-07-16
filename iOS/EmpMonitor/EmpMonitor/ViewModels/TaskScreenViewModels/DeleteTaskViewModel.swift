@@ -40,10 +40,10 @@ class DeleteTaskViewModel: ObservableObject {
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message
             
-//            print(fetchData)
+//            AppLog.debug(fetchData)
             
         }catch {
-            print("Error: Delete Task View Model -> \(error.localizedDescription)")
+            AppLog.debug("Error: Delete Task View Model -> \(error.localizedDescription)")
             self.error = error
         }
     }

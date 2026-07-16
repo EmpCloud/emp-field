@@ -104,12 +104,12 @@ struct TimePickerView: View {
                         dateViewModel.generateTime()
                         if dateViewModel.setStartTime {
                             startTime = "\(dateViewModel.getFormattedDate())"
-//                            print("startTime: \(startTime)")
+//                            AppLog.debug("startTime: \(startTime)")
                             
                         } else if dateViewModel.setStopTime {
                             
                             stopTime = "\(dateViewModel.getFormattedDate())"
-//                            print("stopTime: \(stopTime)")
+//                            AppLog.debug("stopTime: \(stopTime)")
                             
                         }
                         

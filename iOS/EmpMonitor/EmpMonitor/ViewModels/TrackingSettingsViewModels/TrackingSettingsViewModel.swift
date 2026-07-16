@@ -45,9 +45,9 @@ class TrackingSettingsViewModel: ObservableObject {
             if let lon = data.longitude { UserDefaults.standard.set(lon, forKey: "OrgLongitude") }
             UserDefaults.standard.set(data.orgRadius, forKey: "OrgRadius")
 
-            print("Tracking settings fetched: mobile=\(data.isMobileDeviceEnabled) autoMobile=\(data.autoCheckInByMobile) geoFence=\(data.isGeoFencingOn) autoGeo=\(data.autoCheckInByGeoFencing)")
+            AppLog.debug("Tracking settings fetched: mobile=\(data.isMobileDeviceEnabled) autoMobile=\(data.autoCheckInByMobile) geoFence=\(data.isGeoFencingOn) autoGeo=\(data.autoCheckInByGeoFencing)")
         } catch {
-            print("Error: TrackingSettingsViewModel.fetchTrackingSettings: \(error)")
+            AppLog.debug("Error: TrackingSettingsViewModel.fetchTrackingSettings: \(error)")
         }
     }
 }

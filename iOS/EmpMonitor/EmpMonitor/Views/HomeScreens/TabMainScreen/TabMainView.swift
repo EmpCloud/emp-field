@@ -239,7 +239,7 @@ struct TabMainView: View {
                                         
                                         selectedGender = updateProfileViewModel.gender
                                     }
-                                    //                    print(getProfileViewModel.profileDetail)
+                                    //                    AppLog.debug(getProfileViewModel.profileDetail)
                                     showProfile.toggle()
                                 }
                                 

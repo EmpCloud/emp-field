@@ -39,11 +39,11 @@ struct WebPageView: UIViewRepresentable {
 
     class Coordinator: NSObject, WKNavigationDelegate {
         func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
-            print("WebView failed to load: \(error.localizedDescription)")
+            AppLog.debug("WebView failed to load: \(error.localizedDescription)")
         }
 
         func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
-            print("WebView navigation failed: \(error.localizedDescription)")
+            AppLog.debug("WebView navigation failed: \(error.localizedDescription)")
         }
     }
 }

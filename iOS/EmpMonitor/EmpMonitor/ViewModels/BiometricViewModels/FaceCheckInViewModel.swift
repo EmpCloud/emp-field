@@ -34,7 +34,7 @@ final class FaceCheckInViewModel: ObservableObject {
                 imageData: imageData,
                 companyId: companyId
             )
-            print("[FaceCheckIn] Verify response: verified=\(verifyResponse.data.verified ?? false), face_id=\(verifyResponse.data.match?.face_id ?? "nil")")
+            AppLog.debug("[FaceCheckIn] Verify response: verified=\(verifyResponse.data.verified ?? false), face_id=\(verifyResponse.data.match?.face_id ?? "nil")")
 
             guard verifyResponse.data.isMatched else {
                 result = .noMatch
@@ -60,7 +60,7 @@ final class FaceCheckInViewModel: ObservableObject {
             }
 
         } catch {
-            print("[FaceCheckIn] Error: \(error)")
+            AppLog.debug("[FaceCheckIn] Error: \(error)")
             result = .failure(error.localizedDescription)
         }
     }

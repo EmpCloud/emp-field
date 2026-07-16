@@ -39,6 +39,6 @@ struct CreateTaskButton: View {
 
 #Preview {
     CreateTaskButton(text: ""){
-        print("Clicked")
+        AppLog.debug("Clicked")
     }
 }

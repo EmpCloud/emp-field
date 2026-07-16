@@ -50,8 +50,8 @@ class UpdateTaskViewModel: ObservableObject {
         
         let body = UpdateTaskStatusRequestModel(taskID: taskID, status: status, currentDateTime: currentDateTime, latitude: latitude, longitude: longitude, value: taskValue, taskVolume: taskVolume, tagLogs: tagLogs)
         
-        print("Task Status Update body:")
-        print(body)
+        AppLog.debug("Task Status Update body:")
+        AppLog.debug(body)
         
         do{
             let fetchData: UpdateTaskStatusResponseModel = try await NetworkManager.shared.postData(to: statusUrlString, body: body, as: UpdateTaskStatusResponseModel.self, accessToken: token)
@@ -60,7 +60,7 @@ class UpdateTaskViewModel: ObservableObject {
             NetworkManager.shared.responseMessage = fetchData.body.message
             
         }catch {
-            print("Error: Update Task Status View Model -> \(error.localizedDescription)")
+            AppLog.debug("Error: Update Task Status View Model -> \(error.localizedDescription)")
             self.error = error
         }
     }
@@ -76,8 +76,8 @@ class UpdateTaskViewModel: ObservableObject {
         
         let body = UpdateTaskRequestModel(taskID: taskID, clientID: clientID, taskName: taskName, startTime: startTime, endTime: endTime, taskDescription: taskDescription, date: date, files: files, images: images, value: taskValue, taskVolume: taskVolume, tagLogs: tagLogs)
         
-        print("Update task Body")
-        print(body)
+        AppLog.debug("Update task Body")
+        AppLog.debug(body)
         
         do{
             let fetchData: UpdateTaskResponseModel = try await NetworkManager.shared.putData(to: updateUrlString, body: body, as: UpdateTaskResponseModel.self, accessToken: token, queryParams: nil)
@@ -85,11 +85,11 @@ class UpdateTaskViewModel: ObservableObject {
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message
             
-            print("Update Task Data")
-            print(fetchData)
+            AppLog.debug("Update Task Data")
+            AppLog.debug(fetchData)
             
         }catch {
-            print("Error: Update  Task View Model -> \(error.localizedDescription)")
+            AppLog.debug("Error: Update  Task View Model -> \(error.localizedDescription)")
             self.error = error
         }
     }

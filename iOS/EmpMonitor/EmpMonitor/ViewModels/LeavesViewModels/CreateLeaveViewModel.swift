@@ -33,7 +33,7 @@ class CreateLeaveViewModel: ObservableObject {
         let day = LeaveHelper.shared.getDayType(dayType: dayType)
         
         let body = CreateLeaveRequestModel(dayType: day, leaveType: leaveType, startDate: startDate, endDate: endDate, reason: reason)
-        print(body)
+        AppLog.debug(body)
         
         do{
             let fetchData: CreateLeaveResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: CreateLeaveResponseModel.self, accessToken: token)
@@ -43,10 +43,10 @@ class CreateLeaveViewModel: ObservableObject {
             
             createLeaveData = fetchData
             
-            print("Fetch Create Leave data")
-            print(fetchData)
+            AppLog.debug("Fetch Create Leave data")
+            AppLog.debug(fetchData)
         }catch{
-            print("Error: Create Leave Error in View Model")
+            AppLog.debug("Error: Create Leave Error in View Model")
             self.error = error
         }
     }

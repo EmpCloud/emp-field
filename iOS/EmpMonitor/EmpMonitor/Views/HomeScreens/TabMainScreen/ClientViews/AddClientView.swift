@@ -203,20 +203,20 @@ struct AddClientView: View {
                                         showWarningPopup.toggle()
                                     }
                                     
-//                                    print(addClientViewModel.clientName)
-//                                    print(addClientViewModel.emailID)
-//                                    print(addClientViewModel.contactNumber)
-//                                    print(addClientViewModel.clientProfilePic)
-//                                    print(addClientViewModel.category)
-//                                    print(addClientViewModel.countryCode)
-//                                    print(addClientViewModel.address1)
-//                                    print(addClientViewModel.address2)
-//                                    print(addClientViewModel.country)
-//                                    print(addClientViewModel.state)
-//                                    print(addClientViewModel.city)
-//                                    print(addClientViewModel.zipCode)
-//                                    print(addClientViewModel.latitude)
-//                                    print(addClientViewModel.longitude)
+//                                    AppLog.debug(addClientViewModel.clientName)
+//                                    AppLog.debug(addClientViewModel.emailID)
+//                                    AppLog.debug(addClientViewModel.contactNumber)
+//                                    AppLog.debug(addClientViewModel.clientProfilePic)
+//                                    AppLog.debug(addClientViewModel.category)
+//                                    AppLog.debug(addClientViewModel.countryCode)
+//                                    AppLog.debug(addClientViewModel.address1)
+//                                    AppLog.debug(addClientViewModel.address2)
+//                                    AppLog.debug(addClientViewModel.country)
+//                                    AppLog.debug(addClientViewModel.state)
+//                                    AppLog.debug(addClientViewModel.city)
+//                                    AppLog.debug(addClientViewModel.zipCode)
+//                                    AppLog.debug(addClientViewModel.latitude)
+//                                    AppLog.debug(addClientViewModel.longitude)
                                 }
                                 
                             }
@@ -263,7 +263,7 @@ struct AddClientView: View {
                         addClientViewModel.clientProfilePic = uploadFileViewModel.fetchProfileURL
                     }
                     
-                    print("Client Profile Image received URLS: \(addClientViewModel.clientProfilePic)")
+                    AppLog.debug("Client Profile Image received URLS: \(addClientViewModel.clientProfilePic)")
                 }
             }
         }
@@ -325,7 +325,7 @@ struct AddClientView: View {
             
             savedImageURL = profileCameraViewModel.getCapturedImageURLs()
             
-            print(savedImageURL)
+            AppLog.debug(savedImageURL)
             
             UINavigationBar.appearance().titleTextAttributes = [
                 .foregroundColor: UIColor.white

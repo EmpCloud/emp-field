@@ -20,7 +20,7 @@ class ClientHelper {
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }else {
-            print("Cannot open message app")
+            AppLog.debug("Cannot open message app")
         }
     }
     
@@ -32,7 +32,7 @@ class ClientHelper {
         if UIApplication.shared.canOpenURL(url) {
             UIApplication.shared.open(url,options: [:], completionHandler: nil)
         }else{
-            print("Cannot open dialing app")
+            AppLog.debug("Cannot open dialing app")
         }
     }
     

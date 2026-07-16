@@ -81,9 +81,9 @@ class CalendarViewModel: ObservableObject {
         let firstDay = startOfMonth
         let weekday = calendar.component(.weekday, from: firstDay)
         
-//        print("FirstDay: \(firstDay)")
-//        print("Weekday: \(weekday)")
-//        print("Result: \((weekday + 6) % 7)")
+//        AppLog.debug("FirstDay: \(firstDay)")
+//        AppLog.debug("Weekday: \(weekday)")
+//        AppLog.debug("Result: \((weekday + 6) % 7)")
 //        self.emptyDays = (weekday + 6) % 7 
         return (weekday + 6) % 7  //to adjust and ensure correct leading spaces
     }

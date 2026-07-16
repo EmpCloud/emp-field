@@ -30,7 +30,7 @@ struct EmpMapViewRepresentable: UIViewRepresentable {
     //MARK: Update Map View : To update the map view accordingly
     func updateUIView(_ uiView: UIViewType, context: Context) {
         if let coordinate = searchLocationViewModel.selectedLocationCoordinate {
-            print("DEBUG: Selected Location in MapView \(coordinate)")
+            AppLog.debug("DEBUG: Selected Location in MapView \(coordinate)")
             context.coordinator.addAndSelectAnnotation(withCoordinate: coordinate)
         }
         

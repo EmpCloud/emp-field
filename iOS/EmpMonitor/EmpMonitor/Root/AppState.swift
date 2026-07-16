@@ -112,7 +112,7 @@ final class AuthStore: ObservableObject {
             self.accessToken = token
             self.isLoggedIn = token.isEmpty == false && keychain.has(KeychainAccount.loggedInUser.rawValue)
         } catch {
-            print("[AuthStore] Failed to save access token: \(error)")
+            AppLog.debug("[AuthStore] Failed to save access token: \(error)")
         }
     }
     
@@ -129,7 +129,7 @@ final class AuthStore: ObservableObject {
             self.accessToken = nil
             self.isLoggedIn = false
         } catch {
-            print("[AuthStore] Failed to delete access token: \(error)")
+            AppLog.debug("[AuthStore] Failed to delete access token: \(error)")
         }
     }
     
@@ -141,7 +141,7 @@ final class AuthStore: ObservableObject {
             try keychain.save(data, account: KeychainAccount.loggedInUser.rawValue)
             self.isLoggedIn = getAccessToken() != nil
         } catch {
-            print("[AuthStore] Failed to save logged in user: \(error)")
+            AppLog.debug("[AuthStore] Failed to save logged in user: \(error)")
         }
     }
     
@@ -154,7 +154,7 @@ final class AuthStore: ObservableObject {
             try keychain.delete(account: KeychainAccount.loggedInUser.rawValue)
             self.isLoggedIn = false
         } catch {
-            print("[AuthStore] Failed to delete logged in user: \(error)")
+            AppLog.debug("[AuthStore] Failed to delete logged in user: \(error)")
         }
     }
     
@@ -165,7 +165,7 @@ final class AuthStore: ObservableObject {
             let data = try JSONEncoder().encode(profile)
             try keychain.save(data, account: KeychainAccount.userProfile.rawValue)
         } catch {
-            print("[AuthStore] Failed to save user profile: \(error)")
+            AppLog.debug("[AuthStore] Failed to save user profile: \(error)")
         }
     }
     
@@ -177,7 +177,7 @@ final class AuthStore: ObservableObject {
         do {
             try keychain.delete(account: KeychainAccount.userProfile.rawValue)
         } catch {
-            print("[AuthStore] Failed to delete user profile: \(error)")
+            AppLog.debug("[AuthStore] Failed to delete user profile: \(error)")
         }
     }
     

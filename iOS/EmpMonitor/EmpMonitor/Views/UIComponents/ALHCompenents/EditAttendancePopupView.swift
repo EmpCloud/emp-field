@@ -177,8 +177,8 @@ struct EditAttendancePopupView: View {
                         editAttendanceViewModel.checkIN = editAttendanceViewModel.formatToISO8601(dateString: FormatterHelper.shared.formattedFullYearDate(from: editAttendanceViewModel.date), timeString: checkINTime) ?? ""
                         editAttendanceViewModel.checkOUT = editAttendanceViewModel.formatToISO8601(dateString: FormatterHelper.shared.formattedFullYearDate(from: editAttendanceViewModel.date), timeString: checkOUTTime) ?? ""
                         
-//                        print("CheckIn: \(editAttendanceViewModel.checkIN)")
-//                        print("Checkout: \(editAttendanceViewModel.checkOUT)")
+//                        AppLog.debug("CheckIn: \(editAttendanceViewModel.checkIN)")
+//                        AppLog.debug("Checkout: \(editAttendanceViewModel.checkOUT)")
                         
                         await editAttendanceViewModel.editAttendanceData()
                         

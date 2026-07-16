@@ -245,10 +245,10 @@ struct EditLeavesView: View {
             Task {
 //                startDate = updateLeaveViewModel.startDate
 //                endDate = updateLeaveViewModel.endDate
-                print(startDate)
-                print(endDate)
-                print("LeaveID: \(updateLeaveViewModel.leaveID)")
-                print("Leave Type: \(leaveTypeSelection?.name)")
+                AppLog.debug(startDate)
+                AppLog.debug(endDate)
+                AppLog.debug("LeaveID: \(updateLeaveViewModel.leaveID)")
+                AppLog.debug("Leave Type: \(leaveTypeSelection?.name)")
                 
                try await leaveTypeViewModel.fetchLeaveType()
                 

@@ -120,8 +120,8 @@ struct SearchLocationView: View {
 //                        .padding(.horizontal, 15)
 //                        .onTapGesture {
 ////                            searchLocationViewModel.selectedLocation(place)
-//                            print("lat: \(place.latitude)")
-//                            print("long: \(place.longitude)")
+//                            AppLog.debug("lat: \(place.latitude)")
+//                            AppLog.debug("long: \(place.longitude)")
 //                            showSearchLocationView.toggle()
 //                        }
 //                }

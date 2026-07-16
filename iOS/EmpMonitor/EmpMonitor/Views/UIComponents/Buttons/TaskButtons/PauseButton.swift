@@ -35,6 +35,6 @@ struct PauseButton: View {
 
 #Preview {
     PauseButton() {
-        print("Clicked")
+        AppLog.debug("Clicked")
     }
 }

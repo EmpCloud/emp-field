@@ -42,8 +42,8 @@ struct ScheduleStartTimeView: View {
                             .labelsHidden()
                             .onChange(of: currentTime) { _, value in
                                 startTime = formatTime(date: value)
-                                print("Current Time: \(value)")
-                                print("Start Time: \(startTime)")
+                                AppLog.debug("Current Time: \(value)")
+                                AppLog.debug("Start Time: \(startTime)")
 
                             }
                             .colorInvert()
@@ -112,7 +112,7 @@ struct ScheduleStopTimeView: View {
                             .labelsHidden()
                             .onChange(of: currentTime) { _, value in
                                 stopTime = formatTime(date: currentTime)
-                                print("stopTime: \(stopTime)")
+                                AppLog.debug("stopTime: \(stopTime)")
                             }
                             .colorInvert()
                             .colorMultiply(.absent)

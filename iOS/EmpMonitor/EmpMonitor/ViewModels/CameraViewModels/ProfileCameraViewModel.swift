@@ -40,7 +40,7 @@ final class ProfileCameraViewModel: NSObject, ObservableObject {
     func checkPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
-            print("Camera access granted")
+            AppLog.debug("Camera access granted")
             setUpCamera()
             cameraAuthStatus = true
         case .notDetermined:
@@ -73,7 +73,7 @@ final class ProfileCameraViewModel: NSObject, ObservableObject {
                     : AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
                 
                 guard let device = device else {
-                    print("Camera device not available")
+                    AppLog.debug("Camera device not available")
                     return
                 }
                 let input = try AVCaptureDeviceInput(device: device)
@@ -89,7 +89,7 @@ final class ProfileCameraViewModel: NSObject, ObservableObject {
                     self.session.addOutput(self.output)
                 }
             } catch {
-                print("Camera setup failed: \(error.localizedDescription)")
+                AppLog.debug("Camera setup failed: \(error.localizedDescription)")
             }
         }
     }
@@ -128,7 +128,7 @@ final class ProfileCameraViewModel: NSObject, ObservableObject {
                 }
                 device.unlockForConfiguration()
             } catch {
-                print("Flashlight could not be used: \(error.localizedDescription)")
+                AppLog.debug("Flashlight could not be used: \(error.localizedDescription)")
             }
         }
     }
@@ -155,7 +155,7 @@ final class ProfileCameraViewModel: NSObject, ObservableObject {
             let capturedImage = ProfileImage(image: image, url: fileURL)
             profileImage = capturedImage
         } catch {
-            print("Error: Failed to save images: \(error.localizedDescription)")
+            AppLog.debug("Error: Failed to save images: \(error.localizedDescription)")
         }
     }
     

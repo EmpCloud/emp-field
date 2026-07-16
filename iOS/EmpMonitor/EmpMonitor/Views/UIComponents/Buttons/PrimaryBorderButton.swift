@@ -69,12 +69,12 @@ struct RedBorderButton: View {
 
 #Preview {
     PrimaryBorderButton(text: "Primary border button") {
-        print(("Print"))
+        AppLog.debug(("Print"))
     }
 }
 
 #Preview {
     RedBorderButton(text: "Primary border button") {
-        print(("Print"))
+        AppLog.debug(("Print"))
     }
 }

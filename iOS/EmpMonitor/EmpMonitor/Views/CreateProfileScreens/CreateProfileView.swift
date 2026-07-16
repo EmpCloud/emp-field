@@ -249,7 +249,7 @@ struct CreateProfileView: View {
                             
                         }
                         
-                        print("Profile Pic Uploaded: \(createProfileViewModel.profilePic)")
+                        AppLog.debug("Profile Pic Uploaded: \(createProfileViewModel.profilePic)")
                     }
                 }
             }
@@ -319,7 +319,7 @@ struct CreateProfileView: View {
                 
                 createProfileViewModel.profilePic = userData?.body.data?.userData.profilePic
                 
-    //            print("User:\(userData?.body.data.userData)")
+    //            AppLog.debug("User:\(userData?.body.data.userData)")
 
                 
                 UINavigationBar.appearance().titleTextAttributes = [

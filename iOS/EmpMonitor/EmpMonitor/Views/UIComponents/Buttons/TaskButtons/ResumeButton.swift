@@ -36,6 +36,6 @@ struct ResumeButton: View {
 
 #Preview {
     ResumeButton() {
-       print("Clicked")
+       AppLog.debug("Clicked")
     }
 }

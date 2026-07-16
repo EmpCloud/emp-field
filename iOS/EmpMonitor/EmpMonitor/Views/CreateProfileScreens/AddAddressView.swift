@@ -177,20 +177,20 @@ struct AddAddressView: View {
                         createProfileViewModel.country = searchLocationViewModel.selectedLocationCountry
                         
 //                                TODO: To make an API call to create profile
-//                                print("Lat: \(createProfileViewModel.latitude)")
-//                                print("Long: \(createProfileViewModel.longitude)")
-//                                print("address1: \(createProfileViewModel.address1)")
-//                                print("address2: \(createProfileViewModel.address2)")
-//                                print("State: \(createProfileViewModel.state)")
-//                                print("City: \(createProfileViewModel.city)")
-//                                print("Name: \(createProfileViewModel.fullName)")
-//                                print("Gender: \(createProfileViewModel.gender)")
-//                                print("Age: \(createProfileViewModel.age)")
-//                                print("Email: \(createProfileViewModel.email)")
-//                                print("Profile: \(createProfileViewModel.profilePic)")
-//                                print("Country: \(createProfileViewModel.country)")
-//                                print("Zip: \(createProfileViewModel.zipCode)")
-//                                print("Phone: \(createProfileViewModel.phoneNumber)")
+//                                AppLog.debug("Lat: \(createProfileViewModel.latitude)")
+//                                AppLog.debug("Long: \(createProfileViewModel.longitude)")
+//                                AppLog.debug("address1: \(createProfileViewModel.address1)")
+//                                AppLog.debug("address2: \(createProfileViewModel.address2)")
+//                                AppLog.debug("State: \(createProfileViewModel.state)")
+//                                AppLog.debug("City: \(createProfileViewModel.city)")
+//                                AppLog.debug("Name: \(createProfileViewModel.fullName)")
+//                                AppLog.debug("Gender: \(createProfileViewModel.gender)")
+//                                AppLog.debug("Age: \(createProfileViewModel.age)")
+//                                AppLog.debug("Email: \(createProfileViewModel.email)")
+//                                AppLog.debug("Profile: \(createProfileViewModel.profilePic)")
+//                                AppLog.debug("Country: \(createProfileViewModel.country)")
+//                                AppLog.debug("Zip: \(createProfileViewModel.zipCode)")
+//                                AppLog.debug("Phone: \(createProfileViewModel.phoneNumber)")
                         
                         
                         
@@ -275,15 +275,15 @@ struct AddAddressView: View {
             }
             
             
-            print("Lat: \(createProfileViewModel.latitude)")
-            print("Long: \(createProfileViewModel.longitude)")
-            print("address1: \(createProfileViewModel.address1)")
-            print("address2: \(createProfileViewModel.address2)")
-            print("State: \(createProfileViewModel.state)")
-            print("City: \(createProfileViewModel.city)")
-            print("Name: \(createProfileViewModel.fullName)")
-            print("Gender: \(createProfileViewModel.gender)")
-            print("Age: \(createProfileViewModel.age)")
+            AppLog.debug("Lat: \(createProfileViewModel.latitude)")
+            AppLog.debug("Long: \(createProfileViewModel.longitude)")
+            AppLog.debug("address1: \(createProfileViewModel.address1)")
+            AppLog.debug("address2: \(createProfileViewModel.address2)")
+            AppLog.debug("State: \(createProfileViewModel.state)")
+            AppLog.debug("City: \(createProfileViewModel.city)")
+            AppLog.debug("Name: \(createProfileViewModel.fullName)")
+            AppLog.debug("Gender: \(createProfileViewModel.gender)")
+            AppLog.debug("Age: \(createProfileViewModel.age)")
             
                 UINavigationBar.appearance().titleTextAttributes = [
                     .foregroundColor: UIColor.white

@@ -29,11 +29,11 @@ class VerifyEmailViewModel: ObservableObject {
             
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message
-//            print(fetchData.body.message)
-//            print(fetchData.statusCode)
+//            AppLog.debug(fetchData.body.message)
+//            AppLog.debug(fetchData.statusCode)
             
         }catch {
-            print("Error: Email Verification Failed: \(error.localizedDescription)")
+            AppLog.debug("Error: Email Verification Failed: \(error.localizedDescription)")
             self.error = error
         }
     }

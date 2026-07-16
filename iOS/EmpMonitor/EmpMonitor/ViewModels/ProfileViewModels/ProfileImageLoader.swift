@@ -37,7 +37,7 @@ class ProfileImageLoader: ObservableObject {
                 DispatchQueue.main.async {
                     self?.error = error
                 }
-                print("Failed to load image: \(error?.localizedDescription ?? "Unknown error")")
+                AppLog.debug("Failed to load image: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
 
@@ -67,7 +67,7 @@ class ProfileImageLoader: ObservableObject {
                 DispatchQueue.main.async {
                     self?.error = error
                 }
-                print("Failed to load image: \(error?.localizedDescription ?? "Unknown error")")
+                AppLog.debug("Failed to load image: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
 

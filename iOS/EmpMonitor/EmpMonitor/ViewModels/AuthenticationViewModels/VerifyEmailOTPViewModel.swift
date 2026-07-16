@@ -31,11 +31,11 @@ class VerifyEmailOTPViewModel: ObservableObject {
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message
             
-            print("Verify Email OTP Data ")
-            print(fetchData)
+            AppLog.debug("Verify Email OTP Data ")
+            AppLog.debug(fetchData)
             
         }catch {
-            print("Error: verifyEmail OTP \(error.localizedDescription)")
+            AppLog.debug("Error: verifyEmail OTP \(error.localizedDescription)")
             self.error = error
         }
     }

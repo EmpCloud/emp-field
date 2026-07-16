@@ -296,7 +296,7 @@ struct HomeView: View {
                                                                         }
                                                                         UserDefaults.standard.removeObject(forKey: "offlineLocations")
                                                                         try await checkINViewModel.markAttendance()
-                                                                        print("CheckIN (geo-fence manual): Attendance marked")
+                                                                        AppLog.debug("CheckIN (geo-fence manual): Attendance marked")
                                                                         if NetworkManager.shared.statusCode != 200 {
                                                                             showWarning.toggle()
                                                                             showMOTPopup = false
@@ -361,7 +361,7 @@ struct HomeView: View {
                                                                     self.showCheckOUT = true
                                                                     self.showMOTPopup = true
                                                                     currentDeviceTime = HelperFunction.shared.currentTime()
-                                                                    print("Current Time: \(currentDeviceTime)")
+                                                                    AppLog.debug("Current Time: \(currentDeviceTime)")
                                                                     Task {
                                                                         checkINViewModel.checkINTime = currentDeviceTime
                                                                         if let lat = permissionManager.userLocation?.coordinate.latitude {
@@ -372,7 +372,7 @@ struct HomeView: View {
                                                                         }
                                                                         UserDefaults.standard.removeObject(forKey: "offlineLocations")
                                                                         try await checkINViewModel.markAttendance()
-                                                                        print("CheckIN: Attendance marked")
+                                                                        AppLog.debug("CheckIN: Attendance marked")
                                                                         if NetworkManager.shared.statusCode != 200 {
                                                                             showWarning.toggle()
                                                                             showMOTPopup = false
@@ -597,8 +597,8 @@ struct HomeView: View {
                             
 //                            if let savedData = UserDefaults.standard.data(forKey: "offlineLocations"),
 //                               let decodedData = try? JSONDecoder().decode([TrackRequestModelData].self, from: savedData) {
-//                                print("Saved Offline data")
-//                                print(decodedData)
+//                                AppLog.debug("Saved Offline data")
+//                                AppLog.debug(decodedData)
 //                            }
                             
                             if NetworkManager.shared.statusCode == 400 && NetworkManager.shared.responseMessage == "Invalid access token...." {
@@ -607,7 +607,7 @@ struct HomeView: View {
                             }
                             permissionManager.requestLocation()
                             
-                            print("IsCheckIN: \(UserDefaults.standard.bool(forKey: "isCheckedIN"))")
+                            AppLog.debug("IsCheckIN: \(UserDefaults.standard.bool(forKey: "isCheckedIN"))")
                             
                             //Control the login/logout
                             //                AppState.shared.isLoggedIn = true
@@ -619,7 +619,7 @@ struct HomeView: View {
                             Task {
                                 
                                 //print the tracking frequency
-                                print("Frequency: \(permissionManager.distanceThreshold) & \(permissionManager.updateInterval)")
+                                AppLog.debug("Frequency: \(permissionManager.distanceThreshold) & \(permissionManager.updateInterval)")
                                 
                                 try await homeScreenViewModel.getHomeScreenData()
                                 
@@ -689,15 +689,15 @@ struct HomeView: View {
                             
                             // just for confirmation that data is present
                             //                if let loggedInUser: UserLoginResponseModel = AuthStore.shared.getLoggedInUser() {
-                            //                    print("Logged in info")
-                            //                    print(loggedInUser)
+                            //                    AppLog.debug("Logged in info")
+                            //                    AppLog.debug(loggedInUser)
                             //                }
                             //                if let userProfile: CreateProfileResponseModel = AuthStore.shared.getUserProfileData(as: CreateProfileResponseModel.self) {
-                            //                    print("User Profile info")
-                            //                    print(userProfile)
+                            //                    AppLog.debug("User Profile info")
+                            //                    AppLog.debug(userProfile)
                             //                }
                             //
-                            //                print(UserDefaults.standard.string(forKey: "AppState"))
+                            //                AppLog.debug(UserDefaults.standard.string(forKey: "AppState"))
                         }
                         .onChange(of: permissionManager.shouldAutoCheckIn) { _, newValue in
                             if newValue {

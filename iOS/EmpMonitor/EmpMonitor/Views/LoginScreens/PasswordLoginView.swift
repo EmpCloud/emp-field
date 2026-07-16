@@ -119,7 +119,7 @@ struct PasswordLoginView: View {
                             
                             //next screen
                             if NetworkManager.shared.statusCode == 200 {
-                                //                                        print(userLoginViewModel.email)
+                                //                                        AppLog.debug(userLoginViewModel.email)
                                 showEmailOTPScreen = true
                             }else {
                                 warningMessage = NetworkManager.shared.responseMessage.isEmpty

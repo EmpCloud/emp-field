@@ -30,11 +30,11 @@ class ForgetPasswordViewModel: ObservableObject {
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message
             
-            print("Forget Password Response:")
-            print(fetchData)
+            AppLog.debug("Forget Password Response:")
+            AppLog.debug(fetchData)
             
         }catch {
-            print("Error: While calling forget password -> \(error.localizedDescription)")
+            AppLog.debug("Error: While calling forget password -> \(error.localizedDescription)")
             self.error = error
         }
     }

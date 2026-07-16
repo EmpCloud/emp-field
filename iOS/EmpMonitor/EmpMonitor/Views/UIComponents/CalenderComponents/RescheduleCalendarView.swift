@@ -305,9 +305,9 @@ struct RescheduleCalendarView: View {
             calendarStopTime = "\(newTime)"
         }
         .onDisappear {
-            print("Start date: \(startDate)")
-            print("Start Time: \(startTime)")
-            print("Stop Time: \(stopTime)")
+            AppLog.debug("Start date: \(startDate)")
+            AppLog.debug("Start Time: \(startTime)")
+            AppLog.debug("Stop Time: \(stopTime)")
         }
     }
 }

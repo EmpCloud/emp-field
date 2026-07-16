@@ -41,10 +41,10 @@ class AttendanceViewModel: ObservableObject {
             attendanceData = fetchData.body.data?.first?.attendance ?? []
 //            fetchStatusCode = fetchData.statusCode
             
-//            print(attendanceData)
+//            AppLog.debug(attendanceData)
             
         }catch {
-            print("Error: getAttendance error")
+            AppLog.debug("Error: getAttendance error")
             self.error = error
         }
     }

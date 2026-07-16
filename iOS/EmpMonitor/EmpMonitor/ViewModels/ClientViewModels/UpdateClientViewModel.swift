@@ -40,7 +40,7 @@ class UpdateClientViewModel: ObservableObject {
         let token = AuthStore.shared.getAccessToken()
         
         let body = UpdateClientRequestModel(clientName: clientName, emailID: emailID, contactNumber: contactNumber, clientProfilePic: clientProfilePic, category: category, countryCode: countryCode, address1: address1, address2: address2, country: country, state: state, city: city, zipCode: zipCode, latitude: latitude, longitude: longitude)
-        print("Client ID: \(clientID)")
+        AppLog.debug("Client ID: \(clientID)")
         do{
             let fetchedData: UpdateClientResponseModel = try await NetworkManager.shared.putData(to: urlString, body: body, as: UpdateClientResponseModel.self, accessToken: token, queryParams: clientID)
             
@@ -49,7 +49,7 @@ class UpdateClientViewModel: ObservableObject {
             
             
         }catch{
-            print("Error: AddClient error -> \(error)")
+            AppLog.debug("Error: AddClient error -> \(error)")
             self.error = error
         }
     }

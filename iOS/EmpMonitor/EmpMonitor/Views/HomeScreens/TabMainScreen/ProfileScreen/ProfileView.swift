@@ -276,7 +276,7 @@ struct ProfileView: View {
                             try await updateProfileViewModel.updateProfile()
                         }
                         
-                        print("Profile Pic updated: \(updateProfileViewModel.profilePic)")
+                        AppLog.debug("Profile Pic updated: \(updateProfileViewModel.profilePic)")
                     }
                 }
             }
@@ -290,7 +290,7 @@ struct ProfileView: View {
             }
             .onChange(of: selectedGender) { _, newGender in
                 updateProfileViewModel.gender = selectedGender
-    //            print(createProfileViewModel.gender)
+    //            AppLog.debug(createProfileViewModel.gender)
             }
             .toolbar{
                 ToolbarItem(placement: .topBarLeading) {

@@ -34,6 +34,6 @@ struct EditButton: View {
 
 #Preview {
     EditButton(){
-        print("Clicked")
+        AppLog.debug("Clicked")
     }
 }

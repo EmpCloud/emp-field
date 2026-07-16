@@ -35,6 +35,6 @@ struct StartButton: View {
 
 #Preview {
     StartButton(){
-        print("Clicked")
+        AppLog.debug("Clicked")
     }
 }

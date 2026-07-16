@@ -128,7 +128,7 @@ class PermissionManager: NSObject, ObservableObject {
     //MARK: Motion Activity Updates
     func startMotionUpdates() {
         guard motionManager.isDeviceMotionActive else {
-            print("Device motion is not available.")
+            AppLog.debug("Device motion is not available.")
             return
         }
         
@@ -136,14 +136,14 @@ class PermissionManager: NSObject, ObservableObject {
         motionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
             guard error == nil else {
                 if let error = error {
-                    print("Error: \(error)")
+                    AppLog.debug("Error: \(error)")
                 }
                 return
             }
 
             if let motion = motion {
                 self?.motionData = motion
-                print("Motion data: Roll: \(motion.attitude.roll), Pitch: \(motion.attitude.pitch), Yaw: \(motion.attitude.yaw)")
+                AppLog.debug("Motion data: Roll: \(motion.attitude.roll), Pitch: \(motion.attitude.pitch), Yaw: \(motion.attitude.yaw)")
             }
         }
     }
@@ -198,7 +198,7 @@ class PermissionManager: NSObject, ObservableObject {
         
         //ONLY proceed if the user is checkedIN
         guard isCheckedIN else {
-            print("User is not checked in. Location updates will not start.")
+            AppLog.debug("User is not checked in. Location updates will not start.")
             return
         }
         
@@ -223,7 +223,7 @@ class PermissionManager: NSObject, ObservableObject {
                 // to fetch all location
 //                let locationUpdates = CLLocationUpdate.liveUpdates()
                 
-//                print("Live update")
+//                AppLog.debug("Live update")
                 
                 // to fetch the filter location
                 let threshold = self.distanceThreshold
@@ -242,7 +242,7 @@ class PermissionManager: NSObject, ObservableObject {
                     return false
                 }
                 
-//                print(locationUpdates)
+//                AppLog.debug(locationUpdates)
                 
 //                var count = 1
                 self.checkTimeAndStopTrackingIfNeeded()  // to stop tracking at midnight
@@ -254,7 +254,7 @@ class PermissionManager: NSObject, ObservableObject {
 
                         // Exit loop when user checks out or midnight stop triggers
                         guard UserDefaults.standard.bool(forKey: "isCheckedIN") else {
-                            print("User checked out. Stopping location updates.")
+                            AppLog.debug("User checked out. Stopping location updates.")
                             break
                         }
 
@@ -270,9 +270,9 @@ class PermissionManager: NSObject, ObservableObject {
 
                                 if self.lastUpdateTime == nil || currentTime.timeIntervalSince(self.lastUpdateTime!) >= self.updateInterval {
                                     self.lastUpdateTime = currentTime
-                                    print("Last time: \(self.lastUpdateTime ?? Date())  & current Time: \(currentTime)")
-                                    print("Location Lat: \(location.coordinate.latitude) & Long :\(location.coordinate.longitude)")
-                                    print("=================")
+                                    AppLog.debug("Last time: \(self.lastUpdateTime ?? Date())  & current Time: \(currentTime)")
+                                    AppLog.debug("Location Lat: \(location.coordinate.latitude) & Long :\(location.coordinate.longitude)")
+                                    AppLog.debug("=================")
                                     self.sendLocationToServer(location: location)
                                 }
                             }
@@ -281,7 +281,7 @@ class PermissionManager: NSObject, ObservableObject {
                         if update.isStationary {
                             // Upload any queued offline data but keep the loop running
                             await self.uploadOfflineLocations()
-                            print("user is stationary")
+                            AppLog.debug("user is stationary")
                         }
 
                     }
@@ -291,7 +291,7 @@ class PermissionManager: NSObject, ObservableObject {
 //                sendLocationToServer()
                 
             }catch {
-                debugPrint("Some live location error occured: \(error)")
+                AppLog.debug("Some live location error occured: \(error)")
             }
             self.checkTimeAndStopTrackingIfNeeded()  // to stop tracking at midnight
         }
@@ -310,7 +310,7 @@ class PermissionManager: NSObject, ObservableObject {
     func startGeoFenceMonitoring() {
         guard let orgLat = Double(UserDefaults.standard.string(forKey: "OrgLatitude") ?? ""),
               let orgLong = Double(UserDefaults.standard.string(forKey: "OrgLongitude") ?? "") else {
-            print("GeoFence: missing org location — call fetchTrackingSettings first")
+            AppLog.debug("GeoFence: missing org location — call fetchTrackingSettings first")
             return
         }
         let orgRadius = Double(UserDefaults.standard.integer(forKey: "OrgRadius"))
@@ -329,7 +329,7 @@ class PermissionManager: NSObject, ObservableObject {
         region.notifyOnEntry = true
         region.notifyOnExit  = true
         locationManager.startMonitoring(for: region)
-        print("GeoFence monitoring started: lat=\(orgLat), long=\(orgLong), radius=\(clampedRadius)m")
+        AppLog.debug("GeoFence monitoring started: lat=\(orgLat), long=\(orgLong), radius=\(clampedRadius)m")
     }
 
     func stopGeoFenceMonitoring() {
@@ -343,7 +343,7 @@ class PermissionManager: NSObject, ObservableObject {
     func requestGeoFenceState() {
         guard let orgLat = Double(UserDefaults.standard.string(forKey: "OrgLatitude") ?? ""),
               let orgLong = Double(UserDefaults.standard.string(forKey: "OrgLongitude") ?? "") else {
-            print("GeoFence: cannot request state — missing org location")
+            AppLog.debug("GeoFence: cannot request state — missing org location")
             return
         }
         let orgRadius = Double(UserDefaults.standard.integer(forKey: "OrgRadius"))
@@ -375,9 +375,9 @@ class PermissionManager: NSObject, ObservableObject {
 //        //ensure the data is unique(no duplicates)
 //        if !trackRequestData.contains(newLocationData) {
 //            trackRequestData.append(newLocationData)
-//            print("Added new Location: \(newLocationData)")
+//            AppLog.debug("Added new Location: \(newLocationData)")
 //        }else {
-//            print("Duplicate location")
+//            AppLog.debug("Duplicate location")
 //        }
     }
 
@@ -401,21 +401,21 @@ extension PermissionManager: CLLocationManagerDelegate {
             switch status {
             case .notDetermined:
                 self?.isLocationAuthorized = false
-                print("Location status not determined")
+                AppLog.debug("Location status not determined")
             case .restricted:
                 self?.isLocationAuthorized = false
-                print("Location status restricted")
+                AppLog.debug("Location status restricted")
             case .denied:
-                print("Location status denied")
+                AppLog.debug("Location status denied")
                 self?.isLocationAuthorized = false
             case .authorizedAlways:
-                print("Location status is always authorized")
+                AppLog.debug("Location status is always authorized")
                 self?.isLocationAuthorized = true
             case .authorizedWhenInUse:
-                print("Location status is when in use authorized")
+                AppLog.debug("Location status is when in use authorized")
                 self?.isLocationAuthorized = true
             @unknown default:
-                print("Location status unknown")
+                AppLog.debug("Location status unknown")
             }
         }
     }
@@ -425,7 +425,7 @@ extension PermissionManager: CLLocationManagerDelegate {
     nonisolated func locationManager(_ manager: CLLocationManager, didDetermineState state: CLRegionState, for region: CLRegion) {
         guard region.identifier == geoFenceRegionIdentifier else { return }
         let inside = (state == .inside)
-        print("GeoFence: initial state = \(inside ? "inside" : "outside/unknown")")
+        AppLog.debug("GeoFence: initial state = \(inside ? "inside" : "outside/unknown")")
         Task { @MainActor [weak self] in
             self?.isInsideGeoFence = inside
             guard inside,
@@ -437,7 +437,7 @@ extension PermissionManager: CLLocationManagerDelegate {
 
     nonisolated func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         guard region.identifier == geoFenceRegionIdentifier else { return }
-        print("GeoFence: entered org region")
+        AppLog.debug("GeoFence: entered org region")
         Task { @MainActor [weak self] in
             self?.isInsideGeoFence = true
             guard !UserDefaults.standard.bool(forKey: "isCheckedIN"),
@@ -448,7 +448,7 @@ extension PermissionManager: CLLocationManagerDelegate {
 
     nonisolated func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         guard region.identifier == geoFenceRegionIdentifier else { return }
-        print("GeoFence: exited org region")
+        AppLog.debug("GeoFence: exited org region")
         Task { @MainActor [weak self] in
             self?.isInsideGeoFence = false
             guard UserDefaults.standard.bool(forKey: "isCheckedIN"),
@@ -458,13 +458,13 @@ extension PermissionManager: CLLocationManagerDelegate {
     }
 
     nonisolated func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        print("GeoFence monitoring failed: \(error.localizedDescription)")
+        AppLog.debug("GeoFence monitoring failed: \(error.localizedDescription)")
     }
 
     //MARK: Send location API Call
     func sendLocationToServer(location: CLLocation) {
         // Implement API Call here
-        print("Sending location to server: \(location.coordinate.latitude) \(location.coordinate.longitude)")
+        AppLog.debug("Sending location to server: \(location.coordinate.latitude) \(location.coordinate.longitude)")
         
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
@@ -474,7 +474,7 @@ extension PermissionManager: CLLocationManagerDelegate {
         trackRequestData.append(addUniqueLocationData(latitude: latitude, longitude: longitude))
         let newLocationData = addUniqueLocationData(latitude: latitude, longitude: longitude)  // this data will be stored when the user is offline
         
-//        print(trackRequestData)
+//        AppLog.debug(trackRequestData)
         if isOnline {
             Task { [weak self] in
                 guard let self else { return }
@@ -495,7 +495,7 @@ extension PermissionManager: CLLocationManagerDelegate {
         else {
             Task {
                 await LocationQueueService.shared.enqueue(latitude: latitude, longitude: longitude)
-                print("Stored offline location: \(latitude), \(longitude)")
+                AppLog.debug("Stored offline location: \(latitude), \(longitude)")
             }
         }
         
@@ -514,21 +514,21 @@ extension PermissionManager: CLLocationManagerDelegate {
             guard !logs.isEmpty else { return }
             
             let trackData = logs.map(\.trackRequestData)
-            print("Uploading offline locations:")
-            print(trackData)
+            AppLog.debug("Uploading offline locations:")
+            AppLog.debug(trackData)
             
             TrackViewModel.shared.trackRequestData = trackData
             await TrackViewModel.shared.trackUser()
             
             if NetworkManager.shared.statusCode == 200 {
                 try await LocationQueueService.shared.delete(logs)
-                print("Uploaded offline locations.")
+                AppLog.debug("Uploaded offline locations.")
             } else {
                 try await LocationQueueService.shared.incrementRetry(logs)
-                print("Failed to upload offline locations. Keeping queue for retry.")
+                AppLog.debug("Failed to upload offline locations. Keeping queue for retry.")
             }
         } catch {
-            print("Error uploading offline locations: \(error)")
+            AppLog.debug("Error uploading offline locations: \(error)")
         }
     }
     
@@ -540,7 +540,7 @@ extension PermissionManager: CLLocationManagerDelegate {
         if let stopTime = calendar.date(bySettingHour: 23, minute: 59, second: 0, of: now), now > stopTime {
             //stop location tracking
             self.stopLocationUpdates()
-            print("Location tracking stopped at midnight")
+            AppLog.debug("Location tracking stopped at midnight")
             Task {
                 try? await LocationQueueService.shared.deleteAll()
             }  // deleting yesterday tracking data
@@ -673,7 +673,7 @@ extension PermissionManager: CLLocationManagerDelegate {
 //            }
 //            if let motionData = locationManager.motionData {
 //                // Implement your API call for motion data here
-//                print("Sending motion data to server: Roll: \(motionData.attitude.roll), Pitch: \(motionData.attitude.pitch), Yaw: \(motionData.attitude.yaw)")
+//                AppLog.debug("Sending motion data to server: Roll: \(motionData.attitude.roll), Pitch: \(motionData.attitude.pitch), Yaw: \(motionData.attitude.yaw)")
 //            }
 //        }
 //    }
@@ -704,7 +704,7 @@ actor LocationQueueService {
         do {
             try modelContext.save()
         } catch {
-            print("[LocationQueueService] Failed to enqueue location: \(error)")
+            AppLog.debug("[LocationQueueService] Failed to enqueue location: \(error)")
         }
     }
 
@@ -766,9 +766,9 @@ actor LocationQueueService {
         do {
             try modelContext.save()
             UserDefaults.standard.removeObject(forKey: "offlineLocations")
-            print("[LocationQueueService] Migrated \(legacy.count) legacy offline locations to SwiftData.")
+            AppLog.debug("[LocationQueueService] Migrated \(legacy.count) legacy offline locations to SwiftData.")
         } catch {
-            print("[LocationQueueService] Failed to migrate legacy queue: \(error)")
+            AppLog.debug("[LocationQueueService] Failed to migrate legacy queue: \(error)")
         }
     }
 }

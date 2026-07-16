@@ -32,11 +32,11 @@ class ClientListViewModel: ObservableObject {
             
             clientListData = fetchData.body.data
             
-//            print("Client List Data")
-//            print(fetchData)
+//            AppLog.debug("Client List Data")
+//            AppLog.debug(fetchData)
             
         }catch{
-            print("Error: ClientListViewModel data error")
+            AppLog.debug("Error: ClientListViewModel data error")
             self.error = error
         }
     }

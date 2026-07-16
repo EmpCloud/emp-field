@@ -31,13 +31,13 @@ class TagViewModel: ObservableObject {
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message
             
-            print("Got the Tag Data")
+            AppLog.debug("Got the Tag Data")
             
             tagDataList = fetchData.body.data
-//            print(fetchData)
+//            AppLog.debug(fetchData)
             
         }catch{
-            print("Error: GetTags error -> \(error.localizedDescription)")
+            AppLog.debug("Error: GetTags error -> \(error.localizedDescription)")
             self.error = error
         }
     }

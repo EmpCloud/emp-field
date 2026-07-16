@@ -41,11 +41,11 @@ class UpdateLeaveViewModel: ObservableObject {
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message
             
-            print("Updated Data:")
-            print(fetchData)
+            AppLog.debug("Updated Data:")
+            AppLog.debug(fetchData)
             
         }catch{
-            print("Error: Updateleave Data error in Update leave view model")
+            AppLog.debug("Error: Updateleave Data error in Update leave view model")
             self.error = error
         }
     }

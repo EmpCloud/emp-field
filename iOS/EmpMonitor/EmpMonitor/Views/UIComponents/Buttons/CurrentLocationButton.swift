@@ -37,6 +37,6 @@ struct CurrentLocationButton: View {
 
 #Preview {
     CurrentLocationButton(text: "Use Current Location"){
-        print("click me")
+        AppLog.debug("click me")
     }
 }

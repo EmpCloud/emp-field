@@ -117,22 +117,22 @@ struct ClientCardContactView: View {
         switch selectedCard {
         case "Call":
             //TODO: make a call
-            //            print("Call")
+            //            AppLog.debug("Call")
             if let contact = selectedClientContact?.contactNumber {
                 ClientHelper.shared.makeCall(to: contact)
             }
         case "Message":
             if let contact = selectedClientContact?.contactNumber {
-                //                print("Message")
+                //                AppLog.debug("Message")
                 ClientHelper.shared.sendMessage(to: contact)
             }
         case "Direction":
-            print("Direction")
+            AppLog.debug("Direction")
 //            showClientDetailMap.toggle()
             showSelectedClientContactDetailMap.toggle()
             
         default:
-            print("card tapped")
+            AppLog.debug("card tapped")
         }
     }
 

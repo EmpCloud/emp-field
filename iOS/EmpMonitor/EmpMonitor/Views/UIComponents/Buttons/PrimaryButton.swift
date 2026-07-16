@@ -81,19 +81,19 @@ struct RedThinButton: View {
 
 #Preview {
     PrimaryButton(text: "Primary Button"){
-        print("Click me")
+        AppLog.debug("Click me")
     }
 }
 
 #Preview {
     PrimaryThinButton(text: "Primary Button"){
-        print("Click me")
+        AppLog.debug("Click me")
     }
 }
 
 #Preview {
     RedThinButton(text: "Primary Button"){
-        print("Click me")
+        AppLog.debug("Click me")
     }
 }
 

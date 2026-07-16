@@ -37,10 +37,10 @@ class EditAttendanceViewModel: ObservableObject {
             NetworkManager.shared.responseMessage = fetchData.body.message
             NetworkManager.shared.statusCode = fetchData.statusCode
             
-//            print("Edit Attendance Data: \(fetchData)")
+//            AppLog.debug("Edit Attendance Data: \(fetchData)")
             
         }catch {
-            print("Error: editAttendanceData error :\(error)")
+            AppLog.debug("Error: editAttendanceData error :\(error)")
             self.error = error
         }
     }
@@ -55,7 +55,7 @@ class EditAttendanceViewModel: ObservableObject {
         
         // Combine date and time into a single string
         let combinedString = "\(dateString) \(timeString)"
-//        print("Comnined String: \(combinedString)")
+//        AppLog.debug("Comnined String: \(combinedString)")
         
         // Convert the combined string into a Date object
         guard let date = dateFormatter.date(from: combinedString) else {

@@ -149,8 +149,8 @@ struct TaskListView: View {
                     taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
                     taskListViewModel.status = 0
                     taskListViewModel.filterTaskData = []
-                    print("-----filter task Data")
-                    print(taskListViewModel.filterTaskData)
+                    AppLog.debug("-----filter task Data")
+                    AppLog.debug(taskListViewModel.filterTaskData)
                    try await taskListViewModel.getFilterTaskList()
                     
                     if NetworkManager.shared.statusCode == 200 {
@@ -179,7 +179,7 @@ struct TaskListView: View {
                     if swipe <= -UIScreen.main.bounds.width * 0.5 {
                         //TODO: delete the task
                         withAnimation {
-//                            print(swipedTaskID)
+//                            AppLog.debug(swipedTaskID)
                             showAlert = true
                             showDeleteAlert = true
                         }

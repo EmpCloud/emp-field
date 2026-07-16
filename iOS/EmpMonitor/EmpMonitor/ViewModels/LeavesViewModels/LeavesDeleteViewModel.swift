@@ -33,11 +33,11 @@ class LeavesDeleteViewModel: ObservableObject {
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message
             
-            print("Delete Data Response:")
-            print(fetchData)
+            AppLog.debug("Delete Data Response:")
+            AppLog.debug(fetchData)
             
         }catch{
-            print("Error: Delete Data error in Delete leave view model")
+            AppLog.debug("Error: Delete Data error in Delete leave view model")
             self.error = error
         }
     }

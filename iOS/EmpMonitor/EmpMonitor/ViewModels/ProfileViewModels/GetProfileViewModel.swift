@@ -37,8 +37,8 @@ class GetProfileViewModel: ObservableObject {
             // Updating & Storing users profile for later use and direct navigation to homescreen
 //            UserDefaults.standard.setObject(fetchData, forKey: "UserProfile")         // since department is not there it casuing the deletion of "UserProfile" in UserDefault
             
-//            print("Get Profile fetch Data")
-//            print(fetchData)
+//            AppLog.debug("Get Profile fetch Data")
+//            AppLog.debug(fetchData)
             
             // to store userProfile Data
             UserDefaults.standard.setValue(fetchData.body.data.resultData.first?.fullName, forKey: "UserName")
@@ -49,7 +49,7 @@ class GetProfileViewModel: ObservableObject {
             ProfileHelper.shared.updateProfilePic(with: URL(string: fetchData.body.data.resultData.first?.profilePic ?? ""))
             
         }catch {
-            print("Error: Get Profile error -> \(error.localizedDescription)")
+            AppLog.debug("Error: Get Profile error -> \(error.localizedDescription)")
             self.error = error
         }
     }

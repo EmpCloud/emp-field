@@ -40,7 +40,7 @@ class UploadFilesViewModel: ObservableObject {
             fetchedURL = fetchData.data.filesUrls
             
         }catch{
-            print("Error: Uploading failed- \(error.localizedDescription)")
+            AppLog.debug("Error: Uploading failed- \(error.localizedDescription)")
             self.error = error
         }
 
@@ -66,7 +66,7 @@ class UploadFilesViewModel: ObservableObject {
             fetchedURL = fetchData.data.filesUrls
             
         }catch{
-            print("Error: Uploading failed- \(error.localizedDescription)")
+            AppLog.debug("Error: Uploading failed- \(error.localizedDescription)")
             self.error = error
         }
 
@@ -92,7 +92,7 @@ class UploadFilesViewModel: ObservableObject {
             fetchProfileURL = fetchData.body.data.profileURL
             
         }catch{
-            print("Error: Uploading failed- \(error)")
+            AppLog.debug("Error: Uploading failed- \(error)")
             self.error = error
         }
 
@@ -125,7 +125,7 @@ class UploadFilesViewModel: ObservableObject {
             ProfileHelper.shared.updateProfilePic(with: URL(string: UserDefaults.standard.string(forKey: "UserProfilePic") ?? ""))
             
         }catch{
-            print("Error: Uploading failed- \(error)")
+            AppLog.debug("Error: Uploading failed- \(error)")
             self.error = error
         }
 

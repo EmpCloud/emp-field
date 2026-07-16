@@ -40,8 +40,8 @@ class AddClientViewModel: ObservableObject {
         
         let body = AddClientRequestModel(clientName: clientName, emailID: emailID, contactNumber: contactNumber, clientProfilePic: clientProfilePic, category: category, countryCode: countryCode, address1: address1, address2: address2, country: country, state: state, city: city, zipCode: zipCode, latitude: latitude, longitude: longitude)
         
-        print("Create Client Body:")
-        print(body)
+        AppLog.debug("Create Client Body:")
+        AppLog.debug(body)
         do{
             let fetchedData: AddClientResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: AddClientResponseModel.self, accessToken: token)
             
@@ -50,7 +50,7 @@ class AddClientViewModel: ObservableObject {
             NetworkManager.shared.errorMessage = fetchedData.body.error ?? ""
             
         }catch{
-            print("Error: AddClient error -> \(error)")
+            AppLog.debug("Error: AddClient error -> \(error)")
             self.error = error
         }
     }

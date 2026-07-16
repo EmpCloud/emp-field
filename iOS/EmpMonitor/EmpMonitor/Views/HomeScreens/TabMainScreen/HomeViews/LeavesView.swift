@@ -92,14 +92,14 @@ struct LeavesView: View {
                                                 for leaveType in leaveTypeOptions {
                                                     if leaveTypeID == leaveType.id {
                                                         leaveTypeSelection = leaveType
-                                                        print("Typess: \(leaveTypeSelection?.name)")
+                                                        AppLog.debug("Typess: \(leaveTypeSelection?.name)")
                                                     }
                                                 }
                                                 startDate = FormatterHelper.shared.formattedDateReverse(from: leave.startDate)
                                                 endDate = FormatterHelper.shared.formattedDateReverse(from: leave.endDate)
                                                 reason = leave.reason ?? ""
-                                                print("Leave Data")
-                                                print("LeaveID: \(leave.id)")
+                                                AppLog.debug("Leave Data")
+                                                AppLog.debug("LeaveID: \(leave.id)")
                                                 showEditLeaves.toggle()
                                             }
                                         }

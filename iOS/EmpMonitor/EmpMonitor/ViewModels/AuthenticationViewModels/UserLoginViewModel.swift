@@ -44,17 +44,17 @@ extension UserLoginViewModel {
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             request.httpBody = try JSONEncoder().encode(credentials)
             
-            print("[API] POST \(urlString)")
+            AppLog.debug("[API] POST \(urlString)")
             let (data, response) = try await URLSession.shared.data(for: request)
             let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
             let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
-            print("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
+            AppLog.debug("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
             guard httpStatus == 200 else {
                 throw NetworkError.invalidResponse
             }
 
             guard let userLoginData = try? JSONDecoder().decode(UserLoginResponseModel.self, from: data) else {
-                print("Invalid data")
+                AppLog.debug("Invalid data")
                 throw NetworkError.invalidData
             }
             
@@ -81,7 +81,7 @@ extension UserLoginViewModel {
 
         }catch{
             self.error = error
-            print("Error: UserLoginViewModel")
+            AppLog.debug("Error: UserLoginViewModel")
         }
     }
 

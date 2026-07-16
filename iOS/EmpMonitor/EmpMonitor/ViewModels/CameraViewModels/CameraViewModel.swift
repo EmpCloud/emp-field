@@ -43,7 +43,7 @@ final class CameraViewModel: NSObject, ObservableObject {
         case .authorized:
             setUpCamera()
             cameraAuthStatus = true
-            print("to set the camera")
+            AppLog.debug("to set the camera")
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
                 Task { @MainActor [weak self] in
@@ -74,7 +74,7 @@ final class CameraViewModel: NSObject, ObservableObject {
                     : AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back)
                 
                 guard let device = device else {
-                    print("Camera device not available")
+                    AppLog.debug("Camera device not available")
                     return
                 }
                 let input = try AVCaptureDeviceInput(device: device)
@@ -90,7 +90,7 @@ final class CameraViewModel: NSObject, ObservableObject {
                     self.session.addOutput(self.output)
                 }
             } catch {
-                print("Camera setup failed: \(error.localizedDescription)")
+                AppLog.debug("Camera setup failed: \(error.localizedDescription)")
             }
         }
     }
@@ -129,7 +129,7 @@ final class CameraViewModel: NSObject, ObservableObject {
                 }
                 device.unlockForConfiguration()
             } catch {
-                print("Flashlight could not be used: \(error.localizedDescription)")
+                AppLog.debug("Flashlight could not be used: \(error.localizedDescription)")
             }
         }
     }
@@ -156,7 +156,7 @@ final class CameraViewModel: NSObject, ObservableObject {
             let capturedImage = SavedImage(image: image, description: description, url: fileURL)
             savedImages.append(capturedImage)
         } catch {
-            print("Error: Failed to save images: \(error.localizedDescription)")
+            AppLog.debug("Error: Failed to save images: \(error.localizedDescription)")
         }
     }
     

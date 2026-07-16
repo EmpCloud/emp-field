@@ -27,8 +27,8 @@ class NotificationViewModel: ObservableObject {
         do {
             
             let fetchData: NotificationModel = try await NetworkManager.shared.getData(to: urlString, as: NotificationModel.self, accessToken: token)
-            print("Notification Data")
-            print(fetchData)
+            AppLog.debug("Notification Data")
+            AppLog.debug(fetchData)
             
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message
@@ -36,7 +36,7 @@ class NotificationViewModel: ObservableObject {
             notificationList = fetchData.body.data.previousTasks
             
         }catch {
-            print("Error: NotificationViewModelError -> \(error.localizedDescription)")
+            AppLog.debug("Error: NotificationViewModelError -> \(error.localizedDescription)")
             self.error = error
         }
     }

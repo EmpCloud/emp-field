@@ -163,7 +163,6 @@
 		DAB98F562C8ACFF700250C6D /* DeleteTaskResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F552C8ACFF700250C6D /* DeleteTaskResponseModel.swift */; };
 		DAB98F582C8AD00A00250C6D /* DeleteTaskRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F572C8AD00A00250C6D /* DeleteTaskRequestModel.swift */; };
 		DAB98F5A2C8AD04200250C6D /* DeleteTaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F592C8AD04200250C6D /* DeleteTaskViewModel.swift */; };
-		DAB98F5C2C8AF70200250C6D /* URLImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F5B2C8AF70200250C6D /* URLImageView.swift */; };
 		DAB98F5E2C8B1ECB00250C6D /* ProfileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F5D2C8B1ECB00250C6D /* ProfileHelper.swift */; };
 		DAB98F602C8B21E000250C6D /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F5F2C8B21E000250C6D /* AppState.swift */; };
 		DAB98F632C8EC76100250C6D /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F622C8EC76100250C6D /* NotificationView.swift */; };
@@ -448,7 +447,6 @@
 		DAB98F552C8ACFF700250C6D /* DeleteTaskResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTaskResponseModel.swift; sourceTree = "<group>"; };
 		DAB98F572C8AD00A00250C6D /* DeleteTaskRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTaskRequestModel.swift; sourceTree = "<group>"; };
 		DAB98F592C8AD04200250C6D /* DeleteTaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeleteTaskViewModel.swift; sourceTree = "<group>"; };
-		DAB98F5B2C8AF70200250C6D /* URLImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLImageView.swift; sourceTree = "<group>"; };
 		DAB98F5D2C8B1ECB00250C6D /* ProfileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHelper.swift; sourceTree = "<group>"; };
 		DAB98F5F2C8B21E000250C6D /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		DAB98F622C8EC76100250C6D /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
@@ -1060,7 +1058,6 @@
 			isa = PBXGroup;
 			children = (
 				DA7290442C294D1B00609B3A /* ProfileLargeView.swift */,
-				DAB98F5B2C8AF70200250C6D /* URLImageView.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -2016,7 +2013,6 @@
 				DA618DDA2CBE585F002F8C44 /* ProfileImageLoader.swift in Sources */,
 				DA7290452C294D1B00609B3A /* ProfileLargeView.swift in Sources */,
 				DAB98F0C2C85D65100250C6D /* UpdateClientAddressView.swift in Sources */,
-				DAB98F5C2C8AF70200250C6D /* URLImageView.swift in Sources */,
 				DA7D4A682C453BB700C8741D /* LeavesBoxView.swift in Sources */,
 				DA7290592C298A9900609B3A /* CurrentLocationButton.swift in Sources */,
 				DA5DCCDF2C21935E00F2BA5C /* EmpMonitorApp.swift in Sources */,

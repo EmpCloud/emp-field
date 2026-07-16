@@ -149,7 +149,7 @@ struct CalenderView: View {
                     switch viewSelection {
                     case "Attendance History":
                         //TODO: Call attendance api will new date
-                        print("Attedance")
+                        AppLog.debug("Attedance")
                         Task {
                             attendanceViewModel.attendanceStartDate = startDate ?? HelperFunction.shared.getFirstDateOfCurrentMonth()
                             attendanceViewModel.attendanceEndDate = HelperFunction.shared.dateAfter30Days(from: attendanceViewModel.attendanceStartDate) ?? attendanceViewModel.attendanceStartDate
@@ -160,7 +160,7 @@ struct CalenderView: View {
                         }
                     case "Leaves":
                         //TODO: call leaves api with new date
-                        print("Leaves")
+                        AppLog.debug("Leaves")
                         Task {
                             leavesViewModel.startDate = startDate ?? HelperFunction.shared.getFirstDateOfCurrentMonth()
                             leavesViewModel.endDate = HelperFunction.shared.dateAfter30Days(from: leavesViewModel.startDate) ?? leavesViewModel.startDate
@@ -173,7 +173,7 @@ struct CalenderView: View {
                         }
                     default:
                         //TODO: Do nothing
-                        print("default")
+                        AppLog.debug("default")
                     }
                     
                 }label: {
@@ -206,10 +206,10 @@ struct CalenderView: View {
         switch viewSelection {
         case "Attendance History":
             //TODO: Call attendance api will new date
-            print("Attedance")
+            AppLog.debug("Attedance")
         case "Leaves":
             //TODO: call leaves api with new date
-            print("Leaves")
+            AppLog.debug("Leaves")
             Task {
                 leavesViewModel.startDate = startDate ?? HelperFunction.shared.getFirstDateOfCurrentMonth()
                 leavesViewModel.endDate = HelperFunction.shared.dateAfter30Days(from: leavesViewModel.startDate) ?? leavesViewModel.startDate
@@ -218,7 +218,7 @@ struct CalenderView: View {
             }
         default:
             //TODO: Do nothing
-            print("default")
+            AppLog.debug("default")
         }
     }
 }

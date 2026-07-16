@@ -47,11 +47,11 @@ final class TrackViewModel: ObservableObject {
                 UserDefaults.standard.set(radius, forKey: "CurrentRadius")
             }
             
-            print("Track response data")
-            print(fetchData)
+            AppLog.debug("Track response data")
+            AppLog.debug(fetchData)
             
         } catch {
-            print("Error: tracking user error \(error.localizedDescription)")
+            AppLog.debug("Error: tracking user error \(error.localizedDescription)")
             self.error = error
             NetworkManager.shared.statusCode = (error as? NetworkError).map { _ in 0 } ?? 0
         }

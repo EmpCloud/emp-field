@@ -156,14 +156,14 @@ struct QRCodePopupView: View {
     func loadQRCodeImage() {
         guard let url = URL(string: imageURL) else { return }
 
-        print("[API] GET \(imageURL)")
+        AppLog.debug("[API] GET \(imageURL)")
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
             guard let data = data, let image = UIImage(data: data), error == nil else {
-                print("[API] Response (\(httpStatus)) \(self.imageURL) — image load failed: \(error?.localizedDescription ?? "Unknown error")")
+                AppLog.debug("[API] Response (\(httpStatus)) \(self.imageURL) — image load failed: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-            print("[API] Response (\(httpStatus)) \(self.imageURL) — image loaded (\(data.count) bytes)")
+            AppLog.debug("[API] Response (\(httpStatus)) \(self.imageURL) — image loaded (\(data.count) bytes)")
 
             DispatchQueue.main.async {
                 self.qrCodeImage = image
@@ -181,12 +181,12 @@ struct QRCodePopupView: View {
         //save PDF to file
         do{
             let savedPDFURL = try await savePDFToDocument(renderer: renderer)
-            print("PDF saved at : \(savedPDFURL)")
+            AppLog.debug("PDF saved at : \(savedPDFURL)")
             pdfURL = savedPDFURL
             isShareSheetPresented = true
         }
         catch {
-            print("Error: failed to save PDF: \(error.localizedDescription)")
+            AppLog.debug("Error: failed to save PDF: \(error.localizedDescription)")
         }
         
     }

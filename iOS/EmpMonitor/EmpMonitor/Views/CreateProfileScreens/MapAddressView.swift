@@ -85,7 +85,7 @@ struct MapAddressView: View {
                         //MARK: Current location Button
                         CurrentLocationButton(text: "Use Current Location") {
                             if let userLocation = searchLocationViewModel.userCurrentLocation {
-                                print(userLocation)
+                                AppLog.debug(userLocation)
                                 createProfileMapViewCoordinator?.centerOnUserLocation(userLocation: userLocation)
                             }
                         }
@@ -95,7 +95,7 @@ struct MapAddressView: View {
                 }
                 .onAppear {
                     if let userLocation = searchLocationViewModel.userCurrentLocation {
-                        print(userLocation)
+                        AppLog.debug(userLocation)
                         createProfileMapViewCoordinator?.centerOnUserLocation(userLocation: userLocation)
                     }
                 }
@@ -164,7 +164,7 @@ struct MapAddressView: View {
             }
         }
         .onDisappear {
-            print(createProfileViewModel.age)
+            AppLog.debug(createProfileViewModel.age)
         }
         
     }

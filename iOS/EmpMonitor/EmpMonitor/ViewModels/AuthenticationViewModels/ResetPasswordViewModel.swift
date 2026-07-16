@@ -26,8 +26,8 @@ class ResetPasswordViewModel: ObservableObject {
         
         let body = ResetPasswordRequestModel(email: email, verifyToken: verifyToken, newPassword: newPassword)
         
-        print("Reset password body:")
-        print(body)
+        AppLog.debug("Reset password body:")
+        AppLog.debug(body)
         
         do {
             let fetchData: ResetPasswordResponseModel = try await NetworkManager.shared.putData(to: urlString, body: body, as: ResetPasswordResponseModel.self, accessToken: nil, queryParams: nil)
@@ -35,10 +35,10 @@ class ResetPasswordViewModel: ObservableObject {
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message
             
-            print("Reset Password Done")
+            AppLog.debug("Reset Password Done")
             
         }catch {
-            print("Error: Reset Password Error -> \(error.localizedDescription)")
+            AppLog.debug("Error: Reset Password Error -> \(error.localizedDescription)")
             self.error = error
         }
     }

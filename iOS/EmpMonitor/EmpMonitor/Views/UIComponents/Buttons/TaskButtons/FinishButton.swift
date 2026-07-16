@@ -26,6 +26,6 @@ struct FinishButton: View {
 
 #Preview {
     FinishButton() {
-        print("clicked")
+        AppLog.debug("clicked")
     }
 }

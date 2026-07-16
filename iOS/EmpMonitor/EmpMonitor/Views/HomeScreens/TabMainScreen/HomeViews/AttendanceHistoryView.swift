@@ -207,7 +207,7 @@ struct AttendanceHistoryView: View {
         
         //Convert the dateString to date object
         guard let inputDate = dateFormatter.date(from: date) else {
-            print("Invalid date Format")
+            AppLog.debug("Invalid date Format")
             return false
         }
         

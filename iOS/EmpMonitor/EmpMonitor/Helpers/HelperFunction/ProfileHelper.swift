@@ -21,14 +21,14 @@ class ProfileHelper {
     func saveImageToDisk(imageURL: URL) {
         DispatchQueue.global(qos: .background).async {
             guard let imageData = try? Data(contentsOf: imageURL) else {
-                print("ProfileHelper: failed to download image from \(imageURL)")
+                AppLog.debug("ProfileHelper: failed to download image from \(imageURL)")
                 return
             }
             let fileURL = self.cachedImageFileURL()
             do {
                 try imageData.write(to: fileURL, options: .atomic)
             } catch {
-                print("ProfileHelper: failed to save image to disk — \(error)")
+                AppLog.debug("ProfileHelper: failed to save image to disk — \(error)")
             }
         }
     }

@@ -176,8 +176,8 @@ struct TaskView: View {
                                                     
                                                    try await taskListViewModel.getFilterTaskList()
                                                     
-                                                    print(NetworkManager.shared.statusCode)
-                                                    print(NetworkManager.shared.responseMessage)
+                                                    AppLog.debug(NetworkManager.shared.statusCode)
+                                                    AppLog.debug(NetworkManager.shared.responseMessage)
                                                     
                                                     if NetworkManager.shared.statusCode == 200 {
                                                         filterTaskData = taskListViewModel.filterTaskData
@@ -314,8 +314,8 @@ struct TaskView: View {
                         filterTaskData = taskListViewModel.filterTaskData
                     }
                     
-                    print(NetworkManager.shared.statusCode)
-                    print(NetworkManager.shared.responseMessage)
+                    AppLog.debug(NetworkManager.shared.statusCode)
+                    AppLog.debug(NetworkManager.shared.responseMessage)
                 }
             }
             .onChange(of: refreshScreen) { _, _ in
@@ -323,8 +323,8 @@ struct TaskView: View {
                     taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
                     taskListViewModel.status = 0
                     taskListViewModel.filterTaskData = []
-                    print("-----filter task Data")
-                    print(taskListViewModel.filterTaskData)
+                    AppLog.debug("-----filter task Data")
+                    AppLog.debug(taskListViewModel.filterTaskData)
                     
                     try await taskListViewModel.getFilterTaskList()
                     
@@ -349,8 +349,8 @@ struct TaskView: View {
                     taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
                     taskListViewModel.status = 0
                     taskListViewModel.filterTaskData = []
-                    print("-----filter task Data")
-                    print(taskListViewModel.filterTaskData)
+                    AppLog.debug("-----filter task Data")
+                    AppLog.debug(taskListViewModel.filterTaskData)
                    try await taskListViewModel.getFilterTaskList()
                     
                     if NetworkManager.shared.statusCode == 200 {

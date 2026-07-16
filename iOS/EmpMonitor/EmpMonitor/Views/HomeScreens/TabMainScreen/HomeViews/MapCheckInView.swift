@@ -216,9 +216,9 @@ struct MapCheckInView: View {
                                             self.showCheckOUT = true
                                             self.showMOTPopup = true  // Mode of travel visiblity
                                             currentDeviceTime = HelperFunction.shared.currentTime()
-                                            print("Current Time: \(currentDeviceTime)")
-                                            print("Lat: \(permissionManager.userLocation?.coordinate.latitude)")
-                                            print("Long: \(permissionManager.userLocation?.coordinate.latitude)")
+                                            AppLog.debug("Current Time: \(currentDeviceTime)")
+                                            AppLog.debug("Lat: \(permissionManager.userLocation?.coordinate.latitude)")
+                                            AppLog.debug("Long: \(permissionManager.userLocation?.coordinate.latitude)")
                                             Task {
                                                 checkINViewModel.checkINTime = currentDeviceTime
                                                 if let lat = permissionManager.userLocation?.coordinate.latitude{
@@ -228,7 +228,7 @@ struct MapCheckInView: View {
                                                     checkINViewModel.checkINLongitude = Double(long)
                                                 }
                                                 try await checkINViewModel.markAttendance()
-                                                print("CheckIN: Attendance marked")
+                                                AppLog.debug("CheckIN: Attendance marked")
                                                 if checkINViewModel.checkINTime != "" {
                                                     homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
                                                     
@@ -277,9 +277,9 @@ struct MapCheckInView: View {
                                         self.showCheckOUT = true
                                         self.showMOTPopup = true  // Mode of travel visiblity
                                         currentDeviceTime = HelperFunction.shared.currentTime()
-                                        print("Current Time: \(currentDeviceTime)")
-                                        print("Lat: \(permissionManager.userLocation?.coordinate.latitude)")
-                                        print("Long: \(permissionManager.userLocation?.coordinate.latitude)")
+                                        AppLog.debug("Current Time: \(currentDeviceTime)")
+                                        AppLog.debug("Lat: \(permissionManager.userLocation?.coordinate.latitude)")
+                                        AppLog.debug("Long: \(permissionManager.userLocation?.coordinate.latitude)")
                                         Task {
                                             checkINViewModel.checkINTime = currentDeviceTime
                                             if let lat = permissionManager.userLocation?.coordinate.latitude{
@@ -289,7 +289,7 @@ struct MapCheckInView: View {
                                                 checkINViewModel.checkINLongitude = Double(long)
                                             }
                                             try await checkINViewModel.markAttendance()
-                                            print("CheckIN: Attendance marked")
+                                            AppLog.debug("CheckIN: Attendance marked")
                                             if checkINViewModel.checkINTime != "" {
                                                 homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
                                                 
@@ -350,7 +350,7 @@ struct MapCheckInView: View {
                                             
                                             Task {
                                                 currentDeviceTime = HelperFunction.shared.currentTime()
-                                                print("Current Time: \(currentDeviceTime)")
+                                                AppLog.debug("Current Time: \(currentDeviceTime)")
                                                 checkINViewModel.checkINTime = currentDeviceTime
                                                 if let lat = permissionManager.userLocation?.coordinate.latitude{
                                                     checkINViewModel.checkINLatitude = Double(lat)
@@ -361,7 +361,7 @@ struct MapCheckInView: View {
                                                 //show checkOutAlert
                                                 showCheckOUTAlert.toggle()
                                                 //                                            try await checkINViewModel.markAttendance()
-                                                //                                            print("CheckOUT: Attendance marked")
+                                                //                                            AppLog.debug("CheckOUT: Attendance marked")
                                                 //
                                                 //                                            timerManager.stopActiveTimer()
                                             }
@@ -408,7 +408,7 @@ struct MapCheckInView: View {
                                         
                                         Task {
                                             currentDeviceTime = HelperFunction.shared.currentTime()
-                                            print("Current Time: \(currentDeviceTime)")
+                                            AppLog.debug("Current Time: \(currentDeviceTime)")
                                             checkINViewModel.checkINTime = currentDeviceTime
                                             if let lat = permissionManager.userLocation?.coordinate.latitude{
                                                 checkINViewModel.checkINLatitude = Double(lat)
@@ -419,7 +419,7 @@ struct MapCheckInView: View {
                                             //show checkOutAlert
                                             showCheckOUTAlert.toggle()
                                             //                                            try await checkINViewModel.markAttendance()
-                                            //                                            print("CheckOUT: Attendance marked")
+                                            //                                            AppLog.debug("CheckOUT: Attendance marked")
                                             //
                                             //                                            timerManager.stopActiveTimer()
                                         }

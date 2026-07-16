@@ -81,9 +81,9 @@ struct TaskCardView: View {
 //            taskStatus.removeValue(forKey: filterTaskDetail.id)
             taskStatus[filterTaskDetail.id] = filterTaskDetail.taskApproveStatus
             
-            print("Filter task each logs")
-            print(filterTaskDetail.tagLogs)
-//            print(filterTaskDetail)
+            AppLog.debug("Filter task each logs")
+            AppLog.debug(filterTaskDetail.tagLogs)
+//            AppLog.debug(filterTaskDetail)
         }
         
     }
@@ -110,7 +110,7 @@ struct TaskCardView: View {
                     updateTaskViewModel.taskVolume = filterTaskDetail.taskVolume
                     updateTaskViewModel.tagLogs = filterTaskDetail.tagLogs
                     
-//                    print("Taglogs:  \(filterTaskDetail.tagLogs.first)")
+//                    AppLog.debug("Taglogs:  \(filterTaskDetail.tagLogs.first)")
                     
                     // adding a validation for the lat, long confirmation not to be empty
                     if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {
@@ -156,7 +156,7 @@ struct TaskCardView: View {
                     updateTaskViewModel.taskVolume = filterTaskDetail.taskVolume
                     updateTaskViewModel.tagLogs = filterTaskDetail.tagLogs
                     
-//                    print("Taglogs:  \(filterTaskDetail.tagLogs.first)")
+//                    AppLog.debug("Taglogs:  \(filterTaskDetail.tagLogs.first)")
                     
                     // adding a validation for the lat, long confirmation not to be empty
                     if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {
@@ -200,7 +200,7 @@ struct TaskCardView: View {
                     updateTaskViewModel.taskVolume = filterTaskDetail.taskVolume
                     updateTaskViewModel.tagLogs = filterTaskDetail.tagLogs
                     
-//                    print("Taglogs:  \(filterTaskDetail.tagLogs.first)")
+//                    AppLog.debug("Taglogs:  \(filterTaskDetail.tagLogs.first)")
                     
                     // adding a validation for the lat, long confirmation not to be empty
                     if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {

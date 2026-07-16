@@ -171,14 +171,14 @@ struct AddClientAddressView: View {
                                 addClientViewModel.longitude = searchLocationViewModel.selectedLocationLongitude ?? 0
 //
                                 
-                                print("Client Address")
-                                print("Lat: \(addClientViewModel.latitude)")
-                                print("Long: \(addClientViewModel.longitude)")
-                                print("address1: \(addClientViewModel.address1)")
-                                print("address2: \(addClientViewModel.address2)")
-                                print("State: \(addClientViewModel.state)")
-                                print("City: \(addClientViewModel.city)")
-                                print("ZipCode: \(addClientViewModel.zipCode)")
+                                AppLog.debug("Client Address")
+                                AppLog.debug("Lat: \(addClientViewModel.latitude)")
+                                AppLog.debug("Long: \(addClientViewModel.longitude)")
+                                AppLog.debug("address1: \(addClientViewModel.address1)")
+                                AppLog.debug("address2: \(addClientViewModel.address2)")
+                                AppLog.debug("State: \(addClientViewModel.state)")
+                                AppLog.debug("City: \(addClientViewModel.city)")
+                                AppLog.debug("ZipCode: \(addClientViewModel.zipCode)")
                                 
                                 dismiss()
                             }
@@ -244,17 +244,17 @@ struct AddClientAddressView: View {
 //                createProfileViewModel.longitude = "\(longitude)"
 //            }
             
-            print("Client Address")
-            print("Lat: \(addClientViewModel.latitude)")
-            print("Long: \(addClientViewModel.longitude)")
-            print("address1: \(addClientViewModel.address1)")
-            print("address2: \(addClientViewModel.address2)")
-            print("State: \(addClientViewModel.state)")
-            print("City: \(addClientViewModel.city)")
-            print("ZipCode: \(addClientViewModel.zipCode)")
-//            print("Name: \(addClientViewModel.fullName)")
-//            print("Gender: \(createProfileViewModel.gender)")
-//            print("Age: \(createProfileViewModel.age)")
+            AppLog.debug("Client Address")
+            AppLog.debug("Lat: \(addClientViewModel.latitude)")
+            AppLog.debug("Long: \(addClientViewModel.longitude)")
+            AppLog.debug("address1: \(addClientViewModel.address1)")
+            AppLog.debug("address2: \(addClientViewModel.address2)")
+            AppLog.debug("State: \(addClientViewModel.state)")
+            AppLog.debug("City: \(addClientViewModel.city)")
+            AppLog.debug("ZipCode: \(addClientViewModel.zipCode)")
+//            AppLog.debug("Name: \(addClientViewModel.fullName)")
+//            AppLog.debug("Gender: \(createProfileViewModel.gender)")
+//            AppLog.debug("Age: \(createProfileViewModel.age)")
             
                 UINavigationBar.appearance().titleTextAttributes = [
                     .foregroundColor: UIColor.white

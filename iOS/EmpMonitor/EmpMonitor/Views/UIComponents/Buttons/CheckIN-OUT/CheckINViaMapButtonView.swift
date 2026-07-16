@@ -48,7 +48,7 @@ struct CheckINViaMap: View {
 }
 
 #Preview {
-    CheckINViaMap(text: "Check IN via Map", action: { print("Clicked")})
+    CheckINViaMap(text: "Check IN via Map", action: { AppLog.debug("Clicked")})
 }
 
 

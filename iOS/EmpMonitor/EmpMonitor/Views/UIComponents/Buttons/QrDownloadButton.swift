@@ -30,6 +30,6 @@ struct QrDownloadButton: View {
 
 #Preview {
     QrDownloadButton() {
-        print("Clicked")
+        AppLog.debug("Clicked")
     }
 }

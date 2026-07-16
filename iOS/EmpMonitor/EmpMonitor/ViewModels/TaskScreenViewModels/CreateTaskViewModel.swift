@@ -43,18 +43,18 @@ class CreateTaskViewModel: ObservableObject {
         
         let body = CreateTaskRequestModel(clientID: clientID, taskName: taskName, startTime: startTime, endTime: endTime, date: date, taskDescription: taskDescription, files: files, images: images, value: value, taskVolume: taskVolume, tagLogs: tagLogs)
         
-        print("Body: Create Task")
-        print(body)
+        AppLog.debug("Body: Create Task")
+        AppLog.debug(body)
         
         do{
             let fetchData: CreateTaskResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: CreateTaskResponseModel.self, accessToken: token)
             
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.error?.details.first?.message ?? fetchData.body.message
-//            print("Create task data: \(fetchData)")
+//            AppLog.debug("Create task data: \(fetchData)")
             
         }catch{
-            print("Error: TaskListViewModel data error")
+            AppLog.debug("Error: TaskListViewModel data error")
             self.error = error
         }
     }
@@ -64,7 +64,7 @@ class CreateTaskViewModel: ObservableObject {
             selectedPDFURLs.append(file.url)
         }
         
-        print("SelectedPDFURLs: \(selectedPDFURLs)")
+        AppLog.debug("SelectedPDFURLs: \(selectedPDFURLs)")
     }
     
     func addLatestImageURLs(_ filesURLs: [FilesURL]) {
@@ -72,7 +72,7 @@ class CreateTaskViewModel: ObservableObject {
             selectedImageURLs.append(file.url)
         }
         
-        print("SelectedImageURLs: \(selectedImageURLs)")
+        AppLog.debug("SelectedImageURLs: \(selectedImageURLs)")
     }
     
     func addToImages(description: String, url: String ) {
@@ -97,7 +97,7 @@ class CreateTaskViewModel: ObservableObject {
 //            try imageData.write(to: imageURL)
 //            return imageURL
 //        }catch {
-//            print("Error : Saving image to temporary directory: \(error.localizedDescription)")
+//            AppLog.debug("Error : Saving image to temporary directory: \(error.localizedDescription)")
 //            return nil
 //        }
 //    }

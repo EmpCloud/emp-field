@@ -114,7 +114,7 @@ extension CreateProfileMapViewRepresentable {
 ////            }
 //            DispatchQueue.main.async {
 //                    self.parent.searchLocationViewModel.selectedLocationCoordinate = centerCoordinate
-//                    print("Pin coordinate: \(centerCoordinate.latitude), \(centerCoordinate.longitude)")
+//                    AppLog.debug("Pin coordinate: \(centerCoordinate.latitude), \(centerCoordinate.longitude)")
 //                }
 //        }
         
@@ -143,7 +143,7 @@ extension CreateProfileMapViewRepresentable {
         @MainActor
         @objc func handlePanGesture(_ gesture: UIPanGestureRecognizer) {
             guard gesture.state == .ended else { return }
-            print("Handle Gesture is called")
+            AppLog.debug("Handle Gesture is called")
             
             let mapView = parent.mapView
             let centerCoordinate = mapView.centerCoordinate
@@ -154,7 +154,7 @@ extension CreateProfileMapViewRepresentable {
             
 //            DispatchQueue.main.async {
 //                self.parent.searchLocationViewModel.selectedLocationCoordinate = centerCoordinate
-//                print("Pin coordinate: \(centerCoordinate.latitude), \(centerCoordinate.longitude)")
+//                AppLog.debug("Pin coordinate: \(centerCoordinate.latitude), \(centerCoordinate.longitude)")
 //            }
             
             updateAnnotation(to: centerCoordinate)
@@ -193,14 +193,14 @@ extension CreateProfileMapViewRepresentable {
             
             DispatchQueue.main.async {
                 self.parent.searchLocationViewModel.selectedLocationCoordinate = coordinate
-                print("Pin coordinate: \(coordinate.latitude), \(coordinate.longitude)")
+                AppLog.debug("Pin coordinate: \(coordinate.latitude), \(coordinate.longitude)")
                 
                 //passing the coordinate value to the createProfileViewModel
                 self.parent.createProfileViewModel.latitude = String(coordinate.latitude)
                 self.parent.createProfileViewModel.longitude = String(coordinate.longitude)
                 
-                print(self.parent.createProfileViewModel.latitude)
-                print(self.parent.createProfileViewModel.longitude)
+                AppLog.debug(self.parent.createProfileViewModel.latitude)
+                AppLog.debug(self.parent.createProfileViewModel.longitude)
                 
             }
         }
@@ -218,11 +218,11 @@ extension CreateProfileMapViewRepresentable {
             geocoder.reverseGeocodeLocation(location) { [weak self] placemarks, error in
                 guard let self = self else { return }
                 if let error = error {
-                    print("Reverse geocoding failed with error: \(error)")
+                    AppLog.debug("Reverse geocoding failed with error: \(error)")
                     return
                 }
                 guard let placemark = placemarks?.first else {
-                    print("No placemarks found")
+                    AppLog.debug("No placemarks found")
                     return
                 }
                 
@@ -245,15 +245,15 @@ extension CreateProfileMapViewRepresentable {
                     self.parent.searchLocationViewModel.selectedLocationLatitude = coordinate.latitude
                     self.parent.searchLocationViewModel.selectedLocationLongitude = coordinate.longitude
                     
-                    print("Location: \(title), \(subtitle)")
-                    print("State: \(state)")
-                    print("City: \(city)")
-                    print("ZipCode: \(zipCode)")
-                    print("Dragged Pin Coordinate")
-                    print("Coordinate: \(coordinate.latitude), \(coordinate.longitude)")
+                    AppLog.debug("Location: \(title), \(subtitle)")
+                    AppLog.debug("State: \(state)")
+                    AppLog.debug("City: \(city)")
+                    AppLog.debug("ZipCode: \(zipCode)")
+                    AppLog.debug("Dragged Pin Coordinate")
+                    AppLog.debug("Coordinate: \(coordinate.latitude), \(coordinate.longitude)")
                     
-                    print("Searched pinCoordinate")
-                    print("\(self.parent.searchLocationViewModel.selectedLocationLatitude), \(self.parent.searchLocationViewModel.selectedLocationLongitude)")
+                    AppLog.debug("Searched pinCoordinate")
+                    AppLog.debug("\(self.parent.searchLocationViewModel.selectedLocationLatitude), \(self.parent.searchLocationViewModel.selectedLocationLongitude)")
                 }
             }
         }

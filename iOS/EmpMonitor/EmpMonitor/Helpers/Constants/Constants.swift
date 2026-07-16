@@ -7,6 +7,23 @@
 
 import Foundation
 
+// MARK: - Logging
+
+/// Lightweight logging that is compiled out of Release builds.
+///
+/// A drop-in replacement for `print(_:)`. Using an `@autoclosure` means the
+/// argument expression (and any string interpolation / value conversion it
+/// performs) is never evaluated in Release — this both avoids the runtime cost
+/// of building log output and prevents sensitive API payloads / tokens / PII
+/// from ever being written to the device console in production.
+enum AppLog {
+    static func debug(_ message: @autoclosure () -> Any) {
+        #if DEBUG
+        print(message())
+        #endif
+    }
+}
+
 class Constants {
 
     static let shared = Constants()

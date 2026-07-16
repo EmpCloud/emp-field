@@ -78,7 +78,7 @@ struct GenericSearchBar: View {
             placeholder: "Search tasks...",
             bgColor: Color.blue.opacity(0.7),
             showFilterButton: true,
-            onFilterTap: { print("Filter tapped") }
+            onFilterTap: { AppLog.debug("Filter tapped") }
         )
     }
     .padding()

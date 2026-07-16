@@ -171,14 +171,14 @@ struct UpdateClientAddressView: View {
                                 updateClientViewModel.longitude = searchLocationViewModel.selectedLocationLongitude ?? 0
 //
                                 
-                                print("Client Address")
-                                print("Lat: \(updateClientViewModel.latitude)")
-                                print("Long: \(updateClientViewModel.longitude)")
-                                print("address1: \(updateClientViewModel.address1)")
-                                print("address2: \(updateClientViewModel.address2)")
-                                print("State: \(updateClientViewModel.state)")
-                                print("City: \(updateClientViewModel.city)")
-                                print("ZipCode: \(updateClientViewModel.zipCode)")
+                                AppLog.debug("Client Address")
+                                AppLog.debug("Lat: \(updateClientViewModel.latitude)")
+                                AppLog.debug("Long: \(updateClientViewModel.longitude)")
+                                AppLog.debug("address1: \(updateClientViewModel.address1)")
+                                AppLog.debug("address2: \(updateClientViewModel.address2)")
+                                AppLog.debug("State: \(updateClientViewModel.state)")
+                                AppLog.debug("City: \(updateClientViewModel.city)")
+                                AppLog.debug("ZipCode: \(updateClientViewModel.zipCode)")
                                 
                                 dismiss()
                             }
@@ -227,14 +227,14 @@ struct UpdateClientAddressView: View {
             searchLocationViewModel.selectedLocationLatitude = updateClientViewModel.latitude
             searchLocationViewModel.selectedLocationLongitude = updateClientViewModel.longitude
  
-//            print("Client Address")
-//            print("Lat: \(updateClientViewModel.latitude)")
-//            print("Long: \(updateClientViewModel.longitude)")
-//            print("address1: \(updateClientViewModel.address1)")
-//            print("address2: \(updateClientViewModel.address2)")
-//            print("State: \(updateClientViewModel.state)")
-//            print("City: \(updateClientViewModel.city)")
-//            print("ZipCode: \(updateClientViewModel.zipCode)")
+//            AppLog.debug("Client Address")
+//            AppLog.debug("Lat: \(updateClientViewModel.latitude)")
+//            AppLog.debug("Long: \(updateClientViewModel.longitude)")
+//            AppLog.debug("address1: \(updateClientViewModel.address1)")
+//            AppLog.debug("address2: \(updateClientViewModel.address2)")
+//            AppLog.debug("State: \(updateClientViewModel.state)")
+//            AppLog.debug("City: \(updateClientViewModel.city)")
+//            AppLog.debug("ZipCode: \(updateClientViewModel.zipCode)")
             
                 UINavigationBar.appearance().titleTextAttributes = [
                     .foregroundColor: UIColor.white

@@ -39,7 +39,7 @@ struct PDFRenderer: UIViewControllerRepresentable {
 
         }
         catch{
-            print("Error: pdfRenderer to fileURL ")
+            AppLog.debug("Error: pdfRenderer to fileURL ")
         }
     }
 }

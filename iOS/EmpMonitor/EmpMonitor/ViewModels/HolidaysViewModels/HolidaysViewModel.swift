@@ -35,7 +35,7 @@ class HolidaysViewModel: ObservableObject {
             holidaysData = holidaysResponse.body.data ?? []
             
         }catch{
-            print("Error: Holiday Fetch Error")
+            AppLog.debug("Error: Holiday Fetch Error")
             self.error = error
         }
     }

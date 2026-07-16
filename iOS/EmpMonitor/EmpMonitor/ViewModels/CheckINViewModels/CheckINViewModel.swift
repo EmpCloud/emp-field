@@ -29,8 +29,8 @@ class CheckINViewModel: ObservableObject {
         
         let body = CheckINRequestModel(time: checkINTime, latitude: checkINLatitude, longitude: checkINLongitude)
         
-        print("Check in Request")
-        print(body)
+        AppLog.debug("Check in Request")
+        AppLog.debug(body)
         
         do{
             let fetchData: CheckINResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: CheckINResponseModel.self, accessToken: token)
@@ -40,12 +40,12 @@ class CheckINViewModel: ObservableObject {
                 NetworkManager.shared.statusCode = fetchData.statusCode
 //                NetworkManager.shared.responseMessage = fetchData.body.data?.message ?? ""
             NetworkManager.shared.responseMessage = fetchData.body.message
-                print("CheckIN Data: ")
-                print(fetchData)
+                AppLog.debug("CheckIN Data: ")
+                AppLog.debug(fetchData)
 //            }
             
         }catch {
-            print("Error: CheckINViewModel Mark attendance error")
+            AppLog.debug("Error: CheckINViewModel Mark attendance error")
             self.error = error
         }
     }
@@ -58,8 +58,8 @@ class CheckINViewModel: ObservableObject {
         
         let body = CheckINRequestModel(time: checkINTime, latitude: checkINLatitude, longitude: checkINLongitude)
         
-        print("Check in Request")
-        print(body)
+        AppLog.debug("Check in Request")
+        AppLog.debug(body)
         
         do{
             let fetchData: CheckINResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: CheckINResponseModel.self, accessToken: token)
@@ -69,12 +69,12 @@ class CheckINViewModel: ObservableObject {
 //                NetworkManager.shared.statusCode = fetchData.statusCode
                 NetworkManager.shared.responseMessage = fetchData.body.data?.message ?? ""
 //            NetworkManager.shared.responseMessage = fetchData.body.message
-                print("CheckIN Data: ")
-                print(fetchData)
+                AppLog.debug("CheckIN Data: ")
+                AppLog.debug(fetchData)
             }
             
         }catch {
-            print("Error: CheckINViewModel Mark attendance error")
+            AppLog.debug("Error: CheckINViewModel Mark attendance error")
             self.error = error
         }
     }

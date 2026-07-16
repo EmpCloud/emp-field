@@ -49,7 +49,7 @@ class TaskListViewModel: ObservableObject {
 //            taskData = fetchData.body.data
             
         }catch{
-            print("Error: TaskListViewModel data error")
+            AppLog.debug("Error: TaskListViewModel data error")
             self.error = error
         }
     }
@@ -62,8 +62,8 @@ class TaskListViewModel: ObservableObject {
         
         let body = FilterTaskListRequestModel(date: date, status: status)
         
-        print("Fetch Filter task List body:")
-        print(body)
+        AppLog.debug("Fetch Filter task List body:")
+        AppLog.debug(body)
         
         do{
             let fetchData: FilterTaskListResponseModel = try await NetworkManager.shared.postData(to: filterURLString, body: body, as: FilterTaskListResponseModel.self, accessToken: token)
@@ -72,21 +72,21 @@ class TaskListViewModel: ObservableObject {
             NetworkManager.shared.responseMessage = fetchData.body.message
             
             filterTaskData = fetchData.body.data ?? []
-//            print("Filtered Task Data : \(filterTaskData)")
+//            AppLog.debug("Filtered Task Data : \(filterTaskData)")
             fetchStatus = fetchData.statusCode
             
         }catch{
-            print("Error: FilterTaskListViewModel data error -> \(error)")
+            AppLog.debug("Error: FilterTaskListViewModel data error -> \(error)")
             self.error = error
         }
     }
     
     //MARK: To remove the task from the list with animation
     func removeTask(taskID: String) {
-        print(taskID)
+        AppLog.debug(taskID)
         if let index = filterTaskData.firstIndex(where: { $0.id == taskID }) {
             removedTask = (task: filterTaskData[index], index: index)
-            print(index)
+            AppLog.debug(index)
             filterTaskData.remove(at: index)
         }
     }

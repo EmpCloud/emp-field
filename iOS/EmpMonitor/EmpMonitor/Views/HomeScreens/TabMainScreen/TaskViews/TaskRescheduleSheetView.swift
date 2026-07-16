@@ -629,7 +629,7 @@ struct TaskRescheduleDetailSheetView: View {
     //                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                             if cameraViewModel.savedImages.count < 4 {
                                                 showCamera.toggle()
-                                                print("Camera btn tapped")
+                                                AppLog.debug("Camera btn tapped")
                                             }else{
                                                 //TODO: Show alert
                                             }
@@ -639,7 +639,7 @@ struct TaskRescheduleDetailSheetView: View {
                                     .onChange(of: savedImageURLs) { _, _ in
                                         Task {
                                             //TODO: Upload the Images
-                                            print(savedImageURLs)
+                                            AppLog.debug(savedImageURLs)
                                             
     //                                        createTaskViewModel.selectedImageURLs.removeAll() // ensuring every url is remove to fill new one only(remain one)
     //                                        createTaskViewModel.images.removeAll() // removing the all Image
@@ -665,8 +665,8 @@ struct TaskRescheduleDetailSheetView: View {
                                                 }
                                             }
                                             
-    //                                        print("Images URLs: \(createTaskViewModel.selectedImageURLs)")
-                                            print(uploadFileViewModel.fetchedURL)
+    //                                        AppLog.debug("Images URLs: \(createTaskViewModel.selectedImageURLs)")
+                                            AppLog.debug(uploadFileViewModel.fetchedURL)
                                         }
                                     }
 
@@ -719,8 +719,8 @@ struct TaskRescheduleDetailSheetView: View {
                                     
                                     updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
                                     
-//                                    print("Up :\(updateTaskViewModel.startTime)")
-//                                    print("Up :\(updateTaskViewModel.endTime)")
+//                                    AppLog.debug("Up :\(updateTaskViewModel.startTime)")
+//                                    AppLog.debug("Up :\(updateTaskViewModel.endTime)")
                                     
                                     
                                     try await updateTaskViewModel.updateTask()
@@ -874,8 +874,8 @@ struct TaskRescheduleDetailSheetView: View {
                     savedImageURLs = cameraViewModel.getCapturedImageURLs()
                     savedImages = cameraViewModel.savedImages
                     
-                    print("IMage URLs")
-                    print(savedImageURLs)
+                    AppLog.debug("IMage URLs")
+                    AppLog.debug(savedImageURLs)
                     
                 }
 //            }

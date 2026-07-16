@@ -29,14 +29,14 @@ class MOTViewModel: ObservableObject {
         do {
             let fetchData: MOTResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: MOTResponseModel.self, accessToken: token)
             
-            print("MOTResponse Data")
-            print(fetchData)
+            AppLog.debug("MOTResponse Data")
+            AppLog.debug(fetchData)
             
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message
             
         }catch {
-            print("Error: Set Mode of travel issue: \(error.localizedDescription)")
+            AppLog.debug("Error: Set Mode of travel issue: \(error.localizedDescription)")
         }
     }
 }

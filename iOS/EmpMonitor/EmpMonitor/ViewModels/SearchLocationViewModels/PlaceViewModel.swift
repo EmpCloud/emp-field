@@ -14,7 +14,7 @@ final class PlaceViewModel: NSObject, ObservableObject, MKLocalSearchCompleterDe
     
     @Published var queryFragment: String = "" {
         didSet {
-            print(queryFragment)
+            AppLog.debug(queryFragment)
             debounceSearch(queryFragment)
         }
     }
@@ -35,7 +35,7 @@ final class PlaceViewModel: NSObject, ObservableObject, MKLocalSearchCompleterDe
             Task { @MainActor [weak self] in
                 self?.searchCompleter.queryFragment = query
             }
-            print("Input Para: \(query)")
+            AppLog.debug("Input Para: \(query)")
         }
     }
     
@@ -48,17 +48,17 @@ final class PlaceViewModel: NSObject, ObservableObject, MKLocalSearchCompleterDe
         search.start { [weak self] response, error in
             Task { @MainActor [weak self] in
                 if let error = error {
-                    print("Error: \(error.localizedDescription)")
+                    AppLog.debug("Error: \(error.localizedDescription)")
                     return
                 }
                 
                 guard let response = response else {
-                    print("No response.")
+                    AppLog.debug("No response.")
                     return
                 }
                 
                 self?.places = response.mapItems.map(Place.init)
-                print("Places: \(self?.places ?? [])")
+                AppLog.debug("Places: \(self?.places ?? [])")
             }
         }
     }
@@ -68,6 +68,6 @@ final class PlaceViewModel: NSObject, ObservableObject, MKLocalSearchCompleterDe
     }
     
     nonisolated func completer(_ completer: MKLocalSearchCompleter, didFailWithError error: Error) {
-        print("Local search completer failed with error: \(error.localizedDescription)")
+        AppLog.debug("Local search completer failed with error: \(error.localizedDescription)")
     }
 }
