@@ -15,6 +15,7 @@ import android.os.Build
 import android.os.Handler
 import android.os.IBinder
 import android.os.Looper
+import android.os.SystemClock
 import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -36,6 +37,7 @@ import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.atomic.AtomicBoolean
 import javax.inject.Inject
 import kotlin.math.*
 
@@ -58,10 +60,18 @@ class LocationService: Service() {
     private var distanceFence:Int? = null
 
 
+    // Guards against overlapping uploads. Without it, a save-triggered upload and an
+    // onStartCommand flush could send the same queued points concurrently, and the server
+    // (points carry no id) would render them as duplicate / backtracking route segments.
+    private val isUploading = AtomicBoolean(false)
+
     companion object {
         const val ACTION_NETWORK_AVAILABLE = "com.empcloud.empmonitor.ACTION_NETWORK_AVAILABLE"
         // BUG_04: reject fixes worse than this accuracy (meters) before recording/uploading
         private const val ACCURACY_THRESHOLD_M = 50f
+        // Reject cached/stale fixes so a last-known location from an earlier place doesn't
+        // become a phantom start waypoint (a straight line from "where the user wasn't").
+        private const val MAX_LOCATION_AGE_MS = 30_000L
     }
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -107,6 +117,14 @@ class LocationService: Service() {
                     if (!location.hasAccuracy() || location.accuracy > ACCURACY_THRESHOLD_M ||
                         (location.latitude == 0.0 && location.longitude == 0.0)) {
                         Log.d("LocationService", "Skipping low-quality fix: accuracy=${if (location.hasAccuracy()) location.accuracy else -1f}")
+                        continue
+                    }
+
+                    // Drop stale/cached fixes (e.g. fused's first last-known result) so a point
+                    // from an earlier location can't be recorded as a phantom waypoint.
+                    val ageMs = (SystemClock.elapsedRealtimeNanos() - location.elapsedRealtimeNanos) / 1_000_000L
+                    if (ageMs > MAX_LOCATION_AGE_MS) {
+                        Log.d("LocationService", "Skipping stale fix: age=${ageMs}ms")
                         continue
                     }
 //                    val locationEntity = LocationEntity(
@@ -228,12 +246,15 @@ class LocationService: Service() {
 
         locationRequest = LocationRequest.create().apply {
 
-            interval = currentFrequency!! * 1000L
+            interval = currentFrequency * 1000L
             fastestInterval = interval
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
-
+        // Previously the rebuilt request was never re-registered, so server-driven frequency/radius
+        // changes only took effect after a full service restart. Re-register now so sampling density
+        // actually matches the server config (avoids inconsistent point spacing on the route).
+        startLocationUpdates()
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -286,6 +307,9 @@ class LocationService: Service() {
         }
 //        getLastKnownLocation()
 
+        // Remove any existing registration first so repeated onStartCommand/updateLocationRequest
+        // calls (START_STICKY, connectivity changes, boot) don't stack multiple update streams.
+        fusedLocationClient.removeLocationUpdates(locationCallback)
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.getMainLooper())
     }
 
@@ -459,58 +483,52 @@ class LocationService: Service() {
 
 
     private fun callApiLocation(){
+        if (!isInternetAvailable(applicationContext)) return
+        // Only one upload at a time: a second concurrent call would re-send the same queued
+        // points and duplicate them on the server-rendered route.
+        if (!isUploading.compareAndSet(false, true)) return
 
-            CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
                 val sp = getSharedPreferences(Constants.AUTH_TOKEN, MODE_PRIVATE)
-                val token = sp.getString(Constants.AUTH_TOKEN, "")
-                val dataReturn = CommonMethods.getCurrentDateTime()
-                val arr = dataReturn.split(" ")
-                val time = arr[1]
-                val date = arr[0]
-//                            val sendLocationModel =
-//                                SendLocationModel(date, time, location.latitude, location.longitude)
+                val token = sp.getString(Constants.AUTH_TOKEN, "") ?: ""
+                if (token.isEmpty()) return@launch
 
-                val sendloc = CommonMethods.getLocationDataList(applicationContext)
-//                Log.d("locationtrackingdata",sendloc.toString())
-                repository.sendLocationCall(token!!, sendloc!!)
+                // Snapshot exactly what we send; on success we remove only these points, so any
+                // points saved during the request survive and are never re-sent as duplicates.
+                val sendloc = CommonMethods.getLocationDataList(applicationContext) ?: emptyList()
+                if (sendloc.isEmpty()) return@launch
+                val sentCount = sendloc.size
+
+                repository.sendLocationCall(token, sendloc)
                     .collect { response ->
-//                                CommonMethods.clearLocationDataList(applicationContext)
-                        sendLocationResponse.send(response)
+                        when (response) {
+                            is ApiState.SUCESS -> {
+                                val res = response.getResponse
+                                if (res.statusCode == 200) {
+                                    CommonMethods.removeSentLocations(applicationContext, sentCount)
+                                    numberFreq = res.body.data.currentFrequency
+                                    distanceFence = res.body.data.currentRadius
+                                    updateLocationRequest(
+                                        res.body.data.currentFrequency,
+                                        res.body.data.currentRadius
+                                    )
+                                    Log.d("LocationService", "Uploaded $sentCount points; freq=$numberFreq radius=$distanceFence")
+                                }
+                            }
+                            is ApiState.ERROR -> {
+                                // Keep the queue intact so points retry on the next tick/reconnect.
+                                Log.d("LocationService", "Upload error, keeping queue: ${response.message}")
+                            }
+                            ApiState.LOADING -> {}
+                        }
                     }
-
-
-//                if (sendloc!!.size == 1) {
-//
-//                    repository.sendLocationCall(token!!, sendloc!!)
-//                        .collect { response ->
-////                                CommonMethods.clearLocationDataList(applicationContext)
-//                            sendLocationResponse.send(response)
-//                        }
-//                } else if (sendloc!!.size > 1 && sendloc!!.size <= 100) {
-//
-//                    repository.sendLocationCall(token!!, sendloc!!)
-//                        .collect { response ->
-////                                CommonMethods.clearLocationDataList(applicationContext)
-//                            sendLocationResponse.send(response)
-//                        }
-//
-//                    delay(5000)
-//                } else if (sendloc!!.size > 100) {
-//
-//                    repository.sendLocationCall(token!!, sendloc!!)
-//                        .collect { response ->
-////                                CommonMethods.clearLocationDataList(applicationContext)
-//                            sendLocationResponse.send(response)
-//                        }
-//                    delay(15000)
-//                }
-
+            } catch (e: Exception) {
+                Log.d("LocationService", "Upload exception, keeping queue: ${e.message}")
+            } finally {
+                isUploading.set(false)
             }
-//        else {
-////                Log.d("savedLocation",locationList.toString())
-//            CommonMethods.saveLocationDataList(applicationContext, locationListData)
-//
-//        }
+        }
     }
 
     fun getLocationDistanceMeter(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Int {

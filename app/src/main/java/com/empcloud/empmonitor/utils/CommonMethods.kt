@@ -548,6 +548,10 @@ object CommonMethods {
     }
 
 
+    // The offline location queue is read/modified from both the main thread (saves) and IO
+    // coroutines (uploads). @Synchronized serializes every read-modify-write so a save can't be
+    // lost against a concurrent removal, which previously produced duplicated/dropped route points.
+    @Synchronized
     fun saveLocationDataList(context: Context, newLocationData: LocationList) {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences(Constants.LOCATION_LIST, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
@@ -567,6 +571,7 @@ object CommonMethods {
         editor.apply()
     }
 
+    @Synchronized
     fun getLocationDataList(context: Context): List<LocationList>? {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences(Constants.LOCATION_LIST, Context.MODE_PRIVATE)
         val gson = Gson()
@@ -575,6 +580,31 @@ object CommonMethods {
         return gson.fromJson(json, type)
     }
 
+    /**
+     * Remove exactly the first [count] points (the ones that were just uploaded), preserving any
+     * points appended while the upload was in flight. This replaces the previous "clear the whole
+     * list on success" behaviour, which could drop freshly-saved points and force re-uploads that
+     * showed up as duplicate/backtracking segments on the tracking map.
+     */
+    @Synchronized
+    fun removeSentLocations(context: Context, count: Int) {
+        if (count <= 0) return
+        val sharedPreferences: SharedPreferences = context.getSharedPreferences(Constants.LOCATION_LIST, Context.MODE_PRIVATE)
+        val gson = Gson()
+        val json = sharedPreferences.getString(Constants.LOCATION_LIST, null)
+        val type = object : TypeToken<List<LocationList>>() {}.type
+        val currentList: MutableList<LocationList> = gson.fromJson(json, type) ?: mutableListOf()
+        val editor = sharedPreferences.edit()
+        if (count >= currentList.size) {
+            editor.remove(Constants.LOCATION_LIST)
+        } else {
+            val remaining = ArrayList(currentList.subList(count, currentList.size))
+            editor.putString(Constants.LOCATION_LIST, gson.toJson(remaining))
+        }
+        editor.apply()
+    }
+
+    @Synchronized
     fun clearLocationDataList(context: Context) {
         val sharedPreferences: SharedPreferences = context.getSharedPreferences(Constants.LOCATION_LIST, Context.MODE_PRIVATE)
         val editor: SharedPreferences.Editor = sharedPreferences.edit()
