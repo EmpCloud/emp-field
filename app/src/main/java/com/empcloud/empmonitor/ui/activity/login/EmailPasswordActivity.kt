@@ -445,6 +445,13 @@ class EmailPasswordActivity : AppCompatActivity() {
                             }
                         } else {
                             Log.d("AutoCheckIn", "Auto check-in API returned: statusCode=${it.statusCode}, code=${it.body.data.code}, message=${it.body.data.message}")
+                            // Auto check-in was attempted (flags say it's enabled) but the server
+                            // rejected it (e.g. mobile check-in disabled / use Biometric). Surface the
+                            // reason instead of silently showing "Auto Check-In Enabled" with no time.
+                            val autoFailMsg = it.body.data.message
+                            if (autoFailMsg.isNotBlank()) {
+                                Toast.makeText(applicationContext, autoFailMsg, Toast.LENGTH_LONG).show()
+                            }
                         }
                         navigateToCreateProfile()
                     }
