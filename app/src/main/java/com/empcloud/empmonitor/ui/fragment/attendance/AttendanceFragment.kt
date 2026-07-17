@@ -380,8 +380,11 @@ class AttendanceFragment constructor(private val listener: OnFragmentChangedList
         val datePickerDialog = DatePickerDialog(
             requireActivity(),R.style.CustomDatePickerDialogTheme,
             { _, selectedYear, selectedMonth, selectedDay ->
-                // Update the TextView with the selected date
-                val selectedDate = "$selectedDay/${selectedMonth + 1}/$selectedYear"
+                // Update the TextView with the selected date.
+                // Must stay yyyy-MM-dd (same as the pre-filled value from parseTimeData and what the
+                // backend expects). Previously this was d/M/yyyy, so re-picking a date sent an
+                // inconsistent format in the edit-attendance request (BUG_07a).
+                val selectedDate = String.format(Locale.US, "%04d-%02d-%02d", selectedYear, selectedMonth + 1, selectedDay)
 
                 if(i == 1){
                     binding.popLeaves.checkindate.setText(selectedDate)
@@ -458,7 +461,10 @@ class AttendanceFragment constructor(private val listener: OnFragmentChangedList
 
 //                            Toast.makeText(applicationContext,it.message,Toast.LENGTH_SHORT);
                             if (it.statusCode == 200){
-                                Toast.makeText(requireContext(),it.body.message, Toast.LENGTH_SHORT).show()
+                                // attendance/attendance-request creates an approval request; the
+                                // history only changes after an admin approves it. Message it as such
+                                // so an unchanged record doesn't read as "the edit didn't save".
+                                Toast.makeText(requireContext(),"Attendance edit submitted for approval", Toast.LENGTH_LONG).show()
                                 binding.popLeaves.attendanceEditScreenApply.visibility = View.GONE
                                 CommonMethods.switchFragment(requireActivity(),AttendanceFragment(listener))
 
