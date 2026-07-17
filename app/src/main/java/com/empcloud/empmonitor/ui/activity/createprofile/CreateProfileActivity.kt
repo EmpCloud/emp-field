@@ -148,48 +148,34 @@ class CreateProfileActivity : AppCompatActivity() {
 
         binding.truebtn.setOnClickListener {
 
-//            Log.d("phoneNumberchecking",gender.toString())
-
-            if (!binding.age.text.isNullOrEmpty()){
-
-                if (isValidAge(binding.age.text.toString().toInt())){
-
-                    val intent = Intent(applicationContext,MapAddressActivity::class.java)
+            // Age is required: an empty (or non-numeric/out-of-range) age must NOT be accepted.
+            // Previously the empty-field branch silently proceeded with a fallback age of 1.
+            val ageText = binding.age.text?.toString()?.trim().orEmpty()
+            val ageValue = ageText.toIntOrNull()
+            when {
+                ageText.isEmpty() ->
+                    Toast.makeText(applicationContext, "Please enter your age", Toast.LENGTH_SHORT).show()
+                ageValue == null ->
+                    Toast.makeText(applicationContext, "Please enter a valid age", Toast.LENGTH_SHORT).show()
+                !isValidAge(ageValue) ->
+                    Toast.makeText(applicationContext, "Age must be between 18 and 100", Toast.LENGTH_SHORT).show()
+                else -> {
+                    val intent = Intent(applicationContext, MapAddressActivity::class.java)
                     startActivity(intent)
 
-                    val sharedPred = getSharedPreferences(Constants.USER_FULL_NAME,AppCompatActivity.MODE_PRIVATE)
-                    sharedPred.edit().putString(Constants.NAME_FULL,binding.name.text.toString()).apply()
+                    val sharedPred = getSharedPreferences(Constants.USER_FULL_NAME, AppCompatActivity.MODE_PRIVATE)
+                    sharedPred.edit().putString(Constants.NAME_FULL, binding.name.text.toString()).apply()
 
                     val sharePref = getSharedPreferences(Constants.CREATE_USER_PROFILE, MODE_PRIVATE)
                     sharePref.edit().putString(Constants.USER_NAME, binding.name.text.toString()).apply()
                     sharePref.edit().putString(Constants.USER_MAIL_ID, binding.email.text.toString()).apply()
                     sharePref.edit().putString(Constants.USER_PHONE_MOBIILE, binding.mobileNo.text.toString()).apply()
-
-//                    Log.d("userphonenumber",binding.mobileNo.text.toString())
-
-                    val userAge = binding.age.text.toString().toIntOrNull() ?: 1 // Convert editable to string, then parse to Int
-                    sharePref.edit().putInt(Constants.USER_AGE, userAge).apply()
-                    sharePref.edit().putString(Constants.USER_GENDER,gender).apply()
-                    sharePref.edit().putString(Constants.PROFILE_URL,profileLink).apply()
+                    sharePref.edit().putInt(Constants.USER_AGE, ageValue).apply()
+                    sharePref.edit().putString(Constants.USER_GENDER, gender).apply()
+                    sharePref.edit().putString(Constants.PROFILE_URL, profileLink).apply()
 
                     finish()
-
-                }else{
-                    Toast.makeText(applicationContext,"Age should be above 18",Toast.LENGTH_SHORT).show()
                 }
-            }else{
-                val intent = Intent(applicationContext,MapAddressActivity::class.java)
-                startActivity(intent)
-                val sharePref = getSharedPreferences(Constants.CREATE_USER_PROFILE, MODE_PRIVATE)
-                sharePref.edit().putString(Constants.USER_NAME, binding.name.text.toString()).apply()
-                sharePref.edit().putString(Constants.USER_MAIL_ID, binding.email.text.toString()).apply()
-                sharePref.edit().putString(Constants.USER_PHONE_MOBIILE, binding.mobileNo.text.toString()).apply()
-                val userAge = binding.age.text.toString().toIntOrNull() ?: 1 // Convert editable to string, then parse to Int
-//                Log.d("agechecking",userAge.toString())
-                sharePref.edit().putInt(Constants.USER_AGE, userAge).apply()
-                sharePref.edit().putString(Constants.USER_GENDER,gender).apply()
-                sharePref.edit().putString(Constants.PROFILE_URL,profileLink).apply()
-                finish()
             }
 
         }

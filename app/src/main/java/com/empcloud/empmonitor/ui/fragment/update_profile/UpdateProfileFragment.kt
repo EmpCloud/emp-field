@@ -137,11 +137,28 @@ class UpdateProfileFragment constructor(private val listener: OnFragmentChangedL
         binding.savebtn.setOnClickListener {
 
             CommonMethods.saveSharedPrefernce(requireActivity(),Constants.USER_FULL_NAME,Constants.NAME_FULL,binding.name.text.toString())
-            if (!binding.age.text.isNullOrEmpty() && isValidAge(binding.age.text.toString().toInt()))   callUpdateApi()
-            else    Toast.makeText(requireContext(),"Age should be above 18",Toast.LENGTH_SHORT).show()
+            // Age is required and must be numeric + in range; empty age must not be accepted.
+            val ageText = binding.age.text?.toString()?.trim().orEmpty()
+            val ageValue = ageText.toIntOrNull()
+            when {
+                ageText.isEmpty() -> Toast.makeText(requireContext(),"Please enter your age",Toast.LENGTH_SHORT).show()
+                ageValue == null -> Toast.makeText(requireContext(),"Please enter a valid age",Toast.LENGTH_SHORT).show()
+                !isValidAge(ageValue) -> Toast.makeText(requireContext(),"Age must be between 18 and 100",Toast.LENGTH_SHORT).show()
+                else -> callUpdateApi()
+            }
         }
 
         binding.editbtn.setOnClickListener {
+
+            // Guard the "Edit address" path too, so an empty/invalid age can't slip through to
+            // the address step (and on to update-profile) unvalidated.
+            val ageText = binding.age.text?.toString()?.trim().orEmpty()
+            val ageValue = ageText.toIntOrNull()
+            when {
+                ageText.isEmpty() -> { Toast.makeText(requireContext(),"Please enter your age",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
+                ageValue == null -> { Toast.makeText(requireContext(),"Please enter a valid age",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
+                !isValidAge(ageValue) -> { Toast.makeText(requireContext(),"Age must be between 18 and 100",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
+            }
 
             CommonMethods.saveSharedPrefernce(requireActivity(),Constants.UMN,Constants.UMN,binding.mobileNo.text.toString())
             val sp = requireContext().getSharedPreferences(Constants.UPDATE_PROFILE_DATA,AppCompatActivity.MODE_PRIVATE)
