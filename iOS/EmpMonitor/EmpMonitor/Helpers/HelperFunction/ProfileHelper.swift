@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ProfileHelper {
+final class ProfileHelper: Sendable {
     static let shared = ProfileHelper()
 
     private let cachedImageFileName = "cached_profile_pic"
@@ -19,16 +19,36 @@ class ProfileHelper {
     }
 
     func saveImageToDisk(imageURL: URL) {
-        DispatchQueue.global(qos: .background).async {
-            guard let imageData = try? Data(contentsOf: imageURL) else {
-                AppLog.debug("ProfileHelper: failed to download image from \(imageURL)")
+        if imageURL.isFileURL {
+            copyImageFile(from: imageURL)
+            return
+        }
+
+        URLSession.shared.downloadTask(with: imageURL) { [weak self] temporaryURL, _, error in
+            if let error {
+                AppLog.debug("ProfileHelper: failed to download image from \(imageURL) - \(error.localizedDescription)")
                 return
             }
-            let fileURL = self.cachedImageFileURL()
+
+            guard let self, let temporaryURL else {
+                AppLog.debug("ProfileHelper: downloaded image is unavailable for \(imageURL)")
+                return
+            }
+
             do {
-                try imageData.write(to: fileURL, options: .atomic)
+                try self.replaceCachedImage(with: temporaryURL)
             } catch {
-                AppLog.debug("ProfileHelper: failed to save image to disk — \(error)")
+                AppLog.debug("ProfileHelper: failed to save image to disk - \(error.localizedDescription)")
+            }
+        }.resume()
+    }
+
+    private func copyImageFile(from imageURL: URL) {
+        DispatchQueue.global(qos: .background).async {
+            do {
+                try self.replaceCachedImage(with: imageURL)
+            } catch {
+                AppLog.debug("ProfileHelper: failed to copy image to disk - \(error.localizedDescription)")
             }
         }
     }
@@ -46,5 +66,16 @@ class ProfileHelper {
     private func cachedImageFileURL() -> URL {
         let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask)[0]
         return caches.appendingPathComponent(cachedImageFileName)
+    }
+
+    private func replaceCachedImage(with sourceURL: URL) throws {
+        let fileManager = FileManager.default
+        let fileURL = cachedImageFileURL()
+
+        if fileManager.fileExists(atPath: fileURL.path) {
+            try fileManager.removeItem(at: fileURL)
+        }
+
+        try fileManager.copyItem(at: sourceURL, to: fileURL)
     }
 }

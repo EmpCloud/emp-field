@@ -46,9 +46,7 @@ class FileUploadService {
         let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
         AppLog.debug("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
 
-        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-            throw NetworkError.invalidResponse
-        }
+        try await validateUploadResponse(data: data, response: response, urlString: urlString)
 
         let uploadResponse = try JSONDecoder().decode(FileUploadResponseModel.self, from: data)
         return uploadResponse
@@ -85,9 +83,7 @@ class FileUploadService {
         let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
         AppLog.debug("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
 
-        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-            throw NetworkError.invalidResponse
-        }
+        try await validateUploadResponse(data: data, response: response, urlString: urlString)
 
         let uploadResponse = try JSONDecoder().decode(FileUploadResponseModel.self, from: data)
         return uploadResponse
@@ -124,12 +120,86 @@ class FileUploadService {
         let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
         AppLog.debug("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
 
-        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-            throw NetworkError.invalidResponse
-        }
+        try await validateUploadResponse(data: data, response: response, urlString: urlString)
 
         let uploadResponse = try JSONDecoder().decode(ProfileUploadResponseModel.self, from: data)
         return uploadResponse
+    }
+
+    private func validateUploadResponse(data: Data, response: URLResponse, urlString: String) async throws {
+        guard let httpResponse = response as? HTTPURLResponse else {
+            await recordFailure(status: 0, message: NetworkError.invalidResponse.errorDescription)
+            throw NetworkError.invalidResponse
+        }
+
+        let httpStatus = httpResponse.statusCode
+        let message = decodeErrorMessage(from: data)
+
+        if let wrapperStatus = try? JSONDecoder().decode(UploadStatusWrapper.self, from: data).statusCode,
+           wrapperStatus != 200 {
+            if isSessionExpired(status: wrapperStatus, message: message) {
+                await expireSession(message: message)
+                throw NetworkError.unauthorized
+            }
+
+            await recordFailure(status: wrapperStatus, message: message)
+            switch wrapperStatus {
+            case 403:
+                throw NetworkError.forbidden
+            case 400...499:
+                throw NetworkError.clientError(wrapperStatus, message)
+            case 500...599:
+                throw NetworkError.serverError(wrapperStatus)
+            default:
+                throw NetworkError.unknown(wrapperStatus)
+            }
+        }
+
+        guard (200...299).contains(httpStatus) else {
+            if isSessionExpired(status: httpStatus, message: message) {
+                await expireSession(message: message)
+                throw NetworkError.unauthorized
+            }
+
+            await recordFailure(status: httpStatus, message: message)
+            switch httpStatus {
+            case 403:
+                throw NetworkError.forbidden
+            case 400...499:
+                throw NetworkError.clientError(httpStatus, message)
+            case 500...599:
+                throw NetworkError.serverError(httpStatus)
+            default:
+                throw NetworkError.unknown(httpStatus)
+            }
+        }
+    }
+
+    private func recordFailure(status: Int, message: String?) async {
+        await MainActor.run {
+            NetworkManager.shared.statusCode = status
+            NetworkManager.shared.responseMessage = message ?? ""
+        }
+    }
+
+    private func expireSession(message: String?) async {
+        await MainActor.run {
+            NetworkManager.shared.statusCode = 401
+            NetworkManager.shared.responseMessage = message ?? ""
+            AppState.shared.handleSessionExpired(message: message)
+        }
+    }
+
+    private func decodeErrorMessage(from data: Data) -> String? {
+        let body = (try? JSONDecoder().decode(ErrorResponse.self, from: data))?.body
+        return body?.message ?? body?.error
+    }
+
+    private func isSessionExpired(status: Int, message: String?) -> Bool {
+        if status == 401 { return true }
+        guard let message = message?.lowercased() else { return false }
+        return message.contains("session expired")
+            || message.contains("logged in on another device")
     }
     
     private func createMultipartBody(with files: [URL], boundary: String) throws -> Data {
@@ -223,7 +293,10 @@ class FileUploadService {
            
            return body
        }
-            
+    
 }
 
+private struct UploadStatusWrapper: Decodable {
+    let statusCode: Int
+}
 

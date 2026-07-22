@@ -8,16 +8,18 @@
 import Foundation
 import SwiftUI
 import PhotosUI
+import UniformTypeIdentifiers
 
 struct ImagePicker: UIViewControllerRepresentable {
     
 //    @ObservedObject var cameraViewModel: CameraViewModel
     @Binding var selectedImages: [UIImage]
+    var maxSelectionCount: Int = 1
     
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var config = PHPickerConfiguration()
         config.filter = .images
-        config.selectionLimit = 1 // limit selection to 4 images
+        config.selectionLimit = maxSelectionCount
         let picker = PHPickerViewController(configuration: config)
         picker.delegate = context.coordinator
         return picker
@@ -44,16 +46,18 @@ struct ImagePicker: UIViewControllerRepresentable {
             
                     for result in results {
                        let provider = result.itemProvider
-                        provider.loadObject(ofClass: UIImage.self) { image, _ in
-                            DispatchQueue.main.async {
-                                if let uiImage = image as? UIImage {
-                                    if self.parent.selectedImages.count < 1 {
-                                        self.parent.selectedImages.append(uiImage)
-                                    }
+                        provider.loadDataRepresentation(forTypeIdentifier: UTType.image.identifier) { [weak self] data, _ in
+                            guard let data else { return }
+                            Task { @MainActor [weak self] in
+                                guard let self,
+                                      let uiImage = UIImage(data: data),
+                                      self.parent.maxSelectionCount == 0 || self.parent.selectedImages.count < self.parent.maxSelectionCount else {
+                                    return
+                                }
+                                self.parent.selectedImages.append(uiImage)
 //                                    if self.parent.cameraViewModel.capturedImage.count < 4 {
 //                                        self.parent.cameraViewModel.capturedImage.append(uiImage)
 //                                    }
-                                }
                             }
                         }
                     }

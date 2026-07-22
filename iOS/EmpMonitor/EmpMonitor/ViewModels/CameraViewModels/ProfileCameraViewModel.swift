@@ -36,6 +36,14 @@ final class ProfileCameraViewModel: NSObject, ObservableObject {
         super.init()
         checkPermissions()
     }
+
+    deinit {
+        let session = session
+        sessionQueue.async {
+            session.stopRunning()
+        }
+        cleanupTemporaryImage()
+    }
     
     func checkPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -152,6 +160,7 @@ final class ProfileCameraViewModel: NSObject, ObservableObject {
         
         do {
             try imageData.write(to: fileURL)
+            cleanupTemporaryImage()
             let capturedImage = ProfileImage(image: image, url: fileURL)
             profileImage = capturedImage
         } catch {
@@ -162,15 +171,22 @@ final class ProfileCameraViewModel: NSObject, ObservableObject {
     func getCapturedImageURLs() -> URL? {
         return profileImage?.url
     }
+
+    private func cleanupTemporaryImage() {
+        if let fileURL = profileImage?.url {
+            try? FileManager.default.removeItem(at: fileURL)
+        }
+    }
 }
 
 extension ProfileCameraViewModel: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let data = photo.fileDataRepresentation() else { return }
-        if let image = UIImage(data: data) {
-            capturedImage = image
+        let image = UIImage(data: data)
+        Task { @MainActor [weak self] in
+            self?.capturedImage = image
+            self?.isTaken = true
         }
-        isTaken = true
         sessionQueue.async { [weak self] in
             self?.session.stopRunning()
         }

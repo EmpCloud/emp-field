@@ -18,6 +18,14 @@ struct CameraView: View {
     @State private var isImagePickerPresented = false
     
     @State private var selectedGallaryImages: [UIImage] = []
+
+    private var remainingImageSlots: Int {
+        max(0, 4 - cameraViewModel.savedImages.count)
+    }
+
+    private var hasPendingImageSelection: Bool {
+        cameraViewModel.capturedImage != nil || !selectedGallaryImages.isEmpty
+    }
     
     var body: some View {
         ZStack {
@@ -26,25 +34,6 @@ struct CameraView: View {
                 .ignoresSafeArea()
             
             VStack {
-                if cameraViewModel.isTaken, let image = cameraViewModel.capturedImage {
-                    Image(uiImage: image)  //last clicked image preview
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 200)
-                        .background(Color.black.opacity(0.7))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .padding()
-                }
-                else if let image = selectedGallaryImages.last {        // to preview the selected image from the gallary
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 200)
-                        .background(Color.black.opacity(0.7))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .padding()
-                }
-                
                 Spacer()
                 
                 HStack {
@@ -53,7 +42,9 @@ struct CameraView: View {
                             
                             //Button to open Gallary
                             Button(action: {
-                                isImagePickerPresented = true
+                                if remainingImageSlots > 0 {
+                                    isImagePickerPresented = true
+                                }
                             }, label: {
                                 Circle()
                                     .fill(Color.white)
@@ -66,6 +57,7 @@ struct CameraView: View {
                                     }
                                 
                             })
+                            .disabled(remainingImageSlots == 0)
                             
                             Spacer()
                             
@@ -100,17 +92,17 @@ struct CameraView: View {
                 }
                 .padding(.bottom)
                 
-                if showDescription {
+                if showDescription || hasPendingImageSelection {
                     Rectangle()
                         .fill(Color.white)
-                        .frame(height: 183)
+                        .frame(height: selectedGallaryImages.count > 1 ? 208 : 183)
                         .ignoresSafeArea(edges: .bottom)
                         .overlay {
-                            VStack {
+                            VStack(spacing: AppSpacing.stackSpacingDefault) {
                                 HStack {
                                     Text("Description")
-                                        .font(.custom("Montserrat", size: 14))
-                                        .fontWeight(.semibold)
+                                        .font(AppFont.primary(size: AppFont.Size.body))
+                                        .fontWeight(AppFont.Weight.semibold)
                                         .foregroundStyle(Color.subText)
                                     
                                     Spacer()
@@ -119,7 +111,7 @@ struct CameraView: View {
                                         .resizable()
                                         .aspectRatio(contentMode: .fit)
                                         .frame(width: 13, height: 13)
-                                        .fontWeight(.bold)
+                                        .fontWeight(AppFont.Weight.bold)
                                         .foregroundStyle(Color.primaryButton1)
                                         .onTapGesture {
                                             withAnimation {
@@ -128,6 +120,15 @@ struct CameraView: View {
                                         }
                                 }
                                 .padding(.horizontal, 20)
+
+                                if selectedGallaryImages.count > 1 {
+                                    Text("\(selectedGallaryImages.count) photos selected")
+                                        .font(AppFont.primary(size: AppFont.Size.caption))
+                                        .fontWeight(AppFont.Weight.medium)
+                                        .foregroundStyle(Color.subText)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .padding(.horizontal, AppSpacing.md)
+                                }
                                 
                                 PopupLargeTextField(text: $description, placeholder: "Enter Description")
                                     .padding(.horizontal)
@@ -138,10 +139,11 @@ struct CameraView: View {
                                     if cameraViewModel.savedImages.count < 4 {
                                         if let image = cameraViewModel.capturedImage {
                                             cameraViewModel.saveImage(image, description: description)
-                                        }else if let image = selectedGallaryImages.first{
-//                                            cameraViewModel.savedImages.append(SavedImage(image: image, description: "", url: nil))
-                                            cameraViewModel.saveImage(image, description: description)
-                                           
+                                        } else if !selectedGallaryImages.isEmpty {
+                                            let availableSlots = max(0, 4 - cameraViewModel.savedImages.count)
+                                            for image in selectedGallaryImages.prefix(availableSlots) {
+                                                cameraViewModel.saveImage(image, description: description)
+                                            }
                                         }
                                     }
                                     
@@ -155,6 +157,12 @@ struct CameraView: View {
                 }
             }
             .ignoresSafeArea(.container)
+        }
+        .onChange(of: selectedGallaryImages.count) { _, newCount in
+            guard newCount > 0 else { return }
+            cameraViewModel.capturedImage = nil
+            cameraViewModel.isTaken = false
+            showDescription = true
         }
         .onAppear {
             cameraViewModel.checkPermissions()
@@ -212,7 +220,7 @@ struct CameraView: View {
         }
         .sheet(isPresented: $isImagePickerPresented, content: {
             //Image picker
-            ImagePicker(selectedImages: $selectedGallaryImages)
+            ImagePicker(selectedImages: $selectedGallaryImages, maxSelectionCount: remainingImageSlots)
         })
 
     }

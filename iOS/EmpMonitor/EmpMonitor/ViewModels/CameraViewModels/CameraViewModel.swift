@@ -37,6 +37,14 @@ final class CameraViewModel: NSObject, ObservableObject {
         super.init()
         checkPermissions()
     }
+
+    deinit {
+        let session = session
+        sessionQueue.async {
+            session.stopRunning()
+        }
+        cleanupTemporaryImages()
+    }
     
     func checkPermissions() {
         switch AVCaptureDevice.authorizationStatus(for: .video) {
@@ -146,6 +154,7 @@ final class CameraViewModel: NSObject, ObservableObject {
     }
     
     func saveImage(_ image: UIImage, description: String) {
+        guard savedImages.count < 4 else { return }
         guard let imageData = image.jpegData(compressionQuality: 0.8) else { return }
         
         let fileName = UUID().uuidString + ".jpg"
@@ -163,17 +172,25 @@ final class CameraViewModel: NSObject, ObservableObject {
     func getCapturedImageURLs() -> [URL] {
         return savedImages.compactMap { $0.url }
     }
+
+    private func cleanupTemporaryImages() {
+        for fileURL in savedImages.compactMap(\.url) {
+            try? FileManager.default.removeItem(at: fileURL)
+        }
+    }
 }
 
 extension CameraViewModel: AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         guard let data = photo.fileDataRepresentation() else { return }
-        if let image = UIImage(data: data) {
-            if savedImages.count < 4 {
-                capturedImage = image
+        let image = UIImage(data: data)
+        Task { @MainActor [weak self] in
+            guard let self else { return }
+            if let image, self.savedImages.count < 4 {
+                self.capturedImage = image
             }
+            self.isTaken = true
         }
-        isTaken = true
         sessionQueue.async { [weak self] in
             self?.session.stopRunning()
         }
