@@ -34,6 +34,7 @@ class PermissionManager: NSObject, ObservableObject {
     
     private var locationManager = CLLocationManager()
     private var locationUpdate: CLLocationUpdate.Updates? // for live update after termination
+    private var locationUpdatesTask: Task<Void, Never>?
     private let motionManager = CMMotionManager() // Motion Manager
     
     private var locationUpdateTimer: Timer?
@@ -52,6 +53,8 @@ class PermissionManager: NSObject, ObservableObject {
     //Monitor the network connectivity
     private let monitor = NWPathMonitor()
     private var isOnline = true
+    private var lastDeviceStatusHeartbeatAt: Date?
+    private let deviceStatusHeartbeatInterval: TimeInterval = 15 * 60
 
     // Geo-fence auto check-in / check-out signals observed by HomeView
     @Published var shouldAutoCheckIn: Bool = false
@@ -71,12 +74,15 @@ class PermissionManager: NSObject, ObservableObject {
         
 //        locationManager.allowsBackgroundLocationUpdates = true // allow background updates
 //        locationManager.pausesLocationUpdatesAutomatically = false //prevent automatic pauses
-        locationManager.startUpdatingLocation()
 //        locationManager.delegate = self
         
         setupLocationManager()
-        
-        startMotionUpdates()
+    }
+
+    deinit {
+        locationUpdatesTask?.cancel()
+        monitor.cancel()
+        motionManager.stopDeviceMotionUpdates()
     }
     
     //Setting up the Manager for background location fetch
@@ -111,28 +117,36 @@ class PermissionManager: NSObject, ObservableObject {
     
     //MARK: Location Permission
     func requestLocation() {
-        locationManager.requestAlwaysAuthorization()
+        switch locationManager.authorizationStatus {
+        case .authorizedAlways, .authorizedWhenInUse:
+            locationManager.startUpdatingLocation()
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+        case .denied, .restricted:
+            locationStatus = locationManager.authorizationStatus
+            isLocationAuthorized = false
+        @unknown default:
+            locationStatus = locationManager.authorizationStatus
+            isLocationAuthorized = false
+        }
     }
     
     //MARK: Motion Permission
     func requestMotionPermission() {
-            if motionManager.isDeviceMotionAvailable {
-                motionManager.startDeviceMotionUpdates()
-                isMotionAuthorized = true
-            } else {
-                isMotionAuthorized = false
-            }
-        }
+        isMotionAuthorized = motionManager.isDeviceMotionAvailable
+    }
     
     
     //MARK: Motion Activity Updates
     func startMotionUpdates() {
-        guard motionManager.isDeviceMotionActive else {
+        guard motionManager.isDeviceMotionAvailable else {
             AppLog.debug("Device motion is not available.")
             return
         }
+
+        guard !motionManager.isDeviceMotionActive else { return }
         
-        motionManager.deviceMotionUpdateInterval = 1.0 / 60.0
+        motionManager.deviceMotionUpdateInterval = 1.0
         motionManager.startDeviceMotionUpdates(to: .main) { [weak self] motion, error in
             guard error == nil else {
                 if let error = error {
@@ -143,7 +157,6 @@ class PermissionManager: NSObject, ObservableObject {
 
             if let motion = motion {
                 self?.motionData = motion
-                AppLog.debug("Motion data: Roll: \(motion.attitude.roll), Pitch: \(motion.attitude.pitch), Yaw: \(motion.attitude.yaw)")
             }
         }
     }
@@ -161,7 +174,7 @@ class PermissionManager: NSObject, ObservableObject {
             isCameraAuthorized = true
         case .notDetermined:
             AVCaptureDevice.requestAccess(for: .video) { [weak self] granted in
-                DispatchQueue.main.async {
+                Task { @MainActor [weak self] in
                     self?.isCameraAuthorized = granted
                 }
             }
@@ -178,7 +191,7 @@ class PermissionManager: NSObject, ObservableObject {
             isPhotoLibraryAuthorized = true
         case .notDetermined:
             PHPhotoLibrary.requestAuthorization { [weak self] status in
-                DispatchQueue.main.async {
+                Task { @MainActor [weak self] in
                     self?.isPhotoLibraryAuthorized = (status == .authorized || status == .limited)
                 }
             }
@@ -198,7 +211,14 @@ class PermissionManager: NSObject, ObservableObject {
         
         //ONLY proceed if the user is checkedIN
         guard isCheckedIN else {
+            DeviceStatusDebug.log("Tracking start skipped: user is not checked in; device-status endpoints will not hit on login only")
             AppLog.debug("User is not checked in. Location updates will not start.")
+            return
+        }
+
+        guard locationUpdatesTask == nil else {
+            DeviceStatusDebug.log("Tracking start skipped: live location updates are already active")
+            AppLog.debug("Location updates already active.")
             return
         }
         
@@ -212,12 +232,20 @@ class PermissionManager: NSObject, ObservableObject {
         
         
         // location permission taken after that
-        Task { [weak self] in
+        locationUpdatesTask = Task { [weak self] in
             guard let self else { return }
+            defer {
+                self.locationUpdatesTask = nil
+                if !UserDefaults.standard.bool(forKey: "isCheckedIN") {
+                    self.backgroundActivity = nil
+                }
+            }
+
             do {
                 
                 //Assign the CLBackgroundActivitySession to global var
                 self.backgroundActivity = CLBackgroundActivitySession()
+                await self.maybeSendDeviceStatusHeartbeat(force: true)
                 
                 
                 // to fetch all location
@@ -235,7 +263,7 @@ class PermissionManager: NSObject, ObservableObject {
                         return true
                     }
                     let distanceMoved = update.location?.distance(from: previousLocation)
-                    if distanceMoved ?? 0.0 >= threshold || update.isStationary {
+                    if distanceMoved ?? 0.0 >= threshold || Self.isStationary(update) {
                         await MainActor.run { self.previousLocation = update.location }
                         return true
                     }
@@ -251,6 +279,10 @@ class PermissionManager: NSObject, ObservableObject {
 //                if lastUpdateTime == nil || currentTime.timeIntervalSince(lastUpdateTime!) >= updateInterval {
                     
                     for try await update in locationUpdates {
+                        if Task.isCancelled {
+                            AppLog.debug("Location tracking task cancelled.")
+                            break
+                        }
 
                         // Exit loop when user checks out or midnight stop triggers
                         guard UserDefaults.standard.bool(forKey: "isCheckedIN") else {
@@ -278,9 +310,10 @@ class PermissionManager: NSObject, ObservableObject {
                             }
                         }
 
-                        if update.isStationary {
+                        if Self.isStationary(update) {
                             // Upload any queued offline data but keep the loop running
                             await self.uploadOfflineLocations()
+                            await self.maybeSendDeviceStatusHeartbeat()
                             AppLog.debug("user is stationary")
                         }
 
@@ -290,7 +323,9 @@ class PermissionManager: NSObject, ObservableObject {
                 
 //                sendLocationToServer()
                 
-            }catch {
+            } catch is CancellationError {
+                AppLog.debug("Location tracking cancelled.")
+            } catch {
                 AppLog.debug("Some live location error occured: \(error)")
             }
             self.checkTimeAndStopTrackingIfNeeded()  // to stop tracking at midnight
@@ -298,8 +333,27 @@ class PermissionManager: NSObject, ObservableObject {
     }
     
     func stopLocationUpdates() {
+        let wasCheckedIn = UserDefaults.standard.bool(forKey: "isCheckedIN")
+        if wasCheckedIn {
+            let checkoutStatus = DeviceStatusSnapshot.current(status: "inactive")
+            let accessToken = AuthStore.shared.getAccessToken()
+            DeviceStatusDebug.log("Checkout inactive status queued before stopping tracking, payload=\(checkoutStatus.logDescription)")
+            Task {
+                await TrackViewModel.shared.updateDeviceStatus(snapshot: checkoutStatus, accessToken: accessToken)
+            }
+        } else {
+            DeviceStatusDebug.log("Checkout inactive status skipped: user was not checked in")
+        }
+
         //Set check-out status
         UserDefaults.standard.set(false, forKey: "isCheckedIN")
+        lastDeviceStatusHeartbeatAt = nil
+        lastUpdateTime = nil
+        previousLocation = nil
+        prevLatitude = 0.0
+        locationUpdatesTask?.cancel()
+        locationUpdatesTask = nil
+        locationManager.stopUpdatingLocation()
         
         //End the background activity session
         backgroundActivity = nil
@@ -356,6 +410,39 @@ class PermissionManager: NSObject, ObservableObject {
         locationManager.requestState(for: region)
     }
 
+    private func maybeSendDeviceStatusHeartbeat(force: Bool = false) async {
+        guard UserDefaults.standard.bool(forKey: "isCheckedIN") else {
+            DeviceStatusDebug.log("Heartbeat skipped: user is not checked in")
+            return
+        }
+
+        let now = Date()
+        if !force,
+           let lastDeviceStatusHeartbeatAt,
+           now.timeIntervalSince(lastDeviceStatusHeartbeatAt) < deviceStatusHeartbeatInterval {
+            let remaining = Int(deviceStatusHeartbeatInterval - now.timeIntervalSince(lastDeviceStatusHeartbeatAt))
+            DeviceStatusDebug.log("Heartbeat skipped: waiting \(max(0, remaining))s before next heartbeat")
+            return
+        }
+
+        DeviceStatusDebug.log("Heartbeat sending: force=\(force), intervalSeconds=\(Int(deviceStatusHeartbeatInterval))")
+        let didUpdate = await TrackViewModel.shared.updateDeviceStatus()
+        if didUpdate {
+            lastDeviceStatusHeartbeatAt = now
+            DeviceStatusDebug.log("Heartbeat completed: lastDeviceStatusHeartbeatAt=\(now)")
+        } else {
+            DeviceStatusDebug.log("Heartbeat failed: timestamp not updated")
+        }
+    }
+
+    nonisolated private static func isStationary(_ update: CLLocationUpdate) -> Bool {
+        if #available(iOS 18.0, *) {
+            return update.stationary
+        } else {
+            return update.isStationary
+        }
+    }
+
     func addUniqueLocationData(latitude: Double, longitude: Double) -> TrackRequestModelData {
         //Get the current data and time
         let currentDate = Date()
@@ -366,9 +453,18 @@ class PermissionManager: NSObject, ObservableObject {
         let timeFormatter = DateFormatter()
         timeFormatter.dateFormat = "HH:mm:ss"
         let time = timeFormatter.string(from: currentDate)
+        let deviceStatus = DeviceStatusSnapshot.current
         
         //create a new TrackRequestModelData entry
-        let newLocationData = TrackRequestModelData(date: date, time: time, latitude: latitude, longitude: longitude)
+        let newLocationData = TrackRequestModelData(
+            date: date,
+            time: time,
+            latitude: latitude,
+            longitude: longitude,
+            batteryPercent: deviceStatus.batteryPercent,
+            isCharging: deviceStatus.isCharging
+        )
+        DeviceStatusDebug.log("Location point created with device fields: \(newLocationData.deviceStatusLogDescription)")
         
         return newLocationData
         
@@ -469,17 +565,22 @@ extension PermissionManager: CLLocationManagerDelegate {
         let latitude = location.coordinate.latitude
         let longitude = location.coordinate.longitude
         
-        var trackRequestData: [TrackRequestModelData] = []
-        
-        trackRequestData.append(addUniqueLocationData(latitude: latitude, longitude: longitude))
-        let newLocationData = addUniqueLocationData(latitude: latitude, longitude: longitude)  // this data will be stored when the user is offline
-        
+        let newLocationData = addUniqueLocationData(latitude: latitude, longitude: longitude)
+        let trackRequestData = [newLocationData]
+        DeviceStatusDebug.log("Location piggyback prepared: online=\(isOnline), payload=\(newLocationData.deviceStatusLogDescription)")
+
 //        AppLog.debug(trackRequestData)
         if isOnline {
             Task { [weak self] in
                 guard let self else { return }
                 TrackViewModel.shared.trackRequestData = trackRequestData
                 await TrackViewModel.shared.trackUser()
+                if NetworkManager.shared.statusCode == 200 {
+                    self.lastDeviceStatusHeartbeatAt = Date()
+                    DeviceStatusDebug.log("Location piggyback accepted; heartbeat timestamp refreshed")
+                } else {
+                    DeviceStatusDebug.log("Location piggyback not accepted; statusCode=\(NetworkManager.shared.statusCode), message=\(NetworkManager.shared.responseMessage)")
+                }
 
                 // Apply any frequency/radius updates the server returned
                 let newFrequency = UserDefaults.standard.integer(forKey: "CurrentFrequency")
@@ -494,7 +595,8 @@ extension PermissionManager: CLLocationManagerDelegate {
         }
         else {
             Task {
-                await LocationQueueService.shared.enqueue(latitude: latitude, longitude: longitude)
+                await LocationQueueService.shared.enqueue(newLocationData)
+                DeviceStatusDebug.log("Location point stored offline with device fields: \(newLocationData.deviceStatusLogDescription)")
                 AppLog.debug("Stored offline location: \(latitude), \(longitude)")
             }
         }
@@ -514,6 +616,7 @@ extension PermissionManager: CLLocationManagerDelegate {
             guard !logs.isEmpty else { return }
             
             let trackData = logs.map(\.trackRequestData)
+            DeviceStatusDebug.log("Offline flush sending \(trackData.count) queued points; lastPoint=\(trackData.last?.deviceStatusLogDescription ?? "none")")
             AppLog.debug("Uploading offline locations:")
             AppLog.debug(trackData)
             
@@ -522,12 +625,15 @@ extension PermissionManager: CLLocationManagerDelegate {
             
             if NetworkManager.shared.statusCode == 200 {
                 try await LocationQueueService.shared.delete(logs)
+                DeviceStatusDebug.log("Offline flush success; deleted \(logs.count) queued points")
                 AppLog.debug("Uploaded offline locations.")
             } else {
                 try await LocationQueueService.shared.incrementRetry(logs)
+                DeviceStatusDebug.log("Offline flush failed; keeping \(logs.count) queued points, statusCode=\(NetworkManager.shared.statusCode), message=\(NetworkManager.shared.responseMessage)")
                 AppLog.debug("Failed to upload offline locations. Keeping queue for retry.")
             }
         } catch {
+            DeviceStatusDebug.log("Offline flush error=\(error.localizedDescription)")
             AppLog.debug("Error uploading offline locations: \(error)")
         }
     }
@@ -693,16 +799,37 @@ actor LocationQueueService {
             let container = try ModelContainer(for: LocationLog.self)
             return LocationQueueService(modelContainer: container)
         } catch {
-            fatalError("Failed to create LocationQueueService container: \(error)")
+            AppLog.debug("[LocationQueueService] Persistent container failed, using in-memory fallback: \(error)")
+            do {
+                let fallbackConfiguration = ModelConfiguration(isStoredInMemoryOnly: true)
+                let fallbackContainer = try ModelContainer(for: LocationLog.self, configurations: fallbackConfiguration)
+                return LocationQueueService(modelContainer: fallbackContainer)
+            } catch {
+                fatalError("Failed to create fallback LocationQueueService container: \(error)")
+            }
         }
     }()
 
+    private let maxStoredLogs = 1_000
+
     /// Stores a single location update for later upload.
-    func enqueue(latitude: Double, longitude: Double) async {
-        let log = LocationLog(latitude: latitude, longitude: longitude)
+    func enqueue(_ locationData: TrackRequestModelData) async {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        dateFormatter.timeZone = TimeZone.current
+        let timestamp = dateFormatter.date(from: "\(locationData.date) \(locationData.time)") ?? Date()
+
+        let log = LocationLog(
+            timestamp: timestamp,
+            latitude: locationData.latitude,
+            longitude: locationData.longitude,
+            batteryPercent: locationData.batteryPercent,
+            isCharging: locationData.isCharging
+        )
         modelContext.insert(log)
         do {
             try modelContext.save()
+            try pruneIfNeeded()
         } catch {
             AppLog.debug("[LocationQueueService] Failed to enqueue location: \(error)")
         }
@@ -758,17 +885,37 @@ actor LocationQueueService {
             let log = LocationLog(
                 timestamp: timestamp,
                 latitude: entry.latitude,
-                longitude: entry.longitude
+                longitude: entry.longitude,
+                batteryPercent: entry.batteryPercent,
+                isCharging: entry.isCharging
             )
             modelContext.insert(log)
         }
 
         do {
             try modelContext.save()
+            try pruneIfNeeded()
             UserDefaults.standard.removeObject(forKey: "offlineLocations")
             AppLog.debug("[LocationQueueService] Migrated \(legacy.count) legacy offline locations to SwiftData.")
         } catch {
             AppLog.debug("[LocationQueueService] Failed to migrate legacy queue: \(error)")
         }
+    }
+
+    /// Keeps the durable offline queue bounded so a long outage cannot consume
+    /// unbounded local storage. Oldest unsent points are dropped first.
+    private func pruneIfNeeded() throws {
+        let descriptor = FetchDescriptor<LocationLog>(
+            sortBy: [SortDescriptor(\.timestamp, order: .forward)]
+        )
+        let logs = try modelContext.fetch(descriptor)
+        let overflowCount = logs.count - maxStoredLogs
+        guard overflowCount > 0 else { return }
+
+        for log in logs.prefix(overflowCount) {
+            modelContext.delete(log)
+        }
+        try modelContext.save()
+        AppLog.debug("[LocationQueueService] Pruned \(overflowCount) old offline locations.")
     }
 }

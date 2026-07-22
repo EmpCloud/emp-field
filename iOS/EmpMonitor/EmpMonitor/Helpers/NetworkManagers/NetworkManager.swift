@@ -88,6 +88,17 @@ final class NetworkManager {
     }
     
     // MARK: - PUT Request
+
+    func putData<T: Codable, U: Codable>(to urlString: String, body: T, as type: U.Type, accessToken: String?) async throws -> U {
+        let bodyData = try encoder.encode(body)
+        let (data, httpStatus) = try await performRequest(
+            urlString: urlString,
+            method: "PUT",
+            body: bodyData,
+            accessToken: accessToken
+        )
+        return try decodeResponse(data: data, httpStatus: httpStatus, urlString: urlString)
+    }
     
     func putData<T: Codable, U: Codable>(to urlString: String, body: T, as type: U.Type, accessToken: String?, queryParams: String?) async throws -> U {
         guard var urlComponents = URLComponents(string: urlString) else {
@@ -155,10 +166,12 @@ final class NetworkManager {
             // status (e.g. 400 "Session expired. Logged in on another device."), so match
             // on the message as well as the status code before forcing a logout.
             if isSessionExpired(status: wrapperStatus, message: message) {
+                recordFailure(status: 401, message: message)
                 AppState.shared.handleSessionExpired(message: message)
                 throw NetworkError.unauthorized
             }
 
+            recordFailure(status: wrapperStatus, message: message)
             switch wrapperStatus {
             case 401:
                 AppState.shared.handleSessionExpired(message: message)
@@ -181,38 +194,50 @@ final class NetworkManager {
                 return decoded
             } catch {
                 AppLog.debug("[API] Error: Decode failed for \(urlString) — \(error)")
+                recordFailure(status: httpStatus, message: NetworkError.invalidData.errorDescription)
                 throw NetworkError.invalidData
             }
 
         case 401:
             let message = decodeErrorMessage(from: data)
             AppLog.debug("[API] 401 Unauthorized — \(message ?? "No message")")
+            recordFailure(status: 401, message: message)
             AppState.shared.handleSessionExpired(message: message)
             throw NetworkError.unauthorized
 
         case 403:
             let message = decodeErrorMessage(from: data)
             AppLog.debug("[API] 403 Forbidden — \(message ?? "No message")")
+            recordFailure(status: 403, message: message)
             throw NetworkError.forbidden
 
         case 400...499:
             let message = decodeErrorMessage(from: data)
             AppLog.debug("[API] \(httpStatus) Client Error — \(message ?? "No message")")
             if isSessionExpired(status: httpStatus, message: message) {
+                recordFailure(status: 401, message: message)
                 AppState.shared.handleSessionExpired(message: message)
                 throw NetworkError.unauthorized
             }
+            recordFailure(status: httpStatus, message: message)
             throw NetworkError.clientError(httpStatus, message)
 
         case 500...599:
             let message = decodeErrorMessage(from: data)
             AppLog.debug("[API] \(httpStatus) Server Error — \(message ?? "No message")")
+            recordFailure(status: httpStatus, message: message)
             throw NetworkError.serverError(httpStatus)
 
         default:
             AppLog.debug("[API] \(httpStatus) Unknown response")
+            recordFailure(status: httpStatus, message: nil)
             throw NetworkError.unknown(httpStatus)
         }
+    }
+
+    private func recordFailure(status: Int, message: String?) {
+        statusCode = status
+        responseMessage = message ?? ""
     }
 
     private func decodeErrorMessage(from data: Data) -> String? {

@@ -34,19 +34,14 @@ class CheckINViewModel: ObservableObject {
         
         do{
             let fetchData: CheckINResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: CheckINResponseModel.self, accessToken: token)
-//            if fetchData.statusCode == 200 {
-                checkINTime = fetchData.body.data?.data?.time ?? ""
-//                NetworkManager.shared.statusCode = fetchData.body.data?.code ?? 0
-                NetworkManager.shared.statusCode = fetchData.statusCode
-//                NetworkManager.shared.responseMessage = fetchData.body.data?.message ?? ""
-            NetworkManager.shared.responseMessage = fetchData.body.message
-                AppLog.debug("CheckIN Data: ")
-                AppLog.debug(fetchData)
-//            }
-            
+            applyAttendanceResponse(fetchData)
+            AppLog.debug("CheckIN Data: ")
+            AppLog.debug(fetchData)
         }catch {
-            AppLog.debug("Error: CheckINViewModel Mark attendance error")
+            AppLog.debug("Error: CheckINViewModel Mark attendance error - \(error)")
             self.error = error
+            applyFailureStatus(error)
+            throw error
         }
     }
     
@@ -63,19 +58,62 @@ class CheckINViewModel: ObservableObject {
         
         do{
             let fetchData: CheckINResponseModel = try await NetworkManager.shared.postData(to: urlString, body: body, as: CheckINResponseModel.self, accessToken: token)
-            if fetchData.statusCode == 200 {
-                checkINTime = fetchData.body.data?.data?.time ?? ""
-                NetworkManager.shared.statusCode = fetchData.body.data?.code ?? 0
-//                NetworkManager.shared.statusCode = fetchData.statusCode
-                NetworkManager.shared.responseMessage = fetchData.body.data?.message ?? ""
-//            NetworkManager.shared.responseMessage = fetchData.body.message
-                AppLog.debug("CheckIN Data: ")
-                AppLog.debug(fetchData)
-            }
-            
+            applyAttendanceResponse(fetchData)
+            AppLog.debug("CheckIN Data: ")
+            AppLog.debug(fetchData)
         }catch {
-            AppLog.debug("Error: CheckINViewModel Mark attendance error")
+            AppLog.debug("Error: CheckINViewModel Mark attendance error - \(error)")
             self.error = error
+            applyFailureStatus(error)
+            throw error
+        }
+    }
+
+    private func applyAttendanceResponse(_ fetchData: CheckINResponseModel) {
+        let attendanceCode = fetchData.body.data?.code ?? fetchData.statusCode
+        let attendanceMessage = fetchData.body.data?.message ?? fetchData.body.message
+
+        NetworkManager.shared.statusCode = attendanceCode
+        NetworkManager.shared.responseMessage = attendanceMessage
+        NetworkManager.shared.errorMessage = fetchData.body.message
+
+        guard attendanceCode == 200 else {
+            checkINTime = ""
+            AppLog.debug("Attendance business error (\(attendanceCode)): \(attendanceMessage)")
+            return
+        }
+
+        checkINTime = fetchData.body.data?.data?.time ?? ""
+    }
+
+    private func applyFailureStatus(_ error: Error) {
+        guard let networkError = error as? NetworkError else {
+            NetworkManager.shared.statusCode = 0
+            NetworkManager.shared.responseMessage = error.localizedDescription
+            return
+        }
+
+        switch networkError {
+        case .unauthorized:
+            NetworkManager.shared.statusCode = 401
+            if NetworkManager.shared.responseMessage.isEmpty {
+                NetworkManager.shared.responseMessage = networkError.errorDescription ?? "Unauthorized"
+            }
+        case .forbidden:
+            NetworkManager.shared.statusCode = 403
+            NetworkManager.shared.responseMessage = networkError.errorDescription ?? "Forbidden"
+        case .clientError(let code, let message):
+            NetworkManager.shared.statusCode = code
+            NetworkManager.shared.responseMessage = message ?? networkError.errorDescription ?? "Request failed"
+        case .serverError(let code):
+            NetworkManager.shared.statusCode = code
+            NetworkManager.shared.responseMessage = networkError.errorDescription ?? "Server Error (\(code))"
+        case .unknown(let code):
+            NetworkManager.shared.statusCode = code
+            NetworkManager.shared.responseMessage = networkError.errorDescription ?? "Unexpected response (\(code))"
+        default:
+            NetworkManager.shared.statusCode = 0
+            NetworkManager.shared.responseMessage = networkError.errorDescription ?? error.localizedDescription
         }
     }
 }

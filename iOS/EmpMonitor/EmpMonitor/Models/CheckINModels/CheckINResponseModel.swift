@@ -23,7 +23,7 @@ struct CheckINResponseModelBody: Codable {
 struct CheckINResponseModelDetail: Codable {
     let code: Int
     let message: String
-    let error: JSONNull?
+    let error: JSONAny?
     let data: CheckINResponseModelDetailData?
 }
 

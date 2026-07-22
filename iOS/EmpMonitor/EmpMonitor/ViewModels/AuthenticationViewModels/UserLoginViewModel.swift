@@ -49,17 +49,29 @@ extension UserLoginViewModel {
             let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
             let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
             AppLog.debug("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
+            let errorMessage = decodeErrorMessage(from: data)
+            if isSessionExpired(status: httpStatus, message: errorMessage) {
+                expireSession(message: errorMessage)
+                throw NetworkError.unauthorized
+            }
             guard httpStatus == 200 else {
+                recordFailure(status: httpStatus, message: errorMessage ?? NetworkError.invalidResponse.errorDescription)
                 throw NetworkError.invalidResponse
             }
 
             guard let userLoginData = try? JSONDecoder().decode(UserLoginResponseModel.self, from: data) else {
                 AppLog.debug("Invalid data")
+                recordFailure(status: httpStatus, message: NetworkError.invalidData.errorDescription)
                 throw NetworkError.invalidData
             }
             
             NetworkManager.shared.statusCode = userLoginData.statusCode
             NetworkManager.shared.responseMessage = userLoginData.body.message
+
+            if isSessionExpired(status: userLoginData.statusCode, message: userLoginData.body.message) {
+                expireSession(message: userLoginData.body.message)
+                throw NetworkError.unauthorized
+            }
 
             // Only continue if business-level login succeeded and a token was issued
             guard userLoginData.statusCode == 200,
@@ -83,6 +95,30 @@ extension UserLoginViewModel {
             self.error = error
             AppLog.debug("Error: UserLoginViewModel")
         }
+    }
+
+    @MainActor
+    private func recordFailure(status: Int, message: String?) {
+        NetworkManager.shared.statusCode = status
+        NetworkManager.shared.responseMessage = message ?? ""
+    }
+
+    @MainActor
+    private func expireSession(message: String?) {
+        recordFailure(status: 401, message: message)
+        AppState.shared.handleSessionExpired(message: message)
+    }
+
+    private func decodeErrorMessage(from data: Data) -> String? {
+        let body = (try? JSONDecoder().decode(ErrorResponse.self, from: data))?.body
+        return body?.message ?? body?.error
+    }
+
+    private func isSessionExpired(status: Int, message: String?) -> Bool {
+        if status == 401 { return true }
+        guard let message = message?.lowercased() else { return false }
+        return message.contains("session expired")
+            || message.contains("logged in on another device")
     }
 
 }

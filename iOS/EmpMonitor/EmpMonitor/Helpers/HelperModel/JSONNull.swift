@@ -10,7 +10,7 @@ import Foundation
 
 // MARK: - Encode/decode helpers
 
-class JSONNull: Codable, Hashable {
+final class JSONNull: Codable, Hashable {
 
     public static func == (lhs: JSONNull, rhs: JSONNull) -> Bool {
             return true
@@ -35,7 +35,7 @@ class JSONNull: Codable, Hashable {
     }
 }
 
-class JSONCodingKey: CodingKey {
+final class JSONCodingKey: CodingKey {
     let key: String
 
     required init?(intValue: Int) {
@@ -55,7 +55,7 @@ class JSONCodingKey: CodingKey {
     }
 }
 
-class JSONAny: Codable {
+final class JSONAny: Codable {
 
     let value: Any
 

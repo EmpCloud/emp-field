@@ -25,10 +25,14 @@ struct EmpMonitorApp: App {
 //        permissionManager.backgroundActivity = CLBackgroundActivitySession()
 //        permissionManager.startLocationUpdate()
 //    }
+    init() {
+        UIDevice.current.isBatteryMonitoringEnabled = true
+    }
     
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .dismissKeyboardOnTapOutside()
 //                .environmentObject(appState)
                 .environmentObject(permissionManager)
                 .environmentObject(createProfileViewModel)
@@ -37,7 +41,6 @@ struct EmpMonitorApp: App {
                 .environmentObject(timerManager)
                 .environmentObject(profileImageLoader)
                 .onAppear {
-                    permissionManager.backgroundActivity = CLBackgroundActivitySession()
                     permissionManager.startLocationUpdate()
                     // Remove legacy image blob stored in UserDefaults (caused ~5MB limit warning)
                     UserDefaults.standard.removeObject(forKey: "ProfilePic")

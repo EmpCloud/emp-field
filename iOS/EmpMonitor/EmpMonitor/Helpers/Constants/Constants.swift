@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - Logging
 
@@ -24,6 +25,56 @@ enum AppLog {
     }
 }
 
+enum DeviceStatusDebug {
+    static let tag = "[DEVICE_STATUS_MOBILE_INTEGRATION]"
+
+    static func log(_ message: @autoclosure () -> String) {
+        AppLog.debug("\(tag) \(message())")
+    }
+}
+
+// MARK: - Device Status
+
+struct DeviceStatusSnapshot: Codable {
+    let batteryPercent: Int?
+    let isCharging: Bool?
+    let status: String?
+
+    static var current: DeviceStatusSnapshot {
+        current(status: nil)
+    }
+
+    static func current(status: String?) -> DeviceStatusSnapshot {
+        UIDevice.current.isBatteryMonitoringEnabled = true
+
+        let rawLevel = UIDevice.current.batteryLevel
+        let percent: Int?
+        if rawLevel < 0 {
+            percent = nil
+        } else {
+            percent = min(100, max(0, Int((rawLevel * 100).rounded())))
+        }
+
+        let charging: Bool?
+        switch UIDevice.current.batteryState {
+        case .charging, .full:
+            charging = true
+        case .unplugged:
+            charging = false
+        case .unknown:
+            charging = nil
+        @unknown default:
+            charging = nil
+        }
+
+        return DeviceStatusSnapshot(batteryPercent: percent, isCharging: charging, status: status)
+    }
+
+    var logDescription: String {
+        "batteryPercent=\(batteryPercent.map(String.init) ?? "nil"), isCharging=\(isCharging.map(String.init) ?? "nil"), status=\(status ?? "nil")"
+    }
+}
+
 class Constants {
 
     static let shared = Constants()
@@ -37,6 +88,15 @@ class Constants {
         #else
         return "https://field-api.empmonitor.com/v1"
         #endif
+    }
+
+    // MARK: - Device status integration URL
+    //
+    // Used only for the device-status integration contract:
+    // - POST /track/get-location with battery/charging fields
+    // - PUT /user/device-status heartbeat
+    var deviceStatusIntegrationBaseURL: String {
+        return baseURL
     }
 
     // MARK: - Static web URLs (not versioned with the API)
@@ -56,6 +116,7 @@ class Constants {
         static let forgotPassword    = "/open-user/forgot-password"
         static let resetPassword     = "/open-user/reset-password"
         static let trackingSettings  = "/open-user/get-tracking-settings"
+        static let deviceStatus      = "/user/device-status"
 
         // Profile
         static let fetchProfile          = "/profile/fetchProfile"
