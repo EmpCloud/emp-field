@@ -49,9 +49,9 @@ struct ToastView: View {
         HStack(spacing: 10) {
             Image(systemName: toast.style.icon)
                 .foregroundStyle(toast.style.tintColor)
-                .font(.system(size: 18, weight: .semibold))
+                .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.semibold))
             Text(toast.message)
-                .font(.system(size: 13, weight: .medium))
+                .font(AppFont.primary(size: AppFont.Size.callout, weight: AppFont.Weight.medium))
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.leading)
                 .lineLimit(3)

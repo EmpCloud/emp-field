@@ -15,61 +15,63 @@ struct LocationSettingWarningView: View {
     @Binding var showWarningPopup: Bool
     
     var body: some View {
-        VStack(spacing: 10) {
-            HStack {
+        VStack(spacing: AppSpacing.stackSpacingDefault) {
+            HStack(alignment: .center) {
                 Spacer()
-//                Image(systemName: "xmark")
-//                    .resizable()
-//                    .aspectRatio(contentMode: .fit)
-//                    .frame(width: 10.75, height: 10.75)
-//                    .fontWeight(.bold)
-//                    .foregroundStyle(Color.primaryButton1)
-//                    .padding(10)
-//                    .onTapGesture {
-//                        withAnimation {
-//                            showWarningPopup = false
-//                        }
-//                    }
+
+                Button {
+                    withAnimation {
+                        showWarningPopup = false
+                    }
+                } label: {
+                    Image(systemName: "xmark")
+                        .font(AppFont.primary(size: AppFont.Size.closeIcon, weight: AppFont.Weight.bold))
+                        .foregroundStyle(Color.primaryButton1)
+                        .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Close warning")
             }
-            .padding(.horizontal)
-            .offset(y: 10.0)
+            .frame(height: AppLayout.minimumTouchTarget)
             
             Image(.warningPopupIcon)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 51.26, height: 46)
             
-            HStack(spacing: 5){
+            HStack(spacing: AppSpacing.xs) {
                 Text("Alert:")
                     .foregroundStyle(Color.warningTitle)
                 Text(titleText)
                     .foregroundStyle(Color.text1)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.center)
             }
-            .font(.custom("Montserrat", size: 12))
-            .fontWeight(.medium)
+            .font(AppFont.primary(size: AppFont.Size.caption))
+            .fontWeight(AppFont.Weight.medium)
             
-            Text(description)
-                .font(.custom("Montserrat", size: 10))
-                .fontWeight(.medium)
-                .foregroundStyle(Color.addressText2)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal)
+            ScrollView(showsIndicators: false) {
+                Text(description)
+                    .font(AppFont.primary(size: AppFont.Size.xSmall))
+                    .fontWeight(AppFont.Weight.medium)
+                    .foregroundStyle(Color.addressText2)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity)
+            }
+            .frame(maxHeight: AppLayout.warningDescriptionMaxHeight)
             
             PrimaryBorderButton(text: "Settings") {
                 //open settings
                 HelperFunction.shared.openAppSetting()
             }
-            .padding()
         }
-        .frame(width: 329, height: 216, alignment: .top)
+        .padding(.horizontal, AppSpacing.lg)
+        .padding(.bottom, AppSpacing.lg)
+        .frame(maxWidth: AppLayout.popupMaxWidth, alignment: .top)
         .background(Color.white)
 //        .border(Color.black)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .onTapGesture {
-            withAnimation {
-                showWarningPopup = true
-            }
-        }
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.large))
         
     }
 }

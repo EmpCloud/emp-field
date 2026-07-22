@@ -12,6 +12,7 @@ struct Settings: View {
     @Environment(\.dismiss) var dismiss
     
     @EnvironmentObject var profileImageLoader: ProfileImageLoader
+    @EnvironmentObject var permissionManager: PermissionManager
     
     @StateObject private var getProfileViewModel = GetProfileViewModel()
     @StateObject private var updateProfileViewModel = UpdateProfileViewModel()
@@ -58,10 +59,10 @@ struct Settings: View {
                             
                             VStack(alignment: .leading) {
                                 Text(userName)
-                                    .font(.system(size: 20, weight: .semibold))
+                                    .font(AppFont.primary(size: AppFont.Size.navigationTitle, weight: AppFont.Weight.semibold))
                                     .foregroundStyle(Color.subText)
                                 Text(department)
-                                    .font(.system(size: 12, weight: .semibold))
+                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
                                     .foregroundStyle(Color.subText)
                             }
                         }
@@ -101,7 +102,7 @@ struct Settings: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 18, height: 18)
                                 Text("Profile")
-                                    .font(.system(size: 14, weight: .regular))
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundStyle(Color.primary)
@@ -122,7 +123,7 @@ struct Settings: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 18, height: 18)
                                 Text("Terms & Conditions")
-                                    .font(.system(size: 14, weight: .regular))
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundStyle(Color.primary)
@@ -143,7 +144,7 @@ struct Settings: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 18, height: 18)
                                 Text("Privacy Policy")
-                                    .font(.system(size: 14, weight: .regular))
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundStyle(Color.primary)
@@ -164,7 +165,7 @@ struct Settings: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 18, height: 18)
                                 Text("Mode of Travel")
-                                    .font(.system(size: 14, weight: .regular))
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundStyle(Color.primary)
@@ -186,7 +187,7 @@ struct Settings: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 18, height: 18)
                                 Text("QR Code")
-                                    .font(.system(size: 14, weight: .regular))
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundStyle(Color.primary)
@@ -201,7 +202,9 @@ struct Settings: View {
                         
                         
                         Button(action: {
-                            UserDefaults.standard.set(false, forKey: "isCheckedIN")
+                            if UserDefaults.standard.bool(forKey: "isCheckedIN") {
+                                permissionManager.stopLocationUpdates()
+                            }
                             UserDefaults.standard.set(false, forKey: "hasAcceptedTerms")
                             AuthStore.shared.clearSession()
                             isLogout.toggle()
@@ -212,7 +215,7 @@ struct Settings: View {
                                     .aspectRatio(contentMode: .fit)
                                     .frame(width: 18, height: 18)
                                 Text("Logout")
-                                    .font(.system(size: 14, weight: .regular))
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                             }
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .foregroundStyle(Color.primary)
@@ -231,15 +234,12 @@ struct Settings: View {
                 }
             
             if showMode {
-                ZStack {
-                    ModeOfTravelView(motViewModel: motViewModel, selectedMode: $selectedMode, tappedMode: $tappedMode, showMode: $showMode)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     withAnimation {
                         showMode.toggle()
                     }
+                }) {
+                    ModeOfTravelView(motViewModel: motViewModel, selectedMode: $selectedMode, tappedMode: $tappedMode, showMode: $showMode)
                 }
                 
             }

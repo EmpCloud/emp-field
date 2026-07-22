@@ -26,19 +26,19 @@ struct ActivityPermissionView: View {
                 
                 HStack{
                     Text("Activity")
-                        .font(.custom("Montserrat", size: 25))
-                        .fontWeight(.semibold)
+                        .font(AppFont.primary(size: AppFont.Size.screenTitle))
+                        .fontWeight(AppFont.Weight.semibold)
                         .foregroundStyle(Color.welcomeText)
                     
                     Text("Permission")
-                        .font(.custom("Montserrat", size: 25))
-                        .fontWeight(.semibold)
+                        .font(AppFont.primary(size: AppFont.Size.screenTitle))
+                        .fontWeight(AppFont.Weight.semibold)
                         .foregroundStyle(Color.sideTitleText)
                 }
                 .padding(.top, 30)
                 
                 Text("Activity tracking permission")
-                    .font(.custom("Montserrat", size: 16))
+                    .font(AppFont.primary(size: AppFont.Size.headline))
                     .foregroundStyle(Color.subText)
                     .padding()
             }

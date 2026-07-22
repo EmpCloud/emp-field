@@ -26,8 +26,8 @@ struct WelcomeView: View {
 
                 VStack(spacing: 32) {
                     Text("Welcome!")
-                        .font(.custom("Montserrat", size: 56))
-                        .fontWeight(.bold)
+                        .font(AppFont.primary(size: AppFont.Size.brandTitle))
+                        .fontWeight(AppFont.Weight.bold)
                         .foregroundStyle(Color.welcomeText)
                         .tracking(0.5)
 
@@ -44,14 +44,14 @@ struct WelcomeView: View {
                     Button(action: { isChecked.toggle() }) {
                         HStack(spacing: 12) {
                             Image(systemName: isChecked ? "checkmark.square.fill" : "square")
-                                .font(.system(size: 28, weight: .semibold))
+                                .font(AppFont.primary(size: AppFont.Size.largeTitle, weight: AppFont.Weight.semibold))
                                 .foregroundStyle(isChecked ? Color.blue : Color.checkbox)
                                 .frame(width: 28, height: 28)
 
                             Text("Accept Terms & Condition")
-                                .font(.custom("Comfortaa", size: 16))
+                                .font(AppFont.primary(size: AppFont.Size.headline))
                                 .foregroundStyle(Color.termCondition)
-                                .fontWeight(.medium)
+                                .fontWeight(AppFont.Weight.medium)
                                 .multilineTextAlignment(.center)
                         }
                         .frame(maxWidth: .infinity)
@@ -73,14 +73,14 @@ struct WelcomeView: View {
                     VStack(spacing: 8) {
                         VStack(spacing: 4) {
                             Text("You must agree to")
-                                .font(.custom("Montserrat", size: 14))
+                                .font(AppFont.primary(size: AppFont.Size.body))
                                 .foregroundStyle(Color.subText)
 
                             HStack(spacing: 4, content: {
                                 Button(action: { showTermsWebView = true }) {
                                     Text("terms and conditions")
-                                        .font(.custom("Montserrat", size: 14))
-                                        .fontWeight(.semibold)
+                                        .font(AppFont.primary(size: AppFont.Size.body))
+                                        .fontWeight(AppFont.Weight.semibold)
                                         .foregroundStyle(.blue)
                                         .underline(true, color: .blue)
                                 }
@@ -89,7 +89,7 @@ struct WelcomeView: View {
                             })
 
                             Text("to proceed")
-                                .font(.custom("Montserrat", size: 14))
+                                .font(AppFont.primary(size: AppFont.Size.body))
                                 .foregroundStyle(Color.subText)
                         }
                         .frame(maxWidth: .infinity)

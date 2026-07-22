@@ -15,7 +15,7 @@ struct TextFieldCreateProfileView: View {
     var body: some View {
         ZStack {
             TextField(placeholder, text: .constant(text))
-                .font(.custom("Montserrat", size: 12))
+                .font(AppFont.primary(size: AppFont.Size.caption))
                 .padding()
                 .background(Color.createTextField)
                 .clipShape(RoundedRectangle(cornerRadius: 6))
@@ -31,7 +31,7 @@ struct TextFieldEditableCreateProfileView: View {
     var body: some View {
         ZStack {
             TextField(placeholder, text: $text)
-                .font(.custom("Montserrat", size: 12))
+                .font(AppFont.primary(size: AppFont.Size.caption))
                 .padding()
                 .background(Color.createTextField)
                 .clipShape(RoundedRectangle(cornerRadius: 6))
@@ -46,7 +46,7 @@ struct MobileTextFieldCreateProfileView: View {
     var body: some View {
         ZStack {
             TextField(placeholder, text: $text)
-                .font(.custom("Montserrat", size: 12))
+                .font(AppFont.primary(size: AppFont.Size.caption))
                 .padding()
                 .padding(.leading, 70)
                 .padding(.horizontal)

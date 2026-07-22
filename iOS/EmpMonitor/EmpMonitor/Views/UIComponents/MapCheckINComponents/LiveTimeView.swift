@@ -8,32 +8,20 @@
 import SwiftUI
 
 struct LiveTimeView: View {
-    @State private var currentTime: String = ""
-
     var body: some View {
-        Text(currentTime)
-            .font(.custom("Ubuntu-Regular", size: 20)) // You can adjust the font size and style as needed
+        TimelineView(.periodic(from: .now, by: 60)) { context in
+            Text(Self.formattedTime(from: context.date))
+        }
+            .font(AppFont.primary(size: AppFont.Size.navigationTitle)) // You can adjust the font size and style as needed
             .foregroundStyle(Color.welcomeText)
-            .onAppear {
-                updateTime()
-                startTimer()
-            }
     }
 
-    private func updateTime() {
+    private static func formattedTime(from date: Date) -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "hh:mma"
         formatter.amSymbol = "am"
         formatter.pmSymbol = "pm"
-        
-        let now = Date()
-        currentTime = formatter.string(from: now).lowercased()
-    }
-
-    private func startTimer() {
-        Timer.scheduledTimer(withTimeInterval: 60, repeats: true) { _ in
-            updateTime()
-        }
+        return formatter.string(from: date).lowercased()
     }
 }
 

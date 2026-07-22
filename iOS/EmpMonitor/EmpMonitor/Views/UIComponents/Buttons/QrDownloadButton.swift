@@ -14,17 +14,24 @@ struct QrDownloadButton: View {
     var body: some View {
         
         Button(action: action) {
-            HStack {
+            HStack(spacing: AppSpacing.iconTextSpacing) {
                 Image(.downloadBlueIcon)
                 Text("Download QR")
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.85)
             }
-            .font(.custom("Montserrat", size: 14))
+            .font(AppFont.primary(size: AppFont.Size.body))
             .foregroundStyle(Color.primaryButton1)
-            .fontWeight(.semibold)
-            .frame(width: 195, height: 44)
+            .fontWeight(AppFont.Weight.semibold)
+            .padding(.horizontal, AppSpacing.md)
+            .frame(minWidth: 160)
+            .frame(maxWidth: 195)
+            .frame(minHeight: AppLayout.buttonHeight)
             .background(Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 4))
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Download QR")
     }
 }
 

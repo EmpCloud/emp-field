@@ -45,7 +45,7 @@ struct EmailLoginView: View {
                         .padding(.top, 40)
                     
                     Text("Login")
-                        .font(.custom("Montserrat", size: 25))
+                        .font(AppFont.primary(size: AppFont.Size.screenTitle))
                         .padding(.top, 150)
                         .padding(.bottom, 20)
                     
@@ -53,7 +53,7 @@ struct EmailLoginView: View {
                     if !isValidEmail && !userLoginViewModel.email.isEmpty {
                         VStack(alignment: .leading) {
                             Text("Please enter a valid email*")
-                                .font(.custom("Ubuntu-Regular", size: 10))
+                                .font(AppFont.primary(size: AppFont.Size.xSmall))
                                 .foregroundStyle(Color.absent)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -63,8 +63,8 @@ struct EmailLoginView: View {
                     //MARK: Warning for forget email
                     if showEmailFieldEmpty {
                         VStack(alignment: .leading) {
-                            Text("Email Field Empty, Please enter a valid email")
-                                .font(.custom("Ubuntu-Regular", size: 10))
+                            Text("Email field is empty. Please enter a valid email.")
+                                .font(AppFont.primary(size: AppFont.Size.xSmall))
                                 .foregroundStyle(Color.absent)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -103,7 +103,7 @@ struct EmailLoginView: View {
                     
                     
     //                Text("Forgot Password ?")
-    //                    .font(.custom("Montserrat", size: 14))
+    //                    .font(AppFont.primary(size: AppFont.Size.body))
     //                    .foregroundStyle(Color.authSubText)
     //                    .padding(.top)
                         
@@ -112,13 +112,8 @@ struct EmailLoginView: View {
                 
                 //Warning Popup
                 if showWarning {
-                    ZStack {
+                    ModalOverlayView {
                         WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarning)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    .onTapGesture {
-                        showWarning.toggle()
                     }
                 }
                 

@@ -51,14 +51,14 @@ struct ClientView: View {
                                 VStack{
                                     ClientSearchBarView(searchText: $searchText)
                                 }
-                                .padding(.top, 30)
-                                .padding(.horizontal)
+                                .padding(.top, AppSpacing.sectionTopSpacing)
+                                .padding(.horizontal, AppSpacing.screenHorizontalPadding)
                                 
                                 VStack{
 //                                    if NetworkManager.shared.statusCode == 200 {
                                     ClientListView(clientListViewModel: clientListViewModel, filteredClient: $filteredClient, searchText: $searchText, showContactCard: $showContactCard, selectedClient: $selectedClient, selectedClientContact: $selectedClientContact, showClientDetailMap: $showClientDetailMap, showSelectedClientDetailMap: $showSelectedClientDetailMap, showSelectedClientContactDetailMap: $showSelectedClientContactDetailMap)
                                         .environmentObject(profileImageLoader)
-                                        .padding(.horizontal)
+                                        .padding(.horizontal, AppSpacing.screenHorizontalPadding)
 //                                    }else{
 //                                        VStack{
 //                                            Image(.noDataFound)
@@ -84,6 +84,7 @@ struct ClientView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                .padding(.bottom, AppSpacing.floatingActionBottomPadding)
                 
             }
             .onAppear {

@@ -89,7 +89,7 @@ struct EditClientView: View {
                             
                             VStack(spacing: 3) {
                                 Text("Full Name*")
-                                    .font(.system(size: 15, weight: .semibold))
+                                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 TextFieldEditableCreateProfileView(text: $updateClientViewModel.clientName, placeholder: "Enter Full Name")
                             }
@@ -100,14 +100,14 @@ struct EditClientView: View {
                             //MARK: Email
                             VStack(spacing: 3) {
                                 Text("Email ID")
-                                    .font(.system(size: 15, weight: .semibold))
+                                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 //MARK: Email Validation warning
                                 if !isValidEmail && !updateClientViewModel.emailID.isEmpty {
                                     VStack(alignment: .leading) {
                                         Text("Please enter a valid email*")
-                                            .font(.custom("Ubuntu-Regular", size: 10))
+                                            .font(AppFont.primary(size: AppFont.Size.xSmall))
                                             .foregroundStyle(Color.absent)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -132,11 +132,11 @@ struct EditClientView: View {
                             //MARK: Phone
                             VStack(spacing: 3) {
                                 Text("Mobile No.*")
-                                    .font(.system(size: 15, weight: .semibold))
+                                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 ZStack(alignment: .leading) {
-                                    MobileTextFieldCreateProfileView(text: $phoneNumber, placeholder: "Enter mobile no.")
+                                    MobileTextFieldCreateProfileView(text: $phoneNumber, placeholder: "Enter Mobile Number")
                                         .keyboardType(.numberPad)
                                         .focused($keyIsFocused)
                                         .toolbarDoneButton()
@@ -152,7 +152,7 @@ struct EditClientView: View {
                                         HStack(spacing: 7) {
                                             Text("\(countryFlag)")
                                             Text("\(countryCode)")
-                                                .font(.custom("Poppins-Regular", size: 15))
+                                                .font(AppFont.primary(size: AppFont.Size.subheadline))
                                                 .foregroundStyle(Color.mobileText)
                                             
                                         }
@@ -168,9 +168,9 @@ struct EditClientView: View {
                             //MARK: Categories
                             VStack(spacing: 3) {
                                 Text("Categories*")
-                                    .font(.system(size: 15, weight: .semibold))
+                                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                TextFieldEditableCreateProfileView(text: $updateClientViewModel.category, placeholder: "Enter categories")
+                                TextFieldEditableCreateProfileView(text: $updateClientViewModel.category, placeholder: "Enter Categories")
                             }
                             .padding(.trailing, 20)
                             .padding(.leading, 20)
@@ -181,7 +181,7 @@ struct EditClientView: View {
                                 //MARK: Categories
                                 VStack(spacing: 3) {
                                     Text("Address")
-                                        .font(.system(size: 15, weight: .semibold))
+                                        .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     EditAddressTextField(showClientAddress: $showUpdateClientAddress, placeholder: updateClientViewModel.address1)
                                 }
@@ -268,13 +268,10 @@ struct EditClientView: View {
             
             
             if showWarmningPopup {
-                ZStack {
-                    WarningPopupView(titleText: "Try Again!", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarmningPopup)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     showWarmningPopup.toggle()
+                }) {
+                    WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarmningPopup)
                 }
             }
         }
@@ -352,7 +349,7 @@ struct EditClientView: View {
                     HStack {
                         Text(country.flag)
                         Text(country.name)
-                            .font(.system(size: 15, weight: .semibold))
+                            .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                         Spacer()
                         Text(country.dial_code)
                     }

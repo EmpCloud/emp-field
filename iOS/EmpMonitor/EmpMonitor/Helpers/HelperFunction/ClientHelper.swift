@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class ClientHelper {
+@MainActor
+final class ClientHelper {
     
     static let shared = ClientHelper()
     

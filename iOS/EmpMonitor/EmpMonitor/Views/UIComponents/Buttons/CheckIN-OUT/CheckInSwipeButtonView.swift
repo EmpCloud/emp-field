@@ -48,26 +48,29 @@ struct CheckInSwipeButtonView: View {
                 .frame(width: trackSize.width, height: trackSize.height)
                 .foregroundStyle(Color.swipeBG)
             
-            Text("Swipe to Check IN")
-                .font(.custom("Montserrat", size: 13))
-                .fontWeight(.medium)
+            Text("Swipe to Check In")
+                .font(AppFont.primary(size: AppFont.Size.callout))
+                .fontWeight(AppFont.Weight.medium)
                 .offset(x: 10.0)
+                .lineLimit(1)
+                .minimumScaleFactor(0.85)
             
             ZStack {
                 Circle()
                     .fill(
                         LinearGradient(gradient: Gradient(colors: [Color.primaryButton1, Color.primaryButton2]), startPoint: .top, endPoint: .bottom)
                     )
-                    .frame(width: 36, height: 36)
+                    .frame(width: AppLayout.swipeThumbVisualSize, height: AppLayout.swipeThumbVisualSize)
                 
                 Image(systemName: "arrow.right")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 13.31, height: 17.66)
+                    .frame(width: AppLayout.iconGlyphSmall.width, height: AppLayout.iconGlyphSmall.height)
                     .foregroundStyle(Color.white)
                 
             }
             .offset(x: getDragOffSetX(), y: 0)
+            .contentShape(Circle())
             .gesture(
                 DragGesture()
                     .onChanged { value in
@@ -80,6 +83,8 @@ struct CheckInSwipeButtonView: View {
                     }
             )
         }
+        .accessibilityLabel("Swipe to check in")
+        .accessibilityHint("Drag the handle to the right to check in")
     }
     
     //MARK: Helper Function

@@ -112,67 +112,37 @@ struct ALHView: View {
             
             //MARK: Edit Attendance Popup
             if showEditAttendance {
-                ZStack {
+                ModalOverlayView(backgroundOpacity: 0.7) {
                     EditAttendancePopupView(editAttendanceViewModel: editAttendanceViewModel, dateViewModel: dateViewModel, showEditAttendance: $showEditAttendance, checkINTime: $checkINTime, checkOUTTime: $checkOUTTime)
-                        .padding(.horizontal)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.7))
-                .ignoresSafeArea(.container)
-                .onTapGesture {
-                    withAnimation {
-//                        showEditAttendance.toggle()
-                    }
-                }
-                    
             }
             
             //MARK: TimePicker
             if dateViewModel.showPicker{
-                ZStack {
-                    TimePickerView(dateViewModel: dateViewModel, startTime: $checkINTime, stopTime: $checkOUTTime)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.8))
-                .ignoresSafeArea()
-                .onTapGesture {
+                ModalOverlayView(backgroundOpacity: 0.8, dismissOnBackgroundTap: {
                     dateViewModel.showPicker.toggle()
+                }) {
+                    TimePickerView(dateViewModel: dateViewModel, startTime: $checkINTime, stopTime: $checkOUTTime)
                 }
             }
             
             //MARK: Add leaves Popup
             if showAddLeaves {
-                ZStack {
+                ModalOverlayView(backgroundOpacity: 0.8) {
                     AddNewLeavesView(leavesViewModel: leavesViewModel, empName: $empName, startDate: $startDate, endDate: $endDate, setStartDate: $setStartDate, setEndDate: $setEndDate, dateTypeSelection: $dateTypeSelection, showAddLeaves: $showAddLeaves, showCalender: $showCalender, showWarningPopup: $showWarningPopup)
 //                        .background(Color.white)
 //                        .clipShape(RoundedRectangle(cornerRadius: 20))
 //                        .padding()
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.8))
-                .ignoresSafeArea(.container)
-                .onTapGesture {
-                    withAnimation {
-//                        showAddLeaves.toggle()
-                    }
-                }
             }
             
             //MARK: Edit leaves Popup
             if showEditLeaves {
-                ZStack {
+                ModalOverlayView(backgroundOpacity: 0.8) {
                     EditLeavesView(updateLeaveViewModel: updateLeaveViewModel, leavesViewModel: leavesViewModel, empName: $empName, startDate: $startDate, endDate: $endDate, setStartDate: $setStartDate, setEndDate: $setEndDate, reason: $reason, dateTypeSelection: $dateTypeSelection, leaveTypeSelection: $leaveTypeSelection, options: $leaveTypeOptions, showEditLeaves: $showEditLeaves, showCalender: $showCalender)
 //                        .background(Color.white)
 //                        .clipShape(RoundedRectangle(cornerRadius: 20))
 //                        .padding()
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.8))
-                .ignoresSafeArea(.container)
-                .onTapGesture {
-                    withAnimation {
-//                        showAddLeaves.toggle()
-                    }
                 }
                 .onDisappear {
                     Task {
@@ -197,12 +167,9 @@ struct ALHView: View {
             
             //MARK: Calender
             if showCalender {
-                ZStack {
+                ModalOverlayView(backgroundOpacity: 0.8) {
                     CalenderView(attendanceViewModel: attendanceViewModel, leavesViewModel: leavesViewModel, viewSelection: $selection, startDate: $startDate, endDate: $endDate, setStartDate: $setStartDate, setEndDate: $setEndDate , showCalendar: $showCalender)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.8))
-                .ignoresSafeArea()
             }
             
         }
@@ -218,10 +185,24 @@ struct ALHView: View {
             }
             ToolbarItem(placement: .principal) {
                 Text(selection ?? "Attendance")
-                    .font(.custom("Montserrat", size: 20))
-                    .fontWeight(.semibold)
+                    .font(AppFont.primary(size: AppFont.Size.navigationTitle))
+                    .fontWeight(AppFont.Weight.semibold)
                     .foregroundStyle(Color.white)
 //                        .padding(.horizontal, 70)
+            }
+            ToolbarItem(placement: .topBarTrailing) {
+                if selection == "Leaves" {
+                    Button {
+                        showAddLeaves.toggle()
+                    } label: {
+                        Image(systemName: "plus")
+                            .font(AppFont.primary(size: AppFont.Size.headlineLarge, weight: AppFont.Weight.semibold))
+                            .foregroundStyle(Color.white)
+                            .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Add leave")
+                }
             }
         }
     }

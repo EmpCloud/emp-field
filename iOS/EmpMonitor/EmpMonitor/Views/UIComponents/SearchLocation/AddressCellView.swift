@@ -17,10 +17,10 @@ struct AddressCellView: View {
             HStack(spacing: 30) {
                 VStack(alignment: .leading, spacing: 10){
                     Text(locationName)
-                        .font(.custom("Montserrat", size: 12))
+                        .font(AppFont.primary(size: AppFont.Size.caption))
                         .foregroundStyle(Color.text1)
                     Text(completeAddress)
-                        .font(.custom("Montserrat", size: 10))
+                        .font(AppFont.primary(size: AppFont.Size.xSmall))
                         .foregroundStyle(Color.mapSearchBarText)
                 }
                 Spacer()
@@ -30,7 +30,7 @@ struct AddressCellView: View {
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 12, height: 16)
                     Text("12km")
-                        .font(.custom("Montserrat", size: 10))
+                        .font(AppFont.primary(size: AppFont.Size.xSmall))
                 }
                 
             }

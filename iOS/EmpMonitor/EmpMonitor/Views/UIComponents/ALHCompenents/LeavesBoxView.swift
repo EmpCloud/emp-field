@@ -26,7 +26,7 @@ struct LeavesBoxView: View {
                                 .accessibilityLabel("Leaves icon")
                         }
                     Text("Leaves")
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.semibold))
                         .foregroundStyle(.white)
                     
                 }.multilineTextAlignment(.center)

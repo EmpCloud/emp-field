@@ -33,8 +33,8 @@ struct LoginView: View {
                     CircularAppIcon()
                     
                     Text("Login With")
-                        .font(.custom("Montserrat", size: 25))
-                        .fontWeight(.medium)
+                        .font(AppFont.primary(size: AppFont.Size.screenTitle))
+                        .fontWeight(AppFont.Weight.medium)
                         .foregroundStyle(Color.headingText)
                         .padding(.top, 170)
                         .padding(.bottom)
@@ -64,7 +64,7 @@ struct LoginView: View {
                                         }
                                     
                                     Text(button)
-                                        .font(.custom("Montserrat", size: 25))
+                                        .font(AppFont.primary(size: AppFont.Size.screenTitle))
                                         .foregroundStyle(Color.subText)
                                 }
 

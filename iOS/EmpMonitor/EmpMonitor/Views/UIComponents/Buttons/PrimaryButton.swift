@@ -17,13 +17,13 @@ struct PrimaryButton: View {
         ZStack {
             Button(action: action) {
                 Text(text)
-                    .font(.system(size: 18, weight: .semibold))
+                    .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.semibold))
                     .foregroundStyle(.white)
-                    .padding()
+                    .padding(AppSpacing.controlInnerPadding)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 44)
+                    .frame(height: AppLayout.buttonHeight)
                     .background(ColorGradient.primaryButton)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
                 }
                 .accessibilityLabel(text)
         }
@@ -39,13 +39,13 @@ struct PrimaryThinButton: View {
         ZStack {
             Button(action: action) {
                 Text(text)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(AppFont.primary(size: AppFont.Size.headline, weight: AppFont.Weight.semibold))
                     .foregroundStyle(.white)
-                    .padding(10)
+                    .padding(AppSpacing.controlInnerPadding)
                     .frame(maxWidth: .infinity)
-                    .frame(height: 44)
+                    .frame(height: AppLayout.buttonHeight)
                     .background(ColorGradient.primaryButton)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
                 }
                 .accessibilityLabel(text)
         }
@@ -66,14 +66,17 @@ struct RedThinButton: View {
                             .foregroundStyle(Color.white)
                     }
                     Text(text)
-                        .font(.custom("Poppins-Regular", size: 15))
+                        .font(AppFont.primary(size: AppFont.Size.subheadline))
                         .foregroundStyle(.white)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.85)
                     
                 }
-                .padding(10)
+                .padding(AppSpacing.controlInnerPadding)
                 .frame(maxWidth: .infinity)
+                .frame(minHeight: AppLayout.buttonHeight)
                 .background(Color.absent)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
             }
         }
     }
@@ -96,4 +99,3 @@ struct RedThinButton: View {
         AppLog.debug("Click me")
     }
 }
-

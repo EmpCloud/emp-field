@@ -18,11 +18,11 @@ struct PrivacyPolicyView: View {
         VStack {
             HStack {
                 Text("Privacy Policy")
-                    .font(.system(size: 18, weight: .semibold))
+                    .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.semibold))
                 Spacer()
                 Button(action: { dismiss() }) {
                     Image(systemName: "xmark.circle.fill")
-                        .font(.system(size: 24))
+                        .font(AppFont.primary(size: AppFont.Size.title))
                         .foregroundStyle(.gray)
                 }
                 .accessibilityLabel("Close")

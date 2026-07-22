@@ -17,8 +17,8 @@ struct TotalTimeView: View {
             .frame(width: 73 , height: 27)
             .overlay {
                 Text("\(timerManager.timeString(from: timerManager.activeTime))")
-                    .font(.custom("Montserrat", size: 14))
-                    .fontWeight(.medium)
+                    .font(AppFont.primary(size: AppFont.Size.body))
+                    .fontWeight(AppFont.Weight.medium)
                     .foregroundStyle(Color.white)
             }
     }

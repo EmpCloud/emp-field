@@ -15,75 +15,94 @@ struct WarningPopupView: View {
     @Binding var showWarningPopup: Bool
     
     var body: some View {
-        VStack(spacing: 10) {
+        VStack(spacing: AppSpacing.stackSpacingDefault) {
             HStack {
                 Spacer()
-                Image(systemName: "xmark")
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .frame(width: 10.75, height: 10.75)
-                    .fontWeight(.bold)
-                    .foregroundStyle(Color.primaryButton1)
-                    .padding(10)
-                    .onTapGesture {
-                        withAnimation {
-                            showWarningPopup = false
-//                            showCheckOUTAlert = false
-                        }
+                Button {
+                    withAnimation {
+                        showWarningPopup = false
                     }
+                } label: {
+                    Image(systemName: "xmark")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: AppLayout.closeIconSize, height: AppLayout.closeIconSize)
+                        .fontWeight(AppFont.Weight.bold)
+                        .foregroundStyle(Color.primaryButton1)
+                        .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+                        .contentShape(Rectangle())
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Close alert")
             }
-            .padding(.horizontal)
-            .offset(y: 10.0)
+            .padding(.horizontal, AppSpacing.controlInnerPadding)
             
             Image(.warningPopupIcon)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 51.26, height: 46)
             
-            HStack(spacing: 5){
+            HStack(alignment: .firstTextBaseline, spacing: AppSpacing.compactIconTextSpacing) {
                 Text("Alert:")
                     .foregroundStyle(Color.warningTitle)
                 Text(titleText)
                     .foregroundStyle(Color.text1)
             }
-            .font(.custom("Montserrat", size: 12))
-            .fontWeight(.medium)
+            .font(AppFont.primary(size: AppFont.Size.body))
+            .fontWeight(AppFont.Weight.medium)
+            .multilineTextAlignment(.center)
+            .lineLimit(2)
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity)
             
-            Text(description)
-                .font(.custom("Montserrat", size: 10))
-                .fontWeight(.medium)
-                .foregroundStyle(Color.addressText2)
+            Group {
+                if description.count > 160 {
+                    ScrollView {
+                        warningDescriptionText
+                    }
+                    .frame(maxHeight: AppLayout.warningDescriptionMaxHeight)
+                    .scrollIndicators(.hidden)
+                } else {
+                    warningDescriptionText
+                }
+            }
             
             //Button to dismiss
             Button{
-                //TODO: to dismiss the warning popup
                 withAnimation {
                     showWarningPopup = false
                 }
             }label: {
-                VStack {
-                    Text("OK")
-                        .font(.custom("Montserrat", size: 10))
-                        .fontWeight(.medium)
-                        .foregroundStyle(Color.white)
-                }
-                .frame(width: 117, height: 24)
+                Text("OK")
+                    .font(AppFont.primary(size: AppFont.Size.callout))
+                    .fontWeight(AppFont.Weight.medium)
+                    .foregroundStyle(Color.white)
+                    .frame(minWidth: 117, minHeight: AppLayout.minimumTouchTarget)
                 .background(Color.notification)
-                .clipShape(RoundedRectangle(cornerRadius: 4))
-                .padding()
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
             }
+            .buttonStyle(.plain)
+            .accessibilityLabel("OK")
+            .padding(.top, AppSpacing.xxs)
             
         }
-        .frame(width: 329, height: 216, alignment: .top)
+        .padding(.horizontal, AppSpacing.modalHorizontalPadding)
+        .padding(.bottom, AppSpacing.modalBottomPadding)
+        .frame(maxWidth: AppLayout.popupMaxWidth, alignment: .top)
         .background(Color.white)
 //        .border(Color.black)
-        .clipShape(RoundedRectangle(cornerRadius: 20))
-        .onTapGesture {
-            withAnimation {
-                showWarningPopup = true
-            }
-        }
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.large))
         
+    }
+
+    private var warningDescriptionText: some View {
+        Text(description)
+            .font(AppFont.primary(size: AppFont.Size.callout))
+            .fontWeight(AppFont.Weight.medium)
+            .foregroundStyle(Color.addressText2)
+            .multilineTextAlignment(.center)
+            .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity)
     }
 }
 

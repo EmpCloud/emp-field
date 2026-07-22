@@ -14,13 +14,13 @@ struct AddressTextFieldView: View {
     var body: some View {
         ZStack {
             TextField(placeholder, text: $text)
-                .padding(.horizontal)
-                .frame(height: 31.3)
+                .padding(.horizontal, AppSpacing.md)
+                .frame(minHeight: AppLayout.minimumTouchTarget)
                 .frame(maxWidth: .infinity)
                 .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-                .font(.custom("Montserrat", size: 12))
-                .fontWeight(.medium)
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
+                .font(AppFont.primary(size: AppFont.Size.caption))
+                .fontWeight(AppFont.Weight.medium)
         }
     }
 }

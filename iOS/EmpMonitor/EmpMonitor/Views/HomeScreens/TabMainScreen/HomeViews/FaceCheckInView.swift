@@ -37,7 +37,7 @@ struct FaceCheckInView: View {
                         dismiss()
                     } label: {
                         Image(systemName: "xmark.circle.fill")
-                            .font(.title)
+                            .font(AppFont.title)
                             .foregroundStyle(.white)
                             .padding()
                     }
@@ -86,32 +86,32 @@ struct FaceCheckInView: View {
                     .progressViewStyle(CircularProgressViewStyle(tint: .white))
                     .scaleEffect(1.4)
                 Text("Verifying face…")
-                    .font(.system(size: 15, weight: .medium))
+                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.medium))
                     .foregroundStyle(.white)
 
             case .success(let time):
                 Image(systemName: "checkmark.circle.fill")
-                    .font(.system(size: 44))
+                    .font(AppFont.primary(size: AppFont.Size.iconHero))
                     .foregroundStyle(.green)
                 Text("Checked In at \(time)")
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(AppFont.primary(size: AppFont.Size.headline, weight: AppFont.Weight.semibold))
                     .foregroundStyle(.white)
 
             case .noMatch:
                 Image(systemName: "person.crop.circle.badge.xmark")
-                    .font(.system(size: 44))
+                    .font(AppFont.primary(size: AppFont.Size.iconHero))
                     .foregroundStyle(.red)
                 Text("Face not recognized")
-                    .font(.system(size: 15, weight: .medium))
+                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.medium))
                     .foregroundStyle(.white)
                 retryButton
 
             case .failure(let msg):
                 Image(systemName: "exclamationmark.triangle.fill")
-                    .font(.system(size: 44))
+                    .font(AppFont.primary(size: AppFont.Size.iconHero))
                     .foregroundStyle(.yellow)
                 Text(msg)
-                    .font(.system(size: 13))
+                    .font(AppFont.primary(size: AppFont.Size.callout))
                     .foregroundStyle(.white)
                     .multilineTextAlignment(.center)
                     .padding(.horizontal)
@@ -129,40 +129,40 @@ struct FaceCheckInView: View {
         switch livenessVM.state {
         case .waitingForFace:
             Image(systemName: "person.fill.viewfinder")
-                .font(.system(size: 40))
+                .font(AppFont.primary(size: AppFont.Size.iconXLarge))
                 .foregroundStyle(.white.opacity(0.8))
             Text("Position your face in the oval")
-                .font(.system(size: 15, weight: .medium))
+                .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.medium))
                 .foregroundStyle(.white)
 
         case .faceDetected:
             Image(systemName: "checkmark.seal")
-                .font(.system(size: 40))
+                .font(AppFont.primary(size: AppFont.Size.iconXLarge))
                 .foregroundStyle(.green)
             Text("Face detected — hold still")
-                .font(.system(size: 15, weight: .semibold))
+                .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                 .foregroundStyle(.white)
 
         case .holdStill(let sec):
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle(tint: .white))
             Text("Capturing in \(sec)s…")
-                .font(.system(size: 15, weight: .medium))
+                .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.medium))
                 .foregroundStyle(.white)
 
         case .captured:
             ProgressView()
                 .progressViewStyle(CircularProgressViewStyle(tint: .white))
             Text("Processing…")
-                .font(.system(size: 15, weight: .medium))
+                .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.medium))
                 .foregroundStyle(.white)
 
         case .error(let msg):
             Image(systemName: "exclamationmark.triangle")
-                .font(.system(size: 36))
+                .font(AppFont.primary(size: AppFont.Size.iconLarge))
                 .foregroundStyle(.yellow)
             Text(msg)
-                .font(.system(size: 13))
+                .font(AppFont.primary(size: AppFont.Size.callout))
                 .foregroundStyle(.white)
         }
     }
@@ -174,7 +174,7 @@ struct FaceCheckInView: View {
             livenessVM.startSession()
         } label: {
             Text("Try Again")
-                .font(.system(size: 14, weight: .semibold))
+                .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.semibold))
                 .foregroundStyle(.white)
                 .padding(.horizontal, 24)
                 .padding(.vertical, 10)
@@ -186,7 +186,7 @@ struct FaceCheckInView: View {
     private var permissionDeniedView: some View {
         VStack(spacing: 16) {
             Image(systemName: "camera.slash.fill")
-                .font(.system(size: 50))
+                .font(AppFont.primary(size: AppFont.Size.iconDisplay))
                 .foregroundStyle(.white)
             Text("Camera access is required for face check-in.\nEnable it in Settings.")
                 .multilineTextAlignment(.center)

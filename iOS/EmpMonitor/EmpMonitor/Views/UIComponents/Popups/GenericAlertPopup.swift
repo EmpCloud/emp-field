@@ -39,11 +39,11 @@ struct GenericAlertPopup: View {
                 }
 
                 Text(title)
-                    .font(.system(size: 18, weight: .semibold))
+                    .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.semibold))
                     .foregroundStyle(.black)
 
                 Text(message)
-                    .font(.system(size: 14, weight: .regular))
+                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                     .foregroundStyle(.gray)
                     .multilineTextAlignment(.center)
 
@@ -51,7 +51,7 @@ struct GenericAlertPopup: View {
                     ForEach(0..<buttons.count, id: \.self) { index in
                         Button(action: buttons[index].action) {
                             Text(buttons[index].label)
-                                .font(.system(size: 14, weight: .semibold))
+                                .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.semibold))
                                 .frame(maxWidth: .infinity)
                                 .frame(height: 44)
                                 .background(buttonBackground(for: buttons[index].style))

@@ -65,32 +65,32 @@ struct GenericButton: View {
     private var height: CGFloat {
         switch style {
         case .primaryThin:
-            return 38
+            return AppLayout.buttonHeight
         default:
-            return 44
+            return AppLayout.buttonHeight
         }
     }
 
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 8) {
+            HStack(spacing: AppSpacing.iconTextSpacing) {
                 if let icon = icon {
                     Image(systemName: icon)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 20, height: 20)
+                        .frame(width: AppLayout.iconSmall, height: AppLayout.iconSmall)
                 }
                 Text(text)
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.semibold))
             }
             .foregroundStyle(textColor)
             .frame(maxWidth: .infinity)
             .frame(height: height)
             .background(backgroundColor)
-            .cornerRadius(8)
+            .cornerRadius(AppRadius.small)
             .overlay(
                 style == .outline ?
-                RoundedRectangle(cornerRadius: 8).stroke(Color.blue, lineWidth: 1) :
+                RoundedRectangle(cornerRadius: AppRadius.small).stroke(Color.blue, lineWidth: 1) :
                 nil
             )
         }
@@ -102,11 +102,11 @@ struct GenericButton: View {
 }
 
 #Preview {
-    VStack(spacing: 12) {
+    VStack(spacing: AppSpacing.stackSpacingDefault) {
         GenericButton(text: "Primary Button", style: .primary, action: {})
         GenericButton(text: "Thin Button", style: .primaryThin, action: {})
         GenericButton(text: "Delete", style: .red, action: {}, icon: "trash")
         GenericButton(text: "Outline", style: .outline, action: {})
     }
-    .padding()
+    .padding(AppSpacing.pagePadding)
 }

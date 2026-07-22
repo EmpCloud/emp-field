@@ -24,7 +24,7 @@ struct MapAddressView: View {
                 HStack {
                     //MARK: Add Address Title
                     Text("Add Address")
-                        .font(.system(size: 16, weight: .semibold))
+                        .font(AppFont.primary(size: AppFont.Size.headline, weight: AppFont.Weight.semibold))
                         .padding(.top)
                         .padding(.leading, 10)
                         .padding(.bottom)
@@ -64,11 +64,11 @@ struct MapAddressView: View {
 
                                         if searchLocationViewModel.selectedLocationTitle != "" {
                                             Text("\(searchLocationViewModel.selectedLocationTitle)")
-                                                .font(.system(size: 14, weight: .regular))
+                                                .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                                                 .foregroundStyle(Color.gray)
                                         }else{
                                             Text("Search for area, street name...")
-                                                .font(.system(size: 14, weight: .regular))
+                                                .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                                                 .foregroundStyle(Color.gray)
                                         }
                                     }
@@ -83,16 +83,17 @@ struct MapAddressView: View {
                         Spacer()
                         
                         //MARK: Current location Button
-                        CurrentLocationButton(text: "Use Current Location") {
-                            if let userLocation = searchLocationViewModel.userCurrentLocation {
-                                AppLog.debug(userLocation)
-                                createProfileMapViewCoordinator?.centerOnUserLocation(userLocation: userLocation)
-                            }
-                        }
-                        .padding(.horizontal, 110)
-                        .padding(.bottom, 40)
-                    }
-                }
+	                        CurrentLocationButton(text: "Use Current Location") {
+	                            if let userLocation = searchLocationViewModel.userCurrentLocation {
+	                                AppLog.debug(userLocation)
+	                                createProfileMapViewCoordinator?.centerOnUserLocation(userLocation: userLocation)
+	                            }
+	                        }
+	                        .frame(maxWidth: AppLayout.checkInControlWidth)
+	                        .padding(.horizontal, AppSpacing.md)
+	                        .padding(.bottom, 40)
+	                    }
+	                }
                 .onAppear {
                     if let userLocation = searchLocationViewModel.userCurrentLocation {
                         AppLog.debug(userLocation)
@@ -107,56 +108,52 @@ struct MapAddressView: View {
 //                        .offset(y: -20)
 //                }
                 
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color.white)
-                    .frame(height: 173)
-                    .frame(maxWidth: .infinity)
-                    .padding(.top, -15)
-                    .overlay {
-                        VStack(alignment: .leading) {
-                            HStack {
-                                Image(.addressTargetIcon)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 22, height: 22)
-                                Text(searchLocationViewModel.selectedLocationTitle)
-                                    .font(.system(size: 18, weight: .semibold))
-//                                Text("Bidadi")
-//                                    .font(.custom("Montserrat", size: 20))
-                            }
-                            .padding(.horizontal, 40)
-                            Text(searchLocationViewModel.selectedLocationSubtitle)
-                                .font(.system(size: 14, weight: .regular))
-                                .padding(.horizontal, 70)
-                            
-//                            Text("Bengaluru, India")
-//                                .font(.custom("Montserrat", size: 14))
-//                                .padding(.horizontal, 70)
-                            
-                            PrimaryButton(text: "Confirm Location") {
-                                //TODO: To set the selected location to the createProfileViewModel properties
-                                createProfileViewModel.address1 = searchLocationViewModel.selectedLocationTitle
-                                createProfileViewModel.address2 = searchLocationViewModel.selectedLocationSubtitle
-                                createProfileViewModel.state = searchLocationViewModel.selectedLocationState
-                                createProfileViewModel.city = searchLocationViewModel.selectedLocationCity
-                                createProfileViewModel.zipCode = searchLocationViewModel.selectedLocationZipcode
-                                createProfileViewModel.country = searchLocationViewModel.selectedLocationCountry
-                                
-                                if let latitude = searchLocationViewModel.selectedLocationLatitude {
-                                    createProfileViewModel.latitude = "\(latitude)"
-                                }
-                                if let longitude = searchLocationViewModel.selectedLocationLongitude {
-                                    createProfileViewModel.longitude = "\(longitude)"
-                                }
-                                
-                                // To confirm the location
-                                dismiss()
-                            }
-                            .padding()
-                        }
-                        .padding()
-                    }
-            }
+	                VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
+	                    HStack(alignment: .top, spacing: AppSpacing.iconTextSpacing) {
+	                        Image(.addressTargetIcon)
+	                            .resizable()
+	                            .aspectRatio(contentMode: .fit)
+	                            .frame(width: AppLayout.iconMedium, height: AppLayout.iconMedium)
+
+	                        Text(searchLocationViewModel.selectedLocationTitle)
+	                            .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.semibold))
+	                            .lineLimit(2)
+	                            .fixedSize(horizontal: false, vertical: true)
+	                    }
+
+	                    Text(searchLocationViewModel.selectedLocationSubtitle)
+	                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+	                        .foregroundStyle(Color.addressText2)
+	                        .lineLimit(2)
+	                        .fixedSize(horizontal: false, vertical: true)
+	                        .padding(.leading, AppLayout.iconMedium + AppSpacing.iconTextSpacing)
+
+	                    PrimaryButton(text: "Confirm Location") {
+	                        //TODO: To set the selected location to the createProfileViewModel properties
+	                        createProfileViewModel.address1 = searchLocationViewModel.selectedLocationTitle
+	                        createProfileViewModel.address2 = searchLocationViewModel.selectedLocationSubtitle
+	                        createProfileViewModel.state = searchLocationViewModel.selectedLocationState
+	                        createProfileViewModel.city = searchLocationViewModel.selectedLocationCity
+	                        createProfileViewModel.zipCode = searchLocationViewModel.selectedLocationZipcode
+	                        createProfileViewModel.country = searchLocationViewModel.selectedLocationCountry
+
+	                        if let latitude = searchLocationViewModel.selectedLocationLatitude {
+	                            createProfileViewModel.latitude = "\(latitude)"
+	                        }
+	                        if let longitude = searchLocationViewModel.selectedLocationLongitude {
+	                            createProfileViewModel.longitude = "\(longitude)"
+	                        }
+
+	                        // To confirm the location
+	                        dismiss()
+	                    }
+	                }
+	                    .padding(AppSpacing.md)
+	                    .frame(maxWidth: .infinity, alignment: .leading)
+	                    .background(Color.white)
+	                    .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
+	                    .padding(.top, -15)
+	            }
             .ignoresSafeArea(edges: .bottom)
             
             if showSearchLocationView {

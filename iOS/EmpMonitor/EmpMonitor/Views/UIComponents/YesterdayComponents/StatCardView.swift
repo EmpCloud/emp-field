@@ -28,11 +28,11 @@ struct StatCardView: View {
                 }
 
             Text(value)
-                .font(.system(size: 20, weight: .semibold))
+                .font(AppFont.primary(size: AppFont.Size.navigationTitle, weight: AppFont.Weight.semibold))
                 .foregroundStyle(.white)
 
             Text(label)
-                .font(.system(size: 12, weight: .regular))
+                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                 .foregroundStyle(.white.opacity(0.8))
         }
         .frame(maxWidth: .infinity)

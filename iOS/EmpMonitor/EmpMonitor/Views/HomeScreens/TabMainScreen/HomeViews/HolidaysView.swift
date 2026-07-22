@@ -25,9 +25,9 @@ struct HolidaysView: View {
                         Text("Holidays")
                         Text("Dates")
                     }
-                    .font(.custom("Montserrat", size: 16))
+                    .font(AppFont.primary(size: AppFont.Size.headline))
                     .foregroundStyle(Color.attendanceTitleText)
-                    .fontWeight(.medium)
+                    .fontWeight(AppFont.Weight.medium)
                     .padding(.leading, 25)
                     .padding(.vertical)
                     
@@ -37,12 +37,12 @@ struct HolidaysView: View {
                         LazyHGrid(rows: [GridItem(.fixed(2))], spacing: 30) {
                                 Text(holiday.holidayName)
                                     .frame(width: 200, alignment: .leading)
-                                    .fontWeight(.medium)
+                                    .fontWeight(AppFont.Weight.medium)
                                     .multilineTextAlignment(.leading)
                                 Text(FormatterHelper.shared.formattedDateWithDay(from: holiday.holidayDate))
                                 .foregroundStyle(FormatterHelper.shared.isFutureDate(dateString: holiday.holidayDate) ? Color.primaryButton1 : Color.black)
                         }
-                        .font(.custom("Montserrat", size: 12))
+                        .font(AppFont.primary(size: AppFont.Size.caption))
                         .padding(.leading, 25)
                         
                         LineView()
@@ -66,7 +66,7 @@ struct HolidaysView: View {
             ProgressView()
                 .scaleEffect(1.2)
             Text("Loading...")
-                .font(.custom("Montserrat", size: 14))
+                .font(AppFont.primary(size: AppFont.Size.body))
                 .foregroundStyle(Color.subText)
         }
         .frame(maxWidth: .infinity, minHeight: 400)
@@ -81,7 +81,7 @@ struct HolidaysView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 114, height: 114)
             Text("No holidays found")
-                .font(.custom("Montserrat", size: 14))
+                .font(AppFont.primary(size: AppFont.Size.body))
         }
         .frame(maxWidth: .infinity, minHeight: 400)
         .background(Color.white)

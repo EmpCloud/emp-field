@@ -15,14 +15,14 @@ struct MobileTextField: View {
     var body: some View {
         ZStack {
             TextField(placeholder, text: $text)
-                .font(.custom("Poppins-Regular", size: 18))
+                .font(AppFont.primary(size: AppFont.Size.title3))
                 .foregroundStyle(Color.mobileText)
-                .padding()
                 .padding(.leading, 70)
-                .padding(.horizontal, 20)
+                .padding(.trailing, AppSpacing.lg)
                 .frame(maxWidth: .infinity)
+                .frame(minHeight: AppLayout.textFieldHeightLarge)
                 .background(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
                 .shadow(color: Color.textFieldShadow, radius: 19)
                 .keyboardType(.phonePad)
         }

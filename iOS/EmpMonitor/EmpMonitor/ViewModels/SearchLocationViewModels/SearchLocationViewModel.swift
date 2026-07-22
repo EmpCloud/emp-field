@@ -47,8 +47,6 @@ class SearchLocationViewModel: NSObject, ObservableObject {
         self.selectedLocation = localSearchLocation // to display the selected Location in the MapView
 
         locationSearch(forLocalSearchCompletion: localSearchLocation) { [weak self] response, error in
-            guard let self = self else { return }
-
             if let error = error {
                 AppLog.debug("DEBUG: Location search failed with error \(error)")
                 return
@@ -80,7 +78,6 @@ class SearchLocationViewModel: NSObject, ObservableObject {
 
             guard let item = response?.mapItems.first else { return }
             let coordinate = item.placemark.coordinate
-            self.selectedLocationCoordinate = coordinate
 //            DispatchQueue.main.async {
 //                self.selectedLocationCoordinate = coordinate
 //                AppLog.debug("DEBUG: Location coordinates \(coordinate)")
@@ -97,7 +94,9 @@ class SearchLocationViewModel: NSObject, ObservableObject {
             let country = item.placemark.country ?? ""
             
             
-            DispatchQueue.main.async {
+            Task { @MainActor [weak self] in
+                guard let self else { return }
+                self.selectedLocationCoordinate = coordinate
                 self.selectedLocationTitle = title
                 self.selectedLocationSubtitle = subtitle
                 self.selectedLocationState = state
@@ -121,7 +120,7 @@ class SearchLocationViewModel: NSObject, ObservableObject {
     }
     
     // to search the exact location coordinates from the title and subtitle
-    func locationSearch(forLocalSearchCompletion localSearch: MKLocalSearchCompletion, completion: @escaping MKLocalSearch.CompletionHandler) {
+    func locationSearch(forLocalSearchCompletion localSearch: MKLocalSearchCompletion, completion: @escaping @Sendable MKLocalSearch.CompletionHandler) {
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = "\(localSearch.title) \(localSearch.subtitle)"
         let search = MKLocalSearch(request: searchRequest)

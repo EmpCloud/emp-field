@@ -16,12 +16,13 @@ struct PopupTextField: View {
     var body: some View {
         ZStack {
             TextField(placeholder, text: $text)
-                .font(.custom("Montserrat", size: 10))
+                .font(AppFont.primary(size: AppFont.Size.xSmall))
                 .foregroundStyle(Color.addressText2)
-                .padding(12)
+                .padding(.horizontal, AppSpacing.md)
                 .frame(maxWidth: .infinity)
+                .frame(minHeight: AppLayout.minimumTouchTarget)
                 .background(Color.rectangleBG)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
                 .allowsHitTesting(false)
                 
         }
@@ -37,13 +38,13 @@ struct PopupLargeTextField: View {
     var body: some View {
         ZStack {
             TextField(placeholder, text: $text)
-                .font(.custom("Montserrat", size: 10))
+                .font(AppFont.primary(size: AppFont.Size.xSmall))
                 .foregroundStyle(Color.addressText2)
-                .padding()
+                .padding(.horizontal, AppSpacing.md)
                 .frame(maxWidth: .infinity)
-                .frame(height: 49)
+                .frame(minHeight: AppLayout.textFieldHeightLarge)
                 .background(Color.rectangleBG)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
             
         }
     }

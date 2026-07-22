@@ -28,7 +28,7 @@ struct MobileOTPView: View {
                 CircularAppIcon()
                 
                 Text("Login")
-                    .font(.custom("Montserrat", size: 25))
+                    .font(AppFont.primary(size: AppFont.Size.screenTitle))
                     .padding(.top, 150)
                     .padding(.bottom, 20)
                 
@@ -66,11 +66,11 @@ struct MobileOTPView: View {
                 
                 HStack {
                     Text("Didn't received OTP?")
-                        .font(.custom("Poppins-Regular", size: 14))
+                        .font(AppFont.primary(size: AppFont.Size.body))
                         .foregroundStyle(Color.authSubText)
                     
                     Text("Resend")
-                        .font(.custom("Poppins-Regular", size: 16))
+                        .font(AppFont.primary(size: AppFont.Size.headline))
                         .foregroundStyle(Color.authBlueSubText)
                 }
                 .padding()
@@ -91,7 +91,7 @@ struct MobileOTPView: View {
                 let charIndex = enteredOTP.index(startIndex, offsetBy: index)
                 let charToString = String(enteredOTP[charIndex])
                 Text(charToString)
-                    .font(.custom("Poppins-Regular", size: 18))
+                    .font(AppFont.primary(size: AppFont.Size.title3))
 //                    .foregroundStyle(Color.baseRed)
                 
             }else{

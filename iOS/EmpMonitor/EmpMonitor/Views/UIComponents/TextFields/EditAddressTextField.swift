@@ -14,26 +14,28 @@ struct EditAddressTextField: View {
     var placeholder: String
     
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 6)
-                .fill(Color.createTextField)
-                .frame(height: 37)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-                .overlay(alignment: .leading) {
-                    HStack {
-                        Text(placeholder)
-                            .font(.custom("Montserrat", size: 12))
-                        
-                        Spacer()
-                        
-                        Image(.editAddressTextFieldIcon)
-                            .onTapGesture {
-                                showClientAddress.toggle()
-                            }
-                    }
-                    .padding(.horizontal)
-                }
+        Button {
+            showClientAddress.toggle()
+        } label: {
+            HStack(spacing: AppSpacing.iconTextSpacing) {
+                Text(placeholder)
+                    .font(AppFont.primary(size: AppFont.Size.caption))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+
+                Spacer(minLength: AppSpacing.sm)
+
+                Image(.editAddressTextFieldIcon)
+            }
+            .foregroundStyle(Color.text1)
+            .padding(.horizontal, AppSpacing.md)
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: AppLayout.minimumTouchTarget)
+            .background(Color.createTextField)
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Edit address")
     }
 }
 

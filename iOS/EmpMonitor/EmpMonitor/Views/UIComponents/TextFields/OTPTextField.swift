@@ -15,7 +15,7 @@ struct OTPTextField: View {
     var body: some View {
         TextField("OTP", text: $text)
             .keyboardType(.numberPad)
-            .font(.system(size: 14, weight: .regular))
+            .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
             .padding(12)
             .background(Color.white)
             .cornerRadius(8)

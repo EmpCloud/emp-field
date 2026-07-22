@@ -46,7 +46,7 @@ struct MobileLoginView: View {
                 
                 
                 Text("Login")
-                    .font(.custom("Montserrat", size: 25))
+                    .font(AppFont.primary(size: AppFont.Size.screenTitle))
                     .padding(.top, 150)
                 
                 ZStack(alignment: .leading){
@@ -69,11 +69,14 @@ struct MobileLoginView: View {
                         HStack(spacing: 10){
                             Text("\(countryFlag)")
                             Text("\(countryCode)")
-                                .font(.custom("Poppins-Regular", size: 18))
+                                .font(AppFont.primary(size: AppFont.Size.title3))
                                 .foregroundStyle(Color.mobileText)
                         }
+                        .frame(minHeight: AppLayout.minimumTouchTarget)
+                        .contentShape(Rectangle())
                     }
                     .padding(.leading, 60)
+                    .accessibilityLabel("Select country code")
                 }
                 
                 //MARK: Send OTP button
@@ -93,7 +96,7 @@ struct MobileLoginView: View {
                     HStack {
                         Text(country.flag)
                         Text(country.name)
-                            .font(.custom("Montserrat", size: 15))
+                            .font(AppFont.primary(size: AppFont.Size.subheadline))
                         Spacer()
                         Text(country.dial_code)
                     }

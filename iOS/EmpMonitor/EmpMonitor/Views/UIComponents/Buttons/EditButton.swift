@@ -19,7 +19,7 @@ struct EditButton: View {
                     .foregroundStyle(Color.white)
 
                 Text("Edit")
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
                     .foregroundStyle(Color.white)
             }
             .frame(height: 44)

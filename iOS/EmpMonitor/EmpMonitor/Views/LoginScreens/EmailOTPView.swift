@@ -45,7 +45,7 @@ struct EmailOTPView: View {
                 CircularAppIcon()
                 
                 Text("Login")
-                    .font(.custom("Montserrat", size: 25))
+                    .font(AppFont.primary(size: AppFont.Size.screenTitle))
                     .padding(.top, 130)
                     .padding(.bottom, 20)
                 
@@ -101,11 +101,11 @@ struct EmailOTPView: View {
                 
                 HStack {
                     Text("Didn't received OTP?")
-                        .font(.custom("Poppins-Regular", size: 14))
+                        .font(AppFont.primary(size: AppFont.Size.body))
                         .foregroundStyle(Color.authSubText)
                     
                     Text("Resend")
-                        .font(.custom("Poppins-Regular", size: 16))
+                        .font(AppFont.primary(size: AppFont.Size.headline))
                         .foregroundStyle(Color.authBlueSubText)
                         .onTapGesture {
                             Task {
@@ -143,13 +143,8 @@ struct EmailOTPView: View {
             
             //Warning Popup
             if showWarningPopup {
-                ZStack {
+                ModalOverlayView {
                     WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
-                    showWarningPopup.toggle()
                 }
             }
             
@@ -179,7 +174,7 @@ struct EmailOTPView: View {
                 let charIndex = emailOTP.index(startIndex, offsetBy: index)
                 let charToString = String(emailOTP[charIndex])
                 Text(charToString)
-                    .font(.custom("Poppins-Regular", size: 18))
+                    .font(AppFont.primary(size: AppFont.Size.title3))
                 //                    .foregroundStyle(Color.baseRed)
                 
             }else{

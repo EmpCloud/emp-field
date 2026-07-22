@@ -10,10 +10,11 @@ import UIKit
 import SwiftUI
 import CoreLocation
 
-class HelperFunction {
+final class HelperFunction: Sendable {
     
     static let shared = HelperFunction()
     
+    @MainActor
     func openAppSetting() {
         if let url = URL(string: UIApplication.openSettingsURLString),
            UIApplication.shared.canOpenURL(url) {

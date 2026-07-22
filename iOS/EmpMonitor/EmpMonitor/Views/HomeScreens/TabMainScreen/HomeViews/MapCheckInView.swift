@@ -83,11 +83,11 @@ struct MapCheckInView: View {
                     
                     VStack(alignment: .leading) {
                         Text(name)
-                            .font(.custom("Ubuntu-Regular", size: 20))
-                            .fontWeight(.bold)
+                            .font(AppFont.primary(size: AppFont.Size.navigationTitle))
+                            .fontWeight(AppFont.Weight.bold)
                         
                         Text(department)
-                            .font(.custom("Ubuntu-Regular", size: 10))
+                            .font(AppFont.primary(size: AppFont.Size.xSmall))
                     }
                     .foregroundStyle(.white)
                 }
@@ -112,14 +112,14 @@ struct MapCheckInView: View {
                         }
                     
                     Text("\(HelperFunction.shared.todaysDate())")
-                        .font(.custom("Ubuntu-Regular", size: 24))
+                        .font(AppFont.primary(size: AppFont.Size.title))
                         .foregroundStyle(Color.welcomeText)
                     
                     HStack(alignment: .bottom) {
                         //                        Text("09:55")
-                        //                            .font(.custom("Ubuntu-Regular", size: 20))
+                        //                            .font(AppFont.primary(size: AppFont.Size.navigationTitle))
                         //                        Text("am")
-                        //                            .font(.custom("Ubuntu-Regular", size: 14))
+                        //                            .font(AppFont.primary(size: AppFont.Size.body))
                         //                            .padding(.leading, -8)
                         LiveTimeView()
                     }
@@ -140,15 +140,15 @@ struct MapCheckInView: View {
                                             .foregroundStyle(Color.primaryButton1)
                                             .frame(width: 12, height: 12)
                                         Text("IN Time")
-                                            .font(.custom("Ubuntu-Regular", size: 10))
+                                            .font(AppFont.primary(size: AppFont.Size.xSmall))
                                             .foregroundStyle(Color(red: 79/255, green: 78/255, blue: 78/255, opacity: 1.0))
                                     }
                                     
                                     HStack(alignment: .bottom){
                                         Text(HelperFunction.shared.formatCheckTime(from: homeScreenViewModel.checkINTime) ?? "--:--")
-                                            .font(.custom("Ubuntu-Regular", size: 24))
-                                        Text("am")
-                                            .font(.custom("Ubuntu-Regular", size: 12))
+                                            .font(AppFont.primary(size: AppFont.Size.title))
+	                                        Text("AM")
+                                            .font(AppFont.primary(size: AppFont.Size.caption))
                                             .padding(.leading, -5)
                                             .padding(.bottom, 3)
                                     }
@@ -170,16 +170,16 @@ struct MapCheckInView: View {
                                             .foregroundStyle(Color.primaryButton1)
                                             .frame(width: 12, height: 12)
                                         Text("OUT Time")
-                                            .font(.custom("Ubuntu-Regular", size: 10))
+                                            .font(AppFont.primary(size: AppFont.Size.xSmall))
                                             .foregroundStyle(Color(red: 79/255, green: 78/255, blue: 78/255, opacity: 1.0))
                                     }
                                     .padding(.leading)
                                     
                                     HStack(alignment: .bottom){
                                         Text(HelperFunction.shared.formatCheckTime(from: homeScreenViewModel.checkOUTTime) ?? "--:--")
-                                            .font(.custom("Ubuntu-Regular", size: 24))
-                                        Text("am")
-                                            .font(.custom("Ubuntu-Regular", size: 12))
+                                            .font(AppFont.primary(size: AppFont.Size.title))
+	                                        Text("AM")
+                                            .font(AppFont.primary(size: AppFont.Size.caption))
                                             .padding(.leading, -5)
                                             .padding(.bottom, 3)
                                     }
@@ -191,8 +191,9 @@ struct MapCheckInView: View {
                             }
                         
                     }
-                    .frame(width: 300 ,height: 70)
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+	                    .frame(maxWidth: 300)
+	                    .frame(minHeight: 70)
+	                    .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
                     .padding(.horizontal, 30)
                     
                     
@@ -217,8 +218,8 @@ struct MapCheckInView: View {
                                             self.showMOTPopup = true  // Mode of travel visiblity
                                             currentDeviceTime = HelperFunction.shared.currentTime()
                                             AppLog.debug("Current Time: \(currentDeviceTime)")
-                                            AppLog.debug("Lat: \(permissionManager.userLocation?.coordinate.latitude)")
-                                            AppLog.debug("Long: \(permissionManager.userLocation?.coordinate.latitude)")
+                                            AppLog.debug("Lat: \(permissionManager.userLocation?.coordinate.latitude ?? 0)")
+                                            AppLog.debug("Long: \(permissionManager.userLocation?.coordinate.longitude ?? 0)")
                                             Task {
                                                 checkINViewModel.checkINTime = currentDeviceTime
                                                 if let lat = permissionManager.userLocation?.coordinate.latitude{
@@ -228,22 +229,25 @@ struct MapCheckInView: View {
                                                     checkINViewModel.checkINLongitude = Double(long)
                                                 }
                                                 try await checkINViewModel.markAttendance()
-                                                AppLog.debug("CheckIN: Attendance marked")
-                                                if checkINViewModel.checkINTime != "" {
-                                                    homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
-                                                    
-                                                    timerManager.startActiveTimer()
-                                                    
-                                                    // start tracking
-                                                    UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+                                                if NetworkManager.shared.statusCode != 200 {
+                                                    showWarning.toggle()
+                                                    showCheckIN = true
+                                                    showCheckOUT = false
+                                                    UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                    return
                                                 }
+                                                AppLog.debug("CheckIN: Attendance marked")
+                                                homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
+                                                timerManager.startActiveTimer()
+                                                UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+                                                permissionManager.startLocationUpdate()
                                             }
                                             
                                             // to refresh the screen after checkIN
                                             Task {
                                                 try await homeScreenViewModel.getHomeScreenData()
                                                 
-                                                if let data = homeScreenViewModel.checkData?.data.checkIn {
+                                                if homeScreenViewModel.checkData?.data.checkIn != nil {
                                                     showCheckIN = false
                                                     showCheckOUT = true
                                                     
@@ -278,8 +282,8 @@ struct MapCheckInView: View {
                                         self.showMOTPopup = true  // Mode of travel visiblity
                                         currentDeviceTime = HelperFunction.shared.currentTime()
                                         AppLog.debug("Current Time: \(currentDeviceTime)")
-                                        AppLog.debug("Lat: \(permissionManager.userLocation?.coordinate.latitude)")
-                                        AppLog.debug("Long: \(permissionManager.userLocation?.coordinate.latitude)")
+                                        AppLog.debug("Lat: \(permissionManager.userLocation?.coordinate.latitude ?? 0)")
+                                        AppLog.debug("Long: \(permissionManager.userLocation?.coordinate.longitude ?? 0)")
                                         Task {
                                             checkINViewModel.checkINTime = currentDeviceTime
                                             if let lat = permissionManager.userLocation?.coordinate.latitude{
@@ -289,22 +293,25 @@ struct MapCheckInView: View {
                                                 checkINViewModel.checkINLongitude = Double(long)
                                             }
                                             try await checkINViewModel.markAttendance()
-                                            AppLog.debug("CheckIN: Attendance marked")
-                                            if checkINViewModel.checkINTime != "" {
-                                                homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
-                                                
-                                                timerManager.startActiveTimer()
-                                                
-                                                // start tracking
-                                                UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+                                            if NetworkManager.shared.statusCode != 200 {
+                                                showWarning.toggle()
+                                                showCheckIN = true
+                                                showCheckOUT = false
+                                                UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                return
                                             }
+                                            AppLog.debug("CheckIN: Attendance marked")
+                                            homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
+                                            timerManager.startActiveTimer()
+                                            UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+                                            permissionManager.startLocationUpdate()
                                         }
                                         
                                         // to refresh the screen after checkIN
                                         Task {
                                             try await homeScreenViewModel.getHomeScreenData()
                                             
-                                            if let data = homeScreenViewModel.checkData?.data.checkIn {
+                                            if homeScreenViewModel.checkData?.data.checkIn != nil {
                                                 showCheckIN = false
                                                 showCheckOUT = true
                                                 
@@ -370,7 +377,7 @@ struct MapCheckInView: View {
                                             Task {
                                                 try await homeScreenViewModel.getHomeScreenData()
                                                 
-                                                if let data = homeScreenViewModel.checkData?.data.checkIn {
+                                                if homeScreenViewModel.checkData?.data.checkIn != nil {
                                                     showCheckIN = false
                                                     showCheckOUT = true
                                                     
@@ -428,7 +435,7 @@ struct MapCheckInView: View {
                                         Task {
                                             try await homeScreenViewModel.getHomeScreenData()
                                             
-                                            if let data = homeScreenViewModel.checkData?.data.checkIn {
+                                            if homeScreenViewModel.checkData?.data.checkIn != nil {
                                                 showCheckIN = false
                                                 showCheckOUT = true
                                                 
@@ -460,7 +467,7 @@ struct MapCheckInView: View {
                             }
                         }
                     }
-                    .frame(height: 43)
+	                    .frame(minHeight: AppLayout.checkInControlHeight)
                     .padding(.top)
                     
                 }
@@ -483,53 +490,60 @@ struct MapCheckInView: View {
             
             //MARK: MOT Popup after checkIN
             if showMOTPopup {
-                ZStack {
-                    ModeOfTravelView(motViewModel: motViewModel, selectedMode: $selecetedMode, tappedMode: $tappedMode, showMode: $showMOTPopup)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     showMOTPopup.toggle()
+                }) {
+                    ModeOfTravelView(motViewModel: motViewModel, selectedMode: $selecetedMode, tappedMode: $tappedMode, showMode: $showMOTPopup)
                 }
             }
             //MARK: CheckOUT Popup
             if showCheckOUTAlert {
-                ZStack {
+                ModalOverlayView {
                     LogoutAlertPopupView(checkINViewModel: checkINViewModel, homeScreenViewModel: homeScreenViewModel, showCheckOUTAlert: $showCheckOUTAlert, yesCheckout: $yesCheckOut, showWarningPopup: $showWarning, isTaskRunning: $isTaskRunning)
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .ignoresSafeArea()
-                .background(Color.black.opacity(0.5))
-                
             }
             
             //MARK: Warning
             if showWarning {
                 if NetworkManager.shared.statusCode == 403 {
-                    ZStack {
-                        WarningPopupView(titleText: "Checkout Restricted", description: "Check Before 1 hour is not allowed", showWarningPopup: $showWarning)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    .onTapGesture {
-                        showWarning.toggle()
-                        showCheckOUTAlert = false
+                    ModalOverlayView {
+                        WarningPopupView(
+                            titleText: attendanceWarningTitle,
+                            description: attendanceWarningDescription,
+                            showWarningPopup: $showWarning
+                        )
                     }
                 }else {
-                    ZStack {
+                    ModalOverlayView {
                         WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarning)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    .onTapGesture {
-                        showWarning.toggle()
-                        showCheckOUTAlert = false
                     }
                 }
                 
             }
         }
         
+    }
+
+    private var attendanceWarningTitle: String {
+        if NetworkManager.shared.responseMessage.localizedCaseInsensitiveContains("check-in/check-out is disabled") {
+            return "Attendance Restricted"
+        }
+
+        return NetworkManager.shared.errorMessage.isEmpty ? "Try Again" : NetworkManager.shared.errorMessage
+    }
+
+    private var attendanceWarningDescription: String {
+        let backendMessage = NetworkManager.shared.responseMessage
+        guard backendMessage.isEmpty == false else {
+            return "Please try again."
+        }
+
+        if backendMessage.localizedCaseInsensitiveContains("biometric"),
+           homeScreenViewModel.homeScreenData?.isBioMetricEnabled != 1 {
+            return "Mobile app check-in/check-out is currently disabled for this account. Please contact your admin."
+        }
+
+        return backendMessage
     }
 }
 

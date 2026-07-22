@@ -37,11 +37,11 @@ struct GenericTextField: View {
             if isSecure && !showPassword {
                 SecureField(placeholder, text: $text)
                     .disabled(!isEditable)
-                    .font(.system(size: 14, weight: .regular))
+                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
             } else {
                 TextField(placeholder, text: $text)
                     .disabled(!isEditable)
-                    .font(.system(size: 14, weight: .regular))
+                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
             }
 
             if isSecure {

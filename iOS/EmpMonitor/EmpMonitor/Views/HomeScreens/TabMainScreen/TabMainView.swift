@@ -116,31 +116,11 @@ struct TabMainView: View {
 //                    .toolbarBackground(.visible, for: .tabBar)
                     
                 }
-                .overlay(alignment: .bottom) {
+                .safeAreaInset(edge: .bottom, spacing: 0) {
                     CustomTabBarView(tabSelection: $selectedTab)
 //                        .padding(.bottom, 10)
                 }
                 .zIndex(1)
-                
-                //MARK: QRCode
-                if showQRCode {
-                    ZStack {
-                        VStack(spacing: 30) {
-                            QRCodePopupView(imageURL: $imageURL, downloadPDF: $downloadPDF, isImageLoaded: $isImagedLoaded, qrCodeImage: $qrCodeImage, showQrCode: $showQRCode, pdfURL: $pdfURL, isShareSheetPresented: $isShareSheetPresented)
-                            
-                            QrDownloadButton() {
-                                //TODO: Download the QR code
-                                if isImagedLoaded {
-                                    downloadPDF.toggle()
-                                }
-                            }
-                        }
-                    }
-                    .zIndex(2)
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    
-                }
                 
                 if showSideMenu{
                     SideMenuView(showSideMenu: $showSideMenu, selectedTab: $selectedTab, showALHView: $showALHView, selectedALHView: $selectedALHView, isLogout: $isLogout)
@@ -157,11 +137,9 @@ struct TabMainView: View {
                 MapCheckInView(homeScreenViewModel: homeScreenViewModel, checkINViewModel: checkINViewModel, showCheckIN: $showCheckIN, showCheckOUT: $showCheckOUT, motViewModel: motViewModel, selecetedMode: $selectedMode, tappedMode: $tappedMode, isTaskRunning: $isTaskRunning)
                     .environmentObject(profileImageLoader)
             }
-            .sheet(isPresented: $isShareSheetPresented, content: {
-                if let pdfURL = pdfURL {
-                    ActivityViewController(activityItems: [pdfURL])
-                }
-            })
+            .fullScreenCover(isPresented: $showQRCode) {
+                qrCodeModal
+            }
             //MARK: Navigation Bar Button
             .navigationTitle(tabTitle(selectedTab: selectedTab))
             .navigationBarTitleDisplayMode(.inline)
@@ -171,7 +149,7 @@ struct TabMainView: View {
                     .navigationBarBackButtonHidden()
             }
             .navigationDestination(isPresented: $showNotification) {
-                NotificationView()
+                NotificationView(notificationViewModel: notificationViewModel)
                     .navigationBarBackButtonHidden()
             }
             .onChange(of: showNotification) { _, isShowing in
@@ -186,64 +164,73 @@ struct TabMainView: View {
             .toolbar{
                 if !showSideMenu {  // controlling the visiblity of the toolbar when the sideMenu is visible
                     ToolbarItem(placement: .topBarLeading) {
-                        Image(.sideMenuIcon)
-                            .padding(.horizontal)
-                            .onTapGesture {
-                                withAnimation(.spring) {
-                                    showSideMenu.toggle()
-                                }
+                        Button {
+                            withAnimation(.spring) {
+                                showSideMenu.toggle()
                             }
-                        
-                        
+                        } label: {
+                            Image(.sideMenuIcon)
+                                .padding(.horizontal)
+                                .frame(minWidth: 44, minHeight: 44)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Open menu")
                     }
                     ToolbarItem(placement: .topBarTrailing) {
-                        QRCodeIconView()
-                            .onTapGesture {
-                                withAnimation {
-                                    showQRCode.toggle()
-                                }
+                        Button {
+                            withAnimation {
+                                showQRCode.toggle()
                             }
+                        } label: {
+                            QRCodeIconView()
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Show QR code")
                     }
                     ToolbarItem(placement: .topBarTrailing) {
-                        BellIconView(hasNotifications: !notificationViewModel.notificationList.isEmpty)
-                            .onTapGesture {
-                                withAnimation {
-                                    showNotification.toggle()
-                                }
+                        Button {
+                            withAnimation {
+                                showNotification.toggle()
                             }
+                        } label: {
+                            BellIconView(hasNotifications: notificationViewModel.hasUnreadNotifications)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Notifications")
                     }
                     ToolbarItem(placement: .topBarTrailing) {
-                        ProfileSmallView()
-                            .environmentObject(profileImageLoader)
-                        //                            .padding(.horizontal)
-                            .onTapGesture {
-                                Task {
-                                    try await getProfileViewModel.getProfile()
+                        Button {
+                            Task {
+                                try await getProfileViewModel.getProfile()
+                                
+                                if let profileDetail = getProfileViewModel.profileDetail.first {
+                                    updateProfileViewModel.fullName = profileDetail.fullName
+                                    updateProfileViewModel.age = String(profileDetail.age ?? "")
+                                    updateProfileViewModel.gender = profileDetail.gender ?? ""
+                                    updateProfileViewModel.email = profileDetail.email ?? ""
+                                    updateProfileViewModel.profilePic = profileDetail.profilePic ?? ""
+                                    updateProfileViewModel.address1 = profileDetail.address1 ?? ""
+                                    updateProfileViewModel.address2 = profileDetail.address2 ?? ""
+                                    updateProfileViewModel.latitude = profileDetail.latitude ?? ""
+                                    updateProfileViewModel.longitude = profileDetail.longitude ?? ""
+                                    updateProfileViewModel.city = profileDetail.city ?? ""
+                                    updateProfileViewModel.state = profileDetail.state ?? ""
+                                    updateProfileViewModel.country = profileDetail.country ?? ""
+                                    updateProfileViewModel.zipCode = profileDetail.zipCode ?? ""
+                                    updateProfileViewModel.phoneNumber = profileDetail.phoneNumber ?? ""
                                     
-                                    
-                                    if let profileDetail = getProfileViewModel.profileDetail.first {
-                                        updateProfileViewModel.fullName = profileDetail.fullName
-                                        updateProfileViewModel.age = String(profileDetail.age ?? "")
-                                        updateProfileViewModel.gender = profileDetail.gender ?? ""
-                                        updateProfileViewModel.email = profileDetail.email ?? ""
-                                        updateProfileViewModel.profilePic = profileDetail.profilePic ?? ""
-                                        updateProfileViewModel.address1 = profileDetail.address1 ?? ""
-                                        updateProfileViewModel.address2 = profileDetail.address2 ?? ""
-                                        updateProfileViewModel.latitude = profileDetail.latitude ?? ""
-                                        updateProfileViewModel.longitude = profileDetail.longitude ?? ""
-                                        updateProfileViewModel.city = profileDetail.city ?? ""
-                                        updateProfileViewModel.state = profileDetail.state ?? ""
-                                        updateProfileViewModel.country = profileDetail.country ?? ""
-                                        updateProfileViewModel.zipCode = profileDetail.zipCode ?? ""
-                                        updateProfileViewModel.phoneNumber = profileDetail.phoneNumber ?? ""
-                                        
-                                        selectedGender = updateProfileViewModel.gender
-                                    }
-                                    //                    AppLog.debug(getProfileViewModel.profileDetail)
-                                    showProfile.toggle()
+                                    selectedGender = updateProfileViewModel.gender
                                 }
                                 
+                                showProfile.toggle()
                             }
+                        } label: {
+                            ProfileSmallView()
+                                .environmentObject(profileImageLoader)
+                                .frame(minWidth: 44, minHeight: 44)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Profile")
                     }
                     
                 }
@@ -259,6 +246,36 @@ struct TabMainView: View {
                     permissionManager.requestGeoFenceState()
                 }
                 Task { try? await notificationViewModel.getNotificationList() }
+            }
+        }
+    }
+
+    private var qrCodeModal: some View {
+        ModalOverlayView(backgroundOpacity: 0.58, isScrollable: false, dismissOnBackgroundTap: {
+            showQRCode = false
+        }) {
+            VStack(spacing: AppSpacing.md) {
+                QRCodePopupView(
+                    imageURL: $imageURL,
+                    downloadPDF: $downloadPDF,
+                    isImageLoaded: $isImagedLoaded,
+                    qrCodeImage: $qrCodeImage,
+                    showQrCode: $showQRCode,
+                    pdfURL: $pdfURL,
+                    isShareSheetPresented: $isShareSheetPresented
+                )
+
+                QrDownloadButton {
+                    if isImagedLoaded {
+                        downloadPDF.toggle()
+                    }
+                }
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
+        }
+        .sheet(isPresented: $isShareSheetPresented) {
+            if let pdfURL = pdfURL {
+                ActivityViewController(activityItems: [pdfURL])
             }
         }
     }

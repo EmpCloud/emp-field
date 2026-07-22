@@ -20,61 +20,69 @@ struct SearchLocationView: View {
     var body: some View {
         VStack {
             // MARK: Title
-            HStack {
-                Spacer()
+            ZStack {
                 Text("Search Location")
-                    .font(.custom("Montserrat", size: 15))
-                    .fontWeight(.semibold)
+                    .font(AppFont.primary(size: AppFont.Size.subheadline))
+                    .fontWeight(AppFont.Weight.semibold)
                     .foregroundStyle(Color.searchTitleText)
-                .padding(.vertical)
-                
-                
-                VStack{
-                    Image(systemName: "xmark")
-                        .resizable().aspectRatio(contentMode: .fit)
-                        .frame(width: 20, height: 20)
-                        .padding()
-                        .offset(x: 10)
-                        .onTapGesture {
-                            withAnimation {
-                                showSearchLocationView.toggle()
-                            }
+
+                HStack {
+                    Spacer()
+
+                    Button {
+                        withAnimation {
+                            showSearchLocationView.toggle()
                         }
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(AppFont.primary(size: AppFont.Size.iconSmall, weight: AppFont.Weight.semibold))
+                            .foregroundStyle(Color.searchTitleText)
+                            .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Close search")
                 }
-                .frame(width: UIScreen.main.bounds.width * 0.25)
-                .padding(.leading, 30)
-                    
             }
+            .padding(.horizontal, AppSpacing.md)
+            .padding(.vertical, AppSpacing.sm)
             
             //MARK: Search bar
-            RoundedRectangle(cornerRadius: 6)
-                .fill(Color.white)
-                .frame(height: 45)
-                .frame(maxWidth: .infinity)
-                .overlay(alignment: .leading) {
-                    HStack{
-                        Image(systemName: "magnifyingglass")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 19.17, height: 19.17)
-                            .foregroundStyle(Color.searchIcon)
-                        TextField(text: $searchLocationViewModel.queryFragment) {
-                            Text("Search for area, street name...")
-                                    .font(.custom("Montserrat", size: 12))
-                                    .foregroundStyle(Color.mapSearchBarText)
-                                    
-                        }
-                        .font(.custom("Montserrat", size: 12))
+            HStack(spacing: AppSpacing.iconTextSpacing) {
+                Image(systemName: "magnifyingglass")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: AppLayout.iconSmall, height: AppLayout.iconSmall)
+                    .foregroundStyle(Color.searchIcon)
+
+                TextField(text: $searchLocationViewModel.queryFragment) {
+                    Text("Search for area, street name...")
+                        .font(AppFont.primary(size: AppFont.Size.caption))
                         .foregroundStyle(Color.mapSearchBarText)
-                        .autocorrectionDisabled(true)
-                        
+                }
+                .font(AppFont.primary(size: AppFont.Size.caption))
+                .foregroundStyle(Color.mapSearchBarText)
+                .autocorrectionDisabled(true)
+
+                if !searchLocationViewModel.queryFragment.isEmpty {
+                    Button {
+                        searchLocationViewModel.queryFragment = ""
+                    } label: {
+                        Image(systemName: "xmark")
+                            .font(AppFont.primary(size: AppFont.Size.closeIcon, weight: AppFont.Weight.semibold))
+                            .foregroundStyle(Color.searchIcon)
+                            .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Clear search")
+                }
+
 //                        TextField(text: $placeViewModel.queryFragment) {
 //                            Text("Search for area, street name...")
-//                                    .font(.custom("Montserrat", size: 12))
+//                                    .font(AppFont.primary(size: AppFont.Size.caption))
 //                                    .foregroundStyle(Color.mapSearchBarText)
 //                                    
 //                        }
-//                        .font(.custom("Montserrat", size: 12))
+//                        .font(AppFont.primary(size: AppFont.Size.caption))
 //                        .foregroundStyle(Color.mapSearchBarText)
 //                        .onChange(of: placeViewModel.queryFragment){ text in
 //                            if !text.isEmpty {
@@ -84,22 +92,16 @@ struct SearchLocationView: View {
 //                            }
 //                        }
 //                        .autocorrectionDisabled(true)
-                        
-                        Image(systemName: "xmark")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 10.75, height: 10.27)
-                            .foregroundStyle(Color.searchIcon)
-//                            .onTapGesture {
-//                                placeViewModel.queryFragment = ""
-//                            }
-                    }
-                    .padding(.horizontal)
-                }
-                .shadow(color: .gray.opacity(0.2), radius: 4)
-                .padding(.horizontal)
-                .padding(.bottom, 25)
-                
+            }
+            .padding(.horizontal, AppSpacing.md)
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: AppLayout.minimumTouchTarget)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
+            .shadow(color: .gray.opacity(0.2), radius: 4)
+            .padding(.horizontal)
+            .padding(.bottom, AppSpacing.lg)
+	                
             //MARK: Search result List
             
             ScrollView {

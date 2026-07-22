@@ -35,19 +35,20 @@ struct AddAddressView: View {
             LinearGradient(gradient: Gradient(colors: [Color.appBg1, Color.appBg2]), startPoint: .top, endPoint: .bottom)
                 .ignoresSafeArea(.all)
             
-            VStack(){
+            ScrollView {
+                VStack(spacing: AppSpacing.stackSpacingMedium) {
                 ProfileLargeView()
                     .environmentObject(profileImageLoader)
 //                    .padding(.bottom)
-                    .padding()
-                    .padding(.top)
+                    .padding(AppSpacing.md)
+                    .padding(.top, AppSpacing.md)
                 
                 
                 VStack{
                     
                     VStack {
                         Text("Add Address")
-                            .font(.system(size: 16, weight: .semibold))
+                            .font(AppFont.primary(size: AppFont.Size.headline, weight: AppFont.Weight.semibold))
                             .foregroundStyle(Color.addAddressText)
                             .frame(maxWidth: .infinity, alignment: .leading)
                             .padding(.top, 30)
@@ -73,18 +74,10 @@ struct AddAddressView: View {
                     
                     
                     //MARK: Enable Location
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundStyle(Color(UIColor(red: 241/255, green: 247/255, blue: 255/255, alpha: 1.0)))
-                        .padding(.horizontal)
-                        .padding(.vertical, 5)
-                        .frame(height: isCompleteAddress ? 428 : 120)
-                        .overlay(alignment: .leading) {
-                            
-                            //MARK: Toggle button
-                            VStack(alignment: .leading){
+                    VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
                                 Toggle(isOn: $isLocationON) {
                                     Text("Enable your device location")
-                                        .font(.system(size: 14, weight: .regular))
+                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                                         .foregroundStyle(Color.subText)
                                 }
                                 .toggleStyle(SwitchToggleStyle(tint: Color(UIColor.systemBlue)))
@@ -106,17 +99,18 @@ struct AddAddressView: View {
                                 }, label: {
                                     HStack {
                                         Text("+")
-                                            .font(.title2)
+                                            .font(AppFont.title2)
                                         Text("Add complete Address")
                                             .foregroundStyle(Color.subText)
                                     }
-                                    .font(.system(size: 14, weight: .regular))
-                                    .padding(.bottom, 5)
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                    .frame(minHeight: AppLayout.minimumTouchTarget)
+                                    .contentShape(Rectangle())
                                 })
                                 
                                 
                                 if isCompleteAddress {
-                                    VStack(spacing: 9){
+                                    VStack(spacing: AppSpacing.stackSpacingDefault) {
                                         VStack(alignment: .leading) {
                                             Text("Address line 1*")
                                             AddressTextFieldView(text: $searchLocationViewModel.selectedLocationTitle, placeholder: "")
@@ -161,15 +155,20 @@ struct AddAddressView: View {
                                         .padding(.horizontal)
 
                                     }
-                                    .font(.system(size: 12, weight: .regular))
+                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                                     .foregroundStyle(Color.addressText2)
                                 }
                                 
-                            }
-                            .padding(.horizontal, 30)
-                        }
+                    }
+                    .padding(.horizontal, AppSpacing.lg)
+                    .padding(.vertical, AppSpacing.md)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(UIColor(red: 241/255, green: 247/255, blue: 255/255, alpha: 1.0)))
+                    .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
+                    .padding(.horizontal)
+                    .padding(.vertical, AppSpacing.xs)
                     
-                    Spacer()
+                    Spacer(minLength: AppSpacing.md)
                     
                     //MARK: Button
                     PrimaryButton(text: "Submit") {
@@ -210,7 +209,7 @@ struct AddAddressView: View {
                         }
                     }
                     .padding(.horizontal)
-                    .padding(.bottom, 50)
+                    .padding(.bottom, AppSpacing.lg)
                     .disableWithOpacity(searchLocationViewModel.selectedLocationTitle.isEmpty || searchLocationViewModel.selectedLocationCity.isEmpty || searchLocationViewModel.selectedLocationState.isEmpty)
                     .alert("Invalid Phone Number", isPresented: $showPhoneValidationAlert) {
                         Button("OK", role: .cancel) { }
@@ -220,12 +219,15 @@ struct AddAddressView: View {
                     
                     
                 }
-                .frame(height: 650, alignment: .topLeading)
+                .frame(maxWidth: .infinity, alignment: .topLeading)
                 .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .padding()
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.large))
+                .padding(AppSpacing.md)
                 
+                }
             }
+            .scrollDismissesKeyboard(.immediately)
+
             if !permissionManager.isLocationAuthorized {
                 VStack {
                     LocationWarningView()

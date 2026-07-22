@@ -27,13 +27,13 @@ struct GenericTextAreaEditor: View {
                     .stroke(Color.gray.opacity(0.3), lineWidth: 1)
 
                 TextEditor(text: $text)
-                    .font(.system(size: 14, weight: .regular))
+                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                     .padding(8)
                     .scrollContentBackground(.hidden)
 
                 if text.isEmpty {
                     Text(placeholder)
-                        .font(.system(size: 14, weight: .regular))
+                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                         .foregroundStyle(Color.gray.opacity(0.5))
                         .padding(12)
                         .allowsHitTesting(false)
@@ -46,7 +46,7 @@ struct GenericTextAreaEditor: View {
 
             if showCharacterCount {
                 Text("\(characterCount)/\(maxCharacters)")
-                    .font(.system(size: 12, weight: .regular))
+                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                     .foregroundStyle(characterCount > maxCharacters ? .red : .gray)
                     .frame(maxWidth: .infinity, alignment: .trailing)
             }

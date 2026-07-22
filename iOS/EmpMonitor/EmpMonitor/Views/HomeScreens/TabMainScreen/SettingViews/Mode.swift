@@ -16,24 +16,28 @@ struct Mode: View {
     
     var body: some View {
         
-        RoundedRectangle(cornerRadius: 8)
+        RoundedRectangle(cornerRadius: AppRadius.small)
             .fill(mode == selectedMode ? Color.primaryButton2 : Color.white)
-            .frame(width: 98,height: 31)
+            .frame(minWidth: 98)
+            .frame(minHeight: AppLayout.minimumTouchTarget)
             .overlay(content: {
-                RoundedRectangle(cornerRadius: 8)
+                RoundedRectangle(cornerRadius: AppRadius.small)
                     .stroke(Color.primaryButton2, lineWidth: 1)
             })
             .overlay {
-                HStack {
+                HStack(spacing: AppSpacing.iconTextSpacing) {
                     modeImage
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 23, height: 23)
+                        .frame(width: AppLayout.iconMedium, height: AppLayout.iconMedium)
                     
                     Text(mode)
-                        .font(.system(size: 12, weight: .medium))
+                        .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.medium))
                         .foregroundStyle(mode == selectedMode ? Color.white : Color.text1)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.85)
                 }
+                .padding(.horizontal, AppSpacing.sm)
             }
     }
 }

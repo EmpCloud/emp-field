@@ -34,7 +34,7 @@ struct AttendanceHistoryView: View {
                             .frame(width: 90)
 //                        .padding(.leading, 3)
                     }
-                    .font(.custom("Montserrat", size: 12))
+                    .font(AppFont.primary(size: AppFont.Size.caption))
                     .foregroundStyle(Color.attendanceTitleText)
                     .padding(.leading, 10)
                     .padding(.vertical, 10)
@@ -80,8 +80,8 @@ struct AttendanceHistoryView: View {
                         LineView()
                             .padding(.vertical, 7)
                     }
-                    .font(.custom("Montserrat", size: 11))
-                    .fontWeight(.semibold)
+                    .font(AppFont.primary(size: AppFont.Size.footnote))
+                    .fontWeight(AppFont.Weight.semibold)
                     .padding(.horizontal, 10)
                 }
                 .background(Color.white)
@@ -115,7 +115,7 @@ struct AttendanceHistoryView: View {
             ProgressView()
                 .scaleEffect(1.2)
             Text("Loading...")
-                .font(.custom("Montserrat", size: 14))
+                .font(AppFont.primary(size: AppFont.Size.body))
                 .foregroundStyle(Color.subText)
         }
         .frame(maxWidth: .infinity, minHeight: 400)
@@ -131,7 +131,7 @@ struct AttendanceHistoryView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 114, height: 114)
             Text("No attendance records")
-                .font(.custom("Montserrat", size: 14))
+                .font(AppFont.primary(size: AppFont.Size.body))
         }
         .frame(maxWidth: .infinity, minHeight: 400)
         .background(Color.white)

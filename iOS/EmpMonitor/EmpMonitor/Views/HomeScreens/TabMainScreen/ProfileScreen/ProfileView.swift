@@ -52,20 +52,20 @@ struct ProfileView: View {
                 LinearGradient(gradient: Gradient(colors: [Color.appBg1, Color.appBg2]), startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea(.all)
                 
-                VStack(){
+                VStack(spacing: AppSpacing.stackSpacingMedium) {
                     
                     //MARK: Profile Image
                     ProfileLargeWithCameraView(profileCameraViewModel: profileCameraViewModel, showCameraPermissionAlert: $showCameraPermissionAlert, showProfileCamera: $showProfileCamera)
                         .environmentObject(profileImageLoader)
-                        .padding(.top, 80)
+                        .padding(.top, AppSpacing.sectionTopSpacing)
 //                        .padding(.bottom, 10)
                     
                     //MARK: Form
-                    VStack(alignment: .leading, spacing: 15){
+                    VStack(alignment: .leading, spacing: AppSpacing.stackSpacingMedium){
                         
                         VStack(spacing: 3) {
                             Text("Full Name*")
-                                .font(.system(size: 15, weight: .semibold))
+                                .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             TextFieldEditableCreateProfileView(text: $updateProfileViewModel.fullName, placeholder: "Enter Full Name")
                         }
@@ -76,7 +76,7 @@ struct ProfileView: View {
                         //MARK: Email
                         VStack(spacing: 3) {
                             Text("Email ID*")
-                                .font(.system(size: 15, weight: .semibold))
+                                .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             TextFieldCreateProfileView(text: $updateProfileViewModel.email, isEditable: .constant(false), placeholder: "Enter Email ID")
                         }
@@ -87,9 +87,9 @@ struct ProfileView: View {
                         //MARK: Phone
                         VStack(spacing: 3) {
                             Text("Mobile No.")
-                                .font(.system(size: 15, weight: .semibold))
+                                .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            TextFieldEditableCreateProfileView(text: $updateProfileViewModel.phoneNumber, placeholder: "Enter mobile no.")
+                            TextFieldEditableCreateProfileView(text: $updateProfileViewModel.phoneNumber, placeholder: "Enter Mobile Number")
                         }
                         .padding(.trailing, 20)
                         .padding(.leading, 20)
@@ -97,11 +97,11 @@ struct ProfileView: View {
                         //MARK: Age
                         VStack(spacing: 3) {
                             Text("Select Age")
-                                .font(.system(size: 15, weight: .semibold))
+                                .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             if Int(updateProfileViewModel.age) ?? 100 > 100 || Int(updateProfileViewModel.age) ?? 0 < 0 {
                                 Text("Age Should be between 0-100*")
-                                    .font(.system(size: 12, weight: .regular))
+                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .foregroundStyle(Color.absent)
                             }
@@ -127,7 +127,7 @@ struct ProfileView: View {
                         //MARK: Gender
                         VStack(spacing: 3)  {
                             Text("Select Gender*")
-                                .font(.system(size: 15, weight: .semibold))
+                                .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
                             HStack{
                                 
@@ -143,7 +143,7 @@ struct ProfileView: View {
                                                     .stroke(Color(UIColor.lightGray), lineWidth: 3.0)
                                             }
                                         Text(gender)
-                                            .font(.system(size: 14, weight: .regular))
+                                            .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                                         
                                     }
                                     .padding(.trailing, 20)
@@ -168,16 +168,16 @@ struct ProfileView: View {
                         HStack(alignment: .top){
                             VStack(alignment: .leading){
                                 Text("Address")
-                                    .font(.system(size: 15, weight: .semibold))
+                                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                 
                                 Text(updateProfileViewModel.address1)
-                                    .font(.system(size: 12, weight: .regular))
-                                    .fontWeight(.medium)
+                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                    .fontWeight(AppFont.Weight.medium)
                                     .foregroundStyle(Color.addressText2)
                                 
                                 Text(updateProfileViewModel.address2)
-                                    .font(.system(size: 12, weight: .regular))
-                                    .fontWeight(.medium)
+                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                    .fontWeight(AppFont.Weight.medium)
                                     .foregroundStyle(Color.addressText2)
                             }
                             
@@ -216,19 +216,19 @@ struct ProfileView: View {
                                 }
                             }
                         }
-                        .padding(.bottom, 50)
-                        .padding(.horizontal)
+                        .padding(.bottom, AppSpacing.xxl)
+                        .padding(.horizontal, AppSpacing.screenHorizontalPadding)
                         .disableWithOpacity(Int(updateProfileViewModel.age) ?? 100 > 100 || Int(updateProfileViewModel.age) ?? 0 < 0)
 
                         
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
 //                        .padding()
-                    .padding(.top)
+                    .padding(.top, AppSpacing.md)
                     .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 20))
-                    .padding(.vertical, 20)
-                    .padding(.horizontal, 10)
+                    .padding(.vertical, AppSpacing.lg)
+                    .padding(.horizontal, AppSpacing.sm)
 
 
                 }
@@ -237,25 +237,19 @@ struct ProfileView: View {
                 
                 //MARK: Permission Alert
                 if showCameraPermissionAlert {
-                    ZStack {
-                        LocationSettingWarningView(titleText: "Camera Permission Not Given", description: "Provide the camera permission in order to take picture for the task", showWarningPopup: $showCameraPermissionAlert)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    .onTapGesture {
+                    ModalOverlayView(dismissOnBackgroundTap: {
                         showCameraPermissionAlert.toggle()
+                    }) {
+                        LocationSettingWarningView(titleText: "Camera Permission Not Given", description: "Provide the camera permission in order to take picture for the task", showWarningPopup: $showCameraPermissionAlert)
                     }
                 }
 
                 //MARK: Update Error Alert
                 if showUpdateError {
-                    ZStack {
-                        WarningPopupView(titleText: "Update Failed", description: updateErrorMessage, showWarningPopup: $showUpdateError)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    .onTapGesture {
+                    ModalOverlayView(dismissOnBackgroundTap: {
                         showUpdateError = false
+                    }) {
+                        WarningPopupView(titleText: "Update Failed", description: updateErrorMessage, showWarningPopup: $showUpdateError)
                     }
                 }
             }
@@ -318,7 +312,6 @@ struct ProfileView: View {
                 ProfileCameraView(profileCameraViewModel: profileCameraViewModel)
                     .navigationBarBackButtonHidden()
             })
-            .ignoresSafeArea(.container)
                 //        }
                 
                 

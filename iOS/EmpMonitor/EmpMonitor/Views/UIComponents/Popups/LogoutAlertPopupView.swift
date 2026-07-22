@@ -27,99 +27,111 @@ struct LogoutAlertPopupView: View {
     var body: some View {
         
         ZStack {
-            VStack(alignment: .leading, spacing: 20) {
+            VStack(alignment: .leading, spacing: AppSpacing.stackSpacingMedium) {
                 HStack {
-                    Text("Logout Alert")
-                        .font(.custom("Montserrat", size: 15))
-                        .fontWeight(.medium)
+                    Text("Checkout Alert")
+                        .font(AppFont.primary(size: AppFont.Size.subheadline))
+                        .fontWeight(AppFont.Weight.medium)
                     
                     
                     Spacer()
                     
                     
-                    Image(systemName: "xmark")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 10.75, height: 10.75)
-                        .fontWeight(.bold)
-                        .foregroundStyle(Color.primaryButton1)
-                        .padding(10)
-                        .onTapGesture {
-                            withAnimation {
-                                showCheckOUTAlert.toggle()
-                            }
+                    Button {
+                        withAnimation {
+                            showCheckOUTAlert.toggle()
                         }
+                    } label: {
+                        Image(systemName: "xmark")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: AppLayout.closeIconSize, height: AppLayout.closeIconSize)
+                            .fontWeight(AppFont.Weight.bold)
+                            .foregroundStyle(Color.primaryButton1)
+                            .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Close checkout alert")
                 }
                 
-                Text("Proceeding further will stop your live location tracking and you'll be Checked out for the day!")
-                    .font(.custom("Montserrat", size: 13))
-                    .fontWeight(.light)
+                Text("Checking out will stop live location tracking for the day.")
+                    .font(AppFont.primary(size: AppFont.Size.callout))
+                    .fontWeight(AppFont.Weight.light)
+                    .fixedSize(horizontal: false, vertical: true)
                 
-                Text("Please Confirm your Action.")
-                    .font(.custom("Montserrat", size: 15))
-                    .fontWeight(.medium)
+                Text("Please confirm your action.")
+                    .font(AppFont.primary(size: AppFont.Size.subheadline))
+                    .fontWeight(AppFont.Weight.medium)
+                    .fixedSize(horizontal: false, vertical: true)
                 
-                HStack {
-                    PrimaryBorderButton(text: "Abort") {
+                HStack(spacing: AppSpacing.stackSpacingDefault) {
+                    PrimaryBorderButton(text: "Cancel") {
                         //TODO: to cancel the logout
+                        yesCheckout = false
                         withAnimation {
                             showCheckOUTAlert.toggle()
                         }
                     }
                     
-                    RedThinButton(text: "Yes, Check me out") {
+                    RedThinButton(text: "Check Out") {
                         //TODO: To checkout the user
                         Task {
-                            yesCheckout = true
-                            
-                            if yesCheckout {
-                                
+                            do {
+                                yesCheckout = true
+
                                 if isTaskRunning { // to verify if any task is running or not
                                     showWarningPopup.toggle()
-                                }else {
-                                    //Check if there is offline data,  upload it then checkOUT
-                                    await permissionManager.uploadOfflineLocations()
-                                    
-                                    try await checkINViewModel.markCheckOUTAttendance()
-                                    
-                                    if NetworkManager.shared.statusCode == 200 {
-                                        AppLog.debug("CheckOUT: Attendance marked")
-
-                                        timerManager.stopActiveTimer()
-                                        UserDefaults.standard.setValue(false, forKey: "isCheckedIN") // stop the tracking
-
-                                        // stop tracking
-                                        permissionManager.stopLocationUpdates()
-
-                                        // to refresh the screen after checkOUT
-                                        try await homeScreenViewModel.getHomeScreenData()
-
-                                        yesCheckout = false
-                                        onCheckoutSuccess()
-
-                                        withAnimation {
-                                            showCheckOUTAlert.toggle()
-                                        }
-                                    }else if NetworkManager.shared.statusCode == 403 {
-                                        showWarningPopup.toggle()
-                                    }else {
-                                        showWarningPopup.toggle()
-                                    }
+                                    return
                                 }
-                                
-                                
+
+                                checkINViewModel.checkINTime = HelperFunction.shared.currentTime()
+                                if let lat = permissionManager.userLocation?.coordinate.latitude {
+                                    checkINViewModel.checkINLatitude = lat
+                                }
+                                if let long = permissionManager.userLocation?.coordinate.longitude {
+                                    checkINViewModel.checkINLongitude = long
+                                }
+
+                                //Check if there is offline data,  upload it then checkOUT
+                                await permissionManager.uploadOfflineLocations()
+
+                                try await checkINViewModel.markCheckOUTAttendance()
+
+                                if NetworkManager.shared.statusCode == 200 {
+                                    AppLog.debug("CheckOUT: Attendance marked")
+
+                                    timerManager.stopActiveTimer()
+                                    UserDefaults.standard.setValue(false, forKey: "isCheckedIN") // stop the tracking
+
+                                    // stop tracking
+                                    permissionManager.stopLocationUpdates()
+
+                                    // to refresh the screen after checkOUT
+                                    try await homeScreenViewModel.getHomeScreenData()
+
+                                    yesCheckout = false
+                                    onCheckoutSuccess()
+
+                                    withAnimation {
+                                        showCheckOUTAlert.toggle()
+                                    }
+                                } else {
+                                    showWarningPopup.toggle()
+                                }
+                            } catch {
+                                AppLog.debug("CheckOUT failed: \(error)")
+                                showWarningPopup = true
                             }
-                            
-                            
                         }
                     }
                 }
             }
-            .padding()
-            .padding(.vertical, 10)
+            .padding(AppSpacing.pagePadding)
+            .padding(.vertical, AppSpacing.stackSpacingDefault)
             .background(Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
-            .padding()
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
+            .padding(AppSpacing.pagePadding)
             
 //            //MARK: Warning
 //            if showWarningPopup {

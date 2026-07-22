@@ -38,42 +38,48 @@ struct AddNewLeavesView: View {
     
     var body: some View {
         ZStack {
-            VStack(alignment: .leading, spacing: 10) {
-                HStack {
+            VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
+                ZStack {
+                    Text("Add New Leave")
+                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.semibold))
+                        .frame(maxWidth: .infinity)
+
                     HStack {
-                        Text("Add New Leave")
-                            .font(.system(size: 12, weight: .regular))
-                            .fontWeight(.medium)
-                    }
-                    .frame(maxWidth: .infinity)
-                    Image(systemName: "xmark")
-                        .padding(10)
-                        .onTapGesture {
+                        Spacer()
+
+                        Button {
                             withAnimation {
                                 startDate = nil
                                 endDate = nil
                                 showAddLeaves.toggle()
                             }
+                        } label: {
+                            Image(systemName: "xmark")
+                                .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
                         }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Close add leave")
+                        .accessibilityAddTraits(.isButton)
+                    }
                 }
                 .foregroundStyle(Color.attendanceTitleText)
-                .frame(maxWidth: .infinity , alignment: .trailing)
-                .padding(.bottom)
-                
+                .frame(maxWidth: .infinity)
+                .padding(.bottom, AppSpacing.xs)
+
                 HStack(spacing: 0) {
                     Text("Employee Name")
                         .foregroundStyle(Color.text1)
                     Text("*")
                         .foregroundStyle(Color.red)
                 }
-                .font(.system(size: 12, weight: .regular))
-                .fontWeight(.medium)
-                
+                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                .fontWeight(AppFont.Weight.medium)
+
                 PopupTextField(text: $empName, placeholder: "Write Name")  // Editing is disabled
-                
+
                 //MARK: Leave type
-                HStack {
-                    VStack(alignment: .leading, spacing: 10) {
+                HStack(alignment: .top, spacing: AppSpacing.stackSpacingDefault) {
+                    VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
                         HStack(spacing: 0) {
                             Text("Day Type")
                             Text("*")
@@ -81,10 +87,9 @@ struct AddNewLeavesView: View {
                         }
                         PopupDropDownMenu(selection: $dateTypeSelection, showTypeLeave: $showDateTypeLeave, showLeaveTypeLeave: $showLeaveTypeLeave, options: ["First Half", "Second Half", "Full Day"], selectionTitle: "First Half")
                     }
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .leading, spacing: 10) {
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                    VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
                         HStack(spacing: 0) {
                             Text("Leave Type")
                             Text("*")
@@ -92,27 +97,32 @@ struct AddNewLeavesView: View {
                         }
                         DynamicPopupDropdownMenu(selection: $leaveTypeSelection, showTypeLeave: $showLeaveTypeLeave, showDayTypeLeave: $showDateTypeLeave, options: options, selectionTitle: leaveTypeSelection?.name ?? "Leave Type")
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .font(.system(size: 12, weight: .regular))
-                .fontWeight(.medium)
+                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                .fontWeight(AppFont.Weight.medium)
                 .foregroundStyle(Color.text1)
-                
+
                 //MARK: Leave Date(start/end)
-                HStack {
-                    VStack(alignment: .leading, spacing: 10) {
+                HStack(alignment: .top, spacing: AppSpacing.stackSpacingDefault) {
+                    VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
                         HStack(spacing: 0) {
                             Text("Start Date")
                             Text("*")
                                 .foregroundStyle(Color.red)
                         }
-                        
-                        RoundedRectangle(cornerRadius: 6)
+
+                        RoundedRectangle(cornerRadius: AppRadius.small)
                             .fill(Color.rectangleBG)
-                            .frame(width: 144, height: 34)
+                            .frame(maxWidth: .infinity)
+                            .frame(minHeight: AppLayout.minimumTouchTarget)
                             .overlay(alignment: .leading) {
-                                Text(startDate ?? "dd-mm-yyyy")
-                                    .font(.system(size: 12, weight: .regular))
-                                    .padding(.leading)
+                                Text(startDate ?? "DD-MM-YYYY")
+                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                    .foregroundStyle(Color.addressText2)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.8)
+                                    .padding(.horizontal, AppSpacing.md)
                             }
                             .onTapGesture {
                                 withAnimation {
@@ -121,26 +131,27 @@ struct AddNewLeavesView: View {
                                     showCalender.toggle()
                                 }
                             }
-//                        PopupTextField(text: $startDate, placeholder: "dd-mm-yyyy")
-                            
                     }
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .leading, spacing: 10) {
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                    VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
                         HStack(spacing: 0) {
                             Text("End Date")
                             Text("*")
                                 .foregroundStyle(Color.red)
                         }
-                        
-                        RoundedRectangle(cornerRadius: 6)
+
+                        RoundedRectangle(cornerRadius: AppRadius.small)
                             .fill(Color.rectangleBG)
-                            .frame(width: 144, height: 34)
+                            .frame(maxWidth: .infinity)
+                            .frame(minHeight: AppLayout.minimumTouchTarget)
                             .overlay(alignment: .leading) {
-                                Text(endDate ?? "dd-mm-yyyy")
-                                    .font(.system(size: 12, weight: .regular))
-                                    .padding(.leading)
+                                Text(endDate ?? "DD-MM-YYYY")
+                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                    .foregroundStyle(Color.addressText2)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.8)
+                                    .padding(.horizontal, AppSpacing.md)
                             }
                             .onTapGesture {
                                 withAnimation {
@@ -149,39 +160,29 @@ struct AddNewLeavesView: View {
                                     showCalender.toggle()
                                 }
                             }
-//                        PopupTextField(text: $endDate, placeholder: "dd-mm-yyyy")
-                            
-                        
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .font(.system(size: 12, weight: .regular))
-                .fontWeight(.medium)
+                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                .fontWeight(AppFont.Weight.medium)
                 .foregroundStyle(Color.text1)
-                
-                
+
                 //MARK: Reason
-                
+
                 HStack(spacing: 0) {
                     Text("Reason")
                     Text("*")
                         .foregroundStyle(Color.red)
                 }
                 .foregroundStyle(Color.text1)
-                .font(.system(size: 12, weight: .regular))
-                .fontWeight(.medium)
-                
-//                RoundedRectangle(cornerRadius: 10)
-//                    .fill(Color.rectangleBG)
-//                    .frame(height: 68)
-                
+                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                .fontWeight(AppFont.Weight.medium)
+
                 LargeTextEditorView(descriptionText: $createLeaveViewModel.reason)
                     .toolbarDoneButton()
-                
-                
-                //MARK: Apple Button
+
+                //MARK: Apply Button
                 PrimaryThinButton(text: "Apply") {
-                    //TODO: apply for leave
-                    
                     Task {
                         if let dayType = dateTypeSelection {
                             createLeaveViewModel.dayType = dayType
@@ -196,31 +197,30 @@ struct AddNewLeavesView: View {
                             createLeaveViewModel.leaveType = leaveType.id
                         }
                         try await createLeaveViewModel.createLeave()
-                        
+
                         if NetworkManager.shared.statusCode == 400 {
                             showWarningPopup.toggle()
                         }else {
                             await leavesViewModel.getLeaves() // to referesh the leaves screen
-                            
+
                             withAnimation {
                                 startDate = nil
                                 endDate = nil
                                 showAddLeaves.toggle()
                             }
                         }
-                        
                     }
-                    
+
                 }
-                .padding(.top)
+                .padding(.top, AppSpacing.xs)
                 .disableWithOpacity(empName.isEmpty || dateTypeSelection == nil || leaveTypeSelection == nil || startDate == nil || endDate == nil || createLeaveViewModel.reason.isEmpty)
 
             }
-            .frame(height: 454)
-            .padding()
-            .padding(.horizontal)
+            .frame(maxWidth: 360)
+            .padding(.horizontal, AppSpacing.lg)
+            .padding(.vertical, AppSpacing.md)
             .background(Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.large))
             
             //MARK: Warning
             if showWarningPopup {
@@ -229,11 +229,6 @@ struct AddNewLeavesView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
                 .background(Color.black.opacity(0.5))
-                .onTapGesture {
-                    withAnimation {
-                        showWarningPopup.toggle()
-                    }
-                }
                 
             }
 

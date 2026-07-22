@@ -57,29 +57,24 @@ struct CreateProfileView: View {
                     }
                 
                 ScrollView {
-                    VStack(){
+                    VStack(spacing: AppSpacing.stackSpacingMedium) {
                         
                         //MARK: Profile Image
                         ProfileLargeWithCameraView(profileCameraViewModel: profileCameraViewModel, showCameraPermissionAlert: $showCameraPermissionAlert, showProfileCamera: $showProfileCamera)
                             .environmentObject(profileImageLoader)
-                            .padding(.top, 100)
-                            .padding(.bottom, 10)
+                            .padding(.top, AppSpacing.xxl)
+                            .padding(.bottom, AppSpacing.sm)
                         
-                        RoundedRectangle(cornerRadius: 25.0)
-                            .fill(Color.white)
-                            .frame(width: 363, height: 556)
-                            .padding()
-                            .overlay {
-                                //MARK: Form
-                                VStack(alignment: .leading, spacing: 15){
+                        //MARK: Form
+                        VStack(alignment: .leading, spacing: AppSpacing.stackSpacingMedium) {
                                     
                                     VStack(spacing: 3) {
                                         Text("Full Name*")
-                                            .font(.system(size: 15, weight: .semibold))
+                                            .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                         if createProfileViewModel.fullName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
                                             Text("Full name is required*")
-                                                .font(.system(size: 12, weight: .regular))
+                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .foregroundStyle(Color.absent)
                                         }
@@ -93,7 +88,7 @@ struct CreateProfileView: View {
                                     //MARK: Email
                                     VStack(spacing: 3) {
                                         Text("Email ID*")
-                                            .font(.system(size: 15, weight: .semibold))
+                                            .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                         
                                         
@@ -101,7 +96,7 @@ struct CreateProfileView: View {
                                         if !isValidEmail && !createProfileViewModel.email.isEmpty {
                                             VStack(alignment: .leading) {
                                                 Text("Please enter a valid email*")
-                                                    .font(.system(size: 12, weight: .regular))
+                                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                                                     .foregroundStyle(Color.absent)
                                             }
                                             .frame(maxWidth: .infinity, alignment: .leading)
@@ -127,15 +122,15 @@ struct CreateProfileView: View {
                                     //MARK: Phone
                                     VStack(spacing: 3) {
                                         Text("Mobile No.*")
-                                            .font(.system(size: 15, weight: .semibold))
+                                            .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                         if !HelperFunction.shared.isValidPhoneNumber(createProfileViewModel.phoneNumber) {
                                             Text("Valid phone number is required*")
-                                                .font(.system(size: 12, weight: .regular))
+                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .foregroundStyle(Color.absent)
                                         }
-                                        TextFieldEditableCreateProfileView(text: $createProfileViewModel.phoneNumber, placeholder: "Enter mobile no.")
+                                        TextFieldEditableCreateProfileView(text: $createProfileViewModel.phoneNumber, placeholder: "Enter Mobile Number")
                                             .keyboardType(.numberPad)
                                     }
                                     .padding(.trailing, 20)
@@ -144,11 +139,11 @@ struct CreateProfileView: View {
                                     //MARK: Age
                                     VStack(spacing: 3) {
                                         Text("Select Age")
-                                            .font(.system(size: 15, weight: .semibold))
+                                            .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                         if Int(age) ?? 100 > 100 || Int(age) ?? 0 < 0 {
                                             Text("Age Should be between 0-100*")
-                                                .font(.system(size: 12, weight: .regular))
+                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .foregroundStyle(Color.absent)
                                         }
@@ -162,11 +157,11 @@ struct CreateProfileView: View {
                                     //MARK: Gender
                                     VStack(spacing: 3)  {
                                         Text("Select Gender*")
-                                            .font(.system(size: 15, weight: .semibold))
+                                            .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                             .frame(maxWidth: .infinity, alignment: .leading)
                                         if selectedGender.isEmpty {
                                             Text("Gender is required*")
-                                                .font(.system(size: 12, weight: .regular))
+                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                                                 .frame(maxWidth: .infinity, alignment: .leading)
                                                 .foregroundStyle(Color.absent)
                                         }
@@ -184,14 +179,16 @@ struct CreateProfileView: View {
                                                                 .stroke(Color(UIColor.lightGray), lineWidth: 3.0)
                                                         }
                                                     Text(gender)
-                                                        .font(.system(size: 14, weight: .regular))
+                                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                                                     
                                                 }
-                                                .padding(.trailing, 20)
+                                                .frame(minHeight: AppLayout.minimumTouchTarget)
+                                                .contentShape(Rectangle())
+                                                .padding(.trailing, AppSpacing.md)
 
                                             }
                                         }
-                                        .padding(.top, 3)
+                                        .padding(.top, AppSpacing.xs)
                                         .foregroundStyle(Color(red: 95/255, green: 95/255, blue: 95/255, opacity: 1.0))
                                         
                                     }
@@ -201,8 +198,7 @@ struct CreateProfileView: View {
                                     
                                     //MARK: Line
                                     LineView()
-                                        .padding()
-                                        .padding(.horizontal)
+                                        .padding(.vertical, AppSpacing.sm)
                                     
                                     
                                     //MARK: Button
@@ -215,21 +211,22 @@ struct CreateProfileView: View {
                                         showAddAddress = true
                                         
                                     }
-                                    .padding(.horizontal, 50)
+                                    .padding(.horizontal, AppSpacing.lg)
                                     .disableWithOpacity(!isFormValid)
 
                                     
-                                }
-//                                .background(Color.red)
-                                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                                .padding()
-                                .padding(.top, 30)
-                            }
+                        }
+                        .frame(maxWidth: 363, alignment: .top)
+                        .padding(AppSpacing.md)
+                        .padding(.top, AppSpacing.md)
+                        .background(Color.white)
+                        .clipShape(RoundedRectangle(cornerRadius: AppRadius.extraLarge))
+                        .padding(.horizontal, AppSpacing.md)
 
 
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-                    .padding(.bottom, 70)
+                    .padding(.bottom, AppSpacing.xxl)
                 }
                 .scrollDismissesKeyboard(.immediately)
                 .toolbarDoneButton()
@@ -330,7 +327,6 @@ struct CreateProfileView: View {
                 ProfileCameraView(profileCameraViewModel: profileCameraViewModel)
                     .navigationBarBackButtonHidden()
             })
-            .ignoresSafeArea(.container)
         }
         
         

@@ -14,13 +14,13 @@ struct AuthTextField: View {
     var body: some View {
         ZStack {
             TextField(placeholder, text: $text)
-                .font(.custom("Comfortaa", size: 15))
+                .font(AppFont.primary(size: AppFont.Size.subheadline))
                 .foregroundStyle(Color.subText)
-                .padding()
-                .padding(.horizontal, 20)
+                .padding(.horizontal, AppSpacing.lg)
                 .frame(maxWidth: .infinity)
+                .frame(minHeight: AppLayout.textFieldHeightLarge)
                 .background(.white)
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
                 .shadow(color: Color.textFieldShadow, radius: 19)
                 .keyboardType(.emailAddress)
                 .textContentType(.emailAddress)
@@ -40,17 +40,15 @@ struct AuthPasswordTextField: View {
             HStack {
                 if showPassword {
                     TextField(placeholder, text: $text)
-                        .font(.custom("Comfortaa", size: 15))
+                        .font(AppFont.primary(size: AppFont.Size.subheadline))
                         .foregroundStyle(Color.subText)
-                        .padding()
-                        .padding(.horizontal, 20)
+                        .padding(.leading, AppSpacing.lg)
                         .autocapitalization(.none)
                 }else{
                     SecureField(placeholder, text: $text)
-                        .font(.custom("Comfortaa", size: 15))
+                        .font(AppFont.primary(size: AppFont.Size.subheadline))
                         .foregroundStyle(Color.subText)
-                        .padding()
-                        .padding(.horizontal, 20)
+                        .padding(.leading, AppSpacing.lg)
                         .autocapitalization(.none)
                 }
                 
@@ -61,14 +59,16 @@ struct AuthPasswordTextField: View {
                 } label: {
                     Image(systemName: showPassword ? "eye.slash" : "eye")
                         .foregroundStyle( Color.primaryButton1)
-                        .padding(.horizontal, 7)
+                        .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
                     
                 }
-                .padding(.horizontal)
+                .padding(.trailing, AppSpacing.sm)
+                .accessibilityLabel(showPassword ? "Hide password" : "Show password")
             }
             .frame(maxWidth: .infinity)
+            .frame(minHeight: AppLayout.textFieldHeightLarge)
             .background(.white)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
             .shadow(color: Color.textFieldShadow, radius: 19)
             
         }

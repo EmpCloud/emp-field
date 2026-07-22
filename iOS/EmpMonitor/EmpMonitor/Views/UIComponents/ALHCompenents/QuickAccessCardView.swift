@@ -25,7 +25,7 @@ struct QuickAccessCardView: View {
                 }
 
             Text(title)
-                .font(.system(size: 14, weight: .semibold))
+                .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.semibold))
                 .foregroundStyle(.white)
                 .multilineTextAlignment(.center)
         }

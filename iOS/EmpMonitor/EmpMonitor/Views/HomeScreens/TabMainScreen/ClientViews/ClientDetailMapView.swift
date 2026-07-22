@@ -78,55 +78,61 @@ struct ClientDetailMapView: View {
                         
                         //Client Info
                         VStack(alignment: .leading, spacing: 5){
-                            Text(clientData.clientName)
-                                .font(.system(size: 15, weight: .semibold))
-                                .fontWeight(.semibold)
-                            HStack(alignment: .top){
-                                Circle()
-                                    .fill(Color.yellow)
+	                            Text(clientData.clientName)
+	                                .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
+	                                .fontWeight(AppFont.Weight.semibold)
+	                                .lineLimit(2)
+	                            HStack(alignment: .top){
+	                                Circle()
+	                                    .fill(Color.yellow)
                                     .frame(width: 19, height: 19)
                                     .overlay {
                                         Image(.locationPointerIcon)
                                     }
-                                Text("\(clientData.address1 ?? "") \(clientData.address2 ?? "")")
-                            }
-                            .font(.system(size: 12, weight: .regular))
-                            .fontWeight(.medium)
+	                                Text("\(clientData.address1 ?? "") \(clientData.address2 ?? "")")
+	                                    .lineLimit(3)
+	                                    .fixedSize(horizontal: false, vertical: true)
+	                            }
+                            .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                            .fontWeight(AppFont.Weight.medium)
                         }
                         
                         Spacer()
                         //Edit button
-                        Image(.editAttendanceIcon)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 20, height: 20)
-                            .onTapGesture {
-                                withAnimation {
-                                    
-                                    updateClientViewModel.clientName = clientData.clientName
-                                    updateClientViewModel.clientID = clientData.clientID ?? ""
-                                    updateClientViewModel.emailID = clientData.emailID ?? ""
-                                    updateClientViewModel.contactNumber = clientData.contactNumber ?? ""
-                                    updateClientViewModel.clientProfilePic = clientData.clientProfilePic ?? ""
-                                    updateClientViewModel.category = clientData.category ?? ""
-                                    updateClientViewModel.countryCode = clientData.countryCode ?? ""
-                                    updateClientViewModel.address1 = clientData.address1 ?? ""
-                                    updateClientViewModel.address2 = clientData.address2 ?? ""
-                                    updateClientViewModel.country = clientData.country ?? ""
-                                    updateClientViewModel.state = clientData.state ?? ""
-                                    updateClientViewModel.city = clientData.city ?? ""
-                                    updateClientViewModel.zipCode = clientData.zipCode ?? ""
-                                    if let lat = Double(clientData.latitude ?? "") {
-                                        updateClientViewModel.latitude = lat
-                                    }
-                                    
-                                    if let long = Double(clientData.longitude ?? ""){
-                                        updateClientViewModel.longitude = long
-                                    }
-                                    
-                                    showEditClient.toggle()
-                                }
-                            }
+	                        Button {
+	                            withAnimation {
+	                                updateClientViewModel.clientName = clientData.clientName
+	                                updateClientViewModel.clientID = clientData.clientID ?? ""
+	                                updateClientViewModel.emailID = clientData.emailID ?? ""
+	                                updateClientViewModel.contactNumber = clientData.contactNumber ?? ""
+	                                updateClientViewModel.clientProfilePic = clientData.clientProfilePic ?? ""
+	                                updateClientViewModel.category = clientData.category ?? ""
+	                                updateClientViewModel.countryCode = clientData.countryCode ?? ""
+	                                updateClientViewModel.address1 = clientData.address1 ?? ""
+	                                updateClientViewModel.address2 = clientData.address2 ?? ""
+	                                updateClientViewModel.country = clientData.country ?? ""
+	                                updateClientViewModel.state = clientData.state ?? ""
+	                                updateClientViewModel.city = clientData.city ?? ""
+	                                updateClientViewModel.zipCode = clientData.zipCode ?? ""
+	                                if let lat = Double(clientData.latitude ?? "") {
+	                                    updateClientViewModel.latitude = lat
+	                                }
+
+	                                if let long = Double(clientData.longitude ?? ""){
+	                                    updateClientViewModel.longitude = long
+	                                }
+
+	                                showEditClient.toggle()
+	                            }
+	                        } label: {
+	                            Image(.editAttendanceIcon)
+	                                .resizable()
+	                                .aspectRatio(contentMode: .fit)
+	                                .frame(width: AppLayout.iconSmall, height: AppLayout.iconSmall)
+	                                .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+	                        }
+	                        .buttonStyle(.plain)
+	                        .accessibilityLabel("Edit client")
                     }
 //                    .padding(.vertical, 10)
                     .frame(maxWidth: .infinity, alignment: .leading)

@@ -16,15 +16,18 @@ struct PrimaryBorderButton: View {
         ZStack {
             Button(action: action) {
                 Text(text)
-                    .font(.custom("Poppins-Regular", size: 15))
+                    .font(AppFont.primary(size: AppFont.Size.subheadline))
                     .foregroundStyle(Color.attendanceTitleText)
-                    .padding(10)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.85)
+                    .padding(AppSpacing.controlInnerPadding)
                     .frame(maxWidth: .infinity)
+                    .frame(minHeight: AppLayout.buttonHeight)
                     .overlay {
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: AppRadius.medium)
                             .stroke(lineWidth: 2)
                     }
-                    .clipShape(RoundedRectangle(cornerRadius: 10))
+                    .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
             }
         }
 //        .padding()
@@ -43,23 +46,26 @@ struct RedBorderButton: View {
                     Image(systemName: "pause")
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 14.15, height: 17.15)
-                        .fontWeight(.bold)
+                        .frame(width: AppLayout.iconGlyphSmall.width, height: AppLayout.iconGlyphSmall.height)
+                        .fontWeight(AppFont.Weight.bold)
                         .foregroundStyle(Color.absent)
                     
                     Text(text)
-                        .font(.custom("Poppins-Regular", size: 15))
+                        .font(AppFont.primary(size: AppFont.Size.subheadline))
                         .foregroundStyle(Color.absent)
-                        .padding(10)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.85)
+                        .padding(AppSpacing.controlInnerPadding)
                        
                 }
                 
                 .frame(maxWidth: .infinity)
+                .frame(minHeight: AppLayout.buttonHeight)
                 .overlay {
-                    RoundedRectangle(cornerRadius: 10)
+                    RoundedRectangle(cornerRadius: AppRadius.medium)
                         .stroke(Color.absent, lineWidth: 2)
                 }
-                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
             }
         }
 //        .padding()

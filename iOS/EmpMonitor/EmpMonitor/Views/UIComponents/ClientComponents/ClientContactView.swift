@@ -16,12 +16,13 @@ struct ClientContactView: View {
     var clientData: ClientListResponseData
     
     var body: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .fill(selectedClientContactCard == text ? Color.primaryButton1 : Color.clientContactCardBG)
-            .frame(width: 112, height: 76)
-            .shadow(color: .black.opacity(0.15), radius: 5, y: 2)
-            .overlay {
-                VStack {
+        Button {
+            withAnimation {
+                selectedClientContactCard = text
+                handleTapGesture(selectedCard: selectedClientContactCard)
+            }
+        } label: {
+            VStack(spacing: AppSpacing.xs) {
                     Circle()
                         .fill(
                             .shadow(.inner(color: Color.taskSearchBar, radius: 4))
@@ -32,18 +33,21 @@ struct ClientContactView: View {
                             contactIcon
                         }
                     Text(text)
-                        .font(.custom("Montserrat", size: 12))
-                        .fontWeight(.medium)
+                        .font(AppFont.primary(size: AppFont.Size.caption))
+                        .fontWeight(AppFont.Weight.medium)
                         .foregroundStyle(selectedClientContactCard == text ? Color.white : Color.subText)
-                    
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.85)
+
                 }
-            }
-            .onTapGesture {
-                withAnimation {
-                    selectedClientContactCard = text
-                    handleTapGesture(selectedCard: selectedClientContactCard)
-                }
-            }
+            .frame(width: 112)
+            .frame(minHeight: 76)
+            .background(selectedClientContactCard == text ? Color.primaryButton1 : Color.clientContactCardBG)
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
+            .shadow(color: .black.opacity(0.15), radius: 5, y: 2)
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel(text)
     }
     
 

@@ -9,37 +9,40 @@ import SwiftUI
 
 struct CheckINWebView: View {
     var body: some View {
-        ZStack {
-            //swipe track
-            Capsule()
-                .frame(width: 203, height: 42)
-                .foregroundStyle(Color.white)
-                .overlay {
-                    Capsule().stroke(Color.primaryButton1, lineWidth: 1)
-                }
-            
-            Text("Check IN via. Web")
-                .font(.custom("Montserrat", size: 12))
-                .foregroundStyle(Color.primaryButton1)
-                .fontWeight(.medium)
-                .offset(x: 12.0)
-            
+        HStack(spacing: AppSpacing.iconTextSpacing) {
             ZStack {
                 Circle()
                     .fill(
                         LinearGradient(gradient: Gradient(colors: [Color.primaryButton1, Color.primaryButton2]), startPoint: .top, endPoint: .bottom)
                     )
-                    .frame(width: 28, height: 28)
+                    .frame(width: AppLayout.checkInIconCompactSize, height: AppLayout.checkInIconCompactSize)
                 
                 Image(.webCheckINIcon)
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 13.31, height: 17.66)
+                    .frame(width: AppLayout.iconGlyphSmall.width, height: AppLayout.iconGlyphSmall.height)
                     .foregroundStyle(Color.white)
                 
             }
-            .offset(x: -80, y: 0)
+
+            Text("Check In via Web")
+                .font(AppFont.primary(size: AppFont.Size.callout))
+                .foregroundStyle(Color.primaryButton1)
+                .fontWeight(AppFont.Weight.medium)
+                .lineLimit(1)
+                .minimumScaleFactor(0.85)
+
+            Spacer(minLength: 0)
         }
+        .padding(.horizontal, AppSpacing.controlInnerPadding)
+        .frame(width: AppLayout.checkInControlWidth)
+        .frame(minHeight: AppLayout.checkInControlHeight)
+        .background(Color.white)
+        .overlay {
+            Capsule().stroke(Color.primaryButton1, lineWidth: 1)
+        }
+        .clipShape(Capsule())
+        .accessibilityLabel("Check in via web")
     }
 }
 

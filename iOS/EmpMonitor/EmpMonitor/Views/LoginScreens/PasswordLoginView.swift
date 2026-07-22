@@ -55,7 +55,7 @@ struct PasswordLoginView: View {
                     .padding(.top, -40)
                 
                 Text("Login")
-                    .font(.custom("Montserrat", size: 25))
+                    .font(AppFont.primary(size: AppFont.Size.screenTitle))
                     .padding(.top, 170)
                     .padding(.bottom, 20)
                 
@@ -109,7 +109,7 @@ struct PasswordLoginView: View {
                 
                 
                 Text("Forgot Password?")
-                    .font(.custom("Montserrat", size: 14))
+                    .font(AppFont.primary(size: AppFont.Size.body))
                     .foregroundStyle(Color.authSubText)
                     .padding(.top)
                     .onTapGesture {
@@ -162,13 +162,8 @@ struct PasswordLoginView: View {
             
             //Warning Popup
             if showWarning {
-                ZStack {
+                ModalOverlayView {
                     WarningPopupView(titleText: "Try Again", description: warningMessage, showWarningPopup: $showWarning)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
-                    showWarning.toggle()
                 }
             }
         }

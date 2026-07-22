@@ -17,11 +17,11 @@ struct GeoFencingWarningView: View {
                     Image(.geoFencingWarning)
                     VStack {
                         Text("You're outside geofenced perimeter!")
-                            .font(.custom("Montserrat", size: 14))
-                            .fontWeight(.semibold)
-                        Text("Not Allowed to Check IN / Check OUT")
-                            .font(.custom("Montserrat", size: 13))
-                            .fontWeight(.medium)
+                            .font(AppFont.primary(size: AppFont.Size.body))
+                            .fontWeight(AppFont.Weight.semibold)
+                        Text("Check In / Check Out Not Allowed")
+                            .font(AppFont.primary(size: AppFont.Size.callout))
+                            .fontWeight(AppFont.Weight.medium)
                     }
                     
                 }

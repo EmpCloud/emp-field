@@ -25,7 +25,7 @@ struct CustomTabBarView: View {
         ZStack {
             Rectangle()
                 .fill(Color.white)
-                .frame(height: 90)
+                .frame(height: AppLayout.tabBarHeight)
             
             //Content of tabbar
             HStack {
@@ -45,8 +45,8 @@ struct CustomTabBarView: View {
                     Spacer()
                 }
             }
-            .frame(height: 90)
-            .padding(.horizontal)
+            .frame(height: AppLayout.tabBarHeight)
+            .padding(.horizontal, AppSpacing.screenHorizontalPadding)
             
         }
     }
@@ -63,7 +63,7 @@ struct TabBarItemView: View {
 
     var body: some View {
         Button(action: onTap) {
-            VStack(spacing: 3) {
+            VStack(spacing: AppSpacing.formFieldSpacing) {
                 if isSelected {
                     RoundedRectangle(cornerRadius: 4)
                         .fill(Color.blue)
@@ -83,14 +83,14 @@ struct TabBarItemView: View {
                         .frame(width: 20, height: 20)
 
                     Text(title)
-                        .font(.system(size: 12, weight: .regular))
-                        .padding(.bottom)
+                        .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                        .padding(.bottom, AppSpacing.screenHorizontalPadding)
                 }
                 .scaleEffect(isSelected ? 1.2 : 1)
                 .animation(.spring, value: isTapped)
             }
             .foregroundStyle(isSelected ? Color.blue : Color.gray)
-            .padding(.bottom, 20)
+            .padding(.bottom, AppSpacing.tabBarBottomPadding)
         }
         .accessibilityLabel(title)
         .accessibility(addTraits: .isButton)

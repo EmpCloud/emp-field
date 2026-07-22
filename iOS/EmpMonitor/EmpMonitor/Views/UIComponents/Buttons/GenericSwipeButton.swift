@@ -29,24 +29,24 @@ struct GenericSwipeButton: View {
                 .fill(bgColor)
                 .frame(height: 56)
 
-            HStack(spacing: 12) {
+            HStack(spacing: AppSpacing.iconTextSpacing) {
                 if direction == .right {
                     Image(systemName: "arrow.right")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.semibold))
                         .foregroundStyle(textColor)
                 }
 
                 Text(text)
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.semibold))
                     .foregroundStyle(textColor)
 
                 if direction == .left {
                     Image(systemName: "arrow.left")
-                        .font(.system(size: 18, weight: .semibold))
+                        .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.semibold))
                         .foregroundStyle(textColor)
                 }
             }
-            .padding(.horizontal, 20)
+            .padding(.horizontal, AppSpacing.modalHorizontalPadding)
             .offset(x: direction == .right ? max(0, offset) : min(0, offset))
         }
         .gesture(
@@ -74,7 +74,7 @@ struct GenericSwipeButton: View {
 }
 
 #Preview {
-    VStack(spacing: 20) {
+    VStack(spacing: AppSpacing.stackSpacingLarge) {
         GenericSwipeButton(
             direction: .right,
             text: "Swipe to Check In",
@@ -91,5 +91,5 @@ struct GenericSwipeButton: View {
             onSwipeSuccess: {}
         )
     }
-    .padding()
+    .padding(AppSpacing.pagePadding)
 }

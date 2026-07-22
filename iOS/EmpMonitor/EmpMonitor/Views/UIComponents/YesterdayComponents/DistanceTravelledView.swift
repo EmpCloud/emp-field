@@ -31,16 +31,16 @@ struct DistanceTravelledView: View {
                             }
                         
                         Text("\(homeScreenViewModel.yesterdayDist)KM" )
-                            .font(.custom("Montserrat", size: 14))
-                            .fontWeight(.semibold)
+                            .font(AppFont.primary(size: AppFont.Size.body))
+                            .fontWeight(AppFont.Weight.semibold)
                             .foregroundStyle(Color.yesterdaysDate)
                         
                     }
             }
             
             Text("Distance Travelled")
-                .font(.custom("Montserrat", size: 12))
-                .fontWeight(.medium)
+                .font(AppFont.primary(size: AppFont.Size.caption))
+                .fontWeight(AppFont.Weight.medium)
                 .foregroundStyle(Color.yesterdayText)
         }
         .onAppear {

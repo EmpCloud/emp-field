@@ -50,8 +50,8 @@ struct UpdateProfileAddressView: View {
                             
                             VStack {
                                 Text("Add Address")
-                                    .font(.custom("Montserrat", size: 15))
-                                    .fontWeight(.semibold)
+                                    .font(AppFont.primary(size: AppFont.Size.subheadline))
+                                    .fontWeight(AppFont.Weight.semibold)
                                     .foregroundStyle(Color.addAddressText)
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .padding(.top, 30)
@@ -85,7 +85,7 @@ struct UpdateProfileAddressView: View {
                                     VStack(alignment: .leading){
                                         Toggle(isOn: $isLocationON) {
                                             Text("Enable your device location")
-                                                .font(.custom("Montserrat", size: 12))
+                                                .font(AppFont.primary(size: AppFont.Size.caption))
                                                 .foregroundStyle(Color.subText)
                                         }
                                         .toggleStyle(SwitchToggleStyle(tint: Color(UIColor.systemBlue)))
@@ -107,11 +107,11 @@ struct UpdateProfileAddressView: View {
                                         }, label: {
                                             HStack {
                                                 Text("+")
-                                                    .font(.title2)
+                                                    .font(AppFont.title2)
                                                 Text("Add complete Address")
                                                     .foregroundStyle(Color.subText)
                                             }
-                                            .font(.custom("Montserrat", size: 12))
+                                            .font(AppFont.primary(size: AppFont.Size.caption))
                                             .padding(.bottom, 5)
                                         })
                                         
@@ -149,7 +149,7 @@ struct UpdateProfileAddressView: View {
                                                 .padding(.horizontal)
                                                 
                                             }
-                                            .font(.custom("Montserrat", size: 10))
+                                            .font(AppFont.primary(size: AppFont.Size.xSmall))
                                             .foregroundStyle(Color.addressText2)
                                         }
                                         

@@ -28,15 +28,15 @@ struct HoursWorkedView: View {
                                 Image(.clock)
                             }
                         Text(homeScreenViewModel.homeScreenData?.yesterdayHrs ?? "00:00:00")
-                            .font(.custom("Montserrat", size: 14))
-                            .fontWeight(.semibold)
+                            .font(AppFont.primary(size: AppFont.Size.body))
+                            .fontWeight(AppFont.Weight.semibold)
                             .foregroundStyle(Color.yesterdaysDate)
                     }
             }
             
             Text("Hrs worked")
-                .font(.custom("Montserrat", size: 12))
-                .fontWeight(.medium)
+                .font(AppFont.primary(size: AppFont.Size.caption))
+                .fontWeight(AppFont.Weight.medium)
                 .foregroundStyle(Color.yesterdayText)
         }
     }

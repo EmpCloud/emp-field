@@ -16,43 +16,28 @@ struct AddressSearchBarView: View {
     
     
     var body: some View {
-        ZStack {
-            HStack{
-//                TextField("Search for area, street name...", text: $searchText)
-                RoundedRectangle(cornerRadius: 5)
-                    .fill(
-                        LinearGradient(gradient: Gradient(colors: [Color.blueGradient1, Color.blueGradient2]), startPoint: .top, endPoint: .bottom)
-                    )
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 35)
-                    .font(.custom("Montserrat", size: 12))
-//                    .padding(10)
-//                    .padding(.horizontal, 50)
-//                    .background(
-//                        LinearGradient(gradient: Gradient(colors: [Color.blueGradient1, Color.blueGradient2]), startPoint: .top, endPoint: .bottom)
-//                    )
-//                    .clipShape(RoundedRectangle(cornerRadius: 5))
-                    .overlay(alignment: .leading) {
-                        HStack {
-                            Button(action: {
-                                //perform search
-                            }, label: {
-                                Image(systemName: "magnifyingglass")
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 19.17, height: 19.17)
-                                    .foregroundStyle(Color.searchIcon)
-                            })
-                            .padding()
+        HStack(spacing: AppSpacing.iconTextSpacing) {
+            Image(systemName: "magnifyingglass")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: AppLayout.iconSmall, height: AppLayout.iconSmall)
+                .foregroundStyle(Color.searchIcon)
 
-                            Text("Search for area, street name...")
-                                .font(.custom("Montserrat", size: 12))
-                                .foregroundStyle(Color.mapSearchBarText)
-                        }
-                    }
-                
-            }
+            Text("Search for area, street name...")
+                .font(AppFont.primary(size: AppFont.Size.caption))
+                .foregroundStyle(Color.mapSearchBarText)
+                .lineLimit(1)
+                .minimumScaleFactor(0.85)
+
+            Spacer(minLength: AppSpacing.zero)
         }
+        .padding(.horizontal, AppSpacing.md)
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: AppLayout.minimumTouchTarget)
+        .background(
+            LinearGradient(gradient: Gradient(colors: [Color.blueGradient1, Color.blueGradient2]), startPoint: .top, endPoint: .bottom)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
     }
 }
 

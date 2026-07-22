@@ -19,17 +19,17 @@ struct SetupTabView: View {
         
         TabView(selection: $selectedTab) {
             
-            ProductivityInsightsView()
-                .tag(0)
-                .tabItem {
-                    Text("insight")
-                }
-            
-            LocationPermissionView()
-                .tag(1)
-                .tabItem {
-                    Text("tut")
-                }
+	            ProductivityInsightsView()
+	                .tag(0)
+	                .tabItem {
+	                    Text("Insight")
+	                }
+	            
+	            LocationPermissionView()
+	                .tag(1)
+	                .tabItem {
+	                    Text("Location")
+	                }
             
             BackgroundPermissionView()
                 .tag(2)

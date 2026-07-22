@@ -30,17 +30,17 @@ struct LocationPermissionView: View {
                     VStack {
                         HStack{
                             Text("Location")
-                                .font(.custom("Montserrat", size: 25))
-                                .fontWeight(.semibold)
+                                .font(AppFont.primary(size: AppFont.Size.screenTitle))
+                                .fontWeight(AppFont.Weight.semibold)
                                 .foregroundStyle(Color.welcomeText)
                             Text("Permission")
-                                .font(.custom("Montserrat", size: 25))
-                                .fontWeight(.semibold)
+                                .font(AppFont.primary(size: AppFont.Size.screenTitle))
+                                .fontWeight(AppFont.Weight.semibold)
                                 .foregroundStyle(Color.sideTitleText)
                         }
                         
                         Text("Asking for your location")
-                            .font(.custom("Montserrat", size: 16))
+                            .font(AppFont.primary(size: AppFont.Size.headline))
                             .foregroundStyle(Color.subText)
                             .padding()
                     }

@@ -22,113 +22,76 @@ struct QRCodePopupView: View {
     @Binding var isShareSheetPresented: Bool
     
     var body: some View {
-        
-        ZStack(alignment: .top) {
-            Image(.topSetupScreenBg)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .overlay(alignment: .topTrailing) {
-                    HStack {
-                        Image(systemName: "xmark")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 11, height: 11)
-                            .fontWeight(.bold)
-                            .foregroundStyle(Color.white)
-                            .padding()
-                            .onTapGesture {
-                                showQrCode.toggle()
-                            }
-                    }
+        ZStack(alignment: .topTrailing) {
+            VStack(spacing: AppSpacing.zero) {
+                ZStack {
+                    Color(red: 0.93, green: 0.96, blue: 1.0)
+                    Image(.topSetupScreenBg)
+                        .resizable()
+                        .scaledToFill()
+                        .opacity(0.18)
                 }
-            
-            
-            VStack {
-                
-                //Downloaded image
-                VStack(spacing: 10) {
-                    
-                    //Image view (show image or loading indicator)
-                    if let qrCodeImage = qrCodeImage {
-                        Image(uiImage: qrCodeImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 301, height: 301)
-                    }else {
-                        ProgressView()
-                            .frame(width: 100, height: 100)
-                            .onAppear {
-                                loadQRCodeImage()
-                            }
-                    }
+                .frame(height: 124)
+                .clipped()
 
-//                    AsyncImage(url: URL(string: imageURL)) { phase in
-//                        switch phase {
-//                        case .empty:
-//                            //placeholder view while the image is being loaded
-//                            ProgressView()
-//                                .frame(width: 100, height: 100)
-//                        case .success(let image):
-//                            //Display the image
-//                            image
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//                                .frame(width: 301, height: 301)
-//                                .onAppear {
-//                                    isImageLoaded = true
-//                                }
-//                            
-//                        case .failure(let error):
-//                            
-//                            Text("Failed to load: \(error.localizedDescription)")
-//                            
-//                            Image(systemName: "photo")
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//                                .frame(width: 100, height: 100)
-//                            
-//                            
-//                        @unknown default:
-//                            // Handle any unexpected errors
-//                            Image(systemName: "exclamationmark.triangle")
-//                                .resizable()
-//                                .aspectRatio(contentMode: .fit)
-//                                .frame(width: 100, height: 100)
-//                        }
-//                    }
-                }
-                .frame(width: 301, height: 301)
-                
-                HStack {
-                    Text(userName)
-                        .foregroundStyle(Color.text1)
-//                    Text("Geller")
-//                        .foregroundStyle(Color.attendanceTitleText)
-                }
-                .font(.custom("Montserrat", size: 26))
-                .fontWeight(.semibold)
-                .padding(.top, 20)
-            
-                Text(department)
-                    .font(.custom("Montserrat", size: 14))
-                    .fontWeight(.medium)
-                    .foregroundStyle(Color.text1)
-                
-                Text("www.empmonitor.com")
-                    .font(.custom("Montserrat", size: 12))
-                    .fontWeight(.medium)
-                    .foregroundStyle(Color.text1)
-                    .accentColor(.text1)
-                    .padding(.top)
-                
+                Color.white
             }
-            .padding(.top, 120)
-            
+
+            VStack(spacing: AppSpacing.md) {
+                Spacer(minLength: AppSpacing.lg)
+
+                qrCodePanel
+
+                VStack(spacing: AppSpacing.sm) {
+                    Text(userName)
+                        .font(AppFont.primary(size: AppFont.Size.title))
+                        .fontWeight(AppFont.Weight.semibold)
+                        .foregroundStyle(Color.text1)
+                        .lineLimit(2)
+                        .minimumScaleFactor(0.82)
+                        .multilineTextAlignment(.center)
+
+                    Text(department)
+                        .font(AppFont.primary(size: AppFont.Size.body))
+                        .fontWeight(AppFont.Weight.medium)
+                        .foregroundStyle(Color.text1.opacity(0.72))
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+
+                    Text("www.empmonitor.com")
+                        .font(AppFont.primary(size: AppFont.Size.caption))
+                        .fontWeight(AppFont.Weight.medium)
+                        .foregroundStyle(Color.text1.opacity(0.62))
+                        .accentColor(.text1)
+                        .padding(.top, AppSpacing.sm)
+                }
+                .frame(maxWidth: .infinity)
+
+                Spacer(minLength: AppSpacing.md)
+            }
+            .frame(maxWidth: .infinity, minHeight: 420, alignment: .center)
+            .padding(.horizontal, AppSpacing.lg)
+
+            Button {
+                showQrCode.toggle()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(AppFont.primary(size: AppFont.Size.closeIcon, weight: AppFont.Weight.bold))
+                    .foregroundStyle(Color.text1)
+                    .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+                    .background(Color.white.opacity(0.9))
+                    .clipShape(Circle())
+            }
+            .buttonStyle(.plain)
+            .padding(.top, AppSpacing.md)
+            .padding(.trailing, AppSpacing.md)
+            .accessibilityLabel("Close QR code")
         }
-        .frame(height: 557, alignment: .top)
+        .frame(maxWidth: 340, minHeight: 420, alignment: .center)
         .background(Color.white)
-        .clipShape(RoundedRectangle(cornerRadius: 8))
-        .padding()
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
+        .shadow(color: Color.black.opacity(0.14), radius: 18, x: 0, y: 8)
+        .padding(.horizontal, AppSpacing.md)
         .onChange(of: downloadPDF) { _, newValue in
             Task {
                 await downloadPDF()
@@ -151,21 +114,49 @@ struct QRCodePopupView: View {
             }
         }
     }
+
+    private var qrCodePanel: some View {
+        ZStack {
+            RoundedRectangle(cornerRadius: AppRadius.small)
+                .fill(Color.white)
+                .overlay {
+                    RoundedRectangle(cornerRadius: AppRadius.small)
+                        .stroke(Color.black.opacity(0.08), lineWidth: 1)
+                }
+                .shadow(color: Color.black.opacity(0.10), radius: 14, x: 0, y: 6)
+
+            if let qrCodeImage = qrCodeImage {
+                Image(uiImage: qrCodeImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .padding(AppSpacing.md)
+                    .accessibilityLabel("Employee QR code")
+            } else {
+                ProgressView()
+                    .frame(width: AppLayout.iconExtraLarge, height: AppLayout.iconExtraLarge)
+                    .onAppear {
+                        loadQRCodeImage()
+                    }
+            }
+        }
+        .frame(width: 252, height: 252)
+    }
     
     //Load QR code image using URLSession
     func loadQRCodeImage() {
-        guard let url = URL(string: imageURL) else { return }
+        let requestURLString = imageURL
+        guard let url = URL(string: requestURLString) else { return }
 
-        AppLog.debug("[API] GET \(imageURL)")
+        AppLog.debug("[API] GET \(requestURLString)")
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
             guard let data = data, let image = UIImage(data: data), error == nil else {
-                AppLog.debug("[API] Response (\(httpStatus)) \(self.imageURL) — image load failed: \(error?.localizedDescription ?? "Unknown error")")
+                AppLog.debug("[API] Response (\(httpStatus)) \(requestURLString) - image load failed: \(error?.localizedDescription ?? "Unknown error")")
                 return
             }
-            AppLog.debug("[API] Response (\(httpStatus)) \(self.imageURL) — image loaded (\(data.count) bytes)")
+            AppLog.debug("[API] Response (\(httpStatus)) \(requestURLString) - image loaded (\(data.count) bytes)")
 
-            DispatchQueue.main.async {
+            Task { @MainActor in
                 self.qrCodeImage = image
                 self.isImageLoaded = true
             }

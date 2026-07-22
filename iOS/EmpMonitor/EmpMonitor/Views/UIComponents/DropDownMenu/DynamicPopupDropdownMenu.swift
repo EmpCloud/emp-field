@@ -18,64 +18,42 @@ struct DynamicPopupDropdownMenu: View {
     var selectionTitle: String
     
     var body: some View {
-        
-        VStack(spacing: 5) {
-            RoundedRectangle(cornerRadius: 6)
-                .fill(Color.rectangleBG)
-                .frame(width: 144, height: 34)
-                .overlay {
-                    HStack {
-                        Text(selection?.name ?? selectionTitle)
-                            .font(.custom("Montserrat", size: 10))
-                            .foregroundStyle(Color.addressText2)
-                        
-                        Spacer()
-                        
-                        Image(systemName: "chevron.down")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 10.17, height: 5.75)
-                            .foregroundStyle(Color.addressText2)
-                    }
-                    .padding(.horizontal)
-                }
-            
-            if showTypeLeave {
-                OptionView()
-//                    .padding(.top, 140)
-            }
-        }
-        .onTapGesture {
-            withAnimation {
-                showTypeLeave.toggle()
-                showDayTypeLeave = false
-            }
-        }
-    }
-    
-    func OptionView() -> some View {
-        RoundedRectangle(cornerRadius: 6)
-            .fill(Color.rectangleBG)
-            .frame(width: 144, height: 100)
-            .overlay {
-                VStack(spacing: 10) {
-                    ForEach(options, id: \.id) { option in
-                        Text(option.name)
-                            .font(.custom("Montserrat", size: 10))
-                            .foregroundStyle(Color.addressText2)
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.vertical, 2)
-                            .onTapGesture {
-                                withAnimation {
-                                    selection = option
-                                    showTypeLeave.toggle()
-                                }
-                            }
+        Menu {
+            if options.isEmpty {
+                Text("No leave types")
+            } else {
+                ForEach(options, id: \.id) { option in
+                    Button(option.name) {
+                        selection = option
+                        showTypeLeave = false
+                        showDayTypeLeave = false
                     }
                 }
-                .frame(maxWidth: .infinity, maxHeight: .infinity ,alignment: .topLeading)
-                .padding()
             }
+        } label: {
+            HStack(spacing: AppSpacing.iconTextSpacing) {
+                Text(selection?.name ?? selectionTitle)
+                    .font(AppFont.primary(size: AppFont.Size.caption))
+                    .foregroundStyle(Color.addressText2)
+                    .lineLimit(1)
+                    .truncationMode(.tail)
+
+                Spacer()
+
+                Image(systemName: "chevron.down")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 10.17, height: 5.75)
+                    .foregroundStyle(Color.addressText2)
+            }
+            .padding(.horizontal, AppSpacing.md)
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: AppLayout.minimumTouchTarget)
+            .background(Color.rectangleBG)
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
+        }
+        .buttonStyle(.plain)
+        .disabled(options.isEmpty)
     }
 }
 

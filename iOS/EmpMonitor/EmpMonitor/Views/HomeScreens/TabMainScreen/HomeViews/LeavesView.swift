@@ -52,7 +52,7 @@ struct LeavesView: View {
                                 .frame(width: 40, alignment: .leading)
                             Text("Status")
                         }
-                        .font(.custom("Montserrat", size: 12))
+                        .font(AppFont.primary(size: AppFont.Size.caption))
                         .foregroundStyle(Color.attendanceTitleText)
                         .padding(.leading, 12)
                         .padding(.vertical, 10)
@@ -69,7 +69,7 @@ struct LeavesView: View {
                                 
                                 Text("\(leaveTypeInitials(leaveOptions: options, leaveTypeCode: leave.leaveType))")
                                     .frame(width: 35, alignment: .center)
-                                    .fontWeight(.medium)
+                                    .fontWeight(AppFont.Weight.medium)
                                 Text("\(LeaveHelper.shared.getLeaveDayType(status: leave.dayType))")
                                     .frame(width: 75, alignment: .leading)
                                 Text(leave.numberOfDays.truncatingRemainder(dividingBy: 1) == 0 ? String(Int(leave.numberOfDays)) : String(leave.numberOfDays))
@@ -105,7 +105,7 @@ struct LeavesView: View {
                                         }
                                 }
                             }
-                            .font(.custom("Montserrat", size: 12))
+                            .font(AppFont.primary(size: AppFont.Size.caption))
                             .foregroundStyle(Color.subText)
                             .padding(.leading, 12)
                             
@@ -117,13 +117,6 @@ struct LeavesView: View {
                         Color.white
                     )
                     .clipShape(RoundedRectangle(cornerRadius: 20))
-                }
-                
-                if !leavesViewModel.isLoading {
-                    PrimaryBorderButton(text: "Add leaves") {
-                        //TODO: to show add leaves popup
-                        showAddLeaves.toggle()
-                    }
                 }
             }
             
@@ -175,7 +168,7 @@ struct LeavesView: View {
             ProgressView()
                 .scaleEffect(1.2)
             Text("Loading...")
-                .font(.custom("Montserrat", size: 14))
+                .font(AppFont.primary(size: AppFont.Size.body))
                 .foregroundStyle(Color.subText)
         }
         .frame(maxWidth: .infinity, minHeight: 400)
@@ -190,7 +183,7 @@ struct LeavesView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 114, height: 114)
             Text("No Leaves Found")
-                .font(.custom("Montserrat", size: 14))
+                .font(AppFont.primary(size: AppFont.Size.body))
         }
         .frame(maxWidth: .infinity, minHeight: 300)
         .background(Color.white)

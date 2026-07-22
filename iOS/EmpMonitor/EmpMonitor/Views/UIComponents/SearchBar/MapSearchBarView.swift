@@ -10,31 +10,26 @@ import SwiftUI
 struct MapSearchBarView: View {
     @Binding var searchText: String
     var body: some View {
-        ZStack {
-            RoundedRectangle(cornerRadius: 6)
-                .fill(Color.white)
-                .frame(height: 45)
-                .frame(maxWidth: .infinity)
-                .overlay(alignment: .leading) {
-                    HStack{
-                        Image(systemName: "magnifyingglass")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 19.17, height: 19.17)
-                            .foregroundStyle(Color.searchIcon)
-                        TextField(text: $searchText) {
-                                Text("Search for area, street name...")
-                                    .font(.custom("Montserrat", size: 12))
-                                    .foregroundStyle(Color.mapSearchBarText)
-                                    
-                        }
-                        .font(.custom("Montserrat", size: 12))
-                        .foregroundStyle(Color.mapSearchBarText)
-                    }
-                    .padding(.horizontal)
-                }
-                
+        HStack(spacing: AppSpacing.iconTextSpacing) {
+            Image(systemName: "magnifyingglass")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(width: AppLayout.iconSmall, height: AppLayout.iconSmall)
+                .foregroundStyle(Color.searchIcon)
+
+            TextField(text: $searchText) {
+                Text("Search for area, street name...")
+                    .font(AppFont.primary(size: AppFont.Size.caption))
+                    .foregroundStyle(Color.mapSearchBarText)
+            }
+            .font(AppFont.primary(size: AppFont.Size.caption))
+            .foregroundStyle(Color.mapSearchBarText)
         }
+        .padding(.horizontal, AppSpacing.md)
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: AppLayout.minimumTouchTarget)
+        .background(Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
 //        .frame(maxWidth: .infinity, maxHeight: .infinity)
 //        .background(Color.black)
     }

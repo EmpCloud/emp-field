@@ -38,7 +38,7 @@ struct ResetPasswordView: View {
                 CircularAppIcon()
                 
                 Text("Reset Password")
-                    .font(.custom("Montserrat", size: 25))
+                    .font(AppFont.primary(size: AppFont.Size.screenTitle))
                     .padding(.top, 150)
                     .padding(.bottom, 20)
                 
@@ -71,15 +71,8 @@ struct ResetPasswordView: View {
             }
             
             if showWarningPopup {
-                ZStack {
-                    WarningPopupView(titleText: "Try Again!", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
-                    withAnimation {
-                        showWarningPopup.toggle()
-                    }
+                ModalOverlayView {
+                    WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
                 }
             }
             

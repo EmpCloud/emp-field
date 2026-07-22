@@ -34,7 +34,7 @@
 //            VStack(alignment: .center, spacing: 40){
 //                    
 //                    Text("Choose your Language")
-//                        .font(.custom("Montserrat", size: 24))
+//                        .font(AppFont.primary(size: AppFont.Size.title))
 //                        .foregroundStyle(Color.subText)
 //                        .padding(.top, 130)
 //                
@@ -49,7 +49,7 @@
 //                            .overlay {
 //                                HStack{
 //                                    Text(language)
-//                                        .font(.custom("Montserrat", size: 18))
+//                                        .font(AppFont.primary(size: AppFont.Size.title3))
 //                                        .foregroundStyle(Color.subText)
 //                                    Spacer()
 //                                    Button(action: { selectedLanguage = language }, label: {

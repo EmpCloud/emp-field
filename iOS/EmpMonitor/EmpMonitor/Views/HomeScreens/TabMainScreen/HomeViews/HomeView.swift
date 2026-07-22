@@ -75,37 +75,44 @@ struct HomeView: View {
 //                            ScrollView {
                                 VStack(alignment: .leading){
                                     //MARK: Content
-                                    Text("Hi!")
-                                        .font(.system(size: 24, weight: .regular))
-                                        .fontWeight(.bold)
+                                    HStack(alignment: .top, spacing: AppSpacing.stackSpacingDefault) {
+                                        VStack(alignment: .leading, spacing: AppSpacing.formFieldSpacing) {
+                                            Text("Hi!")
+                                                .font(AppFont.primary(size: AppFont.Size.title, weight: AppFont.Weight.regular))
+                                                .fontWeight(AppFont.Weight.bold)
+                                            
+                                            Text(name)
+                                                .font(AppFont.primary(size: AppFont.Size.navigationTitle, weight: AppFont.Weight.regular))
+                                                .fontWeight(AppFont.Weight.semibold)
+                                                .lineLimit(1)
+                                                .truncationMode(.tail)
+                                            
+                                            Text(department)
+                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                                .lineLimit(1)
+                                                .truncationMode(.tail)
+                                        }
                                         .foregroundStyle(.white)
-                                        .padding(.top)
-                                        .padding(.leading , 60)
-                                    
-                                    Text(name)
-                                        .font(.system(size: 20, weight: .regular))
-                                        .fontWeight(.semibold)
-                                        .foregroundStyle(.white)
-                                        .padding(.leading, 60)
-                                    
-                                    Text(department)
-                                        .font(.system(size: 12, weight: .regular))
-//                                        .fontWeight(.semibold)
-                                        .foregroundStyle(.white)
-                                        .padding(.leading, 60)
-                                    
-                                    Text("Map")
-                                        .font(.system(size: 13, weight: .regular))
-                                        .fontWeight(.bold)
-                                        .foregroundStyle(.white)
-                                        .underline()
-                                        .padding(.top, -20)
-                                        .padding(.leading, 340)
-                                        .onTapGesture {
+                                        
+                                        Spacer(minLength: AppSpacing.iconTextSpacing)
+                                        
+                                        Button {
                                             withAnimation {
                                                 showMapCheckInView.toggle()
                                             }
+                                        } label: {
+                                            Text("Map")
+                                                .font(AppFont.primary(size: AppFont.Size.callout, weight: AppFont.Weight.bold))
+                                                .foregroundStyle(.white)
+                                                .underline()
+                                                .frame(minWidth: 44, minHeight: 44, alignment: .trailing)
                                         }
+                                        .buttonStyle(.plain)
+                                        .accessibilityLabel("Open map check-in")
+                                    }
+                                    .padding(.top)
+                                    .padding(.leading, 60)
+                                    .padding(.trailing, 24)
                                     
                                     
                                     //MARK: RoundedRectangle
@@ -118,8 +125,8 @@ struct HomeView: View {
                                                     
                                                     //MARK: Yesterday's Record
                                                     Text("Yesterday's Record")
-                                                        .font(.system(size: 18, weight: .regular))
-                                                        .fontWeight(.medium)
+                                                        .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.regular))
+                                                        .fontWeight(AppFont.Weight.medium)
                                                         .foregroundStyle(Color.headingText)
                                                         .padding(3)
 //                                                        .padding(.top, 10)
@@ -131,7 +138,7 @@ struct HomeView: View {
                                                         .overlay(alignment: .topLeading) {
                                                             VStack(alignment: .leading) {
                                                                 Text("\(HelperFunction.shared.getYesterdayDateString())")
-                                                                    .font(.system(size: 15, weight: .regular))
+                                                                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.regular))
                                                                     .foregroundStyle(Color.yesterdaysDate)
                                                                     .padding(.top)
                                                                     .padding(.leading, 40)
@@ -179,7 +186,7 @@ struct HomeView: View {
                                                 Task {
                                                     try await homeScreenViewModel.getHomeScreenData()
                                                     
-                                                    if let data = homeScreenViewModel.checkData?.data.checkIn {
+                                                    if homeScreenViewModel.checkData?.data.checkIn != nil {
                                                         showCheckIN = false
                                                         showCheckOUT = true
                                                         
@@ -221,11 +228,11 @@ struct HomeView: View {
                                     .overlay(alignment: .top) {
                                         //MARK: Top Swipe Button View
                                         VStack {
-                                            VStack(spacing: 10) {
+                                            VStack(spacing: AppSpacing.stackSpacingDefault) {
                                                 HStack{
                                                     Text("\(HelperFunction.shared.todaysDate())")
-                                                        .font(.system(size: 18, weight: .regular))
-                                                        .fontWeight(.semibold)
+                                                        .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.regular))
+                                                        .fontWeight(AppFont.Weight.semibold)
                                                         .foregroundStyle(Color.headingText)
                                                     Spacer()
                                                     if homeScreenViewModel.checkINTime != "" && homeScreenViewModel.checkINTime != "--:--" {
@@ -236,11 +243,11 @@ struct HomeView: View {
                                                 .padding(.horizontal)
                                                 //
                                                 HStack{
-                                                    Text("Check IN")
+                                                    Text("Check In")
                                                     Spacer()
-                                                    Text("Check OUT")
+                                                    Text("Check Out")
                                                 }
-                                                .font(.custom("Ubuntu-Regular", size: 14))
+                                                .font(AppFont.primary(size: AppFont.Size.body))
                                                 .foregroundStyle(
                                                     LinearGradient(gradient: Gradient(colors: [Color.primaryButton1, Color.primaryButton2]), startPoint: .top, endPoint: .bottom)
                                                 )
@@ -249,22 +256,22 @@ struct HomeView: View {
                                                 HStack {
                                                     HStack(alignment: .bottom, spacing: 0) {
                                                         Text(HelperFunction.shared.formatCheckTime(from: homeScreenViewModel.checkINTime) ?? "--:--")
-                                                            .font(.system(size: 22, weight: .regular))
-                                                            .fontWeight(.medium)
-                                                        Text("am")
-                                                            .font(.system(size: 12, weight: .regular))
-                                                            .fontWeight(.medium)
+                                                            .font(AppFont.primary(size: AppFont.Size.title2, weight: AppFont.Weight.regular))
+                                                            .fontWeight(AppFont.Weight.medium)
+                                                        Text("AM")
+                                                            .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                                            .fontWeight(AppFont.Weight.medium)
                                                         
                                                     }
                                                     .padding(.leading)
                                                     Spacer()
                                                     HStack(alignment: .bottom, spacing: 0) {
                                                         Text(HelperFunction.shared.formatCheckTime(from: homeScreenViewModel.checkOUTTime) ?? "--:--")
-                                                            .font(.system(size: 22, weight: .regular))
-                                                            .fontWeight(.medium)
-                                                        Text("pm")
-                                                            .font(.system(size: 12, weight: .regular))
-                                                            .fontWeight(.medium)
+                                                            .font(AppFont.primary(size: AppFont.Size.title2, weight: AppFont.Weight.regular))
+                                                            .fontWeight(AppFont.Weight.medium)
+                                                        Text("PM")
+                                                            .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                                            .fontWeight(AppFont.Weight.medium)
                                                     }
                                                     //
                                                 }
@@ -296,7 +303,6 @@ struct HomeView: View {
                                                                         }
                                                                         UserDefaults.standard.removeObject(forKey: "offlineLocations")
                                                                         try await checkINViewModel.markAttendance()
-                                                                        AppLog.debug("CheckIN (geo-fence manual): Attendance marked")
                                                                         if NetworkManager.shared.statusCode != 200 {
                                                                             showWarning.toggle()
                                                                             showMOTPopup = false
@@ -305,6 +311,7 @@ struct HomeView: View {
                                                                             UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
                                                                             return
                                                                         }
+                                                                        AppLog.debug("CheckIN (geo-fence manual): Attendance marked")
                                                                         homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
                                                                         timerManager.startActiveTimer()
                                                                         toastMessage = ToastMessage(style: .success, message: "Checked in successfully")
@@ -317,37 +324,7 @@ struct HomeView: View {
                                                         } else if showCheckOUT {
                                                             CheckOutSwipeButtonView()
                                                                 .onSwipeSuccess {
-                                                                    showCheckOUT = false
-                                                                    Task {
-                                                                        checkINViewModel.checkINTime = currentDeviceTime
-                                                                        if let lat = permissionManager.userLocation?.coordinate.latitude {
-                                                                            checkINViewModel.checkINLatitude = Double(lat)
-                                                                        }
-                                                                        if let long = permissionManager.userLocation?.coordinate.longitude {
-                                                                            checkINViewModel.checkINLongitude = Double(long)
-                                                                        }
-                                                                        showCheckOUTAlert.toggle()
-                                                                    }
-                                                                    Task {
-                                                                        try await homeScreenViewModel.getHomeScreenData()
-                                                                        if let _ = homeScreenViewModel.checkData?.data.checkIn {
-                                                                            showCheckIN = false
-                                                                            showCheckOUT = true
-                                                                            if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != "" {
-                                                                                timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
-                                                                                timerManager.stopActiveTimer()
-                                                                            } else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != "" {
-                                                                                timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
-                                                                                timerManager.startActiveTimer()
-                                                                            }
-                                                                        } else {
-                                                                            UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
-                                                                            showCheckIN = true
-                                                                            showCheckOUT = false
-                                                                        }
-                                                                        isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
-                                                                        isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
-                                                                    }
+                                                                    presentCheckoutAlert()
                                                                 }
                                                                 .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
                                                         }
@@ -372,7 +349,6 @@ struct HomeView: View {
                                                                         }
                                                                         UserDefaults.standard.removeObject(forKey: "offlineLocations")
                                                                         try await checkINViewModel.markAttendance()
-                                                                        AppLog.debug("CheckIN: Attendance marked")
                                                                         if NetworkManager.shared.statusCode != 200 {
                                                                             showWarning.toggle()
                                                                             showMOTPopup = false
@@ -381,6 +357,7 @@ struct HomeView: View {
                                                                             UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
                                                                             return
                                                                         }
+                                                                        AppLog.debug("CheckIN: Attendance marked")
                                                                         homeScreenViewModel.checkINTime = checkINViewModel.checkINTime
                                                                         timerManager.startActiveTimer()
                                                                         toastMessage = ToastMessage(style: .success, message: "Checked in successfully")
@@ -393,37 +370,7 @@ struct HomeView: View {
                                                         } else if showCheckOUT {
                                                             CheckOutSwipeButtonView()
                                                                 .onSwipeSuccess {
-                                                                    showCheckOUT = false
-                                                                    Task {
-                                                                        checkINViewModel.checkINTime = currentDeviceTime
-                                                                        if let lat = permissionManager.userLocation?.coordinate.latitude {
-                                                                            checkINViewModel.checkINLatitude = Double(lat)
-                                                                        }
-                                                                        if let long = permissionManager.userLocation?.coordinate.longitude {
-                                                                            checkINViewModel.checkINLongitude = Double(long)
-                                                                        }
-                                                                        showCheckOUTAlert.toggle()
-                                                                    }
-                                                                    Task {
-                                                                        try await homeScreenViewModel.getHomeScreenData()
-                                                                        if let _ = homeScreenViewModel.checkData?.data.checkIn {
-                                                                            showCheckIN = false
-                                                                            showCheckOUT = true
-                                                                            if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != "" {
-                                                                                timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
-                                                                                timerManager.stopActiveTimer()
-                                                                            } else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != "" {
-                                                                                timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
-                                                                                timerManager.startActiveTimer()
-                                                                            }
-                                                                        } else {
-                                                                            UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
-                                                                            showCheckIN = true
-                                                                            showCheckOUT = false
-                                                                        }
-                                                                        isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
-                                                                        isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
-                                                                    }
+                                                                    presentCheckoutAlert()
                                                                 }
                                                                 .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
                                                         }
@@ -450,17 +397,7 @@ struct HomeView: View {
                                                             if showCheckOUT {
                                                                 CheckOutSwipeButtonView()
                                                                     .onSwipeSuccess {
-                                                                        showCheckOUT = false
-                                                                        Task {
-                                                                            checkINViewModel.checkINTime = currentDeviceTime
-                                                                            if let lat = permissionManager.userLocation?.coordinate.latitude {
-                                                                                checkINViewModel.checkINLatitude = Double(lat)
-                                                                            }
-                                                                            if let long = permissionManager.userLocation?.coordinate.longitude {
-                                                                                checkINViewModel.checkINLongitude = Double(long)
-                                                                            }
-                                                                            showCheckOUTAlert.toggle()
-                                                                        }
+                                                                        presentCheckoutAlert()
                                                                     }
                                                             }
                                                         } else if webOn == 1 {
@@ -472,14 +409,14 @@ struct HomeView: View {
 
                                                 }
                                             }
-                                            .padding(.horizontal, 20)
-                                            .padding(.vertical, 10)
+                                            .padding(.horizontal, AppSpacing.modalHorizontalPadding)
+                                            .padding(.vertical, AppSpacing.controlInnerPadding)
                                         }
-                                        .frame(height: 170)
-                                        .frame(maxWidth: .infinity, minHeight: 170, maxHeight: 170)
+	                                        .frame(maxWidth: .infinity)
+	                                        .frame(minHeight: 170)
                                         .background(Color.white)
-                                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                                        .padding(.horizontal)
+                                        .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
+                                        .padding(.horizontal, AppSpacing.screenHorizontalPadding)
                                         
                                     }
                                     
@@ -494,15 +431,12 @@ struct HomeView: View {
                            
                             
                             if showMOTPopup {
-                                ZStack {
-                                    ModeOfTravelView(motViewModel: motViewModel, selectedMode: $selectedMode, tappedMode: $tappedMode, showMode: $showMOTPopup)
-                                }
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .background(Color.black.opacity(0.5))
-                                .onTapGesture {
+                                ModalOverlayView(dismissOnBackgroundTap: {
                                     withAnimation {
                                         showMOTPopup.toggle()
                                     }
+                                }) {
+                                    ModeOfTravelView(motViewModel: motViewModel, selectedMode: $selectedMode, tappedMode: $tappedMode, showMode: $showMOTPopup)
                                 }
                                 
                             }
@@ -511,49 +445,32 @@ struct HomeView: View {
                             
                             //MARK: CheckOUT Popup
                             if showCheckOUTAlert {
-                                ZStack {
-                                    LogoutAlertPopupView(checkINViewModel: checkINViewModel, homeScreenViewModel: homeScreenViewModel, showCheckOUTAlert: $showCheckOUTAlert, yesCheckout: $yesCheckOut, showWarningPopup: $showWarning, isTaskRunning: $isTaskRunning, onCheckoutSuccess: { toastMessage = ToastMessage(style: .success, message: "Checked out successfully") })
+                                ModalOverlayView {
+                                    LogoutAlertPopupView(checkINViewModel: checkINViewModel, homeScreenViewModel: homeScreenViewModel, showCheckOUTAlert: $showCheckOUTAlert, yesCheckout: $yesCheckOut, showWarningPopup: $showWarning, isTaskRunning: $isTaskRunning, onCheckoutSuccess: applyCheckoutSuccessUI)
                                         .environmentObject(permissionManager)
                                 }
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .ignoresSafeArea()
-                                .background(Color.black.opacity(0.5))
                                 
                             }
                             
 //                            //MARK: Warning
                             if showWarning {    
-                                if NetworkManager.shared.statusCode == 403 {
-                                    ZStack {
-                                        WarningPopupView(titleText: "Checkout Restricted", description: "Check Before 1 hour is not allowed", showWarningPopup: $showWarning)
-                                    }
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .background(Color.black.opacity(0.5))
-                                    .onTapGesture {
-                                        showWarning.toggle()
-                                        showCheckOUTAlert = false
+                                if isTaskRunning && yesCheckOut {
+                                    ModalOverlayView {
+                                        WarningPopupView(titleText: "Task Active", description: "Another task is currently in progress. Pause or complete it to initiate a new task.", showWarningPopup: $showWarning)
                                     }
                                 }
-                                else if isTaskRunning && yesCheckOut {
-                                    ZStack {
-                                        WarningPopupView(titleText: "One task Active", description: "Another task is currently in progress. Pause or complete it to initiate a new task.", showWarningPopup: $showWarning)
-                                    }
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .background(Color.black.opacity(0.5))
-                                    .onTapGesture {
-                                        showWarning.toggle()
-                                        showCheckOUTAlert = false
+                                else if NetworkManager.shared.statusCode == 403 {
+                                    ModalOverlayView {
+                                        WarningPopupView(
+                                            titleText: attendanceWarningTitle,
+                                            description: attendanceWarningDescription,
+                                            showWarningPopup: $showWarning
+                                        )
                                     }
                                 }
                                 else {
-                                    ZStack {
+                                    ModalOverlayView {
                                         WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarning)
-                                    }
-                                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                    .background(Color.black.opacity(0.5))
-                                    .onTapGesture {
-                                        showWarning.toggle()
-//                                        showCheckOUTAlert = false
                                     }
                                 }
                                 
@@ -607,7 +524,9 @@ struct HomeView: View {
                             }
                             permissionManager.requestLocation()
                             
-                            AppLog.debug("IsCheckIN: \(UserDefaults.standard.bool(forKey: "isCheckedIN"))")
+                            let isCheckedIn = UserDefaults.standard.bool(forKey: "isCheckedIN")
+                            AppLog.debug("IsCheckIN: \(isCheckedIn)")
+                            DeviceStatusDebug.log("Home loaded: isCheckedIN=\(isCheckedIn). Device-status endpoints run only after successful check-in/tracking starts")
                             
                             //Control the login/logout
                             //                AppState.shared.isLoggedIn = true
@@ -624,7 +543,7 @@ struct HomeView: View {
                                 try await homeScreenViewModel.getHomeScreenData()
                                 
                                 if NetworkManager.shared.statusCode == 200 {
-                                    if let data = homeScreenViewModel.checkData?.data.checkIn {
+                                    if homeScreenViewModel.checkData?.data.checkIn != nil {
                                         showCheckIN = false
                                         showCheckOUT = true
                                         
@@ -743,6 +662,44 @@ struct HomeView: View {
                 }
         }
         .toast(message: $toastMessage)
+    }
+
+    private var attendanceWarningTitle: String {
+        if NetworkManager.shared.responseMessage.localizedCaseInsensitiveContains("check-in/check-out is disabled") {
+            return "Attendance Restricted"
+        }
+
+        return NetworkManager.shared.errorMessage.isEmpty ? "Try Again" : NetworkManager.shared.errorMessage
+    }
+
+    private var attendanceWarningDescription: String {
+        let backendMessage = NetworkManager.shared.responseMessage
+        guard backendMessage.isEmpty == false else {
+            return "Please try again."
+        }
+
+        if backendMessage.localizedCaseInsensitiveContains("biometric"),
+           homeScreenViewModel.homeScreenData?.isBioMetricEnabled != 1 {
+            return "Mobile app check-in/check-out is currently disabled for this account. Please contact your admin."
+        }
+
+        return backendMessage
+    }
+
+    private func presentCheckoutAlert() {
+        AppLog.debug("Checkout swipe completed; showing confirmation")
+        yesCheckOut = false
+        withAnimation {
+            showCheckOUTAlert = true
+        }
+    }
+
+    private func applyCheckoutSuccessUI() {
+        showCheckIN = true
+        showCheckOUT = false
+        yesCheckOut = false
+        currentDeviceTime = ""
+        toastMessage = ToastMessage(style: .success, message: "Checked out successfully")
     }
 
     private func performAutoCheckIn() async {

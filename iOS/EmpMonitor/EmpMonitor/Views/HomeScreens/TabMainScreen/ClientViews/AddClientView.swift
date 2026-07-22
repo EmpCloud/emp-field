@@ -80,7 +80,7 @@ struct AddClientView: View {
                             
                             VStack(spacing: 3) {
                                 Text("Full Name*")
-                                    .font(.system(size: 15, weight: .semibold))
+                                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 TextFieldEditableCreateProfileView(text: $addClientViewModel.clientName, placeholder: "Enter Full Name")
                             }
@@ -91,14 +91,14 @@ struct AddClientView: View {
                             //MARK: Email
                             VStack(spacing: 3) {
                                 Text("Email ID")
-                                    .font(.system(size: 15, weight: .semibold))
+                                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 //MARK: Email Validation warning
                                 if !isValidEmail && !addClientViewModel.emailID.isEmpty {
                                     VStack(alignment: .leading) {
                                         Text("Please enter a valid email*")
-                                            .font(.custom("Ubuntu-Regular", size: 10))
+                                            .font(AppFont.primary(size: AppFont.Size.xSmall))
                                             .foregroundStyle(Color.absent)
                                     }
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -118,11 +118,11 @@ struct AddClientView: View {
                             //MARK: Phone
                             VStack(spacing: 3) {
                                 Text("Mobile No.*")
-                                    .font(.system(size: 15, weight: .semibold))
+                                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                 
                                 ZStack(alignment: .leading) {
-                                    MobileTextFieldCreateProfileView(text: $phoneNumber, placeholder: "Enter mobile no.")
+                                    MobileTextFieldCreateProfileView(text: $phoneNumber, placeholder: "Enter Mobile Number")
                                         .keyboardType(.numberPad)
                                         .focused($keyIsFocused)
                                         .toolbarDoneButton()
@@ -138,7 +138,7 @@ struct AddClientView: View {
                                         HStack(spacing: 7) {
                                             Text("\(countryFlag)")
                                             Text("\(countryCode)")
-                                                .font(.custom("Poppins-Regular", size: 15))
+                                                .font(AppFont.primary(size: AppFont.Size.subheadline))
                                                 .foregroundStyle(Color.mobileText)
                                             
                                         }
@@ -158,9 +158,9 @@ struct AddClientView: View {
                             //MARK: Categories
                             VStack(spacing: 3) {
                                 Text("Categories*")
-                                    .font(.system(size: 15, weight: .semibold))
+                                    .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                     .frame(maxWidth: .infinity, alignment: .leading)
-                                TextFieldEditableCreateProfileView(text: $addClientViewModel.category, placeholder: "Enter categories")
+                                TextFieldEditableCreateProfileView(text: $addClientViewModel.category, placeholder: "Enter Categories")
                             }
                             .padding(.trailing, 20)
                             .padding(.leading, 20)
@@ -171,7 +171,7 @@ struct AddClientView: View {
                                 //MARK: Address
                                 VStack(spacing: 3) {
                                     Text("Address")
-                                        .font(.system(size: 15, weight: .semibold))
+                                        .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                         .frame(maxWidth: .infinity, alignment: .leading)
                                     EditAddressTextField(showClientAddress: $showAddClientAddress, placeholder: addClientViewModel.address1)
                                 }
@@ -242,13 +242,8 @@ struct AddClientView: View {
             
             
             if showWarningPopup {
-                ZStack {
+                ModalOverlayView {
                     WarningPopupView(titleText: NetworkManager.shared.responseMessage, description: NetworkManager.shared.errorMessage, showWarningPopup: $showWarningPopup)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
-                    showWarningPopup.toggle()
                 }
             }
         }
@@ -285,7 +280,7 @@ struct AddClientView: View {
                     HStack {
                         Text(country.flag)
                         Text(country.name)
-                            .font(.system(size: 15, weight: .semibold))
+                            .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                         Spacer()
                         Text(country.dial_code)
                     }

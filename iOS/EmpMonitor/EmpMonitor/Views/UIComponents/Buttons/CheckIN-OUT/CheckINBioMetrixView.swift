@@ -22,20 +22,7 @@ struct CheckINBioMetrixView: View {
         Button {
             tapAction?()
         } label: {
-            ZStack {
-                Capsule()
-                    .frame(width: 220, height: 42)
-                    .foregroundStyle(Color.white)
-                    .overlay {
-                        Capsule().stroke(Color.primaryButton1, lineWidth: 1)
-                    }
-
-                Text("Check IN via. Biometric")
-                    .font(.custom("Montserrat", size: 12))
-                    .foregroundStyle(Color.primaryButton1)
-                    .fontWeight(.medium)
-                    .offset(x: 12.0)
-
+            HStack(spacing: AppSpacing.iconTextSpacing) {
                 ZStack {
                     Circle()
                         .fill(
@@ -45,18 +32,36 @@ struct CheckINBioMetrixView: View {
                                 endPoint: .bottom
                             )
                         )
-                        .frame(width: 28, height: 28)
+                        .frame(width: AppLayout.checkInIconCompactSize, height: AppLayout.checkInIconCompactSize)
 
                     Image(.bioCheckINIcon)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
-                        .frame(width: 13.31, height: 17.66)
+                        .frame(width: AppLayout.iconGlyphSmall.width, height: AppLayout.iconGlyphSmall.height)
                         .foregroundStyle(Color.white)
                 }
-                .offset(x: -88, y: 0)
+
+                Text("Check In via Biometric")
+                    .font(AppFont.primary(size: AppFont.Size.callout))
+                    .foregroundStyle(Color.primaryButton1)
+                    .fontWeight(AppFont.Weight.medium)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.85)
+
+                Spacer(minLength: 0)
             }
+            .padding(.horizontal, AppSpacing.controlInnerPadding)
+            .frame(width: AppLayout.checkInControlWidth)
+            .frame(minHeight: AppLayout.checkInControlHeight)
+            .background(Color.white)
+            .overlay {
+                Capsule().stroke(Color.primaryButton1, lineWidth: 1)
+            }
+            .clipShape(Capsule())
+            .contentShape(Capsule())
         }
         .buttonStyle(.plain)
+        .accessibilityLabel("Check in via biometric")
     }
 }
 

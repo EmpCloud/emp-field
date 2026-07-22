@@ -23,93 +23,55 @@ struct EditAttendancePopupView: View {
         ZStack {
 //            Color.black.ignoresSafeArea()
             
-            VStack(alignment: .center, spacing: 20) {
-                HStack {
+            VStack(alignment: .leading, spacing: AppSpacing.stackSpacingMedium) {
+                ZStack {
+                    Text("Edit Attendance")
+                        .frame(maxWidth: .infinity, alignment: .center)
+
                     HStack {
-                        Text("Edit Attendance")
-                    }
-                    .frame(maxWidth: .infinity, alignment: .center)
-                    Image(systemName: "xmark")
-                        .padding(10)
-                        .onTapGesture {
+                        Spacer()
+
+                        Button {
                             withAnimation {
                                 showEditAttendance.toggle()
                             }
+                        } label: {
+                            Image(systemName: "xmark")
+                                .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
                         }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Close edit attendance")
+                    }
                 }
                 .foregroundStyle(Color.attendanceTitleText)
-                .font(.custom("Montserrat", size: 14))
-                .frame(maxWidth: .infinity, alignment: .trailing)
-                .padding(.horizontal)
-                .padding(.top)
+                .font(AppFont.primary(size: AppFont.Size.body))
+                .fontWeight(AppFont.Weight.semibold)
+                .frame(maxWidth: .infinity)
                 
-                HStack(spacing: 0) {
+                HStack(spacing: AppSpacing.xxs) {
                     Text("Change your attendance on ")
                         .foregroundStyle(Color.text1)
-                    Text("\(FormatterHelper.shared.formattedFullYearDate(from: editAttendanceViewModel.date))")
+                    Text(attendanceDateText)
                         .foregroundStyle(Color.primaryButton1)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.85)
                 }
-                .font(.custom("Montserrat", size: 11))
+                .font(AppFont.primary(size: AppFont.Size.footnote))
+                .frame(maxWidth: .infinity, alignment: .center)
                 
-                HStack(spacing: 30) {
-                    VStack(alignment: .leading, spacing: 10) {
-                        HStack(spacing: 0) {
-                            Text("Check In Date")
-                                .font(.custom("Montserrat", size: 12))
-                            Text("*")
-                                .foregroundStyle(Color.red)
-                        }
-                        Text("\(FormatterHelper.shared.formattedFullYearDate(from: editAttendanceViewModel.date))")
-                            .font(.custom("Montserrat", size: 10))
-                            .foregroundStyle(Color.addressText2)
-                            .padding(10)
-                            .padding(.trailing, 30)
-                            .background(Color.rectangleBG)
-                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                HStack(alignment: .top, spacing: AppSpacing.stackSpacingDefault) {
+                    VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
+                        requiredLabel("Check In Date")
+                        readOnlyDateField(attendanceDateText)
                         
-                        HStack(spacing: 0) {
-                            Text("Check Out Date")
-                                .font(.custom("Montserrat", size: 12))
-                            Text("*")
-                                .foregroundStyle(Color.red)
-                        }
-                        Text("\(FormatterHelper.shared.formattedFullYearDate(from: editAttendanceViewModel.date))")
-                            .font(.custom("Montserrat", size: 10))
-                            .foregroundStyle(Color.addressText2)
-                            .padding(10)
-                            .padding(.trailing, 30)
-                            .background(Color.rectangleBG)
-                            .clipShape(RoundedRectangle(cornerRadius: 6))
+                        requiredLabel("Check Out Date")
+                        readOnlyDateField(attendanceDateText)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    VStack(alignment: .leading, spacing: 10) {
-                        HStack(spacing: 0) {
-                            Text("Check In Time")
-                                .font(.custom("Montserrat", size: 12))
-                            Text("*")
-                                .foregroundStyle(Color.red)
-                        }
-                        HStack {
-                            if checkINTime != "" {
-                                Text("\(checkINTime)")
-                            }else{
-                                Text("--:-- --")
-                            }
-                            
-                            
-                            Image(.clock)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 10, height: 10)
-                                .padding(.leading, 60)
-                        }
-                        .font(.custom("Montserrat", size: 10))
-                        .foregroundStyle(Color.addressText2)
-                        .padding(10)
-                        .frame(width: 144)
-                        .background(Color.rectangleBG)
-                        .clipShape(RoundedRectangle(cornerRadius: 6))
-                        .onTapGesture {
+                    VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
+                        requiredLabel("Check In Time")
+                        timePickerButton(checkINTime) {
                             dateViewModel.setTime()
                             withAnimation {
                                 dateViewModel.setStartTime = true
@@ -118,33 +80,8 @@ struct EditAttendancePopupView: View {
                             }
                         }
                         
-                        HStack(spacing: 0) {
-                            Text("Check Out Time")
-                                .font(.custom("Montserrat", size: 12))
-                            Text("*")
-                                .foregroundStyle(Color.red)
-                        }
-                        HStack {
-                            
-                            if checkOUTTime != "" {
-                                Text("\(checkOUTTime)")
-                            }else{
-                                Text("--:-- --")
-                            }
-                            
-                            Image(.clock)
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 10, height: 10)
-                                .padding(.leading, 60)
-                        }
-                        .font(.custom("Montserrat", size: 10))
-                        .foregroundStyle(Color.addressText2)
-                        .padding(10)
-                        .frame(width: 144)
-                        .background(Color.rectangleBG)
-                        .clipShape(RoundedRectangle(cornerRadius: 6))
-                        .onTapGesture {
+                        requiredLabel("Check Out Time")
+                        timePickerButton(checkOUTTime) {
                             dateViewModel.setTime()
                             withAnimation {
                                 dateViewModel.setStartTime = false
@@ -153,23 +90,17 @@ struct EditAttendancePopupView: View {
                             }
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 
-                VStack {
-                    HStack(spacing: 0) {
-                        Text("Remark")
-                            .font(.custom("Montserrat", size: 12))
-                        
-                        Text("*")
-                            .foregroundStyle(Color.red)
-                    }
+                VStack(spacing: AppSpacing.stackSpacingDefault) {
+                    requiredLabel("Remark")
                     .frame(maxWidth: .infinity,alignment: .leading)
                     
                     LargeTextEditorView(descriptionText: $editAttendanceViewModel.reason)
                         .toolbarDoneButton()
                     
                 }
-                .padding(.horizontal, 50)
                 
                 PrimaryThinButton(text: "Apply") {
                     //TODO: Apple for attendance change
@@ -188,15 +119,68 @@ struct EditAttendancePopupView: View {
                         }
                     }
                 }
-                .padding(.horizontal, 50)
-                .padding(.bottom)
                 
             }
+            .frame(maxWidth: 360)
+            .padding(.horizontal, AppSpacing.lg)
+            .padding(.vertical, AppSpacing.md)
             .background(Color.white)
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
         }
         
         
+    }
+
+    private var attendanceDateText: String {
+        FormatterHelper.shared.formattedFullYearDate(from: editAttendanceViewModel.date)
+    }
+
+    private func requiredLabel(_ title: String) -> some View {
+        HStack(spacing: AppSpacing.zero) {
+            Text(title)
+            Text("*")
+                .foregroundStyle(Color.red)
+        }
+        .font(AppFont.primary(size: AppFont.Size.caption))
+        .foregroundStyle(Color.text1)
+    }
+
+    private func readOnlyDateField(_ text: String) -> some View {
+        Text(text)
+            .font(AppFont.primary(size: AppFont.Size.xSmall))
+            .foregroundStyle(Color.addressText2)
+            .lineLimit(1)
+            .minimumScaleFactor(0.75)
+            .padding(.horizontal, AppSpacing.sm)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .frame(minHeight: AppLayout.minimumTouchTarget)
+            .background(Color.rectangleBG)
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
+    }
+
+    private func timePickerButton(_ text: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            HStack(spacing: AppSpacing.sm) {
+                Text(text.isEmpty ? "--:-- --" : text)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
+
+                Spacer(minLength: AppSpacing.zero)
+
+                Image(.clock)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: AppLayout.iconExtraSmall, height: AppLayout.iconExtraSmall)
+            }
+            .font(AppFont.primary(size: AppFont.Size.xSmall))
+            .foregroundStyle(Color.addressText2)
+            .padding(.horizontal, AppSpacing.sm)
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: AppLayout.minimumTouchTarget)
+            .background(Color.rectangleBG)
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
+        }
+        .buttonStyle(.plain)
     }
 }
 

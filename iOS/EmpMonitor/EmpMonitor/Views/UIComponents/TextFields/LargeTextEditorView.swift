@@ -13,24 +13,25 @@ struct LargeTextEditorView: View {
     
     var body: some View {
         TextEditor(text: $descriptionText)
-            .font(.custom("Montserrat", size: 10))
+            .font(AppFont.primary(size: AppFont.Size.xSmall))
             .foregroundStyle(Color.addressText2)
             .scrollContentBackground(.hidden)
             .background(Color.rectangleBG)
-            .padding(.top, 2)
-            .padding(.horizontal, 7)
+            .padding(.top, AppSpacing.xxs)
+            .padding(.horizontal, AppSpacing.sm)
             .frame(maxWidth: .infinity)
             .frame(height: 68)
             .background(Color.rectangleBG)
             .overlay(alignment: .topLeading) {
                 if descriptionText.isEmpty {
                     Text("Write reason here")
-                        .font(.custom("Montserrat", size: 10))
+                        .font(AppFont.primary(size: AppFont.Size.xSmall))
                         .foregroundStyle(Color.addressText2)
-                        .padding(10)
+                        .padding(AppSpacing.sm)
+                        .allowsHitTesting(false)
                 }
             }
-            .clipShape(RoundedRectangle(cornerRadius: 6))
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
     }
 }
 

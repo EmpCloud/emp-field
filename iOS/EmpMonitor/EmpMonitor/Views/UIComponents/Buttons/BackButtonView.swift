@@ -9,29 +9,25 @@ import SwiftUI
 
 struct BackButtonView: View {
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(Color.white)
-                .frame(width: 40, height: 40)
-                .overlay {
-                    Image(systemName: "arrow.backward")
-                        .foregroundStyle(Color.primaryButton1)
-                }
-        }
+        Circle()
+            .fill(Color.white)
+            .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+            .overlay {
+                Image(systemName: "arrow.backward")
+                    .foregroundStyle(Color.primaryButton1)
+            }
     }
 }
 
 struct BackButtonDarkView: View {
     var body: some View {
-        ZStack {
-            Circle()
-                .fill(Color.primaryButton1)
-                .frame(width: 40, height: 40)
-                .overlay {
-                    Image(systemName: "arrow.backward")
-                        .foregroundStyle(Color.white)
-                }
-        }
+        Circle()
+            .fill(Color.primaryButton1)
+            .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+            .overlay {
+                Image(systemName: "arrow.backward")
+                    .foregroundStyle(Color.white)
+            }
     }
 }
 
