@@ -59,6 +59,8 @@ import com.empcloud.empmonitor.utils.CommonMethods
 import com.empcloud.empmonitor.utils.Constants
 import com.empcloud.empmonitor.utils.NativeLib
 import com.empcloud.empmonitor.utils.broadcast_services.GeoFenceBroadCastReciever
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusHeartbeatScheduler
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusReporter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
@@ -527,6 +529,12 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
                                 val time = it.body.data.data.time
                                 if(it.body.data.message.equals("Successfully Checked Out")){
 
+                                    DeviceStatusReporter.sendHeartbeat(
+                                        requireContext(),
+                                        status = Constants.DEVICE_STATUS_INACTIVE,
+                                        requestTimeoutMs = DeviceStatusReporter.CHECKOUT_TIMEOUT_MS
+                                    )
+                                    DeviceStatusHeartbeatScheduler.cancel(requireContext())
                                     stopLocationService()
                                     CommonMethods.clearLocationDataList(requireContext())
                                     CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.IS_CHECKEDIN)
@@ -553,6 +561,8 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
                                     CommonMethods.saveSharedPrefernce(requireActivity(),Constants.IS_CHECKEDIN,Constants.IS_CHECKEDIN,"YES")
                                     CommonMethods.saveSharedPrefernceBoolean(requireActivity(),Constants.NOTIFICATION_ALL_READ,Constants.NOTIFICATION_ALL_READ,false)
                                     CommonMethods.saveSharedPrefernce(requireActivity(),Constants.CHECK_IN_METHOD,Constants.CHECK_IN_METHOD,Constants.CHECK_IN_METHOD_MAP)
+                                    DeviceStatusHeartbeatScheduler.schedule(requireContext())
+                                    DeviceStatusReporter.sendHeartbeat(requireContext())
 
                                     if (isAutoCheckInByGeoFencing) {
                                         val autoCheckInTime = formatApiTime(parseTimeData(time))
@@ -701,7 +711,7 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
                                 hasAutoCheckedIn = !checkinTime.isNullOrEmpty()
                                 renderMap()
 
-                                if (it.body.data.currentFrequency != null){
+                                if (it.body.data.currentFrequency != null && it.body.data.currentRadius != null){
 
                                     CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.FREQUENCY)
                                     val sp = requireContext().getSharedPreferences(Constants.FREQUENCY,AppCompatActivity.MODE_PRIVATE)
@@ -780,6 +790,7 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
                                 {
                                     binding.bottomSheet.outTime.text = formatApiTime(parseTimeData(checkOutTime))
                                     binding.bottomSheet.outCheck.isChecked = true
+                                    DeviceStatusHeartbeatScheduler.cancel(requireContext())
 
                                 }
 
@@ -787,6 +798,7 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
 
                                     CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.IS_CHECKEDIN)
                                     CommonMethods.saveSharedPrefernce(requireActivity(),Constants.IS_CHECKEDIN,Constants.IS_CHECKEDIN,"NO")
+                                    DeviceStatusHeartbeatScheduler.cancel(requireContext())
                                     stopLocationService()
 
                                     CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.IS_CHECKED_OUT)
@@ -804,6 +816,7 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
                                     CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.IS_CHECKEDIN)
                                     CommonMethods.saveSharedPrefernce(requireActivity(),Constants.IS_CHECKEDIN,Constants.IS_CHECKEDIN,"YES")
                                     CommonMethods.saveSharedPrefernce(requireActivity(),Constants.IS_CHECKED_OUT,Constants.IS_CHECKED_OUT,"NO")
+                                    DeviceStatusHeartbeatScheduler.schedule(requireContext())
                                     if (isServiceStart == true && !isGlobal) startLocationService()
                                     else stopLocationService()
                                 }

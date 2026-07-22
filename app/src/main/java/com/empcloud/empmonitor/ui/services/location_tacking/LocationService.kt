@@ -27,6 +27,10 @@ import com.empcloud.empmonitor.network.NetworkRepository
 import com.empcloud.empmonitor.network.api_satatemanagement.ApiState
 import com.empcloud.empmonitor.utils.CommonMethods
 import com.empcloud.empmonitor.utils.Constants
+import com.empcloud.empmonitor.utils.device_status.DeviceBatteryReader
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusHeartbeatScheduler
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusLogger
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusSessionHelper
 import com.google.android.gms.location.*
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
@@ -217,21 +221,32 @@ class LocationService: Service() {
                     }
                     is ApiState.SUCESS -> {
                         val it = res.getResponse
-                        if(it.statusCode == 200){
+                        if (DeviceStatusSessionHelper.isSessionExpired(it.resolvedStatusCode, it.resolvedMessage)) {
+                            DeviceStatusSessionHelper.handleSessionExpired(applicationContext)
+                            return@collect
+                        }
 
-                            Log.d("responselocation",it.body.data.toString())
-                            numberFreq = it.body.data.currentFrequency
-                            distanceFence = it.body.data.currentRadius
+                        if(it.isSuccessfulPayload()){
+
+                            Log.d("responselocation",it.resolvedData.toString())
+                            val currentFrequency = it.resolvedData?.currentFrequency
+                            val currentRadius = it.resolvedData?.currentRadius
+                            if (currentFrequency != null && currentRadius != null) {
+                                numberFreq = currentFrequency
+                                distanceFence = currentRadius
+                            }
 //                            locationRequest.interval = it.body.data.currentFrequency * 1000L
 //                            locationRequest.fastestInterval = it.body.data.currentFrequency * 1000L
-                            val r = it.body.data.currentFrequency
-                            val d = it.body.data.currentRadius
+                            val r = currentFrequency
+                            val d = currentRadius
                             CommonMethods.clearLocationDataList(applicationContext)
                             Log.d("APiResponseLna","$numberFreq $distanceFence")
                             Log.d("APiResponseLna1",r.toString())
                             Log.d("APiResponseLna2",d.toString())
 
-                            updateLocationRequest(it.body.data.currentFrequency,it.body.data.currentRadius)
+                            if (currentFrequency != null && currentRadius != null) {
+                                updateLocationRequest(currentFrequency,currentRadius)
+                            }
 
 
                         }
@@ -258,6 +273,11 @@ class LocationService: Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+        if (!canRunTracking()) {
+            DeviceStatusLogger.d("location service skipped because user not checked in")
+            stopSelf()
+            return START_NOT_STICKY
+        }
 
         val lastSavedData = CommonMethods.getLocationDataList(applicationContext)
         if (!lastSavedData.isNullOrEmpty()) {
@@ -469,21 +489,31 @@ class LocationService: Service() {
         latitudelastsaved = latitude
         longitudelastsaved = longitude
 
+        val battery = DeviceBatteryReader.read(applicationContext)
 
         val locationListData = LocationList(
             CommonMethods.getCurrentDate(),
             CommonMethods.getCurrentTime(),
             latitude,
-            longitude
+            longitude,
+            battery.batteryPercent,
+            battery.isCharging
         )
 
         Log.d("nesaved2","$locationListData")
+        DeviceStatusLogger.d(
+            "offline location saved with batteryPercent=${locationListData.batteryPercent}, isCharging=${locationListData.isCharging}"
+        )
         CommonMethods.saveLocationDataList(applicationContext, locationListData)
     }
 
 
     private fun callApiLocation(){
         if (!isInternetAvailable(applicationContext)) return
+        if (!canRunTracking()) {
+            DeviceStatusLogger.d("location upload skipped because user not checked in")
+            return
+        }
         // Only one upload at a time: a second concurrent call would re-send the same queued
         // points and duplicate them on the server-rendered route.
         if (!isUploading.compareAndSet(false, true)) return
@@ -499,36 +529,67 @@ class LocationService: Service() {
                 val sendloc = CommonMethods.getLocationDataList(applicationContext) ?: emptyList()
                 if (sendloc.isEmpty()) return@launch
                 val sentCount = sendloc.size
+                val lastPoint = sendloc.last()
+                DeviceStatusLogger.d(
+                    "location payload prepared with batteryPercent=${lastPoint.batteryPercent}, isCharging=${lastPoint.isCharging}, count=$sentCount"
+                )
+                DeviceStatusLogger.d(
+                    "offline flush sent with last point batteryPercent=${lastPoint.batteryPercent}, isCharging=${lastPoint.isCharging}"
+                )
 
                 repository.sendLocationCall(token, sendloc)
                     .collect { response ->
                         when (response) {
                             is ApiState.SUCESS -> {
                                 val res = response.getResponse
-                                if (res.statusCode == 200) {
+                                if (DeviceStatusSessionHelper.isSessionExpired(res.resolvedStatusCode, res.resolvedMessage)) {
+                                    DeviceStatusSessionHelper.handleSessionExpired(applicationContext)
+                                    return@collect
+                                }
+                                if (res.isSuccessfulPayload()) {
                                     CommonMethods.removeSentLocations(applicationContext, sentCount)
-                                    numberFreq = res.body.data.currentFrequency
-                                    distanceFence = res.body.data.currentRadius
-                                    updateLocationRequest(
-                                        res.body.data.currentFrequency,
-                                        res.body.data.currentRadius
-                                    )
+                                    DeviceStatusHeartbeatScheduler.markLocationUploadSuccess(applicationContext)
+                                    val currentFrequency = res.resolvedData?.currentFrequency
+                                    val currentRadius = res.resolvedData?.currentRadius
+                                    if (currentFrequency != null && currentRadius != null) {
+                                        numberFreq = currentFrequency
+                                        distanceFence = currentRadius
+                                        updateLocationRequest(
+                                            currentFrequency,
+                                            currentRadius
+                                        )
+                                    }
+                                    DeviceStatusLogger.d("location piggyback API success count=$sentCount")
                                     Log.d("LocationService", "Uploaded $sentCount points; freq=$numberFreq radius=$distanceFence")
                                 }
                             }
                             is ApiState.ERROR -> {
                                 // Keep the queue intact so points retry on the next tick/reconnect.
+                                if (DeviceStatusSessionHelper.isSessionExpired(response)) {
+                                    DeviceStatusSessionHelper.handleSessionExpired(applicationContext)
+                                    return@collect
+                                }
+                                DeviceStatusLogger.d("location piggyback API failure message=${response.message}")
                                 Log.d("LocationService", "Upload error, keeping queue: ${response.message}")
                             }
                             ApiState.LOADING -> {}
                         }
                     }
             } catch (e: Exception) {
+                DeviceStatusLogger.e("location piggyback API failure exception=${e.message}", e)
                 Log.d("LocationService", "Upload exception, keeping queue: ${e.message}")
             } finally {
                 isUploading.set(false)
             }
         }
+    }
+
+    private fun canRunTracking(): Boolean {
+        val token = getSharedPreferences(Constants.AUTH_TOKEN, MODE_PRIVATE)
+            .getString(Constants.AUTH_TOKEN, "") ?: ""
+        val isCheckedIn = getSharedPreferences(Constants.IS_CHECKEDIN, MODE_PRIVATE)
+            .getString(Constants.IS_CHECKEDIN, "NO") == "YES"
+        return token.isNotEmpty() && isCheckedIn
     }
 
     fun getLocationDistanceMeter(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Int {

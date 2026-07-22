@@ -59,6 +59,7 @@ import com.empcloud.empmonitor.ui.listeners.OnFragmentChangedListener
 import com.empcloud.empmonitor.utils.CommonMethods
 import com.empcloud.empmonitor.utils.Constants
 import com.empcloud.empmonitor.utils.NativeLib
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusHeartbeatScheduler
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
@@ -318,6 +319,7 @@ class MainActivity : AppCompatActivity(),OnFragmentChangedListener {
 
             // Cancel auto-checkout alarm and clear auto check-in data
             CommonMethods.cancelAutoCheckout(applicationContext)
+            DeviceStatusHeartbeatScheduler.cancel(applicationContext)
             CommonMethods.clearStringFromSharedPreferences(applicationContext, Constants.AUTO_CHECK_IN_TIME)
             CommonMethods.clearStringFromSharedPreferences(applicationContext, Constants.CHECK_IN_METHOD)
             CommonMethods.clearAllValues(applicationContext, Constants.AUTO_CHECK_IN_BY_MOBILE)

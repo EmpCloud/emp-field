@@ -6,6 +6,7 @@ import com.empcloud.empmonitor.data.remote.request.create_task.CreateTaskModel
 import com.empcloud.empmonitor.data.remote.request.createclient.CreateClientModel
 import com.empcloud.empmonitor.data.remote.request.createleave.CreateLeaveRequestModel
 import com.empcloud.empmonitor.data.remote.request.delete.DeleteLeaveRequest
+import com.empcloud.empmonitor.data.remote.request.device_status.DeviceStatusRequest
 import com.empcloud.empmonitor.data.remote.request.edit_attendanc.EditAttendanceModel
 import com.empcloud.empmonitor.data.remote.request.editleave.EditLeaveRequestModel
 import com.empcloud.empmonitor.data.remote.request.filter_task.FilteerTaskModel
@@ -29,6 +30,7 @@ import com.empcloud.empmonitor.data.remote.response.create_task.CreateTaskRespon
 import com.empcloud.empmonitor.data.remote.response.createclient.CreateClientResponse
 import com.empcloud.empmonitor.data.remote.response.createlevae.CreateLeaveResponse
 import com.empcloud.empmonitor.data.remote.response.deleteleave.DeleteLeaveResponse
+import com.empcloud.empmonitor.data.remote.response.device_status.DeviceStatusResponse
 import com.empcloud.empmonitor.data.remote.response.edit_attendance.EditAttendanceResponse
 import com.empcloud.empmonitor.data.remote.response.editleave.EditLeaveResponse
 import com.empcloud.empmonitor.data.remote.response.fetch_task.FetchTaskResponse
@@ -66,7 +68,7 @@ import retrofit2.http.Header
 import java.io.File
 import javax.inject.Inject
 
-class NetworkRepository  @Inject constructor(val service: ApiService){
+class NetworkRepository @Inject constructor(val service: ApiService){
 
     suspend fun getEmailVerify(verifyEmailModel: VerifyEmailModel): Flow<ApiState<VerifyEmailResponse>> {
         return GetResponse.fromFlow {
@@ -222,6 +224,15 @@ class NetworkRepository  @Inject constructor(val service: ApiService){
     suspend  fun sendLocationCall( accessToken:String,sendLocationModel: List<LocationList>): Flow<ApiState<SendLocationResponse>>{
         return GetResponse.fromFlow {
             service.sendLocation(accessToken,sendLocationModel)
+        }
+    }
+
+    suspend fun updateDeviceStatus(
+        accessToken: String,
+        deviceStatusRequest: DeviceStatusRequest
+    ): Flow<ApiState<DeviceStatusResponse>> {
+        return GetResponse.fromFlow {
+            service.updateDeviceStatus(accessToken, deviceStatusRequest)
         }
     }
 

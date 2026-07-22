@@ -31,6 +31,8 @@ import com.empcloud.empmonitor.ui.activity.forgotpassword.ForgotPasswordViewMode
 import com.empcloud.empmonitor.ui.services.location_tacking.LocationService
 import com.empcloud.empmonitor.utils.CommonMethods
 import com.empcloud.empmonitor.utils.Constants
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusHeartbeatScheduler
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusReporter
 import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.Priority
@@ -426,6 +428,8 @@ class EmailPasswordActivity : AppCompatActivity() {
                             val checkInMethod = if (getSharedPreferences(Constants.IS_GEO_FENCING_ON, MODE_PRIVATE).getInt(Constants.IS_GEO_FENCING_ON, 0) == 1) Constants.CHECK_IN_METHOD_MAP else Constants.CHECK_IN_METHOD_MOBILE
                             CommonMethods.saveSharedPrefernce(this@EmailPasswordActivity, Constants.CHECK_IN_METHOD, Constants.CHECK_IN_METHOD, checkInMethod)
                             CommonMethods.scheduleAutoCheckout(this@EmailPasswordActivity)
+                            DeviceStatusHeartbeatScheduler.schedule(this@EmailPasswordActivity)
+                            DeviceStatusReporter.sendHeartbeat(this@EmailPasswordActivity)
                             Log.d("AutoCheckIn", "Auto check-in successful: ${it.body.data.message}, time=$autoCheckInTime, method=$checkInMethod")
                             Toast.makeText(applicationContext, "Auto Check-In Successful at $autoCheckInTime", Toast.LENGTH_SHORT).show()
 

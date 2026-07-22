@@ -4,6 +4,6 @@ import java.io.Serializable
 
 data class FrequencyResponse(
 
-    val currentFrequency:Int,
-    val currentRadius:Int
+    val currentFrequency:Int? = null,
+    val currentRadius:Int? = null
 ):Serializable

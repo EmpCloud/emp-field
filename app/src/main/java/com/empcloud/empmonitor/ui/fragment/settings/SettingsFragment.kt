@@ -54,6 +54,7 @@ import com.empcloud.empmonitor.utils.ActiveTaskTracker
 import com.empcloud.empmonitor.utils.CommonMethods
 import com.empcloud.empmonitor.utils.Constants
 import com.empcloud.empmonitor.utils.NativeLib
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusHeartbeatScheduler
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -129,6 +130,7 @@ class SettingsFragment constructor(private val listener: OnFragmentChangedListen
 
             // Cancel auto-checkout alarm and clear auto check-in data
             CommonMethods.cancelAutoCheckout(requireContext())
+            DeviceStatusHeartbeatScheduler.cancel(requireContext())
             CommonMethods.clearStringFromSharedPreferences(requireContext(), Constants.AUTO_CHECK_IN_TIME)
             CommonMethods.clearStringFromSharedPreferences(requireContext(), Constants.CHECK_IN_METHOD)
             CommonMethods.clearAllValues(requireContext(), Constants.AUTO_CHECK_IN_BY_MOBILE)

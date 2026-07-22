@@ -6,6 +6,7 @@ import com.empcloud.empmonitor.data.remote.request.create_task.CreateTaskModel
 import com.empcloud.empmonitor.data.remote.request.createclient.CreateClientModel
 import com.empcloud.empmonitor.data.remote.request.createleave.CreateLeaveRequestModel
 import com.empcloud.empmonitor.data.remote.request.delete.DeleteLeaveRequest
+import com.empcloud.empmonitor.data.remote.request.device_status.DeviceStatusRequest
 import com.empcloud.empmonitor.data.remote.request.edit_attendanc.EditAttendanceModel
 import com.empcloud.empmonitor.data.remote.request.editleave.EditLeaveRequestModel
 import com.empcloud.empmonitor.data.remote.request.filter_task.FilteerTaskModel
@@ -28,6 +29,7 @@ import com.empcloud.empmonitor.data.remote.response.create_task.CreateTaskRespon
 import com.empcloud.empmonitor.data.remote.response.createclient.CreateClientResponse
 import com.empcloud.empmonitor.data.remote.response.createlevae.CreateLeaveResponse
 import com.empcloud.empmonitor.data.remote.response.deleteleave.DeleteLeaveResponse
+import com.empcloud.empmonitor.data.remote.response.device_status.DeviceStatusResponse
 import com.empcloud.empmonitor.data.remote.response.edit_attendance.EditAttendanceBody
 import com.empcloud.empmonitor.data.remote.response.edit_attendance.EditAttendanceResponse
 import com.empcloud.empmonitor.data.remote.response.editleave.EditLeaveResponse
@@ -145,6 +147,9 @@ interface   ApiService {
 
     @POST(Constants.SEND_LOCATION)
     suspend fun sendLocation(@Header("x-access-token")   accessToken:String,@Body sendLocationModel: List<LocationList>):Response<SendLocationResponse>
+
+    @PUT(Constants.DEVICE_STATUS)
+    suspend fun updateDeviceStatus(@Header("x-access-token") accessToken: String, @Body deviceStatusRequest: DeviceStatusRequest): Response<DeviceStatusResponse>
 
     @PUT(Constants.UPDATE_RESCHEDULE)
     suspend fun updateReschedule(@Header("x-access-token")   accessToken:String,@Body updateRescheduleModel: UpdateRescheduleModel):Response<UpdateResceduleResponse>

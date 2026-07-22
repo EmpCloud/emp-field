@@ -25,6 +25,8 @@ class LocationQueueTest {
     private val context = InstrumentationRegistry.getInstrumentation().targetContext
 
     private fun pt(i: Int) = LocationList("2026-07-17", "10:00:%02d".format(i % 60), 12.90 + i * 0.001, 77.60 + i * 0.001)
+    private fun ptWithBattery(i: Int, batteryPercent: Int?, isCharging: Boolean?) =
+        LocationList("2026-07-17", "10:00:%02d".format(i % 60), 12.90 + i * 0.001, 77.60 + i * 0.001, batteryPercent, isCharging)
 
     @Before
     fun reset() {
@@ -88,5 +90,32 @@ class LocationQueueTest {
         latch.await()
         pool.shutdown()
         assertEquals(total, CommonMethods.getLocationDataList(context)!!.size)
+    }
+
+    @Test
+    fun queuedLocation_keepsCapturedBatteryStateIncludingZero() {
+        CommonMethods.saveLocationDataList(context, ptWithBattery(1, 0, false))
+
+        val queued = CommonMethods.getLocationDataList(context)!!
+
+        assertEquals(0, queued[0].batteryPercent)
+        assertEquals(false, queued[0].isCharging)
+    }
+
+    @Test
+    fun removeSent_preservesBatteryStateForNewerQueuedPoints() {
+        for (i in 1..3) CommonMethods.saveLocationDataList(context, ptWithBattery(i, 80 + i, false))
+        val sentCount = CommonMethods.getLocationDataList(context)!!.size
+
+        CommonMethods.saveLocationDataList(context, ptWithBattery(4, 10, true))
+        CommonMethods.saveLocationDataList(context, ptWithBattery(5, 0, false))
+        CommonMethods.removeSentLocations(context, sentCount)
+
+        val remaining = CommonMethods.getLocationDataList(context)!!
+        assertEquals(2, remaining.size)
+        assertEquals(10, remaining[0].batteryPercent)
+        assertEquals(true, remaining[0].isCharging)
+        assertEquals(0, remaining[1].batteryPercent)
+        assertEquals(false, remaining[1].isCharging)
     }
 }

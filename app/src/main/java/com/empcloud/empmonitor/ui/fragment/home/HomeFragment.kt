@@ -61,6 +61,8 @@ import com.empcloud.empmonitor.ui.services.location_tacking.LocationService
 import com.empcloud.empmonitor.utils.ActiveTaskTracker
 import com.empcloud.empmonitor.utils.CommonMethods
 import com.empcloud.empmonitor.utils.Constants
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusHeartbeatScheduler
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusReporter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.ncorti.slidetoact.SlideToActView
@@ -597,6 +599,12 @@ class HomeFragment constructor(private val listener: OnFragmentChangedListener? 
                                         binding.checkoutConfirm.customeAlertcheckout.visibility = View.GONE
                                         val sp = requireContext().getSharedPreferences(Constants.ISHANDLERSTOP,AppCompatActivity.MODE_PRIVATE)
                                         sp.edit().putBoolean(Constants.ISHANDLERSTOP,true).apply()
+                                        DeviceStatusReporter.sendHeartbeat(
+                                            requireContext(),
+                                            status = Constants.DEVICE_STATUS_INACTIVE,
+                                            requestTimeoutMs = DeviceStatusReporter.CHECKOUT_TIMEOUT_MS
+                                        )
+                                        DeviceStatusHeartbeatScheduler.cancel(requireContext())
                                         stopLocationService()
                                         CommonMethods.clearLocationDataList(requireContext())
                                         CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.IS_CHECKEDIN)
@@ -622,6 +630,8 @@ class HomeFragment constructor(private val listener: OnFragmentChangedListener? 
                                         CommonMethods.saveSharedPrefernce(requireActivity(),Constants.IS_CHECKEDIN,Constants.IS_CHECKEDIN,"YES")
                                         CommonMethods.saveSharedPrefernceBoolean(requireActivity(),Constants.NOTIFICATION_ALL_READ,Constants.NOTIFICATION_ALL_READ,false)
                                         CommonMethods.saveSharedPrefernce(requireActivity(),Constants.CHECK_IN_METHOD,Constants.CHECK_IN_METHOD,Constants.CHECK_IN_METHOD_MOBILE)
+                                        DeviceStatusHeartbeatScheduler.schedule(requireContext())
+                                        DeviceStatusReporter.sendHeartbeat(requireContext())
 
 
                                     }else{
@@ -693,7 +703,7 @@ class HomeFragment constructor(private val listener: OnFragmentChangedListener? 
 //                                CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.LAST_MODE_SELECTED)
 //                                CommonMethods.saveSharedPrefernce(requireActivity(),Constants.LAST_MODE_SELECTED,Constants.LAST_MODE_SELECTED,it.body.data.currentMode)
 
-                                if (it.body.data.currentFrequency != null){
+                                if (it.body.data.currentFrequency != null && it.body.data.currentRadius != null){
 
                                     CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.FREQUENCY)
                                     val sp = requireContext().getSharedPreferences(Constants.FREQUENCY,AppCompatActivity.MODE_PRIVATE)
@@ -735,6 +745,7 @@ class HomeFragment constructor(private val listener: OnFragmentChangedListener? 
                                     binding.checkoutTime.text = formatApiTime(formatOutTime)
                                     timeCheckout = parseTimeData(checkOutTime)
                                     stopUpdatingTime()
+                                    DeviceStatusHeartbeatScheduler.cancel(requireContext())
                                     CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.IS_CHECKED_OUT)
                                     CommonMethods.saveSharedPrefernce(requireActivity(),Constants.IS_CHECKED_OUT,Constants.IS_CHECKED_OUT,"YES")
 
@@ -746,6 +757,7 @@ class HomeFragment constructor(private val listener: OnFragmentChangedListener? 
                                     CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.IS_CHECKED_OUT)
                                     CommonMethods.saveSharedPrefernce(requireActivity(),Constants.IS_CHECKED_OUT,Constants.IS_CHECKED_OUT,"NO")
                                     binding.timeShow.visibility = View.GONE
+                                    DeviceStatusHeartbeatScheduler.cancel(requireContext())
                                     stopLocationService()
 
                                 }else{
@@ -765,6 +777,7 @@ class HomeFragment constructor(private val listener: OnFragmentChangedListener? 
                                     CommonMethods.clearStringFromSharedPreferences(requireContext(),Constants.IS_CHECKEDIN)
                                     CommonMethods.saveSharedPrefernce(requireActivity(),Constants.IS_CHECKEDIN,Constants.IS_CHECKEDIN,"YES")
                                     CommonMethods.saveSharedPrefernce(requireActivity(),Constants.IS_CHECKED_OUT,Constants.IS_CHECKED_OUT,"NO")
+                                    DeviceStatusHeartbeatScheduler.schedule(requireContext())
                                     if (isServiceStart == true && !isGlobal) checkLocationPermissionAndStartService()
                                     else stopLocationService()
                                 }

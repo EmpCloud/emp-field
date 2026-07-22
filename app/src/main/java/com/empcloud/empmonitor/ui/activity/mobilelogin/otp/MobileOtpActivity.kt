@@ -37,6 +37,8 @@ import com.empcloud.empmonitor.utils.CommonMethods
 import com.empcloud.empmonitor.utils.Constants
 import com.empcloud.empmonitor.ui.services.location_tacking.LocationService
 import com.empcloud.empmonitor.utils.broadcast_services.SmsBroadcastReceiver
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusHeartbeatScheduler
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusReporter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.Priority
@@ -565,6 +567,8 @@ class MobileOtpActivity : AppCompatActivity(),SmsBroadcastReceiver.SmsBroadcastL
                             val checkInMethod = if (getSharedPreferences(Constants.IS_GEO_FENCING_ON, MODE_PRIVATE).getInt(Constants.IS_GEO_FENCING_ON, 0) == 1) Constants.CHECK_IN_METHOD_MAP else Constants.CHECK_IN_METHOD_MOBILE
                             CommonMethods.saveSharedPrefernce(this@MobileOtpActivity, Constants.CHECK_IN_METHOD, Constants.CHECK_IN_METHOD, checkInMethod)
                             CommonMethods.scheduleAutoCheckout(this@MobileOtpActivity)
+                            DeviceStatusHeartbeatScheduler.schedule(this@MobileOtpActivity)
+                            DeviceStatusReporter.sendHeartbeat(this@MobileOtpActivity)
                             Log.d("AutoCheckIn", "Auto check-in successful: ${it.body.data.message}, time=$autoCheckInTime, method=$checkInMethod")
                             Toast.makeText(applicationContext, "Auto Check-In Successful at $autoCheckInTime", Toast.LENGTH_SHORT).show()
 

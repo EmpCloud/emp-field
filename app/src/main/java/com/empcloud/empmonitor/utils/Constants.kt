@@ -43,6 +43,12 @@ object Constants {
     const val NOTIFICATION = "task/getNotification"
     const val GET_TASK_STATE_TAGS = "tags/getTags"
     const val GET_TRACKING_SETTINGS = "open-user/get-tracking-settings"
+    const val DEVICE_STATUS = "user/device-status"
+    const val DEVICE_STATUS_LAST_LOCATION_UPLOAD_AT = "DEVICE_STATUS_LAST_LOCATION_UPLOAD_AT"
+    const val DEVICE_STATUS_PREF = "DEVICE_STATUS_PREF"
+    const val DEVICE_STATUS_INACTIVE = "inactive"
+    const val DEVICE_STATUS_LOG_TAG = "DeviceStatusMobile"
+    const val DEVICE_STATUS_LOG_PREFIX = "[DEVICE_STATUS_MOBILE_INTEGRATION]"
 
     //Auto Check-In
     const val AUTO_CHECK_IN_BY_MOBILE = "AUTO_CHECK_IN_BY_MOBILE"

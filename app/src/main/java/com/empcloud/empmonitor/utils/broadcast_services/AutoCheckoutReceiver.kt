@@ -10,6 +10,8 @@ import com.empcloud.empmonitor.network.api_satatemanagement.ApiState
 import com.empcloud.empmonitor.ui.services.location_tacking.LocationService
 import com.empcloud.empmonitor.utils.CommonMethods
 import com.empcloud.empmonitor.utils.Constants
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusHeartbeatScheduler
+import com.empcloud.empmonitor.utils.device_status.DeviceStatusReporter
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -66,6 +68,12 @@ class AutoCheckoutReceiver : BroadcastReceiver() {
                             val message = apiResponse.body.data.message
                             if (apiResponse.statusCode == 200 && message == "Successfully Checked Out") {
                                 Log.d("AutoCheckIn", "Auto checkout successful at midnight")
+                                DeviceStatusReporter.sendHeartbeat(
+                                    context,
+                                    status = Constants.DEVICE_STATUS_INACTIVE,
+                                    requestTimeoutMs = DeviceStatusReporter.CHECKOUT_TIMEOUT_MS
+                                )
+                                DeviceStatusHeartbeatScheduler.cancel(context)
                                 CommonMethods.clearStringFromSharedPreferences(context, Constants.IS_CHECKEDIN)
                                 context.getSharedPreferences(Constants.IS_CHECKEDIN, Context.MODE_PRIVATE)
                                     .edit()
