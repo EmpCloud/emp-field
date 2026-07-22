@@ -11,8 +11,11 @@ import Foundation
 enum AppLayout {
     // MARK: - Touch Target Sizes (HIG Minimum: 44x44)
 
+    /// Minimum interactive touch target recommended by Apple HIG
+    static let minimumTouchTarget: CGFloat = 44
+
     /// Standard button height (44pt - HIG minimum)
-    static let buttonHeight: CGFloat = 44
+    static let buttonHeight: CGFloat = minimumTouchTarget
 
     /// Standard button width (varies)
     static let buttonWidth: CGFloat = 203
@@ -23,10 +26,54 @@ enum AppLayout {
     /// Small button height (for compact layouts)
     static let smallButtonHeight: CGFloat = 40
 
+    // MARK: - Common Controls
+
+    /// Standard search bar height
+    static let searchBarHeight: CGFloat = minimumTouchTarget
+
+    /// Standard modal/popup max width
+    static let popupMaxWidth: CGFloat = 329
+
+    /// Max height before long warning copy scrolls
+    static let warningDescriptionMaxHeight: CGFloat = 180
+
+    /// Bottom tab bar height
+    static let tabBarHeight: CGFloat = 90
+
+    /// Check-in/check-out capsule button width
+    static let checkInControlWidth: CGFloat = 220
+
+    /// Check-in/check-out capsule button height
+    static let checkInControlHeight: CGFloat = 48
+
+    /// Check-in/check-out icon circle size
+    static let checkInIconSize: CGFloat = 40
+
+    /// Compact check-in/check-out icon circle size
+    static let checkInIconCompactSize: CGFloat = 36
+
+    /// Swipe track size
+    static let swipeTrackSize = CGSize(width: 220, height: 48)
+
+    /// Swipe thumb size at rest
+    static let swipeThumbSize = CGSize(width: 48, height: 48)
+
+    /// Visible swipe thumb circle size
+    static let swipeThumbVisualSize: CGFloat = minimumTouchTarget
+
+    /// Swipe thumb size while active
+    static let swipeThumbActiveSize = CGSize(width: 72, height: 72)
+
     // MARK: - Icon Sizes
 
     /// Extra small icon (16x16)
     static let iconExtraSmall: CGFloat = 16
+
+    /// Small close glyph size inside a minimum touch target
+    static let closeIconSize: CGFloat = 11
+
+    /// Check-in/check-out arrow and small glyph size
+    static let iconGlyphSmall = CGSize(width: 13.31, height: 17.66)
 
     /// Small icon (20x20)
     static let iconSmall: CGFloat = 20

@@ -19,21 +19,25 @@ struct GenericSearchBar: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 6)
+            RoundedRectangle(cornerRadius: AppRadius.small)
                 .fill(bgColor)
-                .frame(height: 44)
+                .frame(height: AppLayout.searchBarHeight)
                 .frame(maxWidth: .infinity)
 
-            HStack(spacing: 8) {
+            HStack(spacing: AppSpacing.iconTextSpacing) {
                 Image(systemName: "magnifyingglass")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 20, height: 20)
+                    .frame(width: AppLayout.iconSmall, height: AppLayout.iconSmall)
                     .foregroundStyle(Color.white)
                     .accessibilityLabel("Search")
 
-                TextField(placeholder, text: $searchText)
-                    .font(.system(size: 14, weight: .regular))
+                TextField(text: $searchText) {
+                    Text(placeholder)
+                        .font(AppFont.primary(size: AppFont.Size.caption))
+                        .foregroundStyle(Color.white.opacity(0.9))
+                }
+                    .font(AppFont.primary(size: AppFont.Size.caption))
                     .foregroundStyle(Color.white)
 
                 if showFilterButton {
@@ -48,25 +52,25 @@ struct GenericSearchBar: View {
                         Image(systemName: "slider.horizontal.3")
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 20, height: 20)
-                            .padding(.trailing, 5)
+                            .frame(width: AppLayout.iconSmall, height: AppLayout.iconSmall)
+                            .padding(.trailing, AppSpacing.compactControlInnerPadding)
                     }
+                    .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
                     .accessibilityLabel("Filter")
                     .accessibilityHint("Double tap to toggle filters")
                 }
             }
-            .padding(.horizontal)
+            .padding(.horizontal, AppSpacing.screenHorizontalPadding)
         }
-        .accessibilityElement(children: .combine)
     }
 }
 
 #Preview {
-    VStack(spacing: 16) {
+    VStack(spacing: AppSpacing.stackSpacingMedium) {
         GenericSearchBar(
             searchText: .constant(""),
             showFilter: .constant(false),
-            placeholder: "Search clients...",
+            placeholder: "Search Clients",
             bgColor: Color.blue.opacity(0.7),
             showFilterButton: false,
             onFilterTap: nil
@@ -75,11 +79,11 @@ struct GenericSearchBar: View {
         GenericSearchBar(
             searchText: .constant(""),
             showFilter: .constant(false),
-            placeholder: "Search tasks...",
+            placeholder: "Search Tasks",
             bgColor: Color.blue.opacity(0.7),
             showFilterButton: true,
             onFilterTap: { AppLog.debug("Filter tapped") }
         )
     }
-    .padding()
+    .padding(AppSpacing.pagePadding)
 }

@@ -12,14 +12,14 @@ import SwiftUI
 extension CGSize {
     
     static var inactiveThumbSize: CGSize {
-        return CGSize(width: 42, height: 42)
+        return AppLayout.swipeThumbSize
     }
     
     static var activeThumbSize: CGSize {
-        return CGSize(width: 72, height: 72)
+        return AppLayout.swipeThumbActiveSize
     }
     
     static var trackSize: CGSize {
-        return CGSize(width: 203, height: 42)
+        return AppLayout.swipeTrackSize
     }
 }

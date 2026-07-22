@@ -37,6 +37,7 @@ enum AppIcons {
     static let error = "xmark.circle.fill"
     static let info = "info.circle"
     static let success = "checkmark.circle.fill"
+    static let offline = "wifi.slash"
 
     // MARK: - Time/Calendar Icons
 
@@ -72,6 +73,7 @@ enum AppIcons {
 
     static let document = "doc.fill"
     static let folder = "folder.fill"
+    static let attachment = "paperclip"
     static let download = "arrow.down.doc"
     static let upload = "arrow.up.doc"
     static let share = "square.and.arrow.up"
@@ -81,6 +83,7 @@ enum AppIcons {
     static let settings = "gear"
     static let notification = "bell.fill"
     static let mute = "bell.slash.fill"
+    static let notificationOff = "bell.slash"
     static let sound = "speaker.fill"
 
     // MARK: - View Options
@@ -96,6 +99,8 @@ enum AppIcons {
     static let video = "video.fill"
     static let play = "play.circle.fill"
     static let pause = "pause.circle.fill"
+    static let value = "creditcard.fill"
+    static let volume = "number.circle"
 
     // MARK: - Status/Activity Icons
 

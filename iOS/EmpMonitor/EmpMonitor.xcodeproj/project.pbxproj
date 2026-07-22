@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C0DE00012D12000000000001 /* AppSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE01012D12000000000001 /* AppSpacing.swift */; };
+		C0DE00022D12000000000002 /* AppLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE01022D12000000000002 /* AppLayout.swift */; };
+		C0DE00032D12000000000003 /* AppRadius.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE01032D12000000000003 /* AppRadius.swift */; };
+		C0DE00042D12000000000004 /* GenericSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE01042D12000000000004 /* GenericSearchBar.swift */; };
+		C0DE00052D12000000000005 /* ModalOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE01052D12000000000005 /* ModalOverlayView.swift */; };
+		C0DE00062D12000000000006 /* AppIcons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE01062D12000000000006 /* AppIcons.swift */; };
+		C0DE00072D12000000000007 /* AppFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DE01072D12000000000007 /* AppFont.swift */; };
 		DA5D7A662C511E77004A1BCA /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D7A652C511E77004A1BCA /* SideMenuView.swift */; };
 		DA5D7A692C5234BD004A1BCA /* MapCheckInView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D7A682C5234BD004A1BCA /* MapCheckInView.swift */; };
 		DA5D7A6B2C52448D004A1BCA /* ALHView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5D7A6A2C52448D004A1BCA /* ALHView.swift */; };
@@ -290,6 +297,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C0DE01012D12000000000001 /* AppSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSpacing.swift; sourceTree = "<group>"; };
+		C0DE01022D12000000000002 /* AppLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLayout.swift; sourceTree = "<group>"; };
+		C0DE01032D12000000000003 /* AppRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRadius.swift; sourceTree = "<group>"; };
+		C0DE01042D12000000000004 /* GenericSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSearchBar.swift; sourceTree = "<group>"; };
+		C0DE01062D12000000000006 /* AppIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcons.swift; sourceTree = "<group>"; };
+		C0DE01072D12000000000007 /* AppFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
 		DA5D7A652C511E77004A1BCA /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
 		DA5D7A682C5234BD004A1BCA /* MapCheckInView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapCheckInView.swift; sourceTree = "<group>"; };
 		DA5D7A6A2C52448D004A1BCA /* ALHView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ALHView.swift; sourceTree = "<group>"; };
@@ -520,6 +533,7 @@
 		DAD2EE732C77107800D519B8 /* TextFieldButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldButton.swift; sourceTree = "<group>"; };
 		DAD2EE752C77138200D519B8 /* AddTaskTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskTextEditor.swift; sourceTree = "<group>"; };
 		DAD2EE782C7724EB00D519B8 /* CurrencyPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPopupView.swift; sourceTree = "<group>"; };
+		C0DE01052D12000000000005 /* ModalOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalOverlayView.swift; sourceTree = "<group>"; };
 		DAD2EE7A2C77307F00D519B8 /* AddPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPictureView.swift; sourceTree = "<group>"; };
 		DAD2EE7C2C77412200D519B8 /* SelectClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectClientView.swift; sourceTree = "<group>"; };
 		DAD2EE7E2C77426900D519B8 /* ClientSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSearchBarView.swift; sourceTree = "<group>"; };
@@ -984,6 +998,7 @@
 		DA5DCD4D2C24353300F2BA5C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C0DE02012D12000000000001 /* DesignSystem */,
 				DAEE711B2CC271B800B208BA /* Network */,
 				DA618DBD2CA6D594002F8C44 /* WebViews */,
 				DAB98FA12CA15DCD00250C6D /* Validations */,
@@ -1001,6 +1016,18 @@
 				DA5DCD4A2C2433CA00F2BA5C /* Constants */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		C0DE02012D12000000000001 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				C0DE01012D12000000000001 /* AppSpacing.swift */,
+				C0DE01022D12000000000002 /* AppLayout.swift */,
+				C0DE01032D12000000000003 /* AppRadius.swift */,
+				C0DE01062D12000000000006 /* AppIcons.swift */,
+				C0DE01072D12000000000007 /* AppFont.swift */,
+			);
+			path = DesignSystem;
 			sourceTree = "<group>";
 		};
 		DA5DCD4E2C24355000F2BA5C /* NetworkManagers */ = {
@@ -1077,6 +1104,7 @@
 				DA7290562C2988B800609B3A /* MapSearchBarView.swift */,
 				DAD2EE5D2C75F40000D519B8 /* TaskSearchBarView.swift */,
 				DAD2EE7E2C77426900D519B8 /* ClientSearchBarView.swift */,
+				C0DE01042D12000000000004 /* GenericSearchBar.swift */,
 			);
 			path = SearchBar;
 			sourceTree = "<group>";
@@ -1580,6 +1608,7 @@
 			isa = PBXGroup;
 			children = (
 				DAD2EE782C7724EB00D519B8 /* CurrencyPopupView.swift */,
+				C0DE01052D12000000000005 /* ModalOverlayView.swift */,
 				DAB98F9C2C9B0A8100250C6D /* LogoutAlertPopupView.swift */,
 			);
 			path = Popups;
@@ -1812,6 +1841,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0DE00012D12000000000001 /* AppSpacing.swift in Sources */,
+				C0DE00022D12000000000002 /* AppLayout.swift in Sources */,
+				C0DE00032D12000000000003 /* AppRadius.swift in Sources */,
+				C0DE00062D12000000000006 /* AppIcons.swift in Sources */,
+				C0DE00072D12000000000007 /* AppFont.swift in Sources */,
+				C0DE00042D12000000000004 /* GenericSearchBar.swift in Sources */,
 				DAD2EE482C745F0000D519B8 /* LeavesDeleteRequestModel.swift in Sources */,
 				DA5D7A712C5761F4004A1BCA /* EditAttendancePopupView.swift in Sources */,
 				DAB014202C5A0CAD00988B8F /* AddNewLeavesView.swift in Sources */,
@@ -1956,6 +1991,7 @@
 				DAD2EEA92C7DEBC600D519B8 /* ImagePreviewView.swift in Sources */,
 				DAD2EE722C770EF500D519B8 /* AddTaskTextField.swift in Sources */,
 				DAD2EE792C7724EB00D519B8 /* CurrencyPopupView.swift in Sources */,
+				C0DE00052D12000000000005 /* ModalOverlayView.swift in Sources */,
 				DAD2EE642C761C9900D519B8 /* GeoFencingWarningView.swift in Sources */,
 				DAB98F9D2C9B0A8100250C6D /* LogoutAlertPopupView.swift in Sources */,
 				DAB98F262C8714FC00250C6D /* UpdateProfileViewModel.swift in Sources */,

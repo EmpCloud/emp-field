@@ -10,6 +10,8 @@ import Foundation
 
 public enum AppSpacing {
     // 8pt grid spacing scale
+    public static let zero: CGFloat = 0        // Flush layouts where spacing is intentionally removed
+    public static let xxs: CGFloat = 2         // Hairline/visual alignment nudges
     public static let xs: CGFloat = 4          // Minimum spacing between elements
     public static let sm: CGFloat = 8          // Small gaps (between icon+text, tight layouts)
     public static let md: CGFloat = 16         // Default spacing (padding, margins)
@@ -21,6 +23,12 @@ public enum AppSpacing {
     public static let horizontalPadding: CGFloat = md
     public static let verticalPadding: CGFloat = md
     public static let pagePadding: CGFloat = md
+    public static let screenHorizontalPadding: CGFloat = md
+    public static let cardPadding: CGFloat = md
+    public static let modalHorizontalPadding: CGFloat = lg
+    public static let modalBottomPadding: CGFloat = lg
+    public static let controlInnerPadding: CGFloat = sm
+    public static let compactControlInnerPadding: CGFloat = xs
 
     // Stack spacing
     public static let stackSpacingTight: CGFloat = 0
@@ -28,6 +36,15 @@ public enum AppSpacing {
     public static let stackSpacingDefault: CGFloat = sm
     public static let stackSpacingMedium: CGFloat = md
     public static let stackSpacingLarge: CGFloat = lg
+
+    // Semantic gaps used across repeated controls
+    public static let iconTextSpacing: CGFloat = sm
+    public static let compactIconTextSpacing: CGFloat = xs
+    public static let formFieldSpacing: CGFloat = xs
+    public static let formSectionSpacing: CGFloat = lg
+    public static let sectionTopSpacing: CGFloat = 32
+    public static let floatingActionBottomPadding: CGFloat = 72
+    public static let tabBarBottomPadding: CGFloat = lg
 
     // Migration Guide:
     // .padding(10)                    → .padding(AppSpacing.sm)
