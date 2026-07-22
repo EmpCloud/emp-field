@@ -36,7 +36,7 @@ struct CurrencyPopupView: View {
                                         }
                                     }
                             }
-                            .font(.custom("Montserrat", size: 15))
+                            .font(AppFont.primary(size: AppFont.Size.subheadline))
                             .foregroundStyle(Color.white)
                             .padding(.vertical, 5)
                         }

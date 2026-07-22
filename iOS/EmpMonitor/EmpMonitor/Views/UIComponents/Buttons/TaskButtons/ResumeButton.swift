@@ -13,7 +13,7 @@ struct ResumeButton: View {
     
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 8) {
+            HStack(spacing: AppSpacing.compactIconTextSpacing) {
                 Image(systemName: "play.circle.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -21,14 +21,18 @@ struct ResumeButton: View {
                     .foregroundStyle(Color.white)
 
                 Text("Resume")
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
                     .foregroundStyle(Color.white)
             }
-            .frame(height: 44)
-            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.horizontal, AppSpacing.sm)
+            .frame(height: 34)
+            .frame(minWidth: 84, alignment: .center)
             .background(Color.resumeButton)
-            .cornerRadius(22)
+            .clipShape(Capsule())
         }
+        .buttonStyle(.plain)
+        .frame(minHeight: AppLayout.minimumTouchTarget)
+        .contentShape(Rectangle())
         .accessibilityLabel("Resume Task")
         .accessibilityHint("Double tap to resume this task")
     }

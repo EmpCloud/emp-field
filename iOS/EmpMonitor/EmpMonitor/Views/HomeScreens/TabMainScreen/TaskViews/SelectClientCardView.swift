@@ -30,16 +30,16 @@ struct SelectClientCard: View {
 //                            .environmentObject(profileImageLoader)
                         VStack(alignment: .leading, spacing: 3){
                             Text(clientData.clientName)
-                                .font(.system(size: 15, weight: .semibold))
+                                .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                 .foregroundStyle(Color.taskClientName)
                             Text("\(clientData.address1 ?? "") \(clientData.address2 ?? "")")
-                                .font(.system(size: 12, weight: .medium))
+                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.medium))
                                 .foregroundStyle(Color.taskClientName)
                         }
                         Spacer()
                         HStack{
                             Text("\(distance ?? 0)km")
-                                .font(.system(size: 12, weight: .semibold))
+                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
                                 .foregroundStyle(Color.subText)
                             
                             Circle()

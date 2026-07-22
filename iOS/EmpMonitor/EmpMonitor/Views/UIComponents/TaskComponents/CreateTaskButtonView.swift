@@ -17,7 +17,7 @@ struct CreateTaskButton: View {
             Button(action: action) {
                 Image(systemName: "plus")
                     .foregroundStyle(.white)
-                    .font(.title)
+                    .font(AppFont.title)
                     .background(
                         Circle()
                             .fill(

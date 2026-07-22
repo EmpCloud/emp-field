@@ -32,51 +32,51 @@ struct TaskCardView: View {
         
     var body: some View {
         //MARK: Task
-        HStack(spacing: 0) {
+        HStack(spacing: AppSpacing.stackSpacingDefault) {
             Rectangle()
                 .fill(Color.blue.opacity(0.3))
-                .frame(width: 14, height: 95)
-                .padding(.trailing)
-                .clipShape(RoundedRectangle(cornerRadius: 15))
-                .padding(.leading, 25)
-                .padding(.top, 5)
-                .padding(.bottom, 5)
+                .frame(width: 8)
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
+                .padding(.vertical, AppSpacing.sm)
             
             
-            VStack(alignment: .leading, spacing: 10){
-                HStack{
+            VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
+                HStack(alignment: .top, spacing: AppSpacing.stackSpacingDefault) {
                     Text(filterTaskDetail.taskName)
-                        .font(.system(size: 15, weight: .semibold))
+                        .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                         .foregroundStyle(Color.taskClientName)
-                    Spacer()
+                        .lineLimit(2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    Spacer(minLength: AppSpacing.sm)
                     showButton(taskStatus[filterTaskDetail.id] ?? 0)
+                        .fixedSize(horizontal: true, vertical: false)
                 }
-                .padding(.horizontal)
                 
                 Text(filterTaskDetail.taskDescription)
-                    .font(.system(size: 12, weight: .medium))
+                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.medium))
                     .foregroundStyle(Color.subText)
-                    .padding(.leading)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
                 
-                HStack{
+                HStack {
                     if let startTime = FormatterHelper.shared.checkTimeFormatter(from: filterTaskDetail.startTime), let endTime = FormatterHelper.shared.checkTimeFormatter(from: filterTaskDetail.endTime) {
                         Text("\(startTime) - \(endTime)")
-                            .font(.system(size: 12, weight: .semibold))
+                            .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
                             .foregroundStyle(Color.attendanceTitleText)
-                        Spacer()
+                            .lineLimit(1)
+                        Spacer(minLength: AppSpacing.zero)
                     }
                     
                 }
-                .padding(.leading)
             }
-//            .padding(14)
-            .frame(height: 98)
-            .background(selectedTask?.id == filterTaskDetail.id ? Color.selectClientBG : Color.white)
-            .padding(.leading)
-            .clipShape(RoundedRectangle(cornerRadius: 15))
-            //                        .padding(.trailing)
-            .offset(x: -32)
+            .padding(.vertical, AppSpacing.sm)
+            .padding(.trailing, AppSpacing.md)
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .frame(minHeight: 98)
+        .background(selectedTask?.id == filterTaskDetail.id ? Color.selectClientBG : Color.white)
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
+        .contentShape(RoundedRectangle(cornerRadius: AppRadius.medium))
         .onAppear {
 //            taskStatus.removeValue(forKey: filterTaskDetail.id)
             taskStatus[filterTaskDetail.id] = filterTaskDetail.taskApproveStatus

@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct AddPictureView: View {
+    var fillsAvailableWidth: Bool = false
+
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
             .fill(
@@ -15,9 +17,9 @@ struct AddPictureView: View {
             )
             .foregroundStyle(Color.white)
             .frame(height: 76)
-            .frame(maxWidth: 200)
+            .frame(maxWidth: fillsAvailableWidth ? .infinity : 200)
             .overlay {
-                VStack{
+                VStack(spacing: AppSpacing.stackSpacingSmall) {
                     Circle()
                         .fill(
                             .shadow(.inner(color: Color.white, radius: 4))
@@ -33,15 +35,19 @@ struct AddPictureView: View {
                         }
                     
                     Text("Add Picture")
-                        .font(.custom("Montserrat", size: 12))
-                        .fontWeight(.semibold)
+                        .font(AppFont.primary(size: AppFont.Size.caption))
+                        .fontWeight(AppFont.Weight.semibold)
                         .foregroundStyle(Color.subText)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.85)
                 }
             }
     }
 }
 
 struct RescheduleTaskTime: View {
+    var fillsAvailableWidth: Bool = false
+
     var body: some View {
         RoundedRectangle(cornerRadius: 10)
             .fill(
@@ -49,9 +55,9 @@ struct RescheduleTaskTime: View {
             )
             .foregroundStyle(Color.white)
             .frame(height: 76)
-            .frame(maxWidth: 200)
+            .frame(maxWidth: fillsAvailableWidth ? .infinity : 200)
             .overlay {
-                VStack{
+                VStack(spacing: AppSpacing.stackSpacingSmall) {
                     Circle()
                         .fill(
                             .shadow(.inner(color: Color.white, radius: 4))
@@ -67,9 +73,11 @@ struct RescheduleTaskTime: View {
                         }
                     
                     Text("Reschedule")
-                        .font(.custom("Montserrat", size: 12))
-                        .fontWeight(.semibold)
+                        .font(AppFont.primary(size: AppFont.Size.caption))
+                        .fontWeight(AppFont.Weight.semibold)
                         .foregroundStyle(Color.subText)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.85)
                 }
             }
     }

@@ -17,8 +17,8 @@ struct TextFieldButton: View {
             .overlay(alignment: .leading) {
                 HStack{
                     Text(placeholder)
-                        .font(.custom("Montserrat", size: 12))
-                        .fontWeight(.medium)
+                        .font(AppFont.primary(size: AppFont.Size.caption))
+                        .fontWeight(AppFont.Weight.medium)
                         .foregroundStyle(placeholder == "Add Client" ? Color.gray : Color.subText)
                         
                     

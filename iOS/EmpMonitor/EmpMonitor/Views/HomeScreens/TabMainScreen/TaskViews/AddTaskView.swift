@@ -72,22 +72,22 @@ struct AddTaskView: View {
                     ScrollView {
                         VStack {
                             Text("Add Task")
-                                .font(.system(size: 18, weight: .regular))
-                                .fontWeight(.semibold)
+                                .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.regular))
+                                .fontWeight(AppFont.Weight.semibold)
                                 .foregroundStyle(Color.headingText)
                                 .padding(.top)
                             
                             VStack(alignment: .leading){
                                 Text("Task Name")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .fontWeight(.semibold)
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                    .fontWeight(AppFont.Weight.semibold)
                                     .foregroundStyle(Color.subText)
                                 
                                 AddTaskTextField(text: $taskName, placeholder: "Task Name")
                                 
                                 Text("Select Client")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .fontWeight(.semibold)
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                    .fontWeight(AppFont.Weight.semibold)
                                     .foregroundStyle(Color.subText)
                                 
                                 TextFieldButton(placeholder: selectedClientData?.clientName ?? "Add Client", imageName: "chevron.right")
@@ -99,8 +99,8 @@ struct AddTaskView: View {
                                     
                                 
                                 Text("Schedule ")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .fontWeight(.semibold)
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                    .fontWeight(AppFont.Weight.semibold)
                                     .foregroundStyle(Color.subText)
                                 
                                 HStack {
@@ -108,13 +108,13 @@ struct AddTaskView: View {
                                     HStack{
                                         if startTime != "" {
                                             Text("\(startTime)")
-                                                .font(.system(size: 12, weight: .regular))
-                                                .fontWeight(.bold)
+                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                                .fontWeight(AppFont.Weight.bold)
                                                 .foregroundStyle(Color.subText)
                                         }else {
                                             Text("Start Time")
-                                                .font(.system(size: 12, weight: .regular))
-                                                .fontWeight(.bold)
+                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                                .fontWeight(AppFont.Weight.bold)
                                                 .foregroundStyle(Color.subText)
                                         }
                                         
@@ -162,13 +162,13 @@ struct AddTaskView: View {
                                     HStack{
                                         if stopTime != "" {
                                             Text("\(stopTime)")
-                                                .font(.system(size: 12, weight: .regular))
-                                                .fontWeight(.bold)
+                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                                .fontWeight(AppFont.Weight.bold)
                                                 .foregroundStyle(Color.subText)
                                         }else {
                                             Text("End Time")
-                                                .font(.system(size: 12, weight: .regular))
-                                                .fontWeight(.bold)
+                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                                .fontWeight(AppFont.Weight.bold)
                                                 .foregroundStyle(Color.subText)
                                         }
                                         
@@ -221,8 +221,8 @@ struct AddTaskView: View {
 //                                    }
                                 
                                 Text("Description")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .fontWeight(.semibold)
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                    .fontWeight(AppFont.Weight.semibold)
                                     .foregroundStyle(Color.subText)
                                 
                                 AddTaskTextEditor(selectedPDF: $selectedPDF, isDocumentPickerPresented: $isDocumentPickerPresented, descriptionText: $description)
@@ -253,8 +253,8 @@ struct AddTaskView: View {
                                     }
                                 
                                 Text("Task Volume")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .fontWeight(.semibold)
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                    .fontWeight(AppFont.Weight.semibold)
                                     .foregroundStyle(Color.subText)
                                     .padding(.top, 10)
 //                                    .onTapGesture {
@@ -271,35 +271,36 @@ struct AddTaskView: View {
 //                                    .toolbarDoneButton()
                                 
                                 Text("Task Value")
-                                    .font(.system(size: 14, weight: .regular))
-                                    .fontWeight(.semibold)
+                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                    .fontWeight(AppFont.Weight.semibold)
                                     .foregroundStyle(Color.subText)
                                 
-                                HStack(spacing: 0) {
-                                    Rectangle()
-                                        .fill(Color.taskSearchBar)
-                                        .frame(width: 110, height: 46)
-                                        .padding(.trailing, 10)
-                                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                                        .overlay {
-                                            HStack(spacing: 30){
-                                                Text(selectedCurrency)
-                                                Image(systemName: "chevron.down")
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fit)
-                                                    .frame(width: 12.32, height: 15.13)
-                                            }
-                                            .font(.system(size: 15, weight: .regular))
-                                            .foregroundStyle(Color.white)
-                                            .onTapGesture {
-                                                showCurrencyPopup.toggle()
-                                            }
-                                        }
-                                    AddTaskTextField(text: $taskValue, placeholder: "Enter Task Value")
-                                        .offset(x: -10)
-                                        .keyboardType(.numberPad)
-                                        .toolbarDoneButton()
-                                }
+	                                HStack(spacing: AppSpacing.stackSpacingDefault) {
+	                                    Button {
+	                                        showCurrencyPopup.toggle()
+	                                    } label: {
+	                                        HStack(spacing: AppSpacing.iconTextSpacing) {
+	                                            Text(selectedCurrency)
+	                                                .lineLimit(1)
+	                                                .minimumScaleFactor(0.85)
+
+	                                            Image(systemName: "chevron.down")
+	                                                .font(AppFont.primary(size: AppFont.Size.closeIcon, weight: AppFont.Weight.semibold))
+	                                        }
+	                                        .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.regular))
+	                                        .foregroundStyle(Color.white)
+	                                        .frame(width: 110)
+	                                        .frame(minHeight: AppLayout.textFieldHeight)
+	                                        .background(Color.taskSearchBar)
+	                                        .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
+	                                    }
+	                                    .buttonStyle(.plain)
+	                                    .accessibilityLabel("Select currency")
+
+	                                    AddTaskTextField(text: $taskValue, placeholder: "Enter Task Value")
+	                                        .keyboardType(.numberPad)
+	                                        .toolbarDoneButton()
+	                                }
                                 
                             }
                             .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -312,9 +313,9 @@ struct AddTaskView: View {
                                 if !cameraViewModel.savedImages.isEmpty {
                                     HStack {
                                         Text("Warning:")
-                                            .font(.system(size: 12, weight: .semibold))
+                                            .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
                                         Text("You can only add upto 4 images (Image = \(cameraViewModel.savedImages.count))")
-                                            .font(.system(size: 12, weight: .medium))
+                                            .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.medium))
                                     }
                                     .foregroundStyle(Color.absent)
                                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -430,25 +431,19 @@ struct AddTaskView: View {
             
             //MARK: Currency Popup
             if showCurrencyPopup{
-                ZStack {
-                    CurrencyPopupView(selectedCurrency: $selectedCurrency, showCurrencyPopup: $showCurrencyPopup)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     showCurrencyPopup.toggle()
+                }) {
+                    CurrencyPopupView(selectedCurrency: $selectedCurrency, showCurrencyPopup: $showCurrencyPopup)
                 }
             }
             
             //MARK: Calendar Popup
             if showScheduleCalendar {
-                ZStack {
-                    TaskCalendarView(startDate: .constant(""), endDate: .constant(""), setStartDate: .constant(false), setEndDate: .constant(false), showCalendar: $showScheduleCalendar)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     showScheduleCalendar.toggle()
+                }) {
+                    TaskCalendarView(startDate: .constant(""), endDate: .constant(""), setStartDate: .constant(false), setEndDate: .constant(false), showCalendar: $showScheduleCalendar)
                 }
             }
             
@@ -473,13 +468,10 @@ struct AddTaskView: View {
             }
             
             if dateViewModel.showPicker {
-                ZStack {
-                    TimePickerView(dateViewModel: dateViewModel, startTime: $startTime, stopTime: $stopTime)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     dateViewModel.showPicker.toggle()
+                }) {
+                    TimePickerView(dateViewModel: dateViewModel, startTime: $startTime, stopTime: $stopTime)
                 }
             }
             
@@ -487,36 +479,26 @@ struct AddTaskView: View {
             //MARK: Warning
             if showWarningPopup {
                 if startTime == "" {
-                    ZStack {
-                        WarningPopupView(titleText: "Try Again !", description: "Enter start time first", showWarningPopup: $showWarningPopup)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    .onTapGesture {
+                    ModalOverlayView(dismissOnBackgroundTap: {
                         showWarningPopup.toggle()
+                    }) {
+                        WarningPopupView(titleText: "Try Again", description: "Enter start time first.", showWarningPopup: $showWarningPopup)
                     }
                 }
                 
                 else if stopTime < startTime {
-                    ZStack {
-                        WarningPopupView(titleText: "Try Again !", description: "End Time should be greater than start time", showWarningPopup: $showWarningPopup)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    .onTapGesture {
+                    ModalOverlayView(dismissOnBackgroundTap: {
                         showWarningPopup.toggle()
+                    }) {
+                        WarningPopupView(titleText: "Try Again", description: "End time should be later than start time.", showWarningPopup: $showWarningPopup)
                     }
                 }
                 
                 else {
-                    ZStack {
-                        WarningPopupView(titleText: "Try Again !", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    .ignoresSafeArea()
-                    .onTapGesture {
+                    ModalOverlayView(dismissOnBackgroundTap: {
                         showWarningPopup.toggle()
+                    }) {
+                        WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
                     }
 
                 }
@@ -525,13 +507,10 @@ struct AddTaskView: View {
             
             //MARK: Permission Alert
             if showCameraPermissionAlert {
-                ZStack {
-                    LocationSettingWarningView(titleText: "Camera Permission Not Given", description: "Provide the camera permission in order to take picture for the task", showWarningPopup: $showCameraPermissionAlert)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     showCameraPermissionAlert.toggle()
+                }) {
+                    LocationSettingWarningView(titleText: "Camera Permission Not Given", description: "Provide the camera permission in order to take picture for the task", showWarningPopup: $showCameraPermissionAlert)
                 }
             }
            
@@ -571,8 +550,8 @@ struct AddTaskView: View {
             }
             ToolbarItem(placement: .principal) {
                 Text("Task")
-                    .font(.system(size: 20, weight: .regular))
-                    .fontWeight(.semibold)
+                    .font(AppFont.primary(size: AppFont.Size.navigationTitle, weight: AppFont.Weight.regular))
+                    .fontWeight(AppFont.Weight.semibold)
                     .foregroundStyle(Color.white)
             }
         }

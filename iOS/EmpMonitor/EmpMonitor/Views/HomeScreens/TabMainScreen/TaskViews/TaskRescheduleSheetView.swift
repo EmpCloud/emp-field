@@ -75,24 +75,27 @@ struct TaskRescheduleSheetView: View {
                 if sheetHeight == 0.05 {
                     HStack {
                         Text("Swipe Up")
-                            .font(.system(size: 14, weight: .regular))
+                            .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                         Image(systemName: "arrow.up")
                     }
-                    .fontWeight(.bold)
+                    .fontWeight(AppFont.Weight.bold)
                     .foregroundStyle(Color.subText)
                     .padding(.top, 20)
                 }
                 else if sheetHeight == 0.3 {
-                    VStack {
+                    VStack(spacing: AppSpacing.stackSpacingDefault) {
                         Text(selectedTask?.taskName ?? "Task")
-                            .font(.system(size: 18, weight: .regular))
-                            .fontWeight(.semibold)
+                            .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.regular))
+                            .fontWeight(AppFont.Weight.semibold)
                             .foregroundStyle(Color.addAddressText)
+                            .lineLimit(2)
+                            .multilineTextAlignment(.center)
+                            .frame(maxWidth: .infinity)
                             .padding(.top, 10)
                         
                         
                         //NAME
-                        HStack {
+                        HStack(spacing: AppSpacing.stackSpacingDefault) {
                             Circle()
                                 .fill(
                                     .shadow(.inner(color: Color.taskSearchBar.opacity(0.5), radius: 4))
@@ -104,15 +107,17 @@ struct TaskRescheduleSheetView: View {
                                 }
                             
                             Text(selectedTask?.clientName ?? "")
-                                .font(.system(size: 14, weight: .regular))
-                                .fontWeight(.medium)
+                                .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                .fontWeight(AppFont.Weight.medium)
                                 .foregroundStyle(Color.subText)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
                             
                             Spacer()
                         }
                         
                         //Timing
-                        HStack {
+                        HStack(spacing: AppSpacing.stackSpacingDefault) {
                             Circle()
                                 .fill(
                                     .shadow(.inner(color: Color.taskSearchBar.opacity(0.5), radius: 4))
@@ -130,20 +135,20 @@ struct TaskRescheduleSheetView: View {
                             HStack(spacing: 0) {
                                 if let startTime = rescheduleStartTime {
                                     Text(startTime)
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.semibold)
+                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.semibold)
                                         .foregroundStyle(Color.primaryButton1)
                                 }
                                 else if let startTime = selectedTask?.startTime {
                                     Text(FormatterHelper.shared.checkTimeFormatter(from: startTime) ?? "")
 //                                    Text(self.startTime)
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.semibold)
+                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.semibold)
                                         .foregroundStyle(Color.primaryButton1)
                                 }else{
                                     Text("__")
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.semibold)
+                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.semibold)
                                         .foregroundStyle(Color.primaryButton1)
                                 }
                                 
@@ -151,30 +156,32 @@ struct TaskRescheduleSheetView: View {
                                 
                                 if let stopTime = rescheduleStopTime {
                                     Text(stopTime)
-                                            .font(.system(size: 14, weight: .regular))
-                                            .fontWeight(.semibold)
+                                            .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                            .fontWeight(AppFont.Weight.semibold)
                                             .foregroundStyle(Color.primaryButton1)
                                 }
                                 else if let endTime = selectedTask?.endTime {
                                     Text(FormatterHelper.shared.checkTimeFormatter(from: endTime) ?? "")
 //                                    Text(stopTime)
-                                            .font(.system(size: 14, weight: .regular))
-                                            .fontWeight(.semibold)
+                                            .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                            .fontWeight(AppFont.Weight.semibold)
                                             .foregroundStyle(Color.primaryButton1)
                                 }else{
                                     Text("__")
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.semibold)
+                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.semibold)
                                         .foregroundStyle(Color.primaryButton1)
                                 }
                             }
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.9)
                             
                             
                             Spacer()
                         }
                         
                         //Address
-                        HStack {
+                        HStack(alignment: .top, spacing: AppSpacing.stackSpacingDefault) {
                             Circle()
                                 .fill(
                                     .shadow(.inner(color: Color.taskSearchBar.opacity(0.5), radius: 4))
@@ -188,14 +195,18 @@ struct TaskRescheduleSheetView: View {
                             HStack(spacing: 0) {
                                 if let address1 = selectedTask?.address1 {
                                     Text(address1)
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.medium)
+                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.medium)
                                         .foregroundStyle(Color.subText)
+                                        .lineLimit(2)
+                                        .fixedSize(horizontal: false, vertical: true)
                                 }else if let address2 = selectedTask?.address2 {
                                     Text(address2)
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.medium)
+                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.medium)
                                         .foregroundStyle(Color.subText)
+                                        .lineLimit(2)
+                                        .fixedSize(horizontal: false, vertical: true)
                                 }
                             }
                             
@@ -300,45 +311,56 @@ struct TaskRescheduleSheetView: View {
                     .padding(.top, 50)
                 }
                 else if sheetHeight == 0.99  {
-                    TaskRescheduleDetailSheetView(tagViewModel: tagViewModel, cameraViewModel: cameraViewModel, uploadFileViewModel: uploadFileViewModel, updateTaskViewModel: updateTaskViewModel, sheetHeight: $sheetHeight, currentDetent: $currentDetent, showTaskRescheduleSheet: $showTaskRescheduleSheet, taskVolume: $taskVolume, taskValue: $taskValue, showCurrencyPopup: $showCurrencyPopup, selectedCurrency: $selectedCurrency, showCamera: $showCamera, showImagePreview: $showCalendar, selectedImage: $selectedImage, savedImageURLs: $savedImageURLs, savedImages: $savedImages, showCalendar: $showCalendar, startDate: $startDate, endDate: $endDate, setStartDate: $setStartDate, setEndDate: $setEndDate, rescheduleStartTime: $rescheduleStartTime, rescheduleStopTime: $rescheduleStopTime, startTime: $startTime, stopTime: $stopTime, selectedTask: $selectedTask, taskStatus: $taskStatus, isDismiss: $isDismiss, refreshScreen: $refreshScreen)
+                    TaskRescheduleDetailSheetView(tagViewModel: tagViewModel, cameraViewModel: cameraViewModel, uploadFileViewModel: uploadFileViewModel, updateTaskViewModel: updateTaskViewModel, sheetHeight: $sheetHeight, currentDetent: $currentDetent, showTaskRescheduleSheet: $showTaskRescheduleSheet, taskVolume: $taskVolume, taskValue: $taskValue, showCurrencyPopup: $showCurrencyPopup, selectedCurrency: $selectedCurrency, showCamera: $showCamera, showImagePreview: $showImagePreview, selectedImage: $selectedImage, savedImageURLs: $savedImageURLs, savedImages: $savedImages, showCalendar: $showCalendar, startDate: $startDate, endDate: $endDate, setStartDate: $setStartDate, setEndDate: $setEndDate, rescheduleStartTime: $rescheduleStartTime, rescheduleStopTime: $rescheduleStopTime, startTime: $startTime, stopTime: $stopTime, selectedTask: $selectedTask, taskStatus: $taskStatus, isDismiss: $isDismiss, refreshScreen: $refreshScreen)
                 }
                 
             }
             
             //MARK: Currency Popup
             if showCurrencyPopup {
-                ZStack {
-                    CurrencyPopupView(selectedCurrency: $selectedCurrency, showCurrencyPopup: $showCurrencyPopup)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     showCurrencyPopup.toggle()
+                }) {
+                    CurrencyPopupView(selectedCurrency: $selectedCurrency, showCurrencyPopup: $showCurrencyPopup)
                 }
             }
             
             //MARK: Calendar
             if showCalendar {
-                ZStack {
-                    RescheduleCalendarView(dateViewModel: dateViewModel, startDate: $startDate, endDate: $endDate, setStartDate: $setStartDate, setEndDate: $setEndDate, rescheduleStartTime: $rescheduleStartTime, rescheduleStopTime: $rescheduleStopTime, startTime: $startTime, stopTime: $stopTime, showCalendar: $showCalendar)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     showCalendar.toggle()
                     setStartDate = false
+                }) {
+                    RescheduleCalendarView(dateViewModel: dateViewModel, startDate: $startDate, endDate: $endDate, setStartDate: $setStartDate, setEndDate: $setEndDate, rescheduleStartTime: $rescheduleStartTime, rescheduleStopTime: $rescheduleStopTime, startTime: $startTime, stopTime: $stopTime, showCalendar: $showCalendar)
+                }
+            }
+
+            //MARK: Image Preview
+            if showImagePreview {
+                ZStack {
+                    Color.black.opacity(0.5)
+                        .ignoresSafeArea()
+                        .onTapGesture {
+                            showImagePreview = false
+                        }
+
+                    if let selectedImage = selectedImage {
+                        ImagePreviewView(image: selectedImage)
+                            .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.6)
+                            .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
+                            .onTapGesture {
+                                showImagePreview = false
+                            }
+                    }
                 }
             }
             
             //MARK: show time picker
             if dateViewModel.showPicker {
-                ZStack {
-                    TimePickerView(dateViewModel: dateViewModel, startTime: $startTime, stopTime: $stopTime)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     dateViewModel.showPicker.toggle()
+                }) {
+                    TimePickerView(dateViewModel: dateViewModel, startTime: $startTime, stopTime: $stopTime)
                 }
             }
             
@@ -432,16 +454,19 @@ struct TaskRescheduleDetailSheetView: View {
     
     var body: some View {
         ZStack {
-//            ScrollView {
-                VStack {
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(spacing: AppSpacing.stackSpacingMedium) {
                     
                     Text(selectedTask?.taskName ?? "Task")
-                        .font(.system(size: 18, weight: .regular))
-                        .fontWeight(.semibold)
+                        .font(AppFont.primary(size: AppFont.Size.title3, weight: AppFont.Weight.regular))
+                        .fontWeight(AppFont.Weight.semibold)
                         .foregroundStyle(Color.addAddressText)
+                        .lineLimit(2)
+                        .multilineTextAlignment(.center)
+                        .frame(maxWidth: .infinity)
                     
                     //UserInfo
-                    VStack {
+                    VStack(spacing: AppSpacing.stackSpacingDefault) {
                         //NAME
                         HStack {
                             Circle()
@@ -455,9 +480,11 @@ struct TaskRescheduleDetailSheetView: View {
                                 }
                             
                             Text(selectedTask?.clientName ?? "")
-                                .font(.system(size: 14, weight: .regular))
-                                .fontWeight(.medium)
+                                .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                .fontWeight(AppFont.Weight.medium)
                                 .foregroundStyle(Color.subText)
+                                .lineLimit(1)
+                                .truncationMode(.tail)
                             
                             Spacer()
                         }
@@ -481,20 +508,20 @@ struct TaskRescheduleDetailSheetView: View {
                             HStack(spacing: 0) {
                                 if let startTime = rescheduleStartTime {
                                     Text(startTime)
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.semibold)
+                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.semibold)
                                         .foregroundStyle(Color.primaryButton1)
                                 }
                                 else if let startTime = selectedTask?.startTime {
                                     Text(FormatterHelper.shared.checkTimeFormatter(from: startTime) ?? "")
     //                                    Text(self.startTime)
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.semibold)
+                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.semibold)
                                         .foregroundStyle(Color.primaryButton1)
                                 }else{
                                     Text("__")
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.semibold)
+                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.semibold)
                                         .foregroundStyle(Color.primaryButton1)
                                 }
                                 
@@ -502,23 +529,24 @@ struct TaskRescheduleDetailSheetView: View {
                                 
                                 if let stopTime = rescheduleStopTime {
                                     Text(stopTime)
-                                            .font(.system(size: 14, weight: .regular))
-                                            .fontWeight(.semibold)
+                                            .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                            .fontWeight(AppFont.Weight.semibold)
                                             .foregroundStyle(Color.primaryButton1)
                                 }
                                 else if let endTime = selectedTask?.endTime {
                                     Text(FormatterHelper.shared.checkTimeFormatter(from: endTime) ?? "")
     //                                    Text(stopTime)
-                                            .font(.system(size: 14, weight: .regular))
-                                            .fontWeight(.semibold)
+                                            .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                            .fontWeight(AppFont.Weight.semibold)
                                             .foregroundStyle(Color.primaryButton1)
                                 }else{
                                     Text("__")
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.semibold)
+                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.semibold)
                                         .foregroundStyle(Color.primaryButton1)
                                 }
                             }
+                            .lineLimit(1)
                             
                             
                             Spacer()
@@ -538,154 +566,130 @@ struct TaskRescheduleDetailSheetView: View {
                             
                             HStack(spacing: 0) {
                                 if let address1 = selectedTask?.address1 {
-                                    Text(address1)
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.medium)
-                                        .foregroundStyle(Color.subText)
-                                }else if let address2 = selectedTask?.address2 {
-                                    Text(address2)
-                                        .font(.system(size: 14, weight: .regular))
-                                        .fontWeight(.medium)
-                                        .foregroundStyle(Color.subText)
-                                }
-                            }
+	                                    Text(address1)
+	                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+	                                        .fontWeight(AppFont.Weight.medium)
+	                                        .foregroundStyle(Color.subText)
+                                            .lineLimit(2)
+                                            .fixedSize(horizontal: false, vertical: true)
+	                                }else if let address2 = selectedTask?.address2 {
+	                                    Text(address2)
+	                                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+	                                        .fontWeight(AppFont.Weight.medium)
+	                                        .foregroundStyle(Color.subText)
+                                            .lineLimit(2)
+                                            .fixedSize(horizontal: false, vertical: true)
+	                                }
+	                            }
                             
                             
                             Spacer()
                         }
                     }
-                    .frame(height: 120, alignment: .top)
+                    .frame(maxWidth: .infinity, alignment: .topLeading)
                     
                    
                     //MARK: Edit here
-                    VStack(alignment: .leading, spacing: 10) {
+                    VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
                         Text("Stage of Task")
-                            .font(.system(size: 14, weight: .regular))
-                            .fontWeight(.semibold)
+                            .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                            .fontWeight(AppFont.Weight.semibold)
                             .foregroundStyle(Color.subText)
-                            .padding(.bottom, 50)
                         
-    //                    TaskStageDropDownView(selectionTitle: "Select task stage")
+                        TaskStageDropDownView(selectedStage: $selectedStage, options: tagViewModel.tagDataList, selectedStageTitle: $selectedStageTitle)
+                            .zIndex(1)
                         
                         Text("Task Volume")
-                            .font(.system(size: 14, weight: .regular))
-                            .fontWeight(.semibold)
+                            .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                            .fontWeight(AppFont.Weight.semibold)
                             .foregroundStyle(Color.subText)
-                            .padding(.top, 5)
+                            .padding(.top, AppSpacing.xs)
                         
                         RescheduleTextFieldView(text: $taskVolume, placeholder: "Task Volume")
                             .keyboardType(.numberPad)
                             .toolbarDoneButton()
                         
                         
-                        Text("Task value")
-                            .font(.system(size: 14, weight: .regular))
-                            .fontWeight(.semibold)
+                        Text("Task Value")
+                            .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                            .fontWeight(AppFont.Weight.semibold)
                             .foregroundStyle(Color.subText)
-                            .padding(.top, 5)
+                            .padding(.top, AppSpacing.xs)
                         
-                        HStack(spacing: 0) {
-                            Rectangle()
-                                .fill(Color.taskSearchBar)
-                                .frame(width: 110, height: 43)
-                                .padding(.trailing, 10)
-                                .clipShape(RoundedRectangle(cornerRadius: 10))
-                                .overlay {
-                                    HStack(spacing: 30){
-                                        Text(selectedCurrency)
-                                        Image(systemName: "chevron.down")
-                                            .resizable()
-                                            .aspectRatio(contentMode: .fit)
-                                            .frame(width: 12.32, height: 15.13)
-                                    }
-                                    .font(.system(size: 15, weight: .regular))
-                                    .foregroundStyle(Color.white)
-                                    .onTapGesture {
-                                        showCurrencyPopup.toggle()
-                                    }
-                                }
-                            RescheduleTextFieldView(text: $taskValue, placeholder: "Enter Task Value")
-                                .keyboardType(.numberPad)
-                                .toolbarDoneButton()
-                                .offset(x: -10)
+                        VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
+                            currencyPickerButton
+                                .frame(maxWidth: .infinity)
+
+                            taskValueField
+                                .frame(maxWidth: .infinity)
                         }
                         
-                        ScrollView {
-                            HStack(spacing: 20) {
-                                RescheduleTaskTime()
-                                    .onTapGesture {
-                                        withAnimation {
-                                            showCalendar.toggle()
-                                            setStartDate = true
-                                        }
-                                    }
-                                
-                                //To add new images
-                                AddPictureView()
-                                    .onTapGesture {
-    //                                    currentDetent = .fraction(0.05)
-                                        showTaskRescheduleSheet = false
-                                        
-    //                                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                                            if cameraViewModel.savedImages.count < 4 {
-                                                showCamera.toggle()
-                                                AppLog.debug("Camera btn tapped")
-                                            }else{
-                                                //TODO: Show alert
-                                            }
-    //                                    }
-                                            
-                                    }
-                                    .onChange(of: savedImageURLs) { _, _ in
-                                        Task {
-                                            //TODO: Upload the Images
-                                            AppLog.debug(savedImageURLs)
-                                            
-    //                                        createTaskViewModel.selectedImageURLs.removeAll() // ensuring every url is remove to fill new one only(remain one)
-    //                                        createTaskViewModel.images.removeAll() // removing the all Image
-                                            
-                                            
-                                            if !savedImageURLs.isEmpty{
-                                                
-                                                for image in savedImages {
-                                                    
-                                                    if let url = image.url {
-                                                        uploadFileViewModel.selectedImageURLs.append(url)
-                                                        await uploadFileViewModel.uploadImages()
-                                                    }
-                                                    
-//                                                    if let url = uploadFileViewModel.fetchedURL.first?.url {
-    //                                                    createTaskViewModel.addToImages(description: image.description, url: url)
-//                                                    }
-                                                    
-                                                    
-    //                                                createTaskViewModel.addLatestImageURLs(uploadFileViewModel.fetchedURL)
-                                                    
-                                                    uploadFileViewModel.selectedImageURLs.removeAll()
-                                                }
-                                            }
-                                            
-    //                                        AppLog.debug("Images URLs: \(createTaskViewModel.selectedImageURLs)")
-                                            AppLog.debug(uploadFileViewModel.fetchedURL)
-                                        }
-                                    }
-
+                        LazyVGrid(
+                            columns: [
+                                GridItem(.flexible(), spacing: AppSpacing.stackSpacingMedium),
+                                GridItem(.flexible(), spacing: AppSpacing.zero)
+                            ],
+                            spacing: AppSpacing.stackSpacingMedium
+                        ) {
+                            Button {
+                                withAnimation {
+                                    showCalendar.toggle()
+                                    setStartDate = true
+                                }
+                            } label: {
+                                RescheduleTaskTime(fillsAvailableWidth: true)
                             }
-                            .padding()
+                            .buttonStyle(.plain)
+                            .accessibilityLabel("Reschedule task")
+
+                            Button {
+                                showTaskRescheduleSheet = false
+
+                                if cameraViewModel.savedImages.count < 4 {
+                                    showCamera.toggle()
+                                    AppLog.debug("Camera btn tapped")
+                                } else {
+                                    //TODO: Show alert
+                                }
+                            } label: {
+                                AddPictureView(fillsAvailableWidth: true)
+                            }
+                            .buttonStyle(.plain)
+                            .accessibilityLabel("Add picture")
+                        }
+                        .padding(.vertical, AppSpacing.sm)
+                        .onChange(of: savedImageURLs) { _, _ in
+                            Task {
+                                AppLog.debug(savedImageURLs)
+
+                                if !savedImageURLs.isEmpty {
+                                    for image in savedImages {
+                                        if let url = image.url {
+                                            uploadFileViewModel.selectedImageURLs.append(url)
+                                            await uploadFileViewModel.uploadImages()
+                                        }
+
+                                        uploadFileViewModel.selectedImageURLs.removeAll()
+                                    }
+                                }
+
+                                AppLog.debug(uploadFileViewModel.fetchedURL)
+                            }
+                        }
                             
                             //MARK: Pics Preview
                             if !cameraViewModel.savedImages.isEmpty {
                                 HStack {
                                     Text("Warning:")
-                                        .font(.system(size: 12, weight: .regular))
-                                        .fontWeight(.semibold)
-                                    Text("You can only add upto 4 images (Image =  \(cameraViewModel.savedImages.count))")
-                                        .font(.system(size: 12, weight: .regular))
-                                        .fontWeight(.medium)
+                                        .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.semibold)
+                                    Text("You can add up to 4 images (\(cameraViewModel.savedImages.count)/4 selected)")
+                                        .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
+                                        .fontWeight(AppFont.Weight.medium)
                                 }
                                 .foregroundStyle(Color.absent)
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                                .padding(.horizontal)
+                                .fixedSize(horizontal: false, vertical: true)
                                 
                                 //MARK: Captured Image Small Preview
                                 CaptureImageSmallPreview(cameraViewModel: cameraViewModel, selectedImage: $selectedImage, showImagePreview: $showImagePreview, savedImageURLs: $savedImageURLs)
@@ -736,7 +740,7 @@ struct TaskRescheduleDetailSheetView: View {
                             }
                             .disableWithOpacity(startDate == nil || rescheduleStartTime == nil || rescheduleStopTime == nil)
 
-                            HStack {
+                            HStack(spacing: AppSpacing.stackSpacingDefault) {
 //                                if showPause {
 //                                    RedBorderButton(text: "Pause") {
 //                                        //TODO: to pause the task
@@ -837,63 +841,52 @@ struct TaskRescheduleDetailSheetView: View {
                                     showFinishAlert.toggle()
                                 }
                             }
-                        }
                         
                         
                                                 
                     }
-                    .padding(.vertical)
+                    .padding(.bottom, AppSpacing.xxl)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
                     
                 }
-                .padding(.horizontal)
-                .frame(maxHeight: .infinity, alignment: .top)
-                .frame(maxWidth: .infinity)
-                .background(Color.white)
-                .padding(.top, 40)
-                .overlay(alignment: .top) {
-                    TaskStageDropDownView(selectedStage: $selectedStage, options: tagViewModel.tagDataList, selectedStageTitle: $selectedStageTitle)
-//                        .padding(.top, 250)
-                        .padding(.horizontal)
+                .padding(.horizontal, AppSpacing.screenHorizontalPadding)
+                .padding(.top, AppSpacing.lg)
+                .frame(maxWidth: .infinity, alignment: .top)
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .background(Color.white)
+            .padding(.top, AppSpacing.lg)
+            .onAppear {
+                if let volume = selectedTask?.taskVolume {
+                    taskVolume = "\(volume)"
                 }
-                .onAppear {
-                    if let volume = selectedTask?.taskVolume {
-                        taskVolume = "\(volume)"
-                        }
-                    //TODO: to make api call for stage of task
+                if tagViewModel.tagDataList.isEmpty {
                     Task {
                         try await tagViewModel.getTags()
                     }
-
-                    
-                    //To manager the click/selectedImages
-                    savedImageURLs.removeAll()
-                    savedImages.removeAll()
-                    
-                    savedImageURLs = cameraViewModel.getCapturedImageURLs()
-                    savedImages = cameraViewModel.savedImages
-                    
-                    AppLog.debug("IMage URLs")
-                    AppLog.debug(savedImageURLs)
-                    
                 }
-//            }
+
+                //To manager the click/selectedImages
+                savedImageURLs.removeAll()
+                savedImages.removeAll()
+
+                savedImageURLs = cameraViewModel.getCapturedImageURLs()
+                savedImages = cameraViewModel.savedImages
+
+                AppLog.debug("IMage URLs")
+                AppLog.debug(savedImageURLs)
+            }
             
             //MARK: Warning Popup
             if showWarningPopup {
-                ZStack {
-                    WarningPopupView(titleText: "Try Again!", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     withAnimation {
                         showWarningPopup.toggle()
                     }
+                }) {
+                    WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
                 }
-                
-                
             }
             
         }
@@ -931,6 +924,43 @@ struct TaskRescheduleDetailSheetView: View {
 
         
         
+    }
+
+    private var currencyPickerButton: some View {
+        Button {
+            showCurrencyPopup.toggle()
+        } label: {
+            HStack(alignment: .center, spacing: AppSpacing.iconTextSpacing) {
+                Text(selectedCurrency)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+
+                Spacer(minLength: AppSpacing.xs)
+
+                Image(systemName: "chevron.down")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 10, height: 6)
+                    .layoutPriority(1)
+            }
+            .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.medium))
+            .foregroundStyle(Color.white)
+            .padding(.horizontal, AppSpacing.md)
+            .padding(.vertical, AppSpacing.sm)
+            .frame(maxWidth: .infinity)
+            .frame(minHeight: AppLayout.minimumTouchTarget, alignment: .center)
+            .background(Color.taskSearchBar)
+            .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
+        }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Select currency")
+    }
+
+    private var taskValueField: some View {
+        RescheduleTextFieldView(text: $taskValue, placeholder: "Enter Task Value")
+            .keyboardType(.numberPad)
+            .toolbarDoneButton()
     }
 }
 

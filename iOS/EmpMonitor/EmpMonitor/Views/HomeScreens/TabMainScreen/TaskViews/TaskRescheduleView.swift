@@ -41,6 +41,7 @@ struct TaskRescheduleView: View {
     @State private var selectedImage: UIImage? = nil
     @State private var savedImageURLs: [URL] = []
     @State private var savedImages: [SavedImage] = []
+    @State private var shouldRenderMap: Bool = false
     
     //dismiss the view when the task is updated
     @State private var isDismiss: Bool = false
@@ -81,7 +82,11 @@ struct TaskRescheduleView: View {
                 .ignoresSafeArea()
             
             VStack{
-                ClientDetailMap(userLocation: $userLocation, clientLocation: clientLocation)
+                if shouldRenderMap {
+                    ClientDetailMap(userLocation: $userLocation, clientLocation: clientLocation)
+                } else {
+                    Color.rectangleBG
+                }
             }
 //            .frame(height: 500)
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -94,18 +99,13 @@ struct TaskRescheduleView: View {
             
             //MARK: Warning Popup
             if showWarningPopup {
-                ZStack {
-                    WarningPopupView(titleText: "Try Again! : \(NetworkManager.shared.statusCode)", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
-                .onTapGesture {
+                ModalOverlayView(dismissOnBackgroundTap: {
                     withAnimation {
                         showWarningPopup.toggle()
                     }
+                }) {
+                    WarningPopupView(titleText: "Try Again: \(NetworkManager.shared.statusCode)", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
                 }
-                
-                
             }
         }
         .onChange(of: isDismiss) { _, newValue in
@@ -120,6 +120,10 @@ struct TaskRescheduleView: View {
             showTaskRescheduleSheet = true
             if let selectedTaskID = selectedTask?.id {
                 taskStatus[selectedTaskID] = selectedTask?.taskApproveStatus
+            }
+
+            DispatchQueue.main.async {
+                shouldRenderMap = true
             }
             
         }
@@ -143,6 +147,17 @@ struct TaskRescheduleView: View {
             CameraView(cameraViewModel: cameraViewModel)
                 .navigationBarBackButtonHidden()
         }
+        .onChange(of: showCamera) { _, isShowing in
+            guard !isShowing else { return }
+
+            syncSavedImagesFromCamera()
+
+            if !isDismiss {
+                sheetHeight = 0.99
+                currentDetent = .fraction(0.99)
+                showTaskRescheduleSheet = true
+            }
+        }
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {
 //                HStack {
@@ -155,12 +170,17 @@ struct TaskRescheduleView: View {
             }
             ToolbarItem(placement: .principal) {
                 Text("Task")
-                    .font(.custom("Montserrat", size: 20))
-                    .fontWeight(.semibold)
+                    .font(AppFont.primary(size: AppFont.Size.navigationTitle))
+                    .fontWeight(AppFont.Weight.semibold)
                     .foregroundStyle(Color.white)
 //                        .padding(.horizontal, 70)
             }
         }
+    }
+
+    private func syncSavedImagesFromCamera() {
+        savedImageURLs = cameraViewModel.getCapturedImageURLs()
+        savedImages = cameraViewModel.savedImages
     }
 }
 

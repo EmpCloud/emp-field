@@ -13,21 +13,25 @@ struct PauseButton: View {
     
     var body: some View {
         Button(action: action) {
-            HStack(spacing: 8) {
+            HStack(spacing: AppSpacing.compactIconTextSpacing) {
                 Image(systemName: "pause.circle.fill")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 16, height: 16)
                     .foregroundStyle(Color.white)
                 Text("Pause")
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
                     .foregroundStyle(Color.white)
             }
-            .frame(height: 44)
-            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.horizontal, AppSpacing.sm)
+            .frame(height: 34)
+            .frame(minWidth: 72, alignment: .center)
             .background(Color.absent)
-            .cornerRadius(22)
+            .clipShape(Capsule())
         }
+        .buttonStyle(.plain)
+        .frame(minHeight: AppLayout.minimumTouchTarget)
+        .contentShape(Rectangle())
         .accessibilityLabel("Pause Task")
         .accessibilityHint("Double tap to pause this task")
     }

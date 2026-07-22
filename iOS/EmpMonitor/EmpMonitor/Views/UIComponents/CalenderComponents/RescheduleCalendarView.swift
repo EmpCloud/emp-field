@@ -69,8 +69,8 @@ struct RescheduleCalendarView: View {
                 }
                 
                 Text(calendarViewModel.monthYearString())
-                    .font(.custom("Montserrat", size: 14))
-                    .fontWeight(.semibold)
+                    .font(AppFont.primary(size: AppFont.Size.body))
+                    .fontWeight(AppFont.Weight.semibold)
                     .foregroundStyle(
                         LinearGradient(gradient: Gradient(colors: [Color.primaryButton1, Color.primaryButton2]), startPoint: .top, endPoint: .bottom)
                     )
@@ -86,8 +86,8 @@ struct RescheduleCalendarView: View {
             HStack {
                 ForEach(daysOfWeek, id: \.self) { day in
                     Text(day.uppercased())
-                        .font(.custom("Montserrat", size: 14))
-                        .fontWeight(.semibold)
+                        .font(AppFont.primary(size: AppFont.Size.body))
+                        .fontWeight(AppFont.Weight.semibold)
                         .foregroundStyle(
                             LinearGradient(gradient: Gradient(colors: [Color.week1, Color.week2]), startPoint: .top, endPoint: .bottom)
                         )
@@ -112,8 +112,8 @@ struct RescheduleCalendarView: View {
                     let presentDateString = calendarViewModel.presentFullDate()
                     
                     Text(calendarViewModel.dayString(from: currentDate))
-                        .font(.custom("Montserrat", size: 16))
-                        .fontWeight(.medium)
+                        .font(AppFont.primary(size: AppFont.Size.headline))
+                        .fontWeight(AppFont.Weight.medium)
                         .foregroundStyle(
                             (selectedDate == currentDateString && presentDateString == currentDateString) ? Color.white : presentDateString == currentDateString ? Color.primaryButton1 : selectedDate == currentDateString ? Color.white : Color.black
                         )
@@ -162,8 +162,8 @@ struct RescheduleCalendarView: View {
                     
                 }, label: {
                     Text("OK")
-                        .font(.custom("Montserrat", size: 12))
-                        .fontWeight(.semibold)
+                        .font(AppFont.primary(size: AppFont.Size.caption))
+                        .fontWeight(AppFont.Weight.semibold)
                         .foregroundStyle(Color.white)
                         .frame(width: 58, height: 33)
                         .background(
@@ -196,8 +196,8 @@ struct RescheduleCalendarView: View {
 //                    
 //                }label: {
 //                    Text("OK")
-//                        .font(.custom("Montserrat", size: 12))
-//                        .fontWeight(.semibold)
+//                        .font(AppFont.primary(size: AppFont.Size.caption))
+//                        .fontWeight(AppFont.Weight.semibold)
 //                        .foregroundStyle(Color.white)
 //                        .frame(width: 58, height: 33)
 //                        .background(
@@ -219,8 +219,8 @@ struct RescheduleCalendarView: View {
             HStack(spacing: 40) {
                 VStack{
                     Text("Start Time")
-                        .font(.custom("Montserrat", size: 14))
-                        .fontWeight(.bold)
+                        .font(AppFont.primary(size: AppFont.Size.body))
+                        .fontWeight(AppFont.Weight.bold)
                         .foregroundStyle(Color.subText)
                     RoundedRectangle(cornerRadius: 6)
                         .fill(Color.scheduleBG)
@@ -228,8 +228,8 @@ struct RescheduleCalendarView: View {
                         .overlay {
                             HStack{
                                 Text(calendarStartTime ?? "--:-- --")
-                                    .font(.custom("Montserrat", size: 12))
-                                    .fontWeight(.bold)
+                                    .font(AppFont.primary(size: AppFont.Size.caption))
+                                    .fontWeight(AppFont.Weight.bold)
                                     .foregroundStyle(Color.subText)
 
                                 Circle()
@@ -254,8 +254,8 @@ struct RescheduleCalendarView: View {
                 }
                 VStack{
                     Text("Stop Time")
-                        .font(.custom("Montserrat", size: 14))
-                        .fontWeight(.bold)
+                        .font(AppFont.primary(size: AppFont.Size.body))
+                        .fontWeight(AppFont.Weight.bold)
                         .foregroundStyle(Color.subText)
                     RoundedRectangle(cornerRadius: 6)
                         .fill(Color.scheduleBG)
@@ -263,8 +263,8 @@ struct RescheduleCalendarView: View {
                         .overlay {
                             HStack{
                                 Text(calendarStopTime ?? "--:-- --")
-                                    .font(.custom("Montserrat", size: 12))
-                                    .fontWeight(.bold)
+                                    .font(AppFont.primary(size: AppFont.Size.caption))
+                                    .fontWeight(AppFont.Weight.bold)
                                     .foregroundStyle(Color.subText)
 
                                 Circle()

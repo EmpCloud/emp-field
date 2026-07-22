@@ -18,8 +18,8 @@ struct ScheduleStartTimeView: View {
     var body: some View {
         VStack {
             //            Text("Start Time")
-            //                .font(.custom("Montserrat", size: 14))
-            //                .fontWeight(.bold)
+            //                .font(AppFont.primary(size: AppFont.Size.body))
+            //                .fontWeight(AppFont.Weight.bold)
             //                .foregroundStyle(Color.subText)
             RoundedRectangle(cornerRadius: 6)
                 .fill(Color.white)
@@ -28,13 +28,13 @@ struct ScheduleStartTimeView: View {
                     HStack{
                         //                        if startTime != "" {
                         //                            Text(startTime)
-                        //                                .font(.custom("Montserrat", size: 12))
-                        //                                .fontWeight(.bold)
+                        //                                .font(AppFont.primary(size: AppFont.Size.caption))
+                        //                                .fontWeight(AppFont.Weight.bold)
                         //                                .foregroundStyle(Color.gray.opacity(0.7))
                         //                        }else{
                         //                            Text("Start Time")
-                        //                                .font(.custom("Montserrat", size: 12))
-                        //                                .fontWeight(.bold)
+                        //                                .font(AppFont.primary(size: AppFont.Size.caption))
+                        //                                .fontWeight(AppFont.Weight.bold)
                         //                                .foregroundStyle(Color.gray.opacity(0.7))
                         //                        }
                         
@@ -88,8 +88,8 @@ struct ScheduleStopTimeView: View {
     var body: some View {
         VStack {
 //            Text("Start Time")
-//                .font(.custom("Montserrat", size: 14))
-//                .fontWeight(.bold)
+//                .font(AppFont.primary(size: AppFont.Size.body))
+//                .fontWeight(AppFont.Weight.bold)
 //                .foregroundStyle(Color.subText)
             RoundedRectangle(cornerRadius: 6)
                 .fill(Color.white)
@@ -98,13 +98,13 @@ struct ScheduleStopTimeView: View {
                     HStack{
 //                        if stopTime != "" {
 //                            Text(stopTime)
-//                                .font(.custom("Montserrat", size: 12))
-//                                .fontWeight(.bold)
+//                                .font(AppFont.primary(size: AppFont.Size.caption))
+//                                .fontWeight(AppFont.Weight.bold)
 //                                .foregroundStyle(Color.gray.opacity(0.7))
 //                        }else{
 //                            Text("Stop Time")
-//                                .font(.custom("Montserrat", size: 12))
-//                                .fontWeight(.bold)
+//                                .font(AppFont.primary(size: AppFont.Size.caption))
+//                                .fontWeight(AppFont.Weight.bold)
 //                                .foregroundStyle(Color.gray.opacity(0.7))
 //                        }
                         

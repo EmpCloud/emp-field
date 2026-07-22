@@ -16,14 +16,14 @@ struct RescheduleTextFieldView: View {
     var body: some View {
         ZStack {
             TextField(placeholder, text: $text)
-                .font(.custom("Montserrat", size: 10))
+                .font(AppFont.primary(size: AppFont.Size.xSmall))
                 .foregroundStyle(Color.addressText2)
-                .padding()
+                .padding(.horizontal, AppSpacing.md)
                 .frame(maxWidth: .infinity)
-                .frame(height: 43)
+                .frame(minHeight: AppLayout.minimumTouchTarget)
                 .background(Color.rectangleBG)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-                .fontWeight(.medium)
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
+                .fontWeight(AppFont.Weight.medium)
             
         }
     }

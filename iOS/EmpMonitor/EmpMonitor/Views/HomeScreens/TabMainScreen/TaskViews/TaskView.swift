@@ -94,7 +94,7 @@ struct TaskView: View {
                                                     Text(filterDate)
                                                 }
                                             }
-                                            .font(.system(size: 12, weight: .medium))
+                                            .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.medium))
                                             .foregroundStyle(Color.white)
                                         }
                                         .onTapGesture {
@@ -104,8 +104,8 @@ struct TaskView: View {
                                             }
                                         }
                                 }
-                                .padding(.top, 30)
-                                .padding(.horizontal)
+                                .padding(.top, AppSpacing.sectionTopSpacing)
+                                .padding(.horizontal, AppSpacing.screenHorizontalPadding)
                                 
                                 VStack{
                                     if taskListViewModel.fetchStatus == 200 {
@@ -118,7 +118,7 @@ struct TaskView: View {
                                                     .aspectRatio(contentMode: .fit)
                                                     .frame(width: 114, height: 114)
                                                 Text("No Data Found")
-                                                    .font(.system(size: 14, weight: .medium))
+                                                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.medium))
                                                     
                                             }
                                             .padding(.top, 200)
@@ -157,9 +157,9 @@ struct TaskView: View {
                                         LinearGradient(gradient: Gradient(colors: [Color.primaryButton1, Color.primaryButton2]), startPoint: .top, endPoint: .bottom)
                                     )
                                     .frame(height: 92)
-                                    .padding(.top, 30)
-                                    .padding(.horizontal, 30)
-                                    .padding(.leading, 50)
+                                    .padding(.top, AppSpacing.sectionTopSpacing)
+                                    .padding(.horizontal, AppSpacing.xl)
+                                    .padding(.leading, AppSpacing.xxl)
                                     .overlay(alignment: .bottom) {
                                         HStack(spacing: 30){
                                             HStack{
@@ -241,34 +241,25 @@ struct TaskView: View {
                                             }
                                             
                                         }
-                                        .font(.custom("Montserrat", size: 12))
-                                        .fontWeight(.medium)
+                                        .font(AppFont.primary(size: AppFont.Size.caption))
+                                        .fontWeight(AppFont.Weight.medium)
                                         .foregroundStyle(Color.white)
-                                        .padding()
-                                        .padding(.leading, 40)
+                                        .padding(AppSpacing.screenHorizontalPadding)
+                                        .padding(.leading, AppSpacing.xxl)
                                     }
                             }
                             
                             //MARK: Search bar with filter
                             TaskSearchBarView(searchText: $searchText, selectedFilter: $selectedFilter, showTaskFilter: $showTaskFilter)
-                                .padding(.leading, 50)
-                                .padding(.horizontal, 30)
-                                .padding(.top, 30)
+                                .padding(.leading, AppSpacing.xxl)
+                                .padding(.horizontal, AppSpacing.xl)
+                                .padding(.top, AppSpacing.sectionTopSpacing)
                             
                             //MARK: Warning Popup
                             if showWarningPopup {
-                                ZStack {
+                                ModalOverlayView {
                                     WarningPopupView(titleText: "\(NetworkManager.shared.statusCode)", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
                                 }
-                                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .background(Color.black.opacity(0.5))
-                                .onTapGesture {
-                                    withAnimation {
-                                        showWarningPopup.toggle()
-                                    }
-                                }
-                                
-                                
                             }
                             
                         }
@@ -283,15 +274,13 @@ struct TaskView: View {
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottom)
+                .padding(.bottom, AppSpacing.floatingActionBottomPadding)
                 
                 if showCalender {
-                    ZStack {
-                        TaskCalendarView(startDate: $selectedDate, endDate: $endDate, setStartDate: $setSelectedDate, setEndDate: $setEndDate, showCalendar: $showCalender)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                    .background(Color.black.opacity(0.5))
-                    .onTapGesture {
+                    ModalOverlayView(dismissOnBackgroundTap: {
                         showCalender.toggle()
+                    }) {
+                        TaskCalendarView(startDate: $selectedDate, endDate: $endDate, setStartDate: $setSelectedDate, setEndDate: $setEndDate, showCalendar: $showCalender)
                     }
                 }
             }
@@ -468,5 +457,3 @@ struct TaskView: View {
         .environmentObject(PermissionManager())
 //    TabMainView()
 }
-
-

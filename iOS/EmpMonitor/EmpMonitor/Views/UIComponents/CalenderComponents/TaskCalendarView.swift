@@ -49,7 +49,7 @@ struct TaskCalendarView: View {
                 }
                 
                 Text(calendarViewModel.monthYearString())
-                    .font(.system(size: 14, weight: .semibold))
+                    .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.semibold))
                     .foregroundStyle(
                         LinearGradient(gradient: Gradient(colors: [Color.primaryButton1, Color.primaryButton2]), startPoint: .top, endPoint: .bottom)
                     )
@@ -65,7 +65,7 @@ struct TaskCalendarView: View {
             HStack {
                 ForEach(daysOfWeek, id: \.self) { day in
                     Text(day.uppercased())
-                        .font(.system(size: 14, weight: .semibold))
+                        .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.semibold))
                         .foregroundStyle(
                             LinearGradient(gradient: Gradient(colors: [Color.week1, Color.week2]), startPoint: .top, endPoint: .bottom)
                         )
@@ -90,7 +90,7 @@ struct TaskCalendarView: View {
                     let presentDateString = calendarViewModel.presentFullDate()
                     
                     Text(calendarViewModel.dayString(from: currentDate))
-                        .font(.system(size: 16, weight: .medium))
+                        .font(AppFont.primary(size: AppFont.Size.headline, weight: AppFont.Weight.medium))
                         .foregroundStyle(
                             (selectedDate == currentDateString && presentDateString == currentDateString) ? Color.white : presentDateString == currentDateString ? Color.primaryButton1 : selectedDate == currentDateString ? Color.white : Color.black
                         )
@@ -138,7 +138,7 @@ struct TaskCalendarView: View {
                     
                 }label: {
                     Text("OK")
-                        .font(.system(size: 12, weight: .semibold))
+                        .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
                         .foregroundStyle(Color.white)
                         .frame(width: 58, height: 33)
                         .background(
@@ -156,8 +156,8 @@ struct TaskCalendarView: View {
 //            HStack(spacing: 40) {
 //                VStack{
 //                    Text("Start Time")
-//                        .font(.custom("Montserrat", size: 14))
-//                        .fontWeight(.bold)
+//                        .font(AppFont.primary(size: AppFont.Size.body))
+//                        .fontWeight(AppFont.Weight.bold)
 //                        .foregroundStyle(Color.subText)
 //                    RoundedRectangle(cornerRadius: 6)
 //                        .fill(Color.scheduleBG)
@@ -165,8 +165,8 @@ struct TaskCalendarView: View {
 //                        .overlay {
 //                            HStack{
 //                                Text("10:00AM")
-//                                    .font(.custom("Montserrat", size: 12))
-//                                    .fontWeight(.bold)
+//                                    .font(AppFont.primary(size: AppFont.Size.caption))
+//                                    .fontWeight(AppFont.Weight.bold)
 //                                    .foregroundStyle(Color.subText)
 //                                
 //                                Circle()
@@ -184,8 +184,8 @@ struct TaskCalendarView: View {
 //                }
 //                VStack{
 //                    Text("Stop Time")
-//                        .font(.custom("Montserrat", size: 14))
-//                        .fontWeight(.bold)
+//                        .font(AppFont.primary(size: AppFont.Size.body))
+//                        .fontWeight(AppFont.Weight.bold)
 //                        .foregroundStyle(Color.subText)
 //                    RoundedRectangle(cornerRadius: 6)
 //                        .fill(Color.scheduleBG)
@@ -193,8 +193,8 @@ struct TaskCalendarView: View {
 //                        .overlay {
 //                            HStack{
 //                                Text("10:00PM")
-//                                    .font(.custom("Montserrat", size: 12))
-//                                    .fontWeight(.bold)
+//                                    .font(AppFont.primary(size: AppFont.Size.caption))
+//                                    .fontWeight(AppFont.Weight.bold)
 //                                    .foregroundStyle(Color.subText)
 //                                
 //                                Circle()

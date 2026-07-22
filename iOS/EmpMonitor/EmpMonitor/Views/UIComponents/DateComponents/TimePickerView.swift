@@ -22,16 +22,16 @@ struct TimePickerView: View {
                     Spacer()
                     HStack(spacing: 0) {
                         Text("\(dateViewModel.hour):")
-                            .font(.custom("Montserrat", size: 15))
-                            .fontWeight(dateViewModel.changeToMin ? .light : .bold)
+                            .font(AppFont.primary(size: AppFont.Size.subheadline))
+                            .fontWeight(dateViewModel.changeToMin ? AppFont.Weight.light : AppFont.Weight.bold)
                             .onTapGesture {
                                 dateViewModel.angle = Double(dateViewModel.hour * 30)
                                 dateViewModel.changeToMin = false
                             }
 
                         Text("\(dateViewModel.minutes < 10 ? "0" : "")\(dateViewModel.minutes)")
-                            .font(.custom("Montserrat", size: 15))
-                            .fontWeight(dateViewModel.changeToMin ? .bold : .light)
+                            .font(AppFont.primary(size: AppFont.Size.subheadline))
+                            .fontWeight(dateViewModel.changeToMin ? AppFont.Weight.bold : AppFont.Weight.light)
                             .onTapGesture {
                                 dateViewModel.angle = Double(dateViewModel.minutes * 6)
                                 dateViewModel.changeToMin = true
@@ -40,15 +40,15 @@ struct TimePickerView: View {
 
                     VStack(spacing: 8) {
                         Text("AM")
-                            .font(.custom("Montserrat", size: 12))
-                            .fontWeight(dateViewModel.symbol == "AM" ? .bold : .light)
+                            .font(AppFont.primary(size: AppFont.Size.caption))
+                            .fontWeight(dateViewModel.symbol == "AM" ? AppFont.Weight.bold : AppFont.Weight.light)
                             .onTapGesture {
                                 dateViewModel.symbol = "AM"
                             }
 
                         Text("PM")
-                            .font(.custom("Montserrat", size: 12))
-                            .fontWeight(dateViewModel.symbol == "PM" ? .bold : .light)
+                            .font(AppFont.primary(size: AppFont.Size.caption))
+                            .fontWeight(dateViewModel.symbol == "PM" ? AppFont.Weight.bold : AppFont.Weight.light)
                             .onTapGesture {
                                 dateViewModel.symbol = "PM"
                             }
@@ -74,8 +74,8 @@ struct TimePickerView: View {
                         ForEach(1...12, id: \.self) { index in
                             VStack {
                                 Text("\(dateViewModel.changeToMin ? index * 5 : index)")
-                                    .font(.custom("Montserrat", size: 12))
-                                    .fontWeight(.semibold)
+                                    .font(AppFont.primary(size: AppFont.Size.caption))
+                                    .fontWeight(AppFont.Weight.semibold)
                                     .foregroundStyle(Color.white)
                                     .rotationEffect(.init(degrees: Double(-index) * 30))
                             }
@@ -117,8 +117,8 @@ struct TimePickerView: View {
                         
                     } label: {
                         Text("Save")
-                            .font(.custom("Montserrat", size: 15))
-                            .fontWeight(.bold)
+                            .font(AppFont.primary(size: AppFont.Size.subheadline))
+                            .fontWeight(AppFont.Weight.bold)
                     }
                 }
                 .padding()

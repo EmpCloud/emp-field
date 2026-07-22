@@ -14,12 +14,12 @@ struct AddTaskTextField: View {
     var body: some View {
         ZStack {
             TextField(placeholder, text: $text)
-                .padding(.horizontal)
-                .frame(height: 46)
+                .padding(.horizontal, AppSpacing.md)
+                .frame(minHeight: AppLayout.textFieldHeight)
                 .frame(maxWidth: .infinity)
                 .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
-                .font(.system(size: 14, weight: .medium))
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
+                .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.medium))
                 .accessibilityLabel(placeholder)
                 .accessibilityHint("Enter \(placeholder.lowercased())")
         }

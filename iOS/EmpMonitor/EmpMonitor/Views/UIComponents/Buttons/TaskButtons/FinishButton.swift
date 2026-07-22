@@ -15,11 +15,13 @@ struct FinishButton: View {
         Button(action: action) {
             Circle()
                 .fill(Color.present.opacity(0.2))
-                .frame(width: 23, height: 23)
+                .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
                 .overlay {
                     Image(.completeGreenCheckIcon)
                 }
         }
+        .buttonStyle(.plain)
+        .accessibilityLabel("Finish task")
         
     }
 }

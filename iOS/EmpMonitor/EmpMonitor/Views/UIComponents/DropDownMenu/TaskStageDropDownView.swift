@@ -21,91 +21,88 @@ struct TaskStageDropDownView: View {
     @Binding var selectedStageTitle: String?
     
     var body: some View {
-        
-        ZStack {
-            VStack(spacing: 5) {
-                Spacer()
-                RoundedRectangle(cornerRadius: 6)
-                    .fill(Color.rectangleBG)
-                    .frame(height: 43)
-                    .overlay {
-                        HStack {
-                            Text(selectedStageTitle ?? "Select task stage")
-                                .font(.custom("Montserrat", size: 10))
-                                .foregroundStyle(Color.addressText2)
-                            
-                            Spacer()
-                            
-                            Image(systemName: "chevron.down")
-                                .resizable()
-                                .aspectRatio(contentMode: .fit)
-                                .frame(width: 10.17, height: 5.75)
-                                .foregroundStyle(Color.addressText2)
-                        }
-                        .padding(.horizontal)
-                    }
-    //        .frame(maxWidth: .infinity, maxHeight: .infinity , alignment: .top)
-                    .onTapGesture {
-                        withAnimation {
-                            showTaskStage.toggle()
-                        }
-                    }
-                    .padding(.bottom, 460)
-            }
-            
-            ZStack{
-                if showTaskStage {
-                    OptionView()
-                        .padding(.top, 60)
+        VStack(spacing: AppSpacing.stackSpacingSmall) {
+            Button {
+                withAnimation {
+                    showTaskStage.toggle()
                 }
+            } label: {
+                HStack(spacing: AppSpacing.iconTextSpacing) {
+                    Text(selectedStageTitle ?? "Select Task Stage")
+                        .font(AppFont.primary(size: AppFont.Size.caption))
+                        .foregroundStyle(Color.addressText2)
+                        .lineLimit(1)
+                        .truncationMode(.tail)
 
+                    Spacer()
+
+                    Image(systemName: "chevron.down")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 10.17, height: 5.75)
+                        .foregroundStyle(Color.addressText2)
+                        .rotationEffect(.degrees(showTaskStage ? 180 : 0))
+                }
+                .padding(.horizontal, AppSpacing.md)
+                .frame(maxWidth: .infinity)
+                .frame(minHeight: AppLayout.buttonHeight)
+                .background(Color.rectangleBG)
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
             }
+            .buttonStyle(.plain)
 
+            if showTaskStage {
+                OptionView()
+                    .transition(.opacity.combined(with: .move(edge: .top)))
+                    .zIndex(1)
+            }
         }
-//        .padding(.top, -45)
-        
-        
+        .zIndex(showTaskStage ? 1 : 0)
     }
     
     func OptionView() -> some View {
-        RoundedRectangle(cornerRadius: 6)
+        RoundedRectangle(cornerRadius: AppRadius.small)
             .fill(Color.rectangleBG)
             .frame(height: 225)
             .overlay {
                 ScrollView {
-                    VStack(spacing: 15) {
+                    VStack(spacing: AppSpacing.stackSpacingMedium) {
                         ForEach(options, id: \.id) { option in
-                            HStack {
-                                Circle()
-                                    .fill(Color.notification.opacity(0.3))
-                                    .frame(width: 10, height: 10)
-                                    .overlay {
-                                        Circle()
-                                            .fill(Color.notification)
-                                            .frame(width: 6, height: 6)
-                                    }
-                                Text(option.tagName)
-                                    .font(.custom("Montserrat", size: 10))
-                                    .foregroundStyle(Color.addressText2)
-                                    .frame(maxWidth: .infinity, alignment: .leading)
-                                    .padding(.vertical, 4)
-                                    .onTapGesture {
-                                        withAnimation {
-                                            selectedStage = option
-                                            showTaskStage.toggle()
-                                            selectedStageTitle = selectedStage?.tagName
+                            Button {
+                                withAnimation {
+                                    selectedStage = option
+                                    showTaskStage.toggle()
+                                    selectedStageTitle = selectedStage?.tagName
+                                }
+                            } label: {
+                                HStack(spacing: AppSpacing.iconTextSpacing) {
+                                    Circle()
+                                        .fill(Color.notification.opacity(0.3))
+                                        .frame(width: 10, height: 10)
+                                        .overlay {
+                                            Circle()
+                                                .fill(Color.notification)
+                                                .frame(width: 6, height: 6)
                                         }
-                                    }
+
+                                    Text(option.tagName)
+                                        .font(AppFont.primary(size: AppFont.Size.caption))
+                                        .foregroundStyle(Color.addressText2)
+                                        .frame(maxWidth: .infinity, alignment: .leading)
+                                        .lineLimit(1)
+                                        .truncationMode(.tail)
+                                }
+                                .padding(.vertical, AppSpacing.xs)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                             }
-                            
+                            .buttonStyle(.plain)
                         }
                     }
                     .frame(maxWidth: .infinity, maxHeight: .infinity ,alignment: .topLeading)
-                    .padding()
+                    .padding(AppSpacing.md)
                 }
                 .scrollDisabled(options.count <= 6)
                 .scrollIndicators(.hidden)
-                
             }
     }
 }

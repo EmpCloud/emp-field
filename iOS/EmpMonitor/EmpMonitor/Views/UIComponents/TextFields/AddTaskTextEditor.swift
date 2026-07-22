@@ -18,7 +18,7 @@ struct AddTaskTextEditor: View {
     var body: some View {
         VStack(alignment: .leading) {
             TextEditor(text: $descriptionText)
-                .font(.custom("Montserrat", size: 12))
+                .font(AppFont.primary(size: AppFont.Size.caption))
                 .foregroundStyle(Color.addressText2)
                 .scrollContentBackground(.hidden)
                 .padding(.trailing, 60)
@@ -31,29 +31,33 @@ struct AddTaskTextEditor: View {
                     HStack {
                         if descriptionText.isEmpty {
                             Text("Reason of meeting")
-                                .font(.custom("Montserrat", size: 12))
+                                .font(AppFont.primary(size: AppFont.Size.caption))
                                 .foregroundStyle(Color.addressText2)
                                 .padding(10)
+                                .allowsHitTesting(false)
                         }
                         Spacer()
                         
-                        Circle()
-                            .fill(
-                                .shadow(.inner(color: Color.blueInnerShadow, radius: 7))
-                            )
-                            .foregroundStyle(.white)
-                            .frame(width: 38.54, height: 38.54)
-                            .overlay {
-                                Image(.docIcon)
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fit)
-                                    .frame(width: 16.83, height: 16.5)
-                            }
-                            .padding(.horizontal)
-                            .offset(y: 5)
-                            .onTapGesture {
-                                isDocumentPickerPresented.toggle()
-                            }
+                        Button {
+                            isDocumentPickerPresented.toggle()
+                        } label: {
+                            Circle()
+                                .fill(
+                                    .shadow(.inner(color: Color.blueInnerShadow, radius: 7))
+                                )
+                                .foregroundStyle(.white)
+                                .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+                                .overlay {
+                                    Image(.docIcon)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: AppLayout.iconExtraSmall, height: AppLayout.iconExtraSmall)
+                                }
+                                .padding(.horizontal, AppSpacing.sm)
+                                .padding(.top, AppSpacing.xs)
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Add PDF")
                         
                     }
                 }
@@ -62,34 +66,39 @@ struct AddTaskTextEditor: View {
             if selectedPDF.count > 0 {
                 HStack {
                     Text("Warning:")
-                        .font(.custom("Montserrat", size: 10))
-                        .fontWeight(.semibold)
+                        .font(AppFont.primary(size: AppFont.Size.xSmall))
+                        .fontWeight(AppFont.Weight.semibold)
                     Text("You can only add upto 2 pdf (PDF =  \(selectedPDF.count))")
-                        .font(.custom("Montserrat", size: 8))
-                        .fontWeight(.medium)
+                        .font(AppFont.primary(size: AppFont.Size.nano))
+                        .fontWeight(AppFont.Weight.medium)
                 }
                 .foregroundStyle(Color.absent)
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
             }
-            HStack {
+            VStack(alignment: .leading, spacing: AppSpacing.stackSpacingSmall) {
                 //Selected PDF
                 ForEach(selectedPDF.indices, id: \.self) { index in
-//                    if let selectedPDF = selectedPDF {
-                    Text("Selected PDF: \(selectedPDF[index].lastPathComponent)")
-                            .font(.custom("Montserrat", size: 12))
+	//                    if let selectedPDF = selectedPDF {
+                    HStack(spacing: AppSpacing.sm) {
+                        Text("Selected PDF: \(selectedPDF[index].lastPathComponent)")
+                            .font(AppFont.primary(size: AppFont.Size.caption))
                             .foregroundStyle(Color.addressText2)
-                            .padding(10)
-                        
+                            .lineLimit(2)
+
                         Button(action: {
                             self.selectedPDF.remove(at: index)
                         }) {
                             Image(systemName: "xmark.circle.fill")
                                 .foregroundColor(.red)
-                                .padding(.trailing)
+                                .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
                         }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Remove selected PDF")
+                    }
+                    .padding(.horizontal, AppSpacing.sm)
 
-//                    }
+	//                    }
                 }
                 
             }

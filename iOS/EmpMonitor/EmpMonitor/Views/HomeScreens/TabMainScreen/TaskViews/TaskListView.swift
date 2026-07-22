@@ -42,7 +42,7 @@ struct TaskListView: View {
     
     var body: some View {
         ScrollView {
-            VStack {
+            LazyVStack {
                 if let filterTaskData = filterTaskData {
                     ForEach(filterTaskData, id: \.id) { filterTaskDetail in
                         
@@ -64,7 +64,7 @@ struct TaskListView: View {
                                                 Image(.deleteWhiteIcon)
                                                     .accessibilityLabel("Delete")
                                                 Text("Delete Task")
-                                                    .font(.system(size: 12, weight: .semibold))
+                                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
                                                     .foregroundStyle(Color.white)
                                             }
                                             .padding(.trailing, 50)
@@ -97,7 +97,7 @@ struct TaskListView: View {
                                                     }
 
                                                 Text("Finish Task")
-                                                    .font(.system(size: 12, weight: .semibold))
+                                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
                                                     .foregroundStyle(Color.white)
                                             }
                                             .padding(.leading, 50)

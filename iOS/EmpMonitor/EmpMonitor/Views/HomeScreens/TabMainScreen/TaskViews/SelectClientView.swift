@@ -82,8 +82,8 @@ struct SelectClientView: View {
                 }
                 ToolbarItem(placement: .principal) {
                     Text("Select Client")
-                        .font(.custom("Montserrat", size: 20))
-                        .fontWeight(.semibold)
+                        .font(AppFont.primary(size: AppFont.Size.navigationTitle))
+                        .fontWeight(AppFont.Weight.semibold)
                         .foregroundStyle(Color.white)
                 }
             }
