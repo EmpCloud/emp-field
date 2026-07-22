@@ -22,12 +22,22 @@ struct NotificationBody: Codable {
 // MARK: - DataClass
 struct NotificationData: Codable {
     let previousTasks: [PreviousTask]
-    let rescheduledTasks: [JSONAny]
+    let rescheduledTasks: [PreviousTask]
+
+    enum CodingKeys: String, CodingKey {
+        case previousTasks, rescheduledTasks
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        previousTasks = (try? container.decode([PreviousTask].self, forKey: .previousTasks)) ?? []
+        rescheduledTasks = (try? container.decode([PreviousTask].self, forKey: .rescheduledTasks)) ?? []
+    }
 }
 
 // MARK: - PreviousTask
 struct PreviousTask: Codable {
-    let value: Value
+    let value: Value?
     let id, clientID, orgID, taskName: String
     let empID, date, startTime, endTime: String
     let taskDescription: String
@@ -38,8 +48,13 @@ struct PreviousTask: Codable {
     let files: [DocFile]
     let images: [SelectedImage]
     let taskVolume: Int?
+    let recurrenceID: String?
+    let recurrenceDetails: NotificationRecurrenceDetails?
     let createdAt, updatedAt: String
     let v: Int
+    let clientName, address1, address2, city: String?
+    let longitude, latitude: String?
+    let currentTagDetails: CurrentTagDetails?
 
     enum CodingKeys: String, CodingKey {
         case value
@@ -51,9 +66,24 @@ struct PreviousTask: Codable {
         case date
         case startTime = "start_time"
         case endTime = "end_time"
-        case taskDescription, taskApproveStatus, empStartTime, empEndTime, tagLogs, files, images, taskVolume, createdAt, updatedAt
+        case taskDescription, taskApproveStatus, empStartTime, empEndTime, tagLogs, files, images, taskVolume, recurrenceDetails, createdAt, updatedAt
         case tagID = "tagId"
+        case recurrenceID = "recurrenceId"
         case v = "__v"
+        case clientName, address1, address2, city, longitude, latitude, currentTagDetails
+    }
+}
+
+struct NotificationRecurrenceDetails: Codable {
+    let taskCycle: Int?
+    let startDate, endDate: String?
+    let daysOfWeek: [String]?
+    let id: String?
+
+    enum CodingKeys: String, CodingKey {
+        case taskCycle = "TaskCycle"
+        case startDate, endDate, daysOfWeek
+        case id = "_id"
     }
 }
 

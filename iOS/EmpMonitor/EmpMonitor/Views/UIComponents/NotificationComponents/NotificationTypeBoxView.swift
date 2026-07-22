@@ -15,8 +15,8 @@ struct NotificationTypeBoxView: View {
     var body: some View {
         HStack {
             Text(text)
-                .font(.custom("Montserrat", size: 8))
-                .fontWeight(.semibold)
+                .font(AppFont.primary(size: AppFont.Size.nano))
+                .fontWeight(AppFont.Weight.semibold)
                 .foregroundStyle(Color.white)
         }
         .frame(width: 94, height: 23)
