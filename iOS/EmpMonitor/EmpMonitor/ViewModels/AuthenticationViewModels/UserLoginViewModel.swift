@@ -82,6 +82,7 @@ extension UserLoginViewModel {
             // Save session securely in Keychain via AuthStore
             AuthStore.shared.saveAccessToken(accessToken)
             AuthStore.shared.saveLoggedInUser(userLoginData)
+            UserDefaults.standard.set(true, forKey: "hasAcceptedTerms")
             AppState.shared.updateLoginState()
 
             // to store userProfile Data

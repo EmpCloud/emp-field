@@ -264,6 +264,9 @@ final class AppState: ObservableObject {
     /// Guarded so overlapping API failures only trigger a single alert/logout.
     func handleSessionExpired(message: String?) {
         guard sessionExpiredMessage == nil else { return }
+        // Session expiry should only reset auth/session data. The user has already
+        // passed the initial setup, so keep root routing on LoginView.
+        UserDefaults.standard.set(true, forKey: "hasAcceptedTerms")
         AuthStore.shared.clearSession()
         self.isLoggedIn = false
         self.sessionExpiredMessage = message?.isEmpty == false
