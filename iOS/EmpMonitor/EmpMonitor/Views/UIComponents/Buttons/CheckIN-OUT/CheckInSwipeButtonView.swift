@@ -22,11 +22,8 @@ struct CheckInSwipeButtonView: View {
     //to check weather the user in Check-IN or not
     @State var isCheckIn: Bool = false
     
-    //To animate the thumb size when the user starts dragging (Swipping)
-    @State private var thumbSize: CGSize = CGSize.inactiveThumbSize
-    
-    //to keep track of the dragging value. (Initially its Zero)
-    @State private var dragOffset: CGSize = .zero
+    // Tracks right drag from the resting left-side position.
+    @State private var dragOffsetX: CGFloat = 0
     
     //to keep track when enough is dragged to be considered as checkIN
     @State private var isEnoughSwipped: Bool = false
@@ -36,6 +33,18 @@ struct CheckInSwipeButtonView: View {
     
     //the track does not change size
     let trackSize = CGSize.trackSize
+
+    private var thumbRestingX: CGFloat {
+        -(trackSize.width - AppLayout.swipeThumbVisualSize) / 2
+    }
+
+    private var maxDragDistance: CGFloat {
+        trackSize.width - AppLayout.swipeThumbVisualSize
+    }
+
+    private var successThreshold: CGFloat {
+        maxDragDistance * 0.65
+    }
     
     init() {
         
@@ -69,58 +78,39 @@ struct CheckInSwipeButtonView: View {
                     .foregroundStyle(Color.white)
                 
             }
-            .offset(x: getDragOffSetX(), y: 0)
+            .offset(x: thumbRestingX + dragOffsetX, y: 0)
             .contentShape(Circle())
-            .gesture(
-                DragGesture()
-                    .onChanged { value in
-                        withAnimation {
-                            self.handleDragChanged(value)
-                        }
-                    }
-                    .onEnded { _ in
-                        self.handleDragEnded()
-                    }
-            )
         }
+        .frame(width: trackSize.width, height: trackSize.height)
+        .contentShape(Capsule())
+        .highPriorityGesture(
+            DragGesture(minimumDistance: 8)
+                .onChanged { value in
+                    self.handleDragChanged(value)
+                }
+                .onEnded { _ in
+                    self.handleDragEnded()
+                }
+        )
         .accessibilityLabel("Swipe to check in")
         .accessibilityHint("Drag the handle to the right to check in")
     }
     
     //MARK: Helper Function
     
-    private func getDragOffSetX() -> CGFloat {
-        //should not be able to drag outside of the track area
-        let clampedDragOffSetX = dragOffset.width.clamp(lower: 0, trackSize.width - thumbSize.width )
-        
-        return -(trackSize.width/2 - thumbSize.width - (clampedDragOffSetX) + 20)
-    }
-    
     //MARK: Gesture Handlers
     private func handleDragChanged(_ value: DragGesture.Value) -> Void {
-        self.dragOffset = value.translation
-        
-        let dragWidth = value.translation.width
-        let targetDragWidth = self.trackSize.width - (self.thumbSize.width*2)
-        
-//        let wasInitiated = dragWidth > 2
-        let didReachTarget = dragWidth > targetDragWidth
-        
-//        self.thumbSize = wasInitiated ? CGSize.activeThumbSize : CGSize.inactiveThumbSize
-        
-        if didReachTarget {
-            //to change the UI for CheckOut
-            self.isEnoughSwipped = true
-        }else{
-            //reset
-            self.isEnoughSwipped = false
-        }
+        let nextOffset = value.translation.width.clamp(lower: 0, maxDragDistance)
+        dragOffsetX = nextOffset
+        isEnoughSwipped = nextOffset >= successThreshold
     }
     
     private func handleDragEnded() -> Void {
         //if enough was swipped => Completely swipped
         if self.isEnoughSwipped {
-            self.dragOffset = CGSize(width: self.trackSize.width - self.thumbSize.width, height: 0)
+            withAnimation(.spring()) {
+                self.dragOffsetX = maxDragDistance
+            }
 //            isCheckIn = true
             
             //checked In
@@ -130,12 +120,14 @@ struct CheckInSwipeButtonView: View {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     self.actionSuccess!()
 //                    isCheckIn = true
-                    dragOffset = .zero // after checkIN the arrow should come to initial position
+                    dragOffsetX = 0 // after checkIN the arrow should come to initial position
                 }
             }
         }
         else {
-            self.dragOffset = .zero
+            withAnimation(.spring()) {
+                self.dragOffsetX = 0
+            }
         }
     }
 }

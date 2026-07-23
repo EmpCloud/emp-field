@@ -62,17 +62,25 @@ final class HelperFunction: Sendable {
 
     
     func formatCheckTime(from checkTime: String) -> String? {
+        guard let date = checkDate(from: checkTime) else { return nil }
+
+        let outputDateFormatter = DateFormatter()
+        outputDateFormatter.dateFormat = "hh:mm"
+        return outputDateFormatter.string(from: date)
+    }
+
+    func formatCheckMeridiem(from checkTime: String) -> String {
+        guard let date = checkDate(from: checkTime) else { return "" }
+
+        let outputDateFormatter = DateFormatter()
+        outputDateFormatter.dateFormat = "a"
+        return outputDateFormatter.string(from: date)
+    }
+
+    private func checkDate(from checkTime: String) -> Date? {
         let inputDateFormatter = DateFormatter()
         inputDateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let outputDateFormatter = DateFormatter()
-        outputDateFormatter.dateFormat = "HH:mm"
-        
-        if let date = inputDateFormatter.date(from: checkTime) {
-            return outputDateFormatter.string(from: date)
-        }else{
-            return nil // return nil if the input date string is not valid or not present
-        }
+        return inputDateFormatter.date(from: checkTime)
     }
     //to get today's date
     func todaysDateInYMD() -> String {

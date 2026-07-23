@@ -258,7 +258,7 @@ struct HomeView: View {
                                                         Text(HelperFunction.shared.formatCheckTime(from: homeScreenViewModel.checkINTime) ?? "--:--")
                                                             .font(AppFont.primary(size: AppFont.Size.title2, weight: AppFont.Weight.regular))
                                                             .fontWeight(AppFont.Weight.medium)
-                                                        Text("AM")
+                                                        Text(HelperFunction.shared.formatCheckMeridiem(from: homeScreenViewModel.checkINTime))
                                                             .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                                                             .fontWeight(AppFont.Weight.medium)
                                                         
@@ -269,7 +269,7 @@ struct HomeView: View {
                                                         Text(HelperFunction.shared.formatCheckTime(from: homeScreenViewModel.checkOUTTime) ?? "--:--")
                                                             .font(AppFont.primary(size: AppFont.Size.title2, weight: AppFont.Weight.regular))
                                                             .fontWeight(AppFont.Weight.medium)
-                                                        Text("PM")
+                                                        Text(HelperFunction.shared.formatCheckMeridiem(from: homeScreenViewModel.checkOUTTime))
                                                             .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                                                             .fontWeight(AppFont.Weight.medium)
                                                     }

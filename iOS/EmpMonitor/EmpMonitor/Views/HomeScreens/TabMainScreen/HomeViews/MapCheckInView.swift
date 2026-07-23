@@ -147,7 +147,7 @@ struct MapCheckInView: View {
                                     HStack(alignment: .bottom){
                                         Text(HelperFunction.shared.formatCheckTime(from: homeScreenViewModel.checkINTime) ?? "--:--")
                                             .font(AppFont.primary(size: AppFont.Size.title))
-	                                        Text("AM")
+	                                        Text(HelperFunction.shared.formatCheckMeridiem(from: homeScreenViewModel.checkINTime))
                                             .font(AppFont.primary(size: AppFont.Size.caption))
                                             .padding(.leading, -5)
                                             .padding(.bottom, 3)
@@ -178,7 +178,7 @@ struct MapCheckInView: View {
                                     HStack(alignment: .bottom){
                                         Text(HelperFunction.shared.formatCheckTime(from: homeScreenViewModel.checkOUTTime) ?? "--:--")
                                             .font(AppFont.primary(size: AppFont.Size.title))
-	                                        Text("AM")
+	                                        Text(HelperFunction.shared.formatCheckMeridiem(from: homeScreenViewModel.checkOUTTime))
                                             .font(AppFont.primary(size: AppFont.Size.caption))
                                             .padding(.leading, -5)
                                             .padding(.bottom, 3)
