@@ -75,6 +75,8 @@ class UploadFilesViewModel: ObservableObject {
     func uploadProfileImages() async {
         isLoading = true
         defer { isLoading = false }
+        fetchProfileURL = ""
+        error = nil
         
         let accessToken = AuthStore.shared.getAccessToken()
         
@@ -103,6 +105,8 @@ class UploadFilesViewModel: ObservableObject {
     func uploadUserProfileImages() async {
         isLoading = true
         defer { isLoading = false }
+        fetchProfileURL = ""
+        error = nil
         
         let accessToken = AuthStore.shared.getAccessToken()
         

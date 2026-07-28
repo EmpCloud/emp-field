@@ -203,42 +203,17 @@ class FileUploadService {
     }
     
     private func createMultipartBody(with files: [URL], boundary: String) throws -> Data {
-           var body = Data()
-           let boundaryPrefix = "--\(boundary)\r\n"
-           
-//        AppLog.debug("Files: \(files)")
-        
+        var body = Data()
+        let boundaryPrefix = "--\(boundary)\r\n"
+
         for fileURL in files {
-            if fileURL.startAccessingSecurityScopedResource() {
-                
-                defer { fileURL.stopAccessingSecurityScopedResource() }
-                
-                let fileName = fileURL.lastPathComponent
-                let mimeType = mimeType(for: fileURL)
-                
-                body.append(boundaryPrefix)
-                body.append("Content-Disposition: form-data; name=\"files\"; filename=\"\(fileName)\"\r\n")
-                body.append("Content-Type: \(mimeType)\r\n\r\n")
-                
-                do {
-                    let fileData = try Data(contentsOf: fileURL)
-                    body.append(fileData)
-                } catch {
-                    AppLog.debug("Failed to load file data from URL: \(fileURL). Error: \(error.localizedDescription)")
-                    throw error
-                }
-                
-                body.append("\r\n")
-            }else{
-                AppLog.debug("Could,t access security-scoped URL: \(fileURL)")
-            }
-            
+            try appendMultipartFile(fileURL, to: &body, boundaryPrefix: boundaryPrefix)
         }
-           
-           body.append("--\(boundary)--\r\n")
-           
-           return body
-       }
+
+        body.append("--\(boundary)--\r\n")
+
+        return body
+    }
     
     private func mimeType(for url: URL) -> String {
         let pathExtension = url.pathExtension.lowercased()
@@ -258,45 +233,55 @@ class FileUploadService {
          
     
     private func createMultipartBodyImage(with files: [URL], boundary: String) throws -> Data {
-           var body = Data()
-           let boundaryPrefix = "--\(boundary)\r\n"
-           
-//        AppLog.debug("Files: \(files)")
-        
+        var body = Data()
+        let boundaryPrefix = "--\(boundary)\r\n"
+
         for fileURL in files {
-            if fileURL.startAccessingSecurityScopedResource() {
-                defer { fileURL.stopAccessingSecurityScopedResource() }
+            try appendMultipartFile(fileURL, to: &body, boundaryPrefix: boundaryPrefix)
+        }
 
-                let fileName = fileURL.lastPathComponent
-                let mimeType = mimeType(for: fileURL)
+        body.append("--\(boundary)--\r\n")
 
-                body.append(boundaryPrefix)
-                body.append("Content-Disposition: form-data; name=\"files\"; filename=\"\(fileName)\"\r\n")
-                body.append("Content-Type: \(mimeType)\r\n\r\n")
+        return body
+    }
 
-                do {
-                    let fileData = try Data(contentsOf: fileURL)
-                    body.append(fileData)
-                } catch {
-                    AppLog.debug("Failed to load file data from URL: \(fileURL). Error: \(error.localizedDescription)")
-                    throw error
-                }
+    private func appendMultipartFile(_ fileURL: URL, to body: inout Data, boundaryPrefix: String) throws {
+        let fileName = fileURL.lastPathComponent.isEmpty ? "upload" : fileURL.lastPathComponent
+        let mimeType = mimeType(for: fileURL)
+        let fileData = try loadFileData(from: fileURL)
 
-                body.append("\r\n")
-            } else {
-                AppLog.debug("Could not access security-scoped URL: \(fileURL)")
-                throw NSError(domain: "FileUpload", code: -1, userInfo: [NSLocalizedDescriptionKey: "Cannot access file: \(fileURL)"])
+        body.append(boundaryPrefix)
+        body.append("Content-Disposition: form-data; name=\"files\"; filename=\"\(fileName)\"\r\n")
+        body.append("Content-Type: \(mimeType)\r\n\r\n")
+        body.append(fileData)
+        body.append("\r\n")
+    }
+
+    private func loadFileData(from fileURL: URL) throws -> Data {
+        let didStartSecurityScope = fileURL.startAccessingSecurityScopedResource()
+        defer {
+            if didStartSecurityScope {
+                fileURL.stopAccessingSecurityScopedResource()
             }
         }
-           
-           body.append("--\(boundary)--\r\n")
-           
-           return body
-       }
+
+        do {
+            return try Data(contentsOf: fileURL)
+        } catch {
+            AppLog.debug("Failed to load file data from URL: \(fileURL). Error: \(error.localizedDescription)")
+            throw NSError(
+                domain: "FileUpload",
+                code: -1,
+                userInfo: [
+                    NSLocalizedDescriptionKey: "Cannot access file: \(fileURL)",
+                    NSUnderlyingErrorKey: error
+                ]
+            )
+        }
+    }
     
 }
 
 private struct UploadStatusWrapper: Decodable {
     let statusCode: Int
 }
-

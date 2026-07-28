@@ -234,10 +234,10 @@ struct CreateProfileView: View {
             .onChange(of: savedImageURL) { oldSavedImageURL, newSavedImageURL in
                 Task {
                     if let imageURL = newSavedImageURL {
-                        uploadFileViewModel.selectedImageURLs.append(imageURL)
+                        uploadFileViewModel.selectedImageURLs = [imageURL]
                         await uploadFileViewModel.uploadUserProfileImages()
-                        
-                        if NetworkManager.shared.statusCode == 200 {
+
+                        if !uploadFileViewModel.fetchProfileURL.isEmpty {
                             createProfileViewModel.profilePic = uploadFileViewModel.fetchProfileURL
                             
                             // Using the uploaded image url to display the profile pic

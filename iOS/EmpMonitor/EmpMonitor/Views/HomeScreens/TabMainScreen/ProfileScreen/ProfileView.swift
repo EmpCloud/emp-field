@@ -257,17 +257,27 @@ struct ProfileView: View {
             .onChange(of: savedImageURL) { _, _ in
                 Task {
                     if let imageURL = savedImageURL {
-                        uploadFileViewModel.selectedImageURLs.append(imageURL)
+                        uploadFileViewModel.selectedImageURLs = [imageURL]
                         await uploadFileViewModel.uploadUserProfileImages()
-                        
-                        if NetworkManager.shared.statusCode == 200 {
-                            updateProfileViewModel.profilePic = uploadFileViewModel.fetchProfileURL
-                            
-                            //update the profile displaying currently
-                            profileImageLoader.profileImageURL = updateProfileViewModel.profilePic
-                            
-                            //Update the profile Image
+
+                        guard !uploadFileViewModel.fetchProfileURL.isEmpty else {
+                            updateErrorMessage = uploadFileViewModel.error?.localizedDescription
+                                ?? "Failed to upload profile picture. Please try again."
+                            showUpdateError = true
+                            return
+                        }
+
+                        updateProfileViewModel.profilePic = uploadFileViewModel.fetchProfileURL
+
+                        //update the profile displaying currently
+                        profileImageLoader.profileImageURL = updateProfileViewModel.profilePic
+
+                        //Update the profile Image
+                        do {
                             try await updateProfileViewModel.updateProfile()
+                        } catch {
+                            updateErrorMessage = error.localizedDescription
+                            showUpdateError = true
                         }
                         
                         AppLog.debug("Profile Pic updated: \(updateProfileViewModel.profilePic)")

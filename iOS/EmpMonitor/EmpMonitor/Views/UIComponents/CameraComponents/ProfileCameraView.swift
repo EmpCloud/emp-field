@@ -16,33 +16,26 @@ struct ProfileCameraView: View {
     @State private var isImagePickerPresented = false
     
     @State private var selectedGallaryImages: [UIImage] = []
+
+    private var previewImage: UIImage? {
+        selectedGallaryImages.last ?? profileCameraViewModel.capturedImage
+    }
+
+    private var isPreviewingImage: Bool {
+        previewImage != nil
+    }
     
     var body: some View {
         ZStack {
-            ProfileCameraPreview(profileCameraViewModel: profileCameraViewModel)
-//            Color.black
-                .ignoresSafeArea()
+            if let previewImage {
+                profileImagePreview(previewImage)
+            } else {
+                ProfileCameraPreview(profileCameraViewModel: profileCameraViewModel)
+    //            Color.black
+                    .ignoresSafeArea()
+            }
             
             VStack {
-                if profileCameraViewModel.isTaken, let image = profileCameraViewModel.capturedImage {
-                    Image(uiImage: image)  //last clicked image preview
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 200)
-                        .background(Color.black.opacity(0.7))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .padding()
-                }
-                else if let image = selectedGallaryImages.last {        // to preview the selected image from the gallary
-                    Image(uiImage: image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(height: 200)
-                        .background(Color.black.opacity(0.7))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .padding()
-                }
-                
                 Spacer()
                 
                 HStack {
@@ -69,6 +62,7 @@ struct ProfileCameraView: View {
                             
                             //Click Button
                             Button(action: {
+                                selectedGallaryImages.removeAll()
                                 profileCameraViewModel.takePicture()
                             }) {
                                 Circle()
@@ -94,11 +88,11 @@ struct ProfileCameraView: View {
                             })
                         }
                         .padding(.horizontal, 40)
-                        .padding(.bottom, profileCameraViewModel.isTaken || !selectedGallaryImages.isEmpty ? 0 : 40)
+                        .padding(.bottom, isPreviewingImage ? 0 : 40)
                 }
                 .padding(.bottom)
                 
-                if profileCameraViewModel.isTaken || !selectedGallaryImages.isEmpty /*true*/{
+                if isPreviewingImage {
                     Rectangle()
                         .fill(Color.white)
                         .frame(height: 100)
@@ -108,13 +102,9 @@ struct ProfileCameraView: View {
                                 PrimaryButton(text: "Done") {
                                     //TODO: Save the pic
                                     // Handle image saving or uploading here
-                                        if let image = profileCameraViewModel.capturedImage {
-                                            profileCameraViewModel.saveImage(image)
-                                            
-                                            
-                                        }else if let image = selectedGallaryImages.first{
-                                            profileCameraViewModel.saveImage(image)
-                                        }
+                                    if let image = previewImage {
+                                        profileCameraViewModel.saveImage(image)
+                                    }
                                     dismiss()
                                 }
                                 .padding(.horizontal, 40)
@@ -125,6 +115,12 @@ struct ProfileCameraView: View {
                 }
             }
             .ignoresSafeArea(.container)
+        }
+        .animation(.easeInOut(duration: 0.2), value: isPreviewingImage)
+        .onChange(of: selectedGallaryImages.count) { _, newCount in
+            guard newCount > 0 else { return }
+            profileCameraViewModel.capturedImage = nil
+            profileCameraViewModel.isTaken = false
         }
         .onAppear {
             profileCameraViewModel.checkPermissions()
@@ -156,14 +152,16 @@ struct ProfileCameraView: View {
                     }
             }
             ToolbarItem(placement: .topBarTrailing) {
-                Image(systemName: profileCameraViewModel.isFlashLightON ? "flashlight.off.fill" : "flashlight.slash")
-                    .foregroundStyle(Color.white)
-                    .padding(.horizontal)
-                    .onTapGesture {
-                        withAnimation {
-                            profileCameraViewModel.toggleFlashlight()
+                if !isPreviewingImage {
+                    Image(systemName: profileCameraViewModel.isFlashLightON ? "flashlight.off.fill" : "flashlight.slash")
+                        .foregroundStyle(Color.white)
+                        .padding(.horizontal)
+                        .onTapGesture {
+                            withAnimation {
+                                profileCameraViewModel.toggleFlashlight()
+                            }
                         }
-                    }
+                }
             }
             ToolbarItem(placement: .topBarTrailing) {
                 Circle()
@@ -187,11 +185,30 @@ struct ProfileCameraView: View {
 
     }
     
-//    func saveImage(_ image: UIImage) {
-//        // Implement your save or upload logic here
-//        AppLog.debug("Image saved or uploaded")
-////        AppLog.debug(i)
-//    }
+    private func profileImagePreview(_ image: UIImage) -> some View {
+        GeometryReader { proxy in
+            let availableSize = max(min(proxy.size.width - 48, proxy.size.height - 220), 120)
+            let previewSize = min(availableSize, 340)
+
+            ZStack {
+                Color.black.ignoresSafeArea()
+
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: previewSize, height: previewSize)
+                    .clipShape(Circle())
+                    .overlay {
+                        Circle()
+                            .stroke(Color.white.opacity(0.85), lineWidth: 2)
+                    }
+                    .shadow(color: Color.black.opacity(0.35), radius: 18, x: 0, y: 12)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    .padding(.bottom, 120)
+            }
+        }
+        .ignoresSafeArea()
+    }
 }
 
 #Preview {
