@@ -18,6 +18,10 @@ struct AddTaskTextField: View {
                 .frame(minHeight: AppLayout.textFieldHeight)
                 .frame(maxWidth: .infinity)
                 .background(Color.white)
+                .overlay {
+                    RoundedRectangle(cornerRadius: AppRadius.small)
+                        .stroke(Color.taskSearchBar.opacity(0.22), lineWidth: 1)
+                }
                 .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
                 .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.medium))
                 .accessibilityLabel(placeholder)

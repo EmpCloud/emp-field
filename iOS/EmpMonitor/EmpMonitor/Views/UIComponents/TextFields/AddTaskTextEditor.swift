@@ -23,14 +23,18 @@ struct AddTaskTextEditor: View {
                 .scrollContentBackground(.hidden)
                 .padding(.trailing, 60)
                 .background(Color.white)
-                .clipShape(RoundedRectangle(cornerRadius: 6))
+                .overlay {
+                    RoundedRectangle(cornerRadius: AppRadius.small)
+                        .stroke(Color.taskSearchBar.opacity(0.22), lineWidth: 1)
+                }
+                .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
                 .padding(.top, 2)
                 .frame(maxWidth: .infinity)
                 .frame(height: 81)
                 .overlay(alignment: .topLeading) {
                     HStack {
                         if descriptionText.isEmpty {
-                            Text("Reason of meeting")
+                            Text("Task description")
                                 .font(AppFont.primary(size: AppFont.Size.caption))
                                 .foregroundStyle(Color.addressText2)
                                 .padding(10)
@@ -39,6 +43,7 @@ struct AddTaskTextEditor: View {
                         Spacer()
                         
                         Button {
+                            UIApplication.shared.dismissKeyboard()
                             isDocumentPickerPresented.toggle()
                         } label: {
                             Circle()

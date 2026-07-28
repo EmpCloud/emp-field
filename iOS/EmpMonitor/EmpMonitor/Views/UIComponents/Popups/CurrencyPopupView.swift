@@ -12,7 +12,7 @@ struct CurrencyPopupView: View {
     @Binding var selectedCurrency: String
     @Binding var showCurrencyPopup: Bool
     
-    let availableCurrencies: [String] = {
+    static let availableCurrencies: [String] = {
         let locales = Locale.availableIdentifiers.map { Locale(identifier: $0)}
         let currencySet = Set(locales.compactMap { $0.currency?.identifier })
         return Array(currencySet).sorted()
@@ -27,8 +27,8 @@ struct CurrencyPopupView: View {
                 .overlay {
                     ScrollView {
                         VStack{
-                            ForEach(availableCurrencies, id: \.self){ currencyCode in
-                                Text("\(currencyName(currencyCode: currencyCode)) (\(currencyCode))")
+                            ForEach(Self.availableCurrencies, id: \.self){ currencyCode in
+                                Text("\(Self.currencyName(currencyCode: currencyCode)) (\(currencyCode))")
                                     .onTapGesture {
                                         selectedCurrency = currencyCode
                                         withAnimation {
@@ -48,7 +48,7 @@ struct CurrencyPopupView: View {
         }
     }
     
-    private func currencyName(currencyCode: String) -> String {
+    static func currencyName(currencyCode: String) -> String {
         let locale = Locale(identifier: Locale.identifier(fromComponents: [NSLocale.Key.currencyCode.rawValue: currencyCode]))
         return locale.localizedString(forCurrencyCode: currencyCode) ?? currencyCode
     }

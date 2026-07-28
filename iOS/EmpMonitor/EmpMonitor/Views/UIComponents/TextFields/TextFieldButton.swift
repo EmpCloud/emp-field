@@ -14,6 +14,10 @@ struct TextFieldButton: View {
         RoundedRectangle(cornerRadius: 6)
             .fill(Color.white)
             .frame(height: 46)
+            .overlay {
+                RoundedRectangle(cornerRadius: AppRadius.small)
+                    .stroke(Color.taskSearchBar.opacity(0.22), lineWidth: 1)
+            }
             .overlay(alignment: .leading) {
                 HStack{
                     Text(placeholder)

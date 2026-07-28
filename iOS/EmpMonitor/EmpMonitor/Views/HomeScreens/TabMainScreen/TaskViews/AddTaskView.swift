@@ -14,12 +14,7 @@ struct AddTaskView: View {
     @StateObject private var cameraViewModel = CameraViewModel()
     @StateObject private var createTaskViewModel = CreateTaskViewModel()
     @StateObject private var uploadFileViewModel = UploadFilesViewModel()
-    
-    @StateObject private var dateViewModel = DateViewModel()
-    
-    //Time Picker
-    @State private var showPicker: Bool = false
-    
+
     @State private var taskName: String = ""
     @State private var description: String = ""
     @State private var selectedCurrency: String = "INR"
@@ -34,6 +29,8 @@ struct AddTaskView: View {
     //For scheduling the task
     @State private var startTime: String = ""
     @State private var stopTime: String = ""
+    @State private var startDateTime: Date = Date()
+    @State private var stopDateTime: Date = Calendar.current.date(byAdding: .hour, value: 1, to: Date()) ?? Date()
     
     //For camera
     @State private var showCamera: Bool = false
@@ -43,15 +40,22 @@ struct AddTaskView: View {
     @State private var savedImages: [SavedImage] = []
     
     //
-    @State private var showCurrencyPopup: Bool = false
     @State private var showSelectClient: Bool = false
-    @State private var showScheduleCalendar: Bool = false
     
     @State private var selectedClientData: ClientListResponseData?
     
     //warning
     @State private var showWarningPopup: Bool = false
     @State private var showCameraPermissionAlert: Bool = false
+
+    private let currencyOptions = CurrencyPopupView.availableCurrencies
+
+    private var isAddTaskDisabled: Bool {
+        taskName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            || selectedClientData == nil
+            || description.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            || stopDateTime <= startDateTime
+    }
 
     var body: some View {
         
@@ -92,133 +96,29 @@ struct AddTaskView: View {
                                 
                                 TextFieldButton(placeholder: selectedClientData?.clientName ?? "Add Client", imageName: "chevron.right")
                                     .onTapGesture {
+                                        UIApplication.shared.dismissKeyboard()
                                         withAnimation {
                                             showSelectClient.toggle()
                                         }
                                     }
                                     
                                 
-                                Text("Schedule ")
+                                Text("Schedule")
                                     .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                                     .fontWeight(AppFont.Weight.semibold)
                                     .foregroundStyle(Color.subText)
-                                
-                                HStack {
-                                    //Start Time
-                                    HStack{
-                                        if startTime != "" {
-                                            Text("\(startTime)")
-                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
-                                                .fontWeight(AppFont.Weight.bold)
-                                                .foregroundStyle(Color.subText)
-                                        }else {
-                                            Text("Start Time")
-                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
-                                                .fontWeight(AppFont.Weight.bold)
-                                                .foregroundStyle(Color.subText)
-                                        }
-                                        
 
-                                        Circle()
-                                            .fill(Color.white)
-                                            .frame(width: 35.46, height: 35.46)
-                                            .overlay {
-                                                Image(systemName: "clock")
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fit)
-                                                    .frame(width: 17.71, height: 17.71)
-                                                    .foregroundStyle(Color.primaryButton1)
-                                            }
-                                    }
-                                    .padding(.horizontal, 25)
-                                    .padding(.vertical, 7)
-                                    .background(Color.white)
-                                    .clipShape(RoundedRectangle(cornerRadius: 6))
-                                    .onTapGesture {
-                                        dateViewModel.setStartTime = true
-                                        dateViewModel.setStopTime = false
-                                        dateViewModel.showPicker.toggle()
-                                    }
-                                    .onChange(of: startTime) { _, newStartTime in
-                                        createTaskViewModel.startTime = FormatterHelper.shared.getDateTimeJoined(with: newStartTime) ?? FormatterHelper.shared.getCurrentDateTimeFormatted()
-                                    }
-//                                    ScheduleStartTimeView(startTime: $startTime)
-//                                        .onTapGesture {
-//                                            //setting type of timer
-//                                            dateViewModel.setStartTime = true
-//                                            dateViewModel.setStopTime = false
-//                                            
-//                                            //setting time as previous selected Time..
-//                                            dateViewModel.setTime()
-//                                            withAnimation {
-//                                                dateViewModel.changeToMin = false
-//                                                dateViewModel.showPicker.toggle()
-//                                            }
-//                                        }
-                                    
-                                    Spacer()
-                                    
-                                    //Stop Time
-                                    HStack{
-                                        if stopTime != "" {
-                                            Text("\(stopTime)")
-                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
-                                                .fontWeight(AppFont.Weight.bold)
-                                                .foregroundStyle(Color.subText)
-                                        }else {
-                                            Text("End Time")
-                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
-                                                .fontWeight(AppFont.Weight.bold)
-                                                .foregroundStyle(Color.subText)
+                                HStack(spacing: AppSpacing.stackSpacingDefault) {
+                                    TaskTimePickerField(title: "Start", selection: $startDateTime)
+                                        .onChange(of: startDateTime) { _, _ in
+                                            normalizeScheduleAfterStartChange()
                                         }
-                                        
 
-                                        Circle()
-                                            .fill(Color.white)
-                                            .frame(width: 35.46, height: 35.46)
-                                            .overlay {
-                                                Image(systemName: "clock")
-                                                    .resizable()
-                                                    .aspectRatio(contentMode: .fit)
-                                                    .frame(width: 17.71, height: 17.71)
-                                                    .foregroundStyle(Color.primaryButton1)
-                                            }
-                                    }
-                                    .padding(.horizontal, 25)
-                                    .padding(.vertical, 7)
-                                    .background(Color.white)
-                                    .clipShape(RoundedRectangle(cornerRadius: 6))
-                                    .onTapGesture {
-                                        dateViewModel.setStopTime = true
-                                        dateViewModel.setStartTime = false
-                                        dateViewModel.showPicker = true
-                                    }
-                                    .onChange(of: stopTime) { _, newStopTime in
-                                        if stopTime < startTime {
-                                            showWarningPopup.toggle()
+                                    TaskTimePickerField(title: "End", selection: $stopDateTime)
+                                        .onChange(of: stopDateTime) { _, _ in
+                                            syncScheduleTimes()
                                         }
-                                        createTaskViewModel.endTime = FormatterHelper.shared.getDateTimeJoined(with: newStopTime) ?? FormatterHelper.shared.getCurrentDateTimeFormatted()
-                                    }
-//                                    ScheduleStopTimeView(stopTime: $stopTime)
-//                                        .onTapGesture {
-//                                            //setting type of timer
-//                                            dateViewModel.setStartTime = false
-//                                            dateViewModel.setStopTime = true
-//                                            
-//                                            //setting time as previous selected Time..
-//                                            dateViewModel.setTime()
-//                                            withAnimation {
-//                                                dateViewModel.changeToMin = false
-//                                                dateViewModel.showPicker.toggle()
-//                                            }
-//                                        }
-                                    
                                 }
-                                
-//                                TextFieldButton(placeholder: "00:00AM - 00:00AM ", imageName: "clock")
-//                                    .onTapGesture {
-//                                        showScheduleCalendar.toggle()
-//                                    }
                                 
                                 Text("Description")
                                     .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
@@ -268,39 +168,49 @@ struct AddTaskView: View {
                                 
                                 AddTaskTextField(text: $taskVolume, placeholder: "Task Volume")
                                     .keyboardType(.numberPad)
-//                                    .toolbarDoneButton()
+                                    .toolbarDoneButton()
                                 
                                 Text("Task Value")
                                     .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
                                     .fontWeight(AppFont.Weight.semibold)
                                     .foregroundStyle(Color.subText)
                                 
-	                                HStack(spacing: AppSpacing.stackSpacingDefault) {
-	                                    Button {
-	                                        showCurrencyPopup.toggle()
-	                                    } label: {
-	                                        HStack(spacing: AppSpacing.iconTextSpacing) {
-	                                            Text(selectedCurrency)
-	                                                .lineLimit(1)
-	                                                .minimumScaleFactor(0.85)
+                                HStack(spacing: AppSpacing.stackSpacingDefault) {
+                                    Menu {
+                                        ForEach(currencyOptions, id: \.self) { currencyCode in
+                                            Button {
+                                                selectedCurrency = currencyCode
+                                            } label: {
+                                                Text("\(CurrencyPopupView.currencyName(currencyCode: currencyCode)) (\(currencyCode))")
+                                            }
+                                        }
+                                    } label: {
+                                        HStack(spacing: AppSpacing.iconTextSpacing) {
+                                            Text(selectedCurrency)
+                                                .lineLimit(1)
+                                                .minimumScaleFactor(0.85)
 
-	                                            Image(systemName: "chevron.down")
-	                                                .font(AppFont.primary(size: AppFont.Size.closeIcon, weight: AppFont.Weight.semibold))
-	                                        }
-	                                        .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.regular))
-	                                        .foregroundStyle(Color.white)
-	                                        .frame(width: 110)
-	                                        .frame(minHeight: AppLayout.textFieldHeight)
-	                                        .background(Color.taskSearchBar)
-	                                        .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
-	                                    }
-	                                    .buttonStyle(.plain)
-	                                    .accessibilityLabel("Select currency")
+                                            Image(systemName: "chevron.up.chevron.down")
+                                                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
+                                        }
+                                        .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.medium))
+                                        .foregroundStyle(Color.headingText)
+                                        .frame(width: 112)
+                                        .frame(minHeight: AppLayout.textFieldHeight)
+                                        .background(Color.white)
+                                        .overlay {
+                                            RoundedRectangle(cornerRadius: AppRadius.small)
+                                                .stroke(Color.taskSearchBar.opacity(0.28), lineWidth: 1)
+                                        }
+                                        .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
+                                    }
+                                    .buttonStyle(.plain)
+                                    .accessibilityLabel("Select currency")
 
-	                                    AddTaskTextField(text: $taskValue, placeholder: "Enter Task Value")
-	                                        .keyboardType(.numberPad)
-	                                        .toolbarDoneButton()
-	                                }
+                                    AddTaskTextField(text: $taskValue, placeholder: "Enter Task Value")
+                                        .keyboardType(.numberPad)
+                                        .toolbarDoneButton()
+                                }
                                 
                             }
                             .frame(maxWidth: .infinity, alignment: .topLeading)
@@ -330,6 +240,8 @@ struct AddTaskView: View {
                                     .onTapGesture {
 //                                        withAnimation {
                                             Task {
+                                                UIApplication.shared.dismissKeyboard()
+
                                                 // to check camera permission here
                                                 cameraViewModel.checkPermissions()
                                                 
@@ -405,6 +317,9 @@ struct AddTaskView: View {
                             //MARK: Add task button
                             PrimaryButton(text: "Add Task") {
                                 Task {
+                                    UIApplication.shared.dismissKeyboard()
+                                    syncScheduleTimes()
+
                                     createTaskViewModel.taskName = taskName
                                     createTaskViewModel.clientID = selectedClientData?.id ?? ""
                                     createTaskViewModel.taskDescription = description
@@ -422,30 +337,13 @@ struct AddTaskView: View {
                                 }
                             }
                             .padding()
-                            .disableWithOpacity(taskName.isEmpty || selectedClientData == nil || description.isEmpty)
+                            .disableWithOpacity(isAddTaskDisabled)
                             
                         }
                     }
                     .padding(.top)
+                    .scrollDismissesKeyboard(.interactively)
                 }
-            
-            //MARK: Currency Popup
-            if showCurrencyPopup{
-                ModalOverlayView(dismissOnBackgroundTap: {
-                    showCurrencyPopup.toggle()
-                }) {
-                    CurrencyPopupView(selectedCurrency: $selectedCurrency, showCurrencyPopup: $showCurrencyPopup)
-                }
-            }
-            
-            //MARK: Calendar Popup
-            if showScheduleCalendar {
-                ModalOverlayView(dismissOnBackgroundTap: {
-                    showScheduleCalendar.toggle()
-                }) {
-                    TaskCalendarView(startDate: .constant(""), endDate: .constant(""), setStartDate: .constant(false), setEndDate: .constant(false), showCalendar: $showScheduleCalendar)
-                }
-            }
             
             //MARK: ImagePreview Popup
             if showImagePreview {
@@ -467,26 +365,9 @@ struct AddTaskView: View {
                 }
             }
             
-            if dateViewModel.showPicker {
-                ModalOverlayView(dismissOnBackgroundTap: {
-                    dateViewModel.showPicker.toggle()
-                }) {
-                    TimePickerView(dateViewModel: dateViewModel, startTime: $startTime, stopTime: $stopTime)
-                }
-            }
-            
-            
             //MARK: Warning
             if showWarningPopup {
-                if startTime == "" {
-                    ModalOverlayView(dismissOnBackgroundTap: {
-                        showWarningPopup.toggle()
-                    }) {
-                        WarningPopupView(titleText: "Try Again", description: "Enter start time first.", showWarningPopup: $showWarningPopup)
-                    }
-                }
-                
-                else if stopTime < startTime {
+                if stopDateTime <= startDateTime {
                     ModalOverlayView(dismissOnBackgroundTap: {
                         showWarningPopup.toggle()
                     }) {
@@ -529,6 +410,7 @@ struct AddTaskView: View {
             
             AppLog.debug("IMage URLs")
             AppLog.debug(savedImageURLs)
+            syncScheduleTimes()
         }
         .navigationDestination(isPresented: $showSelectClient) {
             SelectClientView(selectedClient: $selectedClientData)
@@ -555,6 +437,64 @@ struct AddTaskView: View {
                     .foregroundStyle(Color.white)
             }
         }
+    }
+
+    private static let taskTimeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
+
+    private static let taskDateTimeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }()
+
+    private func normalizeScheduleAfterStartChange() {
+        if stopDateTime <= startDateTime {
+            stopDateTime = Calendar.current.date(byAdding: .hour, value: 1, to: startDateTime)
+                ?? startDateTime.addingTimeInterval(3600)
+        }
+
+        syncScheduleTimes()
+    }
+
+    private func syncScheduleTimes() {
+        startTime = Self.taskTimeFormatter.string(from: startDateTime)
+        stopTime = Self.taskTimeFormatter.string(from: stopDateTime)
+        createTaskViewModel.startTime = Self.taskDateTimeFormatter.string(from: startDateTime)
+        createTaskViewModel.endTime = Self.taskDateTimeFormatter.string(from: stopDateTime)
+    }
+}
+
+private struct TaskTimePickerField: View {
+    let title: String
+    @Binding var selection: Date
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: AppSpacing.xs) {
+            Text(title)
+                .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.medium))
+                .foregroundStyle(Color.addressText2)
+
+            DatePicker(title, selection: $selection, displayedComponents: .hourAndMinute)
+                .labelsHidden()
+                .datePickerStyle(.compact)
+                .tint(Color.primaryButton1)
+                .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .padding(.horizontal, AppSpacing.md)
+        .padding(.vertical, AppSpacing.sm)
+        .frame(maxWidth: .infinity, minHeight: AppLayout.textFieldHeight, alignment: .leading)
+        .background(Color.white)
+        .overlay {
+            RoundedRectangle(cornerRadius: AppRadius.small)
+                .stroke(Color.taskSearchBar.opacity(0.28), lineWidth: 1)
+        }
+        .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
     }
 }
 
