@@ -36,10 +36,11 @@ class UpdateProfileViewModel: ObservableObject {
         defer { isLoading = false }
         
         let token = AuthStore.shared.getAccessToken()
+        let requestAge = try validatedAge()
         
         let body = UpdateProfileRequestModel(
             fullName: fullName,
-            age: age.isEmpty ? nil : age,
+            age: requestAge,
             gender: gender.isEmpty ? nil : gender,
             email: email,
             profilePic: profilePic.isEmpty ? nil : profilePic,
@@ -68,5 +69,17 @@ class UpdateProfileViewModel: ObservableObject {
             throw error
         }
     }
-}
 
+    private func validatedAge() throws -> String? {
+        let trimmedAge = age.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedAge.isEmpty else {
+            return nil
+        }
+
+        guard let ageValue = Int(trimmedAge), (1...100).contains(ageValue) else {
+            throw NetworkError.clientError(400, "Age must be a positive number between 1 and 100.")
+        }
+
+        return String(ageValue)
+    }
+}

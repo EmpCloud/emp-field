@@ -45,6 +45,23 @@ struct ProfileView: View {
     @State private var toastMessage: ToastMessage?
     
     @FocusState private var isKeyboardShowing: Bool
+
+    private var profileAgeValidationMessage: String? {
+        let trimmedAge = updateProfileViewModel.age.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmedAge.isEmpty else {
+            return nil
+        }
+
+        guard let ageValue = Int(trimmedAge), (1...100).contains(ageValue) else {
+            return "Age must be a positive number between 1 and 100."
+        }
+
+        return nil
+    }
+
+    private var isProfileSaveDisabled: Bool {
+        profileAgeValidationMessage != nil
+    }
     
     var body: some View {
 //        NavigationStack {
@@ -99,8 +116,8 @@ struct ProfileView: View {
                             Text("Select Age")
                                 .font(AppFont.primary(size: AppFont.Size.subheadline, weight: AppFont.Weight.semibold))
                                 .frame(maxWidth: .infinity, alignment: .leading)
-                            if Int(updateProfileViewModel.age) ?? 100 > 100 || Int(updateProfileViewModel.age) ?? 0 < 0 {
-                                Text("Age Should be between 0-100*")
+                            if let profileAgeValidationMessage {
+                                Text(profileAgeValidationMessage)
                                     .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.regular))
                                     .frame(maxWidth: .infinity, alignment: .leading)
                                     .foregroundStyle(Color.absent)
@@ -207,18 +224,17 @@ struct ProfileView: View {
                                 } catch let networkError as NetworkError {
                                     // Use the message carried in the error — avoids reading stale
                                     // NetworkManager.shared.responseMessage from a previous API call.
-                                    updateErrorMessage = networkError.errorDescription
-                                        ?? "Failed to update profile. Please try again."
+                                    updateErrorMessage = profileUpdateErrorMessage(networkError)
                                     showUpdateError = true
                                 } catch {
-                                    updateErrorMessage = "Failed to update profile. Please try again."
+                                    updateErrorMessage = profileUpdateErrorMessage(error)
                                     showUpdateError = true
                                 }
                             }
                         }
                         .padding(.bottom, AppSpacing.xxl)
                         .padding(.horizontal, AppSpacing.screenHorizontalPadding)
-                        .disableWithOpacity(Int(updateProfileViewModel.age) ?? 100 > 100 || Int(updateProfileViewModel.age) ?? 0 < 0)
+                        .disableWithOpacity(isProfileSaveDisabled)
 
                         
                     }
@@ -257,6 +273,12 @@ struct ProfileView: View {
             .onChange(of: savedImageURL) { _, _ in
                 Task {
                     if let imageURL = savedImageURL {
+                        if let profileAgeValidationMessage {
+                            updateErrorMessage = profileAgeValidationMessage
+                            showUpdateError = true
+                            return
+                        }
+
                         uploadFileViewModel.selectedImageURLs = [imageURL]
                         await uploadFileViewModel.uploadUserProfileImages()
 
@@ -267,16 +289,18 @@ struct ProfileView: View {
                             return
                         }
 
-                        updateProfileViewModel.profilePic = uploadFileViewModel.fetchProfileURL
-
-                        //update the profile displaying currently
-                        profileImageLoader.profileImageURL = updateProfileViewModel.profilePic
+                        let previousProfilePic = updateProfileViewModel.profilePic
+                        let uploadedProfilePic = uploadFileViewModel.fetchProfileURL
+                        updateProfileViewModel.profilePic = uploadedProfilePic
 
                         //Update the profile Image
                         do {
                             try await updateProfileViewModel.updateProfile()
+                            profileImageLoader.profileImageURL = uploadedProfilePic
+                            toastMessage = ToastMessage(style: .success, message: "Profile picture updated")
                         } catch {
-                            updateErrorMessage = error.localizedDescription
+                            updateProfileViewModel.profilePic = previousProfilePic
+                            updateErrorMessage = profileUpdateErrorMessage(error)
                             showUpdateError = true
                         }
                         
@@ -328,6 +352,14 @@ struct ProfileView: View {
                 
             }
     
+    private func profileUpdateErrorMessage(_ error: Error) -> String {
+        if let networkError = error as? NetworkError {
+            return networkError.errorDescription ?? "Failed to update profile. Please try again."
+        }
+
+        let message = error.localizedDescription
+        return message.isEmpty ? "Failed to update profile. Please try again." : message
+    }
   
 }
 

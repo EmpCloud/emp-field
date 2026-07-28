@@ -243,7 +243,11 @@ final class NetworkManager {
     private func decodeErrorMessage(from data: Data) -> String? {
         // Decode once (the previous version decoded the same payload twice).
         let body = (try? decoder.decode(ErrorResponse.self, from: data))?.body
-        return body?.message ?? body?.error
+        if let error = body?.error, !error.isEmpty {
+            return error
+        }
+
+        return body?.message
     }
 
     /// A response is treated as an expired session when it is a 401 or when the
