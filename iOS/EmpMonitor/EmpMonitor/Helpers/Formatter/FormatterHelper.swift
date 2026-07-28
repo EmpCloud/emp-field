@@ -40,12 +40,19 @@ class FormatterHelper {
         return formatter
     }()
 
+    private let iso8601Internet: ISO8601DateFormatter = {
+        let formatter = ISO8601DateFormatter()
+        formatter.formatOptions = [.withInternetDateTime]
+        return formatter
+    }()
+
     // "yyyy-MM-dd" in the current time zone (DateFormatter's default time zone is
     // already TimeZone.current, so the explicit-`.current` and default uses collapse
     // to this single instance).
     private let ymd = FormatterHelper.make("yyyy-MM-dd")
     private let ymdUTC = FormatterHelper.make("yyyy-MM-dd", timeZone: FormatterHelper.utc)
     private let ymdPosix = FormatterHelper.make("yyyy-MM-dd", locale: FormatterHelper.posix)
+    private let ddMMyyyyPosix = FormatterHelper.make("dd-MM-yyyy", locale: FormatterHelper.posix)
     private let monthDayPosix = FormatterHelper.make("MMM, \n dd", locale: FormatterHelper.posix, timeZone: .current)
     private let dateTimeFullPosixCurrent = FormatterHelper.make("yyyy-MM-dd HH:mm:ss", locale: FormatterHelper.posix, timeZone: .current)
     private let isoZuluUTC = FormatterHelper.make("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", timeZone: FormatterHelper.utc)
@@ -61,19 +68,23 @@ class FormatterHelper {
         return formatter
     }()
 
-    //MARK: Return True if the Date is Future date (input format: "2024-12-25T00:00:00.000Z")
+    //MARK: Return True if the Date is Future date
     func isFutureDate(dateString: String) -> Bool {
-        //Convert the date String to a Date object
-        if let inputDate = iso8601Fractional.date(from: dateString){
-            let currentDate = Date() //Current date
-
-            //Compare the input date with current date
-            return inputDate > currentDate
-        }else{
-            //if the date string is invalid, return false
+        guard let inputDate = parsedDate(from: dateString) else {
             AppLog.debug("Invalid date format")
             return false
         }
+
+        return Calendar.current.startOfDay(for: inputDate) > Calendar.current.startOfDay(for: Date())
+    }
+
+    //MARK: Normalized API date "yyyy-MM-dd"
+    func apiDateString(from dateString: String) -> String {
+        guard let date = parsedDate(from: dateString) else {
+            return dateString
+        }
+
+        return ymd.string(from: date)
     }
 
 
@@ -103,66 +114,43 @@ class FormatterHelper {
 
     //MARK: "01-01-24"
     func formattedDate(from isoDateString: String) -> String {
-        // Input format
-        guard let date = isoZuluUTC.date(from: isoDateString)
-        else {
-            guard let date = ymd.date(from: isoDateString) else{
-                return ""
-            }
-            // Output format
-            return ddMMyyCurrent.string(from: date)
+        guard let date = parsedDate(from: isoDateString) else {
+            return ""
         }
 
-        // Output format
         return ddMMyyCurrent.string(from: date)
     }
 
     //MARK: "01-01-2024"
     func formattedFullYearDate(from isoDateString: String) -> String {
-        // Input format
-        guard let date = isoZuluUTC.date(from: isoDateString)
-        else {
-            guard let date = ymd.date(from: isoDateString) else{
-                return ""
-            }
-            // Output format
-            return ddMMyyyyCurrent.string(from: date)
+        guard let date = parsedDate(from: isoDateString) else {
+            return ""
         }
 
-        // Output format
         return ddMMyyyyCurrent.string(from: date)
     }
 
     //MARK: "2024-01-01"
     func formattedDateReverse(from isoDateString: String) -> String {
-        // Input format
-        guard let date = isoZuluUTC.date(from: isoDateString)
-        else {
-            guard let date = ymd.date(from: isoDateString) else{
-                return ""
-            }
-            // Output format
-            return ymd.string(from: date)
+        guard let date = parsedDate(from: isoDateString) else {
+            return ""
         }
 
-        // Output format
         return ymd.string(from: date)
     }
 
 
     //MARK: "Mon, 01-01-2024"
     func formattedDateWithDay(from dateString: String) -> String {
-        // Try plain date first (e.g. "2026-04-14" from holiday endpoint)
-        if let date = ymdUTC.date(from: dateString) {
-            return dayDateCurrent.string(from: date)
-        }
-
-        // Fall back to ISO 8601 with time (e.g. "2026-06-01T00:00:00.000Z" from attendance endpoint)
-        if let date = isoZuluUTC.date(from: dateString) {
+        if let date = parsedDate(from: dateString) {
             return dayDateCurrent.string(from: date)
         }
 
         return dateString
+    }
+
+    func date(from dateString: String) -> Date? {
+        parsedDate(from: dateString)
     }
 
 
@@ -219,5 +207,14 @@ class FormatterHelper {
         let formattedDate = dateTimeNoTZ.string(from: date)
 
         return formattedDate
+    }
+
+    private func parsedDate(from dateString: String) -> Date? {
+        ymdPosix.date(from: dateString)
+            ?? ddMMyyyyPosix.date(from: dateString)
+            ?? iso8601Fractional.date(from: dateString)
+            ?? iso8601Internet.date(from: dateString)
+            ?? isoZuluUTC.date(from: dateString)
+            ?? dateTimeNoTZ.date(from: dateString)
     }
 }
