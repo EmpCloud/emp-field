@@ -201,12 +201,8 @@ struct AttendanceHistoryView: View {
     
     //MARK: To Check weather the date is past date for not
     private func checkForPastAttendance(date: String) -> Bool {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-//        dateFormatter.timeZone = TimeZone(
-        
         //Convert the dateString to date object
-        guard let inputDate = dateFormatter.date(from: date) else {
+        guard let inputDate = FormatterHelper.shared.date(from: date) else {
             AppLog.debug("Invalid date Format")
             return false
         }

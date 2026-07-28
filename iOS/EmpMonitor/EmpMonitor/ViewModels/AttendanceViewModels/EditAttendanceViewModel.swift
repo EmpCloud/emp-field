@@ -27,7 +27,8 @@ class EditAttendanceViewModel: ObservableObject {
         isLoading = true
         defer { isLoading = false }
         
-        let body = EditAttendanceRequestModel(date: date, checkIn: checkIN, checkOut: checkOUT, reason: reason)
+        let requestDate = FormatterHelper.shared.apiDateString(from: date)
+        let body = EditAttendanceRequestModel(date: requestDate, checkIn: checkIN, checkOut: checkOUT, reason: reason)
         
         let token = AuthStore.shared.getAccessToken()
         
@@ -50,11 +51,11 @@ class EditAttendanceViewModel: ObservableObject {
     func formatToISO8601(dateString: String, timeString: String) -> String? {
         // Define the date and time formatters
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"
         dateFormatter.timeZone = TimeZone.current
         
         // Combine date and time into a single string
-        let combinedString = "\(dateString) \(timeString)"
+        let combinedString = "\(FormatterHelper.shared.apiDateString(from: dateString)) \(timeString)"
 //        AppLog.debug("Comnined String: \(combinedString)")
         
         // Convert the combined string into a Date object

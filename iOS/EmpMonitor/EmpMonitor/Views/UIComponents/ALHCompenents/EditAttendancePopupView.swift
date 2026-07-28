@@ -105,8 +105,8 @@ struct EditAttendancePopupView: View {
                 PrimaryThinButton(text: "Apply") {
                     //TODO: Apple for attendance change
                     Task {
-                        editAttendanceViewModel.checkIN = editAttendanceViewModel.formatToISO8601(dateString: FormatterHelper.shared.formattedFullYearDate(from: editAttendanceViewModel.date), timeString: checkINTime) ?? ""
-                        editAttendanceViewModel.checkOUT = editAttendanceViewModel.formatToISO8601(dateString: FormatterHelper.shared.formattedFullYearDate(from: editAttendanceViewModel.date), timeString: checkOUTTime) ?? ""
+                        editAttendanceViewModel.checkIN = editAttendanceViewModel.formatToISO8601(dateString: editAttendanceViewModel.date, timeString: checkINTime) ?? ""
+                        editAttendanceViewModel.checkOUT = editAttendanceViewModel.formatToISO8601(dateString: editAttendanceViewModel.date, timeString: checkOUTTime) ?? ""
                         
 //                        AppLog.debug("CheckIn: \(editAttendanceViewModel.checkIN)")
 //                        AppLog.debug("Checkout: \(editAttendanceViewModel.checkOUT)")
