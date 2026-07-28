@@ -228,7 +228,12 @@ struct MapCheckInView: View {
                                                 if let long = permissionManager.userLocation?.coordinate.longitude {
                                                     checkINViewModel.checkINLongitude = Double(long)
                                                 }
-                                                try await checkINViewModel.markAttendance()
+                                                do {
+                                                    try await checkINViewModel.markAttendance()
+                                                } catch {
+                                                    handleCheckInRequestError(error)
+                                                    return
+                                                }
                                                 if NetworkManager.shared.statusCode != 200 {
                                                     showWarning.toggle()
                                                     showCheckIN = true
@@ -292,7 +297,12 @@ struct MapCheckInView: View {
                                             if let long = permissionManager.userLocation?.coordinate.longitude {
                                                 checkINViewModel.checkINLongitude = Double(long)
                                             }
-                                            try await checkINViewModel.markAttendance()
+                                            do {
+                                                try await checkINViewModel.markAttendance()
+                                            } catch {
+                                                handleCheckInRequestError(error)
+                                                return
+                                            }
                                             if NetworkManager.shared.statusCode != 200 {
                                                 showWarning.toggle()
                                                 showCheckIN = true
@@ -544,6 +554,24 @@ struct MapCheckInView: View {
         }
 
         return backendMessage
+    }
+
+    private func handleCheckInRequestError(_ error: Error) {
+        guard let blockedMessage = CheckINViewModel.blockedCheckInMessage(for: error) else {
+            showWarning = true
+            showMOTPopup = false
+            showCheckIN = true
+            showCheckOUT = false
+            UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+            return
+        }
+
+        showCheckIN = false
+        showCheckOUT = true
+        showMOTPopup = false
+        if blockedMessage == CheckINViewModel.duplicateCheckInMessage {
+            UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+        }
     }
 }
 

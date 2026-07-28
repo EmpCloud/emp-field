@@ -9,8 +9,14 @@ import Foundation
 
 @MainActor
 class CheckINViewModel: ObservableObject {
+    static let duplicateCheckInMessage = "You are already checked in. Please check out before checking in again."
+    static let checkInInProgressMessage = "Check-in is already in progress."
+
+    private static var isAnyCheckInRequestInFlight = false
+
     @Published var isLoading: Bool = false
     @Published var error: Error?
+    @Published private(set) var isCheckInRequestInFlight: Bool = false
     
     @Published var checkINTime: String = ""
     @Published var checkOUTTime: String = ""
@@ -22,8 +28,24 @@ class CheckINViewModel: ObservableObject {
     }
     
     func markAttendance() async throws {
+        guard Self.isAnyCheckInRequestInFlight == false else {
+            try blockDuplicateCheckIn(message: Self.checkInInProgressMessage)
+            return
+        }
+
+        guard UserDefaults.standard.bool(forKey: "isCheckedIN") == false else {
+            try blockDuplicateCheckIn(message: Self.duplicateCheckInMessage)
+            return
+        }
+
+        Self.isAnyCheckInRequestInFlight = true
+        isCheckInRequestInFlight = true
         isLoading = true
-        defer { isLoading = false }
+        defer {
+            isLoading = false
+            isCheckInRequestInFlight = false
+            Self.isAnyCheckInRequestInFlight = false
+        }
         
         let token = AuthStore.shared.getAccessToken()
         
@@ -67,6 +89,16 @@ class CheckINViewModel: ObservableObject {
             applyFailureStatus(error)
             throw error
         }
+    }
+
+    static func blockedCheckInMessage(for error: Error) -> String? {
+        guard case .clientError(409, let message) = error as? NetworkError,
+              let message,
+              message == duplicateCheckInMessage || message == checkInInProgressMessage else {
+            return nil
+        }
+
+        return message
     }
 
     private func applyAttendanceResponse(_ fetchData: CheckINResponseModel) {
@@ -115,5 +147,13 @@ class CheckINViewModel: ObservableObject {
             NetworkManager.shared.statusCode = 0
             NetworkManager.shared.responseMessage = networkError.errorDescription ?? error.localizedDescription
         }
+    }
+
+    private func blockDuplicateCheckIn(message: String) throws {
+        NetworkManager.shared.statusCode = 409
+        NetworkManager.shared.errorMessage = "Check-in Blocked"
+        NetworkManager.shared.responseMessage = message
+        AppLog.debug("Blocked duplicate check-in: \(message)")
+        throw NetworkError.clientError(409, message)
     }
 }

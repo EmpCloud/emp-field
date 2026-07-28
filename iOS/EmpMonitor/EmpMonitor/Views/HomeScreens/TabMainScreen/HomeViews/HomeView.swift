@@ -302,7 +302,12 @@ struct HomeView: View {
                                                                             checkINViewModel.checkINLongitude = Double(long)
                                                                         }
                                                                         UserDefaults.standard.removeObject(forKey: "offlineLocations")
-                                                                        try await checkINViewModel.markAttendance()
+                                                                        do {
+                                                                            try await checkINViewModel.markAttendance()
+                                                                        } catch {
+                                                                            handleCheckInRequestError(error)
+                                                                            return
+                                                                        }
                                                                         if NetworkManager.shared.statusCode != 200 {
                                                                             showWarning.toggle()
                                                                             showMOTPopup = false
@@ -348,7 +353,12 @@ struct HomeView: View {
                                                                             checkINViewModel.checkINLongitude = Double(long)
                                                                         }
                                                                         UserDefaults.standard.removeObject(forKey: "offlineLocations")
-                                                                        try await checkINViewModel.markAttendance()
+                                                                        do {
+                                                                            try await checkINViewModel.markAttendance()
+                                                                        } catch {
+                                                                            handleCheckInRequestError(error)
+                                                                            return
+                                                                        }
                                                                         if NetworkManager.shared.statusCode != 200 {
                                                                             showWarning.toggle()
                                                                             showMOTPopup = false
@@ -713,7 +723,15 @@ struct HomeView: View {
             checkINViewModel.checkINLongitude = long
         }
         UserDefaults.standard.removeObject(forKey: "offlineLocations")
-        try? await checkINViewModel.markAttendance()
+        do {
+            try await checkINViewModel.markAttendance()
+        } catch {
+            if CheckINViewModel.blockedCheckInMessage(for: error) != nil {
+                return
+            }
+            showWarning = true
+            return
+        }
 
         guard NetworkManager.shared.statusCode == 200 else {
             showWarning = true
@@ -747,7 +765,7 @@ struct HomeView: View {
         if let long = permissionManager.userLocation?.coordinate.longitude {
             checkINViewModel.checkINLongitude = long
         }
-        try? await checkINViewModel.markAttendance()
+        try? await checkINViewModel.markCheckOUTAttendance()
 
         if NetworkManager.shared.statusCode == 200 {
             showCheckOUT = false
@@ -757,6 +775,25 @@ struct HomeView: View {
             toastMessage = ToastMessage(style: .success, message: "Auto check-out successful")
             try? await homeScreenViewModel.getHomeScreenData()
         }
+    }
+
+    private func handleCheckInRequestError(_ error: Error) {
+        guard let blockedMessage = CheckINViewModel.blockedCheckInMessage(for: error) else {
+            showWarning = true
+            showMOTPopup = false
+            showCheckIN = true
+            showCheckOUT = false
+            UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+            return
+        }
+
+        showCheckIN = false
+        showCheckOUT = true
+        showMOTPopup = false
+        if blockedMessage == CheckINViewModel.duplicateCheckInMessage {
+            UserDefaults.standard.setValue(true, forKey: "isCheckedIN")
+        }
+        toastMessage = ToastMessage(style: .warning, message: blockedMessage)
     }
 }
 

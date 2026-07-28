@@ -23,6 +23,11 @@ final class FaceCheckInViewModel: ObservableObject {
                  latitude: Double,
                  longitude: Double,
                  onSuccess: @escaping (String) -> Void) async {
+        guard UserDefaults.standard.bool(forKey: "isCheckedIN") == false else {
+            result = .failure(CheckINViewModel.duplicateCheckInMessage)
+            return
+        }
+
         result = .verifying
 
         let userData = AuthStore.shared.getLoggedInUser()
@@ -61,7 +66,7 @@ final class FaceCheckInViewModel: ObservableObject {
 
         } catch {
             AppLog.debug("[FaceCheckIn] Error: \(error)")
-            result = .failure(error.localizedDescription)
+            result = .failure(CheckINViewModel.blockedCheckInMessage(for: error) ?? error.localizedDescription)
         }
     }
 }

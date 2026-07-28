@@ -17,6 +17,10 @@ class HomeScreenViewModel: ObservableObject {
     @Published var checkData: CheckINData?
     @Published var homeScreenData: HomeScreenResponseDetail?
     @Published var yesterdayDist: String = "--"
+
+    var hasOpenCheckIn: Bool {
+        Self.hasOpenCheckIn(checkData?.data)
+    }
     
     var urlString: String {
         return Constants.shared.baseURL + Constants.Endpoint.attendance
@@ -31,8 +35,9 @@ class HomeScreenViewModel: ObservableObject {
         
         do{
             let fetchData: HomeScreenResponseModel = try await NetworkManager.shared.getData(to: urlString, as: HomeScreenResponseModel.self, accessToken: token)
-            checkINTime = fetchData.body.data?.data.data.checkIn ?? "--:--"
-            checkOUTTime = fetchData.body.data?.data.data.checkOut ?? "--:--"
+            let attendance = fetchData.body.data?.data.data
+            checkINTime = attendance?.checkIn ?? "--:--"
+            checkOUTTime = attendance?.checkOut ?? "--:--"
             checkData = fetchData.body.data?.data
             homeScreenData = fetchData.body.data
             yesterdayDist = getYesterdayDist(distance: homeScreenData?.yesterdayDist)
@@ -44,6 +49,7 @@ class HomeScreenViewModel: ObservableObject {
             
             UserDefaults.standard.set(fetchData.body.data?.currentFrequency, forKey: "CurrentFrequency")
             UserDefaults.standard.set(fetchData.body.data?.currentRadius, forKey: "CurrentRadius")
+            UserDefaults.standard.set(Self.hasOpenCheckIn(attendance), forKey: "isCheckedIN")
             
             
         }catch{
@@ -64,5 +70,20 @@ class HomeScreenViewModel: ObservableObject {
         }
          return "--"
     }
-}
 
+    static func hasOpenCheckIn(_ attendance: CheckINDetailData?) -> Bool {
+        guard isBlankAttendanceValue(attendance?.checkIn) == false else {
+            return false
+        }
+
+        return isBlankAttendanceValue(attendance?.checkOut)
+    }
+
+    private static func isBlankAttendanceValue(_ value: String?) -> Bool {
+        guard let value = value?.trimmingCharacters(in: .whitespacesAndNewlines) else {
+            return true
+        }
+
+        return value.isEmpty || value == "--:--" || value.lowercased() == "null"
+    }
+}
