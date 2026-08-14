@@ -124,6 +124,10 @@ final class LocationSocketManager: ObservableObject {
         AppLog.debug("[LocationSocket] Received \(eventName) for \(event.payload.locationName)")
         Task {
             await TrackingSettingsViewModel.shared.fetchTrackingSettings()
+            AppState.shared.toastMessage = ToastMessage(
+                style: .info,
+                message: "Tracking location updated. Settings refreshed."
+            )
         }
     }
 

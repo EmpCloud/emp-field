@@ -88,6 +88,7 @@ struct ContentView: View {
             } message: {
                 Text(appState.sessionExpiredMessage ?? "Your session has expired. Please log in again.")
             }
+            .toast(message: $appState.toastMessage)
         }
     }
     

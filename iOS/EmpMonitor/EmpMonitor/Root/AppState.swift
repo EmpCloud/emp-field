@@ -248,6 +248,8 @@ final class AppState: ObservableObject {
 
     @Published var isLoggedIn: Bool = false
 
+    @Published var toastMessage: ToastMessage?
+
     /// Non-nil when the backend reported the session as invalid (e.g. logged in on
     /// another device / token expired). The UI observes this to present a logout alert.
     @Published var sessionExpiredMessage: String? = nil
