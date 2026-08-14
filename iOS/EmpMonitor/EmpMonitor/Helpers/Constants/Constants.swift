@@ -99,6 +99,21 @@ class Constants {
         return baseURL
     }
 
+    var socketServerOrigin: String {
+        baseURL.replacingOccurrences(of: "/v1", with: "")
+    }
+
+    var locationSocketURL: URL? {
+        guard var components = URLComponents(string: socketServerOrigin) else { return nil }
+        components.scheme = components.scheme == "https" ? "wss" : "ws"
+        components.path = "/socket.io/"
+        components.queryItems = [
+            URLQueryItem(name: "EIO", value: "4"),
+            URLQueryItem(name: "transport", value: "websocket")
+        ]
+        return components.url
+    }
+
     // MARK: - Static web URLs (not versioned with the API)
     enum StaticURL {
         static let termsAndConditions = "https://empmonitor.com/terms-and-conditions/"

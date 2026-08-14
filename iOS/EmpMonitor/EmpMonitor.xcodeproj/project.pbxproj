@@ -70,6 +70,7 @@
 		DA5DCD502C24358700F2BA5C /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5DCD4F2C24358700F2BA5C /* NetworkError.swift */; };
 		DA5DCD522C24360A00F2BA5C /* UserRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5DCD512C24360A00F2BA5C /* UserRequestModel.swift */; };
 		DA5DCD542C24368400F2BA5C /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5DCD532C24368400F2BA5C /* NetworkManager.swift */; };
+		DA5DCD562C24368400F2BA5C /* LocationSocketManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5DCD552C24368400F2BA5C /* LocationSocketManager.swift */; };
 		DA618DB42CA3DB20002F8C44 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DB32CA3DB20002F8C44 /* LocationManager.swift */; };
 		DA618DB72CA541C2002F8C44 /* TrackRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DB62CA541C2002F8C44 /* TrackRequestModel.swift */; };
 		DA618DBA2CA54870002F8C44 /* TrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DB92CA54870002F8C44 /* TrackViewModel.swift */; };
@@ -320,6 +321,7 @@
 		DA5DCCDB2C21935E00F2BA5C /* EmpMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmpMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5DCCDE2C21935E00F2BA5C /* EmpMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpMonitorApp.swift; sourceTree = "<group>"; };
 		DA5DCCE02C21935E00F2BA5C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		DA5DCD552C24368400F2BA5C /* LocationSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSocketManager.swift; sourceTree = "<group>"; };
 		DA5DCCE22C21935F00F2BA5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA5DCCE52C21935F00F2BA5C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA5DCCF12C219AFA00F2BA5C /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -728,6 +730,7 @@
 				DA5DCCE02C21935E00F2BA5C /* ContentView.swift */,
 				DA5DCCDE2C21935E00F2BA5C /* EmpMonitorApp.swift */,
 				DAB98F5F2C8B21E000250C6D /* AppState.swift */,
+				DA5DCD552C24368400F2BA5C /* LocationSocketManager.swift */,
 			);
 			path = Root;
 			sourceTree = "<group>";
@@ -1918,6 +1921,7 @@
 				DA5DCD502C24358700F2BA5C /* NetworkError.swift in Sources */,
 				DA5D7A7B2C5777D1004A1BCA /* AttendanceViewModel.swift in Sources */,
 				DAB98F602C8B21E000250C6D /* AppState.swift in Sources */,
+				DA5DCD562C24368400F2BA5C /* LocationSocketManager.swift in Sources */,
 				DA618DBF2CA6D5BE002F8C44 /* YoutubeWebView.swift in Sources */,
 				DA5DCD0C2C21B21000F2BA5C /* LocationPermissionView.swift in Sources */,
 				DAD2EE8D2C776E5600D519B8 /* ScheduleTimeView.swift in Sources */,
