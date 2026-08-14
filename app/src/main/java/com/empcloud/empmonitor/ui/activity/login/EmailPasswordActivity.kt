@@ -211,6 +211,9 @@ class EmailPasswordActivity : AppCompatActivity() {
         val isGlobalpref = getSharedPreferences(Constants.IS_GLOBAL_USER, MODE_PRIVATE)
         isGlobalpref.edit().putBoolean(Constants.IS_GLOBAL_USER,it.body.data.userData.isGlobalUser).apply()
 
+        val orgIdPref = getSharedPreferences(Constants.ORG_ID, MODE_PRIVATE)
+        orgIdPref.edit().putString(Constants.ORG_ID,it.body.data.userData.orgId).apply()
+
         // Call tracking settings API after login
         Log.d("AutoCheckIn", "Login successful, calling tracking settings API")
         viewModel.invokeTrackingSettings(it.body.data.accessToken)

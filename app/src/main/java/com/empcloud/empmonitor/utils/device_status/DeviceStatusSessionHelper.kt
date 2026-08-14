@@ -3,6 +3,7 @@ package com.empcloud.empmonitor.utils.device_status
 import android.content.Context
 import android.content.Intent
 import com.empcloud.empmonitor.network.api_satatemanagement.ApiState
+import com.empcloud.empmonitor.network.socket.SocketManager
 import com.empcloud.empmonitor.ui.activity.login.LoginOptionsActivity
 import com.empcloud.empmonitor.ui.services.location_tacking.LocationService
 import com.empcloud.empmonitor.utils.CommonMethods
@@ -35,6 +36,7 @@ object DeviceStatusSessionHelper {
     fun handleSessionExpired(context: Context) {
         val appContext = context.applicationContext
         DeviceStatusLogger.d("session expired from device-status endpoint; logging out")
+        SocketManager.disconnect()
         DeviceStatusHeartbeatScheduler.cancel(appContext)
         CommonMethods.cancelAutoCheckout(appContext)
         CommonMethods.clearLocationDataList(appContext)

@@ -46,6 +46,7 @@ import com.empcloud.empmonitor.data.remote.response.map_response.DirectionsRespo
 import com.empcloud.empmonitor.data.remote.response.fetchattendacne.EmployeeLocation
 import com.empcloud.empmonitor.databinding.FragmentMapCurrentBinding
 import com.empcloud.empmonitor.network.api_satatemanagement.ApiState
+import com.empcloud.empmonitor.network.socket.SocketManager
 import com.empcloud.empmonitor.ui.activity.login.LoginOptionsActivity
 import com.empcloud.empmonitor.ui.activity.mainactivity.MainActivity
 import com.empcloud.empmonitor.ui.fragment.client.clientdirection.ClientDirectionViewModel
@@ -367,7 +368,26 @@ class MapCurrentFragment constructor(private val listener: OnFragmentChangedList
         observeAttendanceCall()
         observeAttendanceFetchCall()
         observeUpdationTransport()
+        observeLocationConfigUpdates()
 
+    }
+
+    // Backend pushes this over the socket when an admin updates this org's location/geofence
+    // config, so the screen picks it up live instead of waiting for the next attendance poll.
+    private fun observeLocationConfigUpdates() {
+        lifecycleScope.launch {
+            SocketManager.locationUpdateEvents.collect { event ->
+                Toast.makeText(
+                    requireContext(),
+                    event.message ?: "Location settings updated",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                val pref = requireActivity().getSharedPreferences(Constants.AUTH_TOKEN, AppCompatActivity.MODE_PRIVATE)
+                val token = pref.getString(Constants.AUTH_TOKEN, "")
+                if (!token.isNullOrEmpty()) fetchAttendance(token)
+            }
+        }
     }
 
     private fun fetchAttendance(authToken: String){

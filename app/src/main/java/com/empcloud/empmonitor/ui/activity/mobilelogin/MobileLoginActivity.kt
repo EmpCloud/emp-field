@@ -215,5 +215,8 @@ class MobileLoginActivity : AppCompatActivity() {
         val isGlobalpref = getSharedPreferences(Constants.IS_GLOBAL_USER, MODE_PRIVATE)
         isGlobalpref.edit().putBoolean(Constants.IS_GLOBAL_USER,mobileLoginResponse.isGlobalUser).apply()
 
+        val orgIdPref = getSharedPreferences(Constants.ORG_ID, MODE_PRIVATE)
+        orgIdPref.edit().putString(Constants.ORG_ID,mobileLoginResponse.orgId).apply()
+
     }
 }

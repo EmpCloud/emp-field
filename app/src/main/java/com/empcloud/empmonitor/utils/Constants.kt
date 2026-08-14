@@ -290,6 +290,7 @@ object Constants {
     //saving user data from login
     const val LOGIN_NAME_PERSON = "LOGIN_NAME_PERSON"
     const val LOGIN_ROLE_PERSON = "LOGIN_ROLE_PERSON"
+    const val ORG_ID = "ORG_ID"
 
 
     const val TASK_TIME_SCHEDULE = "TASK_TIME_SCHEDULE"

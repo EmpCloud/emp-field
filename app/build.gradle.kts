@@ -94,6 +94,11 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
+    // Socket.IO client for real-time location config updates
+    implementation("io.socket:socket.io-client:2.1.0") {
+        exclude(group = "org.json", module = "json")
+    }
+
     // Fix Duplicate class
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.9.24"))
     //Coroutines and lifecycle//

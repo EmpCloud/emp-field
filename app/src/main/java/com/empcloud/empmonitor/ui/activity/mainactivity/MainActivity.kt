@@ -56,6 +56,7 @@ import com.empcloud.empmonitor.ui.fragment.notification.NotificationFragment
 import com.empcloud.empmonitor.ui.fragment.task.task_first.TaskHomeFragment
 import com.empcloud.empmonitor.ui.fragment.update_profile.UpdateProfileFragment
 import com.empcloud.empmonitor.ui.listeners.OnFragmentChangedListener
+import com.empcloud.empmonitor.network.socket.SocketManager
 import com.empcloud.empmonitor.utils.CommonMethods
 import com.empcloud.empmonitor.utils.Constants
 import com.empcloud.empmonitor.utils.NativeLib
@@ -100,6 +101,10 @@ class MainActivity : AppCompatActivity(),OnFragmentChangedListener {
 
         binding = ActivityMain1Binding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Open (or resume) the location-config update socket for this session; it's kept
+        // alive across fragment switches and only torn down on logout / session expiry.
+        SocketManager.connect(this)
 
 //        chagneApiKey()
 
@@ -308,6 +313,7 @@ class MainActivity : AppCompatActivity(),OnFragmentChangedListener {
 
             highlightMenuItem(binding.sidebar.logoutIcon,binding.sidebar.logoutText)
             closeMenu()
+            SocketManager.disconnect()
             CommonMethods.clearStringFromSharedPreferences(applicationContext,Constants.BITMAP_RECIEVE)
             CommonMethods.clearStringFromSharedPreferences(applicationContext,Constants.BITMAP_RECIEVE_UPDATE)
             CommonMethods.clearStringFromSharedPreferences(applicationContext,Constants.LAST_MODE_SELECTED)
