@@ -184,6 +184,7 @@ final class AuthStore: ObservableObject {
     // MARK: Session
     
     func clearSession() {
+        LocationSocketManager.shared.disconnect()
         deleteAccessToken()
         deleteLoggedInUser()
         deleteUserProfile()
@@ -257,6 +258,11 @@ final class AppState: ObservableObject {
 
     func updateLoginState() {
         self.isLoggedIn = AuthStore.shared.isLoggedIn
+        if isLoggedIn {
+            LocationSocketManager.shared.connectIfNeeded()
+        } else {
+            LocationSocketManager.shared.disconnect()
+        }
     }
 
     /// Forces a logout when the backend reports the session is no longer valid.
