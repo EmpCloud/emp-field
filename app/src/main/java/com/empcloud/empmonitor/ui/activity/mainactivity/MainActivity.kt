@@ -32,6 +32,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
@@ -42,6 +43,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.lifecycleScope
 import com.empcloud.empmonitor.R
 import com.empcloud.empmonitor.databinding.ActivityMain1Binding
 import com.empcloud.empmonitor.ui.activity.login.LoginOptionsActivity
@@ -55,7 +57,9 @@ import com.empcloud.empmonitor.ui.fragment.map.MapCurrentFragment
 import com.empcloud.empmonitor.ui.fragment.notification.NotificationFragment
 import com.empcloud.empmonitor.ui.fragment.task.task_first.TaskHomeFragment
 import com.empcloud.empmonitor.ui.fragment.update_profile.UpdateProfileFragment
+import com.empcloud.empmonitor.ui.fragment.update_profile.UpdateProfileViewModel
 import com.empcloud.empmonitor.ui.listeners.OnFragmentChangedListener
+import com.empcloud.empmonitor.network.api_satatemanagement.ApiState
 import com.empcloud.empmonitor.network.socket.SocketManager
 import com.empcloud.empmonitor.utils.CommonMethods
 import com.empcloud.empmonitor.utils.Constants
@@ -64,6 +68,7 @@ import com.empcloud.empmonitor.utils.device_status.DeviceStatusHeartbeatSchedule
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -90,6 +95,8 @@ class MainActivity : AppCompatActivity(),OnFragmentChangedListener {
 
     private var isGlobal = false
 
+    private val profileViewModel by viewModels<UpdateProfileViewModel>()
+
     private val channelId = "download_channel"
 //    private lateinit var drawerLayout: DrawerLayout
 //    private lateinit var navView: NavigationView
@@ -105,6 +112,10 @@ class MainActivity : AppCompatActivity(),OnFragmentChangedListener {
         // Open (or resume) the location-config update socket for this session; it's kept
         // alive across fragment switches and only torn down on logout / session expiry.
         SocketManager.connect(this)
+
+        // Login responses can carry a stale/null profilePic for a just-synced employee;
+        // refetch the authoritative profile once per launch so the cached picture self-heals.
+        refreshProfilePicture()
 
 //        chagneApiKey()
 
@@ -765,6 +776,31 @@ class MainActivity : AppCompatActivity(),OnFragmentChangedListener {
     fun setQrVisibility(visible: Boolean){
 
         binding.qrshow.visibility = if (visible) View.VISIBLE else View.GONE
+    }
+
+    private fun refreshProfilePicture() {
+        val authToken = CommonMethods.getSharedPrefernce(this, Constants.AUTH_TOKEN)
+        if (authToken.isNullOrEmpty()) return
+
+        profileViewModel.invokeFetchProfileCall(authToken)
+
+        lifecycleScope.launch {
+            profileViewModel.observerProfileData.collect { res ->
+                if (res is ApiState.SUCESS) {
+                    val body = res.getResponse
+                    val profilePic = body.body.data.resultData.firstOrNull()?.profilePic
+                    if (body.code == 200 && !profilePic.isNullOrEmpty()) {
+                        CommonMethods.saveSharedPrefernce(
+                            this@MainActivity,
+                            Constants.PROFILE_PIC_URL_USER,
+                            Constants.PROFILE_PIC_URL_USER,
+                            profilePic
+                        )
+                        setUserPic()
+                    }
+                }
+            }
+        }
     }
 
     private fun setUserPic() {

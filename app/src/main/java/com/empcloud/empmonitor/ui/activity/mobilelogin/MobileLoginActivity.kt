@@ -212,6 +212,8 @@ class MobileLoginActivity : AppCompatActivity() {
         val rolesave = getSharedPreferences(Constants.LOGIN_ROLE_PERSON, MODE_PRIVATE)
         rolesave.edit().putString(Constants.LOGIN_ROLE_PERSON,mobileLoginResponse.role).apply()
 
+        if (!mobileLoginResponse.profilePic.isNullOrEmpty()) CommonMethods.saveSharedPrefernce(this,Constants.PROFILE_PIC_URL_USER,Constants.PROFILE_PIC_URL_USER,mobileLoginResponse.profilePic)
+
         val isGlobalpref = getSharedPreferences(Constants.IS_GLOBAL_USER, MODE_PRIVATE)
         isGlobalpref.edit().putBoolean(Constants.IS_GLOBAL_USER,mobileLoginResponse.isGlobalUser).apply()
 

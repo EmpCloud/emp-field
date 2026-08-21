@@ -137,27 +137,44 @@ class UpdateProfileFragment constructor(private val listener: OnFragmentChangedL
         binding.savebtn.setOnClickListener {
 
             CommonMethods.saveSharedPrefernce(requireActivity(),Constants.USER_FULL_NAME,Constants.NAME_FULL,binding.name.text.toString())
-            // Age is required and must be numeric + in range; empty age must not be accepted.
+            // Every field checked here mirrors CreateProfileActivity's isProfileComplete gate,
+            // so a successful Save here can never be re-flagged as incomplete on next launch.
+            val nameText = binding.name.text?.toString()?.trim().orEmpty()
+            val mobileText = binding.mobileNo.text?.toString()?.trim().orEmpty()
             val ageText = binding.age.text?.toString()?.trim().orEmpty()
             val ageValue = ageText.toIntOrNull()
+            val addressComplete = !userdata[0].address1.isNullOrBlank() &&
+                !userdata[0].city.isNullOrBlank() &&
+                !userdata[0].state.isNullOrBlank() &&
+                !userdata[0].country.isNullOrBlank() &&
+                !userdata[0].zipCode.isNullOrBlank()
             when {
+                nameText.isEmpty() -> Toast.makeText(requireContext(),"Please enter your full name",Toast.LENGTH_SHORT).show()
+                mobileText.isEmpty() -> Toast.makeText(requireContext(),"Please enter your mobile number",Toast.LENGTH_SHORT).show()
                 ageText.isEmpty() -> Toast.makeText(requireContext(),"Please enter your age",Toast.LENGTH_SHORT).show()
                 ageValue == null -> Toast.makeText(requireContext(),"Please enter a valid age",Toast.LENGTH_SHORT).show()
                 !isValidAge(ageValue) -> Toast.makeText(requireContext(),"Age must be between 18 and 100",Toast.LENGTH_SHORT).show()
+                gender.isNullOrBlank() -> Toast.makeText(requireContext(),"Please select your gender",Toast.LENGTH_SHORT).show()
+                !addressComplete -> Toast.makeText(requireContext(),"Please complete your address details",Toast.LENGTH_SHORT).show()
                 else -> callUpdateApi()
             }
         }
 
         binding.editbtn.setOnClickListener {
 
-            // Guard the "Edit address" path too, so an empty/invalid age can't slip through to
+            // Guard the "Edit address" path too, so incomplete details can't slip through to
             // the address step (and on to update-profile) unvalidated.
+            val nameText = binding.name.text?.toString()?.trim().orEmpty()
+            val mobileText = binding.mobileNo.text?.toString()?.trim().orEmpty()
             val ageText = binding.age.text?.toString()?.trim().orEmpty()
             val ageValue = ageText.toIntOrNull()
             when {
+                nameText.isEmpty() -> { Toast.makeText(requireContext(),"Please enter your full name",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
+                mobileText.isEmpty() -> { Toast.makeText(requireContext(),"Please enter your mobile number",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
                 ageText.isEmpty() -> { Toast.makeText(requireContext(),"Please enter your age",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
                 ageValue == null -> { Toast.makeText(requireContext(),"Please enter a valid age",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
                 !isValidAge(ageValue) -> { Toast.makeText(requireContext(),"Age must be between 18 and 100",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
+                gender.isNullOrBlank() -> { Toast.makeText(requireContext(),"Please select your gender",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
             }
 
             CommonMethods.saveSharedPrefernce(requireActivity(),Constants.UMN,Constants.UMN,binding.mobileNo.text.toString())
