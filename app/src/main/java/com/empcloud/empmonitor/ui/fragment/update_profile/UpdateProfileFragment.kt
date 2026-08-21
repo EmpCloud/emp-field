@@ -754,12 +754,7 @@ class UpdateProfileFragment constructor(private val listener: OnFragmentChangedL
             userdata[0].zipCode,
             binding.mobileNo.text.toString()
         )
-//        viewModel.invokeUpdataDataCall()
-
-//        CoroutineScope(Dispatchers.IO).launch {
-            viewModel.invokeUpdataDataCall(CommonMethods.getSharedPrefernce(requireActivity(),Constants.AUTH_TOKEN),updateProfileModel)
-
-//        }
+        viewModel.invokeUpdataDataCall(CommonMethods.getSharedPrefernce(requireActivity(),Constants.AUTH_TOKEN),updateProfileModel)
     }
 
 

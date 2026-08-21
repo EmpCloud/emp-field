@@ -32,6 +32,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -116,6 +117,8 @@ class MainActivity : AppCompatActivity(),OnFragmentChangedListener {
         // Login responses can carry a stale/null profilePic for a just-synced employee;
         // refetch the authoritative profile once per launch so the cached picture self-heals.
         refreshProfilePicture()
+
+        onBackPressedDispatcher.addCallback(this, backPressedCallback)
 
 //        chagneApiKey()
 
@@ -678,34 +681,31 @@ class MainActivity : AppCompatActivity(),OnFragmentChangedListener {
         switchFragment(fragment)
     }
 
-    override fun onBackPressed() {
-        val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
+    private val backPressedCallback = object : OnBackPressedCallback(true) {
+        override fun handleOnBackPressed() {
+            val currentFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainer)
 
-        if (currentFragment !is HomeFragment) {
-            // Navigate to home fragmentc
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, HomeFragment(this)).commit()
-            binding.customizebottomNavigationView.homeSelect.visibility = View.VISIBLE
-            binding.customizebottomNavigationView.home.visibility = View.GONE
+            if (currentFragment !is HomeFragment) {
+                // Navigate to home fragment
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragmentContainer, HomeFragment(this@MainActivity)).commit()
+                binding.customizebottomNavigationView.homeSelect.visibility = View.VISIBLE
+                binding.customizebottomNavigationView.home.visibility = View.GONE
 
-            binding.menu.visibility = View.VISIBLE
+                binding.menu.visibility = View.VISIBLE
 
-            binding.customizebottomNavigationView.client.visibility = View.VISIBLE
-            binding.customizebottomNavigationView.settings.visibility = View.VISIBLE
-            binding.customizebottomNavigationView.task.visibility = View.VISIBLE
+                binding.customizebottomNavigationView.client.visibility = View.VISIBLE
+                binding.customizebottomNavigationView.settings.visibility = View.VISIBLE
+                binding.customizebottomNavigationView.task.visibility = View.VISIBLE
 
-            binding.customizebottomNavigationView.settingsSelected.visibility = View.GONE
-            binding.customizebottomNavigationView.taskSelected.visibility = View.GONE
-            binding.customizebottomNavigationView.clientSelected.visibility = View.GONE
-        } else {
-            // If already on the home fragment, follow the default back press behavior
-
-            if (binding.qrshowpopup.qrpopup.visibility == View.VISIBLE)  binding.qrshowpopup.qrpopup.visibility = View.GONE
-            else {
-                super.onBackPressed()
-                finish()
+                binding.customizebottomNavigationView.settingsSelected.visibility = View.GONE
+                binding.customizebottomNavigationView.taskSelected.visibility = View.GONE
+                binding.customizebottomNavigationView.clientSelected.visibility = View.GONE
+            } else {
+                // If already on the home fragment, follow the default back press behavior
+                if (binding.qrshowpopup.qrpopup.visibility == View.VISIBLE) binding.qrshowpopup.qrpopup.visibility = View.GONE
+                else finish()
             }
-
         }
     }
 
