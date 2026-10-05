@@ -46,7 +46,7 @@ object SocketManager {
         connectedOrgId = orgId
 
         try {
-            val origin = originOf(NativeLib().getBaseUrlDev())
+            val origin = originOf(NativeLib().getBaseUrlLive())
             val options = IO.Options()
             options.transports = arrayOf("websocket")
             options.reconnection = true

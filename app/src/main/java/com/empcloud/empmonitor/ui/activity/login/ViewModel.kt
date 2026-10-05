@@ -67,7 +67,7 @@ class LoginViewModel @Inject constructor(private val repository: NetworkReposito
 
     fun invokeMarkAttendance(accessToken: String, markAttendanceModel: MarkAttendanceModel) {
         viewModelScope.launch {
-            repository.getMarkAttendanceData(accessToken, markAttendanceModel).collect { response ->
+            repository.autoCheckInIfNotCheckedIn(accessToken, markAttendanceModel).collect { response ->
                 markAttendanceFlow.send(response)
             }
         }

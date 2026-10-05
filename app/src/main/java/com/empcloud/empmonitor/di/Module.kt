@@ -40,7 +40,7 @@ val gson = GsonBuilder()
     @Provides
     @Singleton
     fun provideBaseUrl(nativeLib: NativeLib):String{
-        return nativeLib.getBaseUrlDev()
+        return nativeLib.getBaseUrlLive()
     }
     @Singleton
     @Provides

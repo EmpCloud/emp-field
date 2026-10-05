@@ -1,5 +1,7 @@
 package com.empcloud.empmonitor.network
 
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.flowOf
 import com.empcloud.empmonitor.data.remote.request.LEAVES.LeavesRequestModel
 import com.empcloud.empmonitor.data.remote.request.attendance.AttendanceRequestModel
 import com.empcloud.empmonitor.data.remote.request.create_task.CreateTaskModel
@@ -127,6 +129,18 @@ class NetworkRepository @Inject constructor(val service: ApiService){
                 }
                 is ApiState.ERROR -> Log.e("AttendanceAPI", "mark-attendance ERROR <- code=${state.errorCode}, network=${state.isNetworkERROR}, message=${state.message}")
             }
+        }
+    }
+
+    // mark-attendance is a server-side toggle: calling it when already checked in checks the user OUT.
+    // Auto check-in on login must therefore never fire if today already has a check-in.
+    suspend fun autoCheckInIfNotCheckedIn(accessToken:String,model: MarkAttendanceModel):Flow<ApiState<MarkAttendanceResponse>>{
+        val today = getAttendacenData(accessToken).first { it !is ApiState.LOADING }
+        return when {
+            today is ApiState.SUCESS && today.getResponse.body.data.data.data.check_in.isNullOrEmpty() ->
+                getMarkAttendanceData(accessToken, model)
+            today is ApiState.SUCESS -> flowOf(ApiState.ERROR("Already checked in today", false, null, null))
+            else -> flowOf(today as ApiState.ERROR)
         }
     }
 
