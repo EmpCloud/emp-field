@@ -161,8 +161,12 @@ struct ProfileView: View {
                                             }
                                         Text(gender)
                                             .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
+                                            .padding(.vertical, 13)
+                                            .contentShape(Rectangle())
+                                            .padding(.vertical, -13)
                                         
                                     }
+                                    .accessibilityAddTraits(gender == selectedGender.capitalized ? .isSelected : [])
                                     .padding(.trailing, 20)
 
                                 }
@@ -262,11 +266,7 @@ struct ProfileView: View {
 
                 //MARK: Update Error Alert
                 if showUpdateError {
-                    ModalOverlayView(dismissOnBackgroundTap: {
-                        showUpdateError = false
-                    }) {
-                        WarningPopupView(titleText: "Update Failed", description: updateErrorMessage, showWarningPopup: $showUpdateError)
-                    }
+                    WarningPopupView(titleText: "Update Failed", description: updateErrorMessage, showWarningPopup: $showUpdateError)
                 }
             }
             .toast(message: $toastMessage)

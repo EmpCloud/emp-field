@@ -45,7 +45,7 @@ struct PasswordLoginView: View {
             Color.white
                 .ignoresSafeArea(.all)
             
-            Image(.loginScreenTopBg)
+            Image.fullWidthBackground(.loginScreenTopBg)
                 .ignoresSafeArea(.all)
             
             VStack(spacing: 20) {
@@ -162,9 +162,7 @@ struct PasswordLoginView: View {
             
             //Warning Popup
             if showWarning {
-                ModalOverlayView {
-                    WarningPopupView(titleText: "Try Again", description: warningMessage, showWarningPopup: $showWarning)
-                }
+                WarningPopupView(titleText: "Try Again", description: warningMessage, showWarningPopup: $showWarning)
             }
         }
     }

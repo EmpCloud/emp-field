@@ -465,23 +465,17 @@ struct HomeView: View {
 //                            //MARK: Warning
                             if showWarning {    
                                 if isTaskRunning && yesCheckOut {
-                                    ModalOverlayView {
-                                        WarningPopupView(titleText: "Task Active", description: "Another task is currently in progress. Pause or complete it to initiate a new task.", showWarningPopup: $showWarning)
-                                    }
+                                    WarningPopupView(titleText: "Task Active", description: "Another task is currently in progress. Pause or complete it to initiate a new task.", showWarningPopup: $showWarning)
                                 }
                                 else if NetworkManager.shared.statusCode == 403 {
-                                    ModalOverlayView {
-                                        WarningPopupView(
+                                    WarningPopupView(
                                             titleText: attendanceWarningTitle,
                                             description: attendanceWarningDescription,
                                             showWarningPopup: $showWarning
                                         )
-                                    }
                                 }
                                 else {
-                                    ModalOverlayView {
-                                        WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarning)
-                                    }
+                                    WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarning)
                                 }
                                 
                             }

@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+/// Presents a warning as a native alert. It renders nothing itself, so place it where
+/// the previous custom popup lived and drive it with `showWarningPopup`.
 struct WarningPopupView: View {
     
     var titleText: String
@@ -15,94 +17,14 @@ struct WarningPopupView: View {
     @Binding var showWarningPopup: Bool
     
     var body: some View {
-        VStack(spacing: AppSpacing.stackSpacingDefault) {
-            HStack {
-                Spacer()
-                Button {
-                    withAnimation {
-                        showWarningPopup = false
-                    }
-                } label: {
-                    Image(systemName: "xmark")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: AppLayout.closeIconSize, height: AppLayout.closeIconSize)
-                        .fontWeight(AppFont.Weight.bold)
-                        .foregroundStyle(Color.primaryButton1)
-                        .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
-                        .contentShape(Rectangle())
-                }
-                .buttonStyle(.plain)
-                .accessibilityLabel("Close alert")
+        Color.clear
+            .frame(width: 0, height: 0)
+            .accessibilityHidden(true)
+            .alert(titleText.isEmpty ? "Alert" : titleText, isPresented: $showWarningPopup) {
+                Button("OK", role: .cancel) { }
+            } message: {
+                Text(description)
             }
-            .padding(.horizontal, AppSpacing.controlInnerPadding)
-            
-            Image(.warningPopupIcon)
-                .resizable()
-                .aspectRatio(contentMode: .fit)
-                .frame(width: 51.26, height: 46)
-            
-            HStack(alignment: .firstTextBaseline, spacing: AppSpacing.compactIconTextSpacing) {
-                Text("Alert:")
-                    .foregroundStyle(Color.warningTitle)
-                Text(titleText)
-                    .foregroundStyle(Color.text1)
-            }
-            .font(AppFont.primary(size: AppFont.Size.body))
-            .fontWeight(AppFont.Weight.medium)
-            .multilineTextAlignment(.center)
-            .lineLimit(2)
-            .fixedSize(horizontal: false, vertical: true)
-            .frame(maxWidth: .infinity)
-            
-            Group {
-                if description.count > 160 {
-                    ScrollView {
-                        warningDescriptionText
-                    }
-                    .frame(maxHeight: AppLayout.warningDescriptionMaxHeight)
-                    .scrollIndicators(.hidden)
-                } else {
-                    warningDescriptionText
-                }
-            }
-            
-            //Button to dismiss
-            Button{
-                withAnimation {
-                    showWarningPopup = false
-                }
-            }label: {
-                Text("OK")
-                    .font(AppFont.primary(size: AppFont.Size.callout))
-                    .fontWeight(AppFont.Weight.medium)
-                    .foregroundStyle(Color.white)
-                    .frame(minWidth: 117, minHeight: AppLayout.minimumTouchTarget)
-                .background(Color.notification)
-                .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel("OK")
-            .padding(.top, AppSpacing.xxs)
-            
-        }
-        .padding(.horizontal, AppSpacing.modalHorizontalPadding)
-        .padding(.bottom, AppSpacing.modalBottomPadding)
-        .frame(maxWidth: AppLayout.popupMaxWidth, alignment: .top)
-        .background(Color.white)
-//        .border(Color.black)
-        .clipShape(RoundedRectangle(cornerRadius: AppRadius.large))
-        
-    }
-
-    private var warningDescriptionText: some View {
-        Text(description)
-            .font(AppFont.primary(size: AppFont.Size.callout))
-            .fontWeight(AppFont.Weight.medium)
-            .foregroundStyle(Color.addressText2)
-            .multilineTextAlignment(.center)
-            .fixedSize(horizontal: false, vertical: true)
-            .frame(maxWidth: .infinity)
     }
 }
 

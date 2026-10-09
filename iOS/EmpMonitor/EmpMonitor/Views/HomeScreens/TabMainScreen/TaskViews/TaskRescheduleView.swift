@@ -99,13 +99,7 @@ struct TaskRescheduleView: View {
             
             //MARK: Warning Popup
             if showWarningPopup {
-                ModalOverlayView(dismissOnBackgroundTap: {
-                    withAnimation {
-                        showWarningPopup.toggle()
-                    }
-                }) {
-                    WarningPopupView(titleText: "Try Again: \(NetworkManager.shared.statusCode)", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
-                }
+                WarningPopupView(titleText: "Try Again: \(NetworkManager.shared.statusCode)", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
             }
         }
         .onChange(of: isDismiss) { _, newValue in

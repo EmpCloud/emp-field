@@ -242,9 +242,7 @@ struct AddClientView: View {
             
             
             if showWarningPopup {
-                ModalOverlayView {
-                    WarningPopupView(titleText: NetworkManager.shared.responseMessage, description: NetworkManager.shared.errorMessage, showWarningPopup: $showWarningPopup)
-                }
+                WarningPopupView(titleText: NetworkManager.shared.responseMessage, description: NetworkManager.shared.errorMessage, showWarningPopup: $showWarningPopup)
             }
         }
         .onChange(of: savedImageURL) { _, _ in

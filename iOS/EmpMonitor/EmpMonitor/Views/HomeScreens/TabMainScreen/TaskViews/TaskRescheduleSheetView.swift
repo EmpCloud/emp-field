@@ -880,13 +880,7 @@ struct TaskRescheduleDetailSheetView: View {
             
             //MARK: Warning Popup
             if showWarningPopup {
-                ModalOverlayView(dismissOnBackgroundTap: {
-                    withAnimation {
-                        showWarningPopup.toggle()
-                    }
-                }) {
-                    WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
-                }
+                WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
             }
             
         }

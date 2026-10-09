@@ -368,19 +368,11 @@ struct AddTaskView: View {
             //MARK: Warning
             if showWarningPopup {
                 if stopDateTime <= startDateTime {
-                    ModalOverlayView(dismissOnBackgroundTap: {
-                        showWarningPopup.toggle()
-                    }) {
-                        WarningPopupView(titleText: "Try Again", description: "End time should be later than start time.", showWarningPopup: $showWarningPopup)
-                    }
+                    WarningPopupView(titleText: "Try Again", description: "End time should be later than start time.", showWarningPopup: $showWarningPopup)
                 }
                 
                 else {
-                    ModalOverlayView(dismissOnBackgroundTap: {
-                        showWarningPopup.toggle()
-                    }) {
-                        WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
-                    }
+                    WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
 
                 }
             }

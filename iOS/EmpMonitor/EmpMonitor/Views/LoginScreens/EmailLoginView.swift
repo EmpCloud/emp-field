@@ -35,7 +35,7 @@ struct EmailLoginView: View {
                 Color.white
     //                .ignoresSafeArea(.container)
                 
-                Image(.loginScreenTopBg)
+                Image.fullWidthBackground(.loginScreenTopBg)
     //                .ignoresSafeArea(.container)
                 
                 VStack(spacing: 20) {
@@ -112,9 +112,7 @@ struct EmailLoginView: View {
                 
                 //Warning Popup
                 if showWarning {
-                    ModalOverlayView {
-                        WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarning)
-                    }
+                    WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarning)
                 }
                 
                 

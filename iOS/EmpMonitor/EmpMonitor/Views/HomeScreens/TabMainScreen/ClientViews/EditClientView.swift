@@ -268,11 +268,7 @@ struct EditClientView: View {
             
             
             if showWarmningPopup {
-                ModalOverlayView(dismissOnBackgroundTap: {
-                    showWarmningPopup.toggle()
-                }) {
-                    WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarmningPopup)
-                }
+                WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarmningPopup)
             }
         }
         .onChange(of: savedImageURL) { _, _ in

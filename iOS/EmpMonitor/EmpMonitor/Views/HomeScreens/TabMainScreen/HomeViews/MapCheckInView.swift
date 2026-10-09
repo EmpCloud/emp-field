@@ -516,17 +516,13 @@ struct MapCheckInView: View {
             //MARK: Warning
             if showWarning {
                 if NetworkManager.shared.statusCode == 403 {
-                    ModalOverlayView {
-                        WarningPopupView(
+                    WarningPopupView(
                             titleText: attendanceWarningTitle,
                             description: attendanceWarningDescription,
                             showWarningPopup: $showWarning
                         )
-                    }
                 }else {
-                    ModalOverlayView {
-                        WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarning)
-                    }
+                    WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarning)
                 }
                 
             }
