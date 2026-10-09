@@ -73,6 +73,8 @@ struct ResetPasswordView: View {
                 })
                 .padding(.horizontal, 50)
             }
+            // Keeps the form a readable width on iPad, in any orientation.
+            .frame(maxWidth: 500)
             
             if showWarningPopup {
                 WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)

@@ -167,6 +167,8 @@ struct PasswordLoginView: View {
                         }
                     }
             }
+            // Keeps the form a readable width on iPad, in any orientation.
+            .frame(maxWidth: 500)
             
             //Warning Popup
             if showWarning {

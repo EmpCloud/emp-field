@@ -358,7 +358,9 @@ struct TaskRescheduleSheetView: View {
 
                     if let selectedImage = selectedImage {
                         ImagePreviewView(image: selectedImage)
-                            .frame(width: UIScreen.main.bounds.width * 0.8, height: UIScreen.main.bounds.height * 0.6)
+                            .containerRelativeFrame([.horizontal, .vertical]) { length, axis in
+                                length * (axis == .horizontal ? 0.8 : 0.6)
+                            }
                             .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
                             .onTapGesture {
                                 showImagePreview = false

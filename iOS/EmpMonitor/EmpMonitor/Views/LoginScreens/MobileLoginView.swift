@@ -86,6 +86,8 @@ struct MobileLoginView: View {
                 .padding(.horizontal, 50)
                 
             }
+            // Keeps the form a readable width on iPad, in any orientation.
+            .frame(maxWidth: 500)
             
 
         }

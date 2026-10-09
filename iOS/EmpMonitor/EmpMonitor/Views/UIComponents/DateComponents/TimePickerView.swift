@@ -55,11 +55,6 @@ struct TimePickerView: View {
     }
 }
 
-extension View {
-    func getWidth() -> CGFloat {
-        return UIScreen.main.bounds.width
-    }
-}
 
 
 #Preview {
