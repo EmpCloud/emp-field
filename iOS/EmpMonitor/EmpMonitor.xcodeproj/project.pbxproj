@@ -75,8 +75,6 @@
 		DA618DB72CA541C2002F8C44 /* TrackRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DB62CA541C2002F8C44 /* TrackRequestModel.swift */; };
 		DA618DBA2CA54870002F8C44 /* TrackViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DB92CA54870002F8C44 /* TrackViewModel.swift */; };
 		DA618DBC2CA549C4002F8C44 /* TrackResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DBB2CA549C4002F8C44 /* TrackResponseModel.swift */; };
-		DA618DE12CB20001002F8C44 /* TrackingSettingsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DE02CB20000002F8C44 /* TrackingSettingsResponseModel.swift */; };
-		DA618DE32CB20003002F8C44 /* TrackingSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DE22CB20002002F8C44 /* TrackingSettingsViewModel.swift */; };
 		DA618DBF2CA6D5BE002F8C44 /* YoutubeWebView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DBE2CA6D5BE002F8C44 /* YoutubeWebView.swift */; };
 		DA618DC22CA6E32D002F8C44 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = DA618DC12CA6E32D002F8C44 /* Lottie */; };
 		DA618DC42CA6E35A002F8C44 /* Success.json in Resources */ = {isa = PBXBuildFile; fileRef = DA618DC32CA6E35A002F8C44 /* Success.json */; };
@@ -91,6 +89,8 @@
 		DA618DD62CAC006C002F8C44 /* VerifyEmailOTPViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DD52CAC006C002F8C44 /* VerifyEmailOTPViewModel.swift */; };
 		DA618DD82CAC30AF002F8C44 /* LocationSettingWarningView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DD72CAC30AF002F8C44 /* LocationSettingWarningView.swift */; };
 		DA618DDA2CBE585F002F8C44 /* ProfileImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DD92CBE585F002F8C44 /* ProfileImageLoader.swift */; };
+		DA618DE12CB20001002F8C44 /* TrackingSettingsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DE02CB20000002F8C44 /* TrackingSettingsResponseModel.swift */; };
+		DA618DE32CB20003002F8C44 /* TrackingSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA618DE22CB20002002F8C44 /* TrackingSettingsViewModel.swift */; };
 		DA7290452C294D1B00609B3A /* ProfileLargeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7290442C294D1B00609B3A /* ProfileLargeView.swift */; };
 		DA7290472C2951EE00609B3A /* TextFieldCreateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7290462C2951EE00609B3A /* TextFieldCreateProfileView.swift */; };
 		DA72904A2C29559E00609B3A /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7290492C29559E00609B3A /* LineView.swift */; };
@@ -302,6 +302,7 @@
 		C0DE01022D12000000000002 /* AppLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLayout.swift; sourceTree = "<group>"; };
 		C0DE01032D12000000000003 /* AppRadius.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRadius.swift; sourceTree = "<group>"; };
 		C0DE01042D12000000000004 /* GenericSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericSearchBar.swift; sourceTree = "<group>"; };
+		C0DE01052D12000000000005 /* ModalOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalOverlayView.swift; sourceTree = "<group>"; };
 		C0DE01062D12000000000006 /* AppIcons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppIcons.swift; sourceTree = "<group>"; };
 		C0DE01072D12000000000007 /* AppFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFont.swift; sourceTree = "<group>"; };
 		DA5D7A652C511E77004A1BCA /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
@@ -321,7 +322,6 @@
 		DA5DCCDB2C21935E00F2BA5C /* EmpMonitor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmpMonitor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DA5DCCDE2C21935E00F2BA5C /* EmpMonitorApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmpMonitorApp.swift; sourceTree = "<group>"; };
 		DA5DCCE02C21935E00F2BA5C /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		DA5DCD552C24368400F2BA5C /* LocationSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSocketManager.swift; sourceTree = "<group>"; };
 		DA5DCCE22C21935F00F2BA5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DA5DCCE52C21935F00F2BA5C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		DA5DCCF12C219AFA00F2BA5C /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
@@ -363,12 +363,11 @@
 		DA5DCD4F2C24358700F2BA5C /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
 		DA5DCD512C24360A00F2BA5C /* UserRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequestModel.swift; sourceTree = "<group>"; };
 		DA5DCD532C24368400F2BA5C /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		DA5DCD552C24368400F2BA5C /* LocationSocketManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSocketManager.swift; sourceTree = "<group>"; };
 		DA618DB32CA3DB20002F8C44 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		DA618DB62CA541C2002F8C44 /* TrackRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackRequestModel.swift; sourceTree = "<group>"; };
 		DA618DB92CA54870002F8C44 /* TrackViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackViewModel.swift; sourceTree = "<group>"; };
 		DA618DBB2CA549C4002F8C44 /* TrackResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackResponseModel.swift; sourceTree = "<group>"; };
-		DA618DE02CB20000002F8C44 /* TrackingSettingsResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingSettingsResponseModel.swift; sourceTree = "<group>"; };
-		DA618DE22CB20002002F8C44 /* TrackingSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingSettingsViewModel.swift; sourceTree = "<group>"; };
 		DA618DBE2CA6D5BE002F8C44 /* YoutubeWebView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubeWebView.swift; sourceTree = "<group>"; };
 		DA618DC32CA6E35A002F8C44 /* Success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = Success.json; sourceTree = "<group>"; };
 		DA618DC52CA6E72F002F8C44 /* VerifyEmailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailViewModel.swift; sourceTree = "<group>"; };
@@ -382,6 +381,8 @@
 		DA618DD52CAC006C002F8C44 /* VerifyEmailOTPViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerifyEmailOTPViewModel.swift; sourceTree = "<group>"; };
 		DA618DD72CAC30AF002F8C44 /* LocationSettingWarningView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSettingWarningView.swift; sourceTree = "<group>"; };
 		DA618DD92CBE585F002F8C44 /* ProfileImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImageLoader.swift; sourceTree = "<group>"; };
+		DA618DE02CB20000002F8C44 /* TrackingSettingsResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingSettingsResponseModel.swift; sourceTree = "<group>"; };
+		DA618DE22CB20002002F8C44 /* TrackingSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingSettingsViewModel.swift; sourceTree = "<group>"; };
 		DA7290442C294D1B00609B3A /* ProfileLargeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileLargeView.swift; sourceTree = "<group>"; };
 		DA7290462C2951EE00609B3A /* TextFieldCreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCreateProfileView.swift; sourceTree = "<group>"; };
 		DA7290492C29559E00609B3A /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
@@ -535,7 +536,6 @@
 		DAD2EE732C77107800D519B8 /* TextFieldButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldButton.swift; sourceTree = "<group>"; };
 		DAD2EE752C77138200D519B8 /* AddTaskTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskTextEditor.swift; sourceTree = "<group>"; };
 		DAD2EE782C7724EB00D519B8 /* CurrencyPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPopupView.swift; sourceTree = "<group>"; };
-		C0DE01052D12000000000005 /* ModalOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalOverlayView.swift; sourceTree = "<group>"; };
 		DAD2EE7A2C77307F00D519B8 /* AddPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPictureView.swift; sourceTree = "<group>"; };
 		DAD2EE7C2C77412200D519B8 /* SelectClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectClientView.swift; sourceTree = "<group>"; };
 		DAD2EE7E2C77426900D519B8 /* ClientSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSearchBarView.swift; sourceTree = "<group>"; };
@@ -601,6 +601,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C0DE02012D12000000000001 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				C0DE01012D12000000000001 /* AppSpacing.swift */,
+				C0DE01022D12000000000002 /* AppLayout.swift */,
+				C0DE01032D12000000000003 /* AppRadius.swift */,
+				C0DE01062D12000000000006 /* AppIcons.swift */,
+				C0DE01072D12000000000007 /* AppFont.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
 		DA5D7A632C511E32004A1BCA /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -1021,18 +1033,6 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		C0DE02012D12000000000001 /* DesignSystem */ = {
-			isa = PBXGroup;
-			children = (
-				C0DE01012D12000000000001 /* AppSpacing.swift */,
-				C0DE01022D12000000000002 /* AppLayout.swift */,
-				C0DE01032D12000000000003 /* AppRadius.swift */,
-				C0DE01062D12000000000006 /* AppIcons.swift */,
-				C0DE01072D12000000000007 /* AppFont.swift */,
-			);
-			path = DesignSystem;
-			sourceTree = "<group>";
-		};
 		DA5DCD4E2C24355000F2BA5C /* NetworkManagers */ = {
 			isa = PBXGroup;
 			children = (
@@ -1060,6 +1060,14 @@
 			path = TrackViewModel;
 			sourceTree = "<group>";
 		};
+		DA618DBD2CA6D594002F8C44 /* WebViews */ = {
+			isa = PBXGroup;
+			children = (
+				DA618DBE2CA6D5BE002F8C44 /* YoutubeWebView.swift */,
+			);
+			path = WebViews;
+			sourceTree = "<group>";
+		};
 		DA618DE42CB20004002F8C44 /* TrackingSettingsModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -1074,14 +1082,6 @@
 				DA618DE22CB20002002F8C44 /* TrackingSettingsViewModel.swift */,
 			);
 			path = TrackingSettingsViewModels;
-			sourceTree = "<group>";
-		};
-		DA618DBD2CA6D594002F8C44 /* WebViews */ = {
-			isa = PBXGroup;
-			children = (
-				DA618DBE2CA6D5BE002F8C44 /* YoutubeWebView.swift */,
-			);
-			path = WebViews;
 			sourceTree = "<group>";
 		};
 		DA7290432C294CFF00609B3A /* Profile */ = {
