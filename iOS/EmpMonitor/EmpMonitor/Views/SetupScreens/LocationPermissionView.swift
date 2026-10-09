@@ -15,7 +15,7 @@ struct LocationPermissionView: View {
         ZStack(alignment: .top) {
             Color.white
             
-            Image(.topSetupScreenBg)
+            Image.fullWidthBackground(.topSetupScreenBg)
                 .frame(alignment: .top)
                 .ignoresSafeArea(.all)
             

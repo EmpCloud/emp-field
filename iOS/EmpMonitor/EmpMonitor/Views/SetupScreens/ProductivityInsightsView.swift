@@ -13,7 +13,7 @@ struct ProductivityInsightsView: View {
             Color.white
                 .ignoresSafeArea(.all)
             
-            Image(.topSetupScreenBg)
+            Image.fullWidthBackground(.topSetupScreenBg)
             
             VStack {
                 

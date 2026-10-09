@@ -19,7 +19,7 @@ struct MobileOTPView: View {
             Color.white
                 .ignoresSafeArea(.all)
             
-            Image(.loginScreenTopBg)
+            Image.fullWidthBackground(.loginScreenTopBg)
                 .ignoresSafeArea(.all)
             
             VStack {

@@ -33,7 +33,7 @@ struct SplashView: View {
                 if showAnimation {
                     Image(.splashScreen)
                         .padding(.bottom, -40)
-                    Image(.splashScreenBottomBackground)
+                    Image.fullWidthBackground(.splashScreenBottomBackground)
                         .frame(height: 210, alignment: .bottom)
                 }
             }

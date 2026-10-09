@@ -16,7 +16,7 @@ struct ActivityPermissionView: View {
             Color.white
                 .ignoresSafeArea(.all)
             
-            Image(.topSetupScreenBg)
+            Image.fullWidthBackground(.topSetupScreenBg)
                 .ignoresSafeArea()
             
             VStack {

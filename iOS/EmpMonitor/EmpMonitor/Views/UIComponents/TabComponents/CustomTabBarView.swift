@@ -18,7 +18,7 @@ struct CustomTabBarView: View {
     let tabBarItem: [(image: String, title: String)] = [
         ("house", "Home"),
         ("list.bullet.clipboard", "Task"),
-        ("person.badge.minus", "Client"),
+        ("person.2", "Client"),
         ("gearshape", "Settings")
     ]
     var body: some View {
@@ -91,6 +91,8 @@ struct TabBarItemView: View {
             }
             .foregroundStyle(isSelected ? Color.blue : Color.gray)
             .padding(.bottom, AppSpacing.tabBarBottomPadding)
+            .frame(minWidth: AppLayout.minimumTouchTarget)
+            .contentShape(Rectangle())
         }
         .accessibilityLabel(title)
         .accessibility(addTraits: .isButton)

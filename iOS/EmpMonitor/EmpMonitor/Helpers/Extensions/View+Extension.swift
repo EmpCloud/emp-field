@@ -99,3 +99,16 @@ private extension UIView {
         return superview?.isInsideTextInput ?? false
     }
 }
+
+extension Image {
+    /// A decorative background stretched to the container width at its designed height, so
+    /// wave artwork drawn for a 393pt-wide canvas also spans wider phones and iPad.
+    @MainActor
+    static func fullWidthBackground(_ resource: ImageResource) -> some View {
+        Image(resource)
+            .resizable()
+            .frame(maxWidth: .infinity)
+            .frame(height: UIImage(resource: resource).size.height)
+            .accessibilityHidden(true)
+    }
+}

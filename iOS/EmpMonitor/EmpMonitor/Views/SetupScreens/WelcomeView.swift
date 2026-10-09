@@ -18,7 +18,7 @@ struct WelcomeView: View {
     
     var body: some View {
         ZStack(alignment: .bottom) {
-            Image(.splashScreenBottomBackground)
+            Image.fullWidthBackground(.splashScreenBottomBackground)
                 .ignoresSafeArea()
 
             VStack(spacing: 0) {
@@ -30,6 +30,9 @@ struct WelcomeView: View {
                         .fontWeight(AppFont.Weight.bold)
                         .foregroundStyle(Color.welcomeText)
                         .tracking(0.5)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                        .padding(.horizontal, AppSpacing.md)
 
                     Image(.welcomeScreen)
                         .resizable()

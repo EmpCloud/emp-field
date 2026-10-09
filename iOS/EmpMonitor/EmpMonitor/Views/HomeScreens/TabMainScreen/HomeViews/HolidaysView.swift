@@ -61,8 +61,12 @@ struct HolidaysView: View {
                                     .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
                                     .foregroundStyle(Color.primaryButton1)
                                     .frame(width: 22, height: 22)
+                                    .padding(11)
+                                    .contentShape(Rectangle())
+                                    .padding(-11)
                             }
                             .buttonStyle(.plain)
+                            .accessibilityLabel("Clear selected date")
                         }
                         .padding(.leading, 12)
                         .padding(.trailing, 4)

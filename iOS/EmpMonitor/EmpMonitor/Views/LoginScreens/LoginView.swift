@@ -24,7 +24,7 @@ struct LoginView: View {
                 Color.white
                     .ignoresSafeArea(.all)
                 
-                Image(.loginScreenTopBg)
+                Image.fullWidthBackground(.loginScreenTopBg)
                     .ignoresSafeArea(.all)
                 
                 VStack {
@@ -66,7 +66,12 @@ struct LoginView: View {
                                     Text(button)
                                         .font(AppFont.primary(size: AppFont.Size.screenTitle))
                                         .foregroundStyle(Color.subText)
+                                        .lineLimit(1)
+                                        .minimumScaleFactor(0.5)
                                 }
+                                .frame(minHeight: AppLayout.minimumTouchTarget)
+                                .contentShape(Rectangle())
+                                .accessibilityAddTraits(selectedButton == button ? .isSelected : [])
 
                             })
                             Spacer()

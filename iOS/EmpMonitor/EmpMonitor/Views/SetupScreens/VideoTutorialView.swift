@@ -18,7 +18,7 @@ struct VideoTutorialView: View {
             Color.white
                 .ignoresSafeArea(.all)
             
-            Image(.topSetupScreenBg)
+            Image.fullWidthBackground(.topSetupScreenBg)
                 .ignoresSafeArea()
             
             VStack {
@@ -28,13 +28,14 @@ struct VideoTutorialView: View {
                     .fill(
                         LinearGradient(gradient: Gradient(colors: [Color.appBg1, Color.appBg2]), startPoint: .top, endPoint: .bottom)
                     )
-                    .frame(width: 370, height: 207)
+                    .aspectRatio(370.0 / 207.0, contentMode: .fit)
+                    .frame(maxWidth: 370)
                     .overlay {
                         YoutubeWebView(url: youtubeURL)
-                            .frame(width: 350, height: 187)
                             .clipShape(RoundedRectangle(cornerRadius: 10))
-//                            .padding(10)
+                            .padding(10)
                     }
+                    .padding(.horizontal, AppSpacing.md)
                     .padding(.top, 170)
                 
                     

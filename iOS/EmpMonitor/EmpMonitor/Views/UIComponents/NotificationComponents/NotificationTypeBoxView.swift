@@ -18,8 +18,10 @@ struct NotificationTypeBoxView: View {
                 .font(AppFont.primary(size: AppFont.Size.nano))
                 .fontWeight(AppFont.Weight.semibold)
                 .foregroundStyle(Color.white)
+                .lineLimit(1)
         }
-        .frame(width: 94, height: 23)
+        .padding(.horizontal, AppSpacing.sm)
+        .frame(minWidth: 94, minHeight: 23)
         .background(bgColor)
         .clipShape(Capsule())
     }

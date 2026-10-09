@@ -11,9 +11,10 @@ enum AppFont {
     static let primaryFamily = "Montserrat"
 
     enum Size {
-        static let nano: CGFloat = 8
-        static let micro: CGFloat = 9
-        static let xSmall: CGFloat = 10
+        // HIG minimum text size on iOS is 11pt, so the smallest tokens all resolve to it.
+        static let nano: CGFloat = 11
+        static let micro: CGFloat = 11
+        static let xSmall: CGFloat = 11
         static let footnote: CGFloat = 11
         static let caption: CGFloat = 12
         static let callout: CGFloat = 13

@@ -16,7 +16,7 @@ struct Camera_GallaryPermissionView: View {
             Color.white
                 .ignoresSafeArea(.all)
             
-            Image(.topSetupScreenBg)
+            Image.fullWidthBackground(.topSetupScreenBg)
                 .ignoresSafeArea()
             
             VStack {

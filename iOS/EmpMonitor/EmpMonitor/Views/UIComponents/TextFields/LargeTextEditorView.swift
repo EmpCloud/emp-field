@@ -11,6 +11,11 @@ struct LargeTextEditorView: View {
     
     @Binding var descriptionText: String
     
+    // TextEditor insets its text by 5pt at the sides and 8pt at the top. Account for both so
+    // the typed text and the placeholder sit at the same 16pt inset as the other popup fields.
+    private let editorSideInset: CGFloat = 5
+    private let editorTopInset: CGFloat = 8
+    
     var body: some View {
         TextEditor(text: $descriptionText)
             .font(AppFont.primary(size: AppFont.Size.xSmall))
@@ -18,7 +23,7 @@ struct LargeTextEditorView: View {
             .scrollContentBackground(.hidden)
             .background(Color.rectangleBG)
             .padding(.top, AppSpacing.xxs)
-            .padding(.horizontal, AppSpacing.sm)
+            .padding(.horizontal, AppSpacing.md - editorSideInset)
             .frame(maxWidth: .infinity)
             .frame(height: 68)
             .background(Color.rectangleBG)
@@ -27,7 +32,8 @@ struct LargeTextEditorView: View {
                     Text("Write reason here")
                         .font(AppFont.primary(size: AppFont.Size.xSmall))
                         .foregroundStyle(Color.addressText2)
-                        .padding(AppSpacing.sm)
+                        .padding(.top, AppSpacing.xxs + editorTopInset)
+                        .padding(.horizontal, AppSpacing.md)
                         .allowsHitTesting(false)
                 }
             }
