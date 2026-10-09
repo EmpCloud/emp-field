@@ -16,17 +16,6 @@ extension View {
             .opacity(condition ? 0.5 : 1.0)
     }
     
-    func toolbarDoneButton() -> some View {
-            self.toolbar {
-                ToolbarItemGroup(placement: .keyboard) {
-                    Spacer()  // Push the Done button to the right
-                    Button("Done") {
-                        UIApplication.shared.dismissKeyboard()
-                    }
-                }
-            }
-        }
-
     func dismissKeyboardOnTapOutside() -> some View {
         background(KeyboardDismissTapInstaller())
     }

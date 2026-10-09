@@ -59,7 +59,6 @@ struct MobileLoginView: View {
                         .onReceive(Just(mobileNumber)) { _ in
                             applyPatternOnNumbers(&mobileNumber, pattern: countryPattern, replacementCharacter: "#")
                         }
-                        .toolbarDoneButton()
                     
                     //MARK: Country Flag and Code
                     Button{

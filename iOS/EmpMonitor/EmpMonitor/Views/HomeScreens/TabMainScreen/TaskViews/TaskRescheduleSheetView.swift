@@ -607,7 +607,6 @@ struct TaskRescheduleDetailSheetView: View {
                         
                         RescheduleTextFieldView(text: $taskVolume, placeholder: "Task Volume")
                             .keyboardType(.numberPad)
-                            .toolbarDoneButton()
                         
                         
                         Text("Task Value")
@@ -954,7 +953,6 @@ struct TaskRescheduleDetailSheetView: View {
     private var taskValueField: some View {
         RescheduleTextFieldView(text: $taskValue, placeholder: "Enter Task Value")
             .keyboardType(.numberPad)
-            .toolbarDoneButton()
     }
 }
 

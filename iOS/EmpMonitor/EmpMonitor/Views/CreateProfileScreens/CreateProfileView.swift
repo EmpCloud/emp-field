@@ -229,7 +229,6 @@ struct CreateProfileView: View {
                     .padding(.bottom, AppSpacing.xxl)
                 }
                 .scrollDismissesKeyboard(.immediately)
-                .toolbarDoneButton()
             }
             .onChange(of: savedImageURL) { oldSavedImageURL, newSavedImageURL in
                 Task {

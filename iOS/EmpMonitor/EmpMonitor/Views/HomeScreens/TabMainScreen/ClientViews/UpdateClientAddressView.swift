@@ -142,7 +142,6 @@ struct UpdateClientAddressView: View {
                                                     Text("Zip Code")
                                                     AddressTextFieldView(text: $searchLocationViewModel.selectedLocationZipcode, placeholder: "")
                                                         .keyboardType(.numberPad)
-                                                        .toolbarDoneButton()
                                                 }
                                                 .padding(.horizontal)
                                                 

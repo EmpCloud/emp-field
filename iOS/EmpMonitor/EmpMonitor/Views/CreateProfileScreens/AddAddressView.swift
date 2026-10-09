@@ -150,7 +150,6 @@ struct AddAddressView: View {
                                             AddressTextFieldView(text: $searchLocationViewModel.selectedLocationZipcode, placeholder: "")
                                                 .keyboardType(.numberPad)
                                                 .textContentType(.postalCode)
-                                                .toolbarDoneButton()
                                         }
                                         .padding(.horizontal)
 

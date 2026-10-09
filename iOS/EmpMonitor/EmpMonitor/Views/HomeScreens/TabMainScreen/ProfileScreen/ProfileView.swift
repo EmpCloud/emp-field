@@ -124,7 +124,6 @@ struct ProfileView: View {
                             }
                             TextFieldEditableCreateProfileView(text: $updateProfileViewModel.age, placeholder: "Age")
                                 .keyboardType(.numberPad)
-                                .toolbarDoneButton()
                                 .focused($isKeyboardShowing)
 //                                .onChange(of: updateProfileViewModel.age, { _, newAge in
 //                                    withAnimation {

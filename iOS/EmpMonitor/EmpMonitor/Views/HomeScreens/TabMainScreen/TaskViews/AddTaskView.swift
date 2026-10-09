@@ -168,7 +168,6 @@ struct AddTaskView: View {
                                 
                                 AddTaskTextField(text: $taskVolume, placeholder: "Task Volume")
                                     .keyboardType(.numberPad)
-                                    .toolbarDoneButton()
                                 
                                 Text("Task Value")
                                     .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.regular))
@@ -209,7 +208,6 @@ struct AddTaskView: View {
 
                                     AddTaskTextField(text: $taskValue, placeholder: "Enter Task Value")
                                         .keyboardType(.numberPad)
-                                        .toolbarDoneButton()
                                 }
                                 
                             }
@@ -342,7 +340,7 @@ struct AddTaskView: View {
                         }
                     }
                     .padding(.top)
-                    .scrollDismissesKeyboard(.interactively)
+                    .scrollDismissesKeyboard(.immediately)
                 }
             
             //MARK: ImagePreview Popup

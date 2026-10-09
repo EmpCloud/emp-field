@@ -33,7 +33,9 @@ struct EmpMonitorApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+                // Keyboard dismissal is handled app-wide: tap outside a text input, or scroll.
                 .dismissKeyboardOnTapOutside()
+                .scrollDismissesKeyboard(.immediately)
 //                .environmentObject(appState)
                 .environmentObject(permissionManager)
                 .environmentObject(createProfileViewModel)

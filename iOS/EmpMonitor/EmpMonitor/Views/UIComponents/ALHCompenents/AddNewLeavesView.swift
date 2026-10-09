@@ -180,7 +180,6 @@ struct AddNewLeavesView: View {
                 .fontWeight(AppFont.Weight.medium)
 
                 LargeTextEditorView(descriptionText: $createLeaveViewModel.reason)
-                    .toolbarDoneButton()
 
                 //MARK: Apply Button
                 PrimaryThinButton(text: "Apply") {

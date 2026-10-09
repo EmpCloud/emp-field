@@ -125,7 +125,6 @@ struct AddClientView: View {
                                     MobileTextFieldCreateProfileView(text: $phoneNumber, placeholder: "Enter Mobile Number")
                                         .keyboardType(.numberPad)
                                         .focused($keyIsFocused)
-                                        .toolbarDoneButton()
                                         .onReceive(Just(phoneNumber)) { _ in
                                             applyPatternOnNumbers(&phoneNumber, pattern: countryPattern, replacementCharacter: "#")
                                         }

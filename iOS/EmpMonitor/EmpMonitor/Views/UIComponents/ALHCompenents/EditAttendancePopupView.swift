@@ -98,7 +98,6 @@ struct EditAttendancePopupView: View {
                     .frame(maxWidth: .infinity,alignment: .leading)
                     
                     LargeTextEditorView(descriptionText: $editAttendanceViewModel.reason)
-                        .toolbarDoneButton()
                     
                 }
                 
