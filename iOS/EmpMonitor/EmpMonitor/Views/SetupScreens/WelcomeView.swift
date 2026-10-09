@@ -101,7 +101,7 @@ struct WelcomeView: View {
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.horizontal, 16)
                 }
-                .frame(maxWidth: 500)
+                .readableContentWidth()
                 .padding(.horizontal, 16)
                 .padding(.bottom, 50)
             }

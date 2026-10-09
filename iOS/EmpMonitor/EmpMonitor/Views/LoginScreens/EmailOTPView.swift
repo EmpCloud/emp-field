@@ -134,8 +134,7 @@ struct EmailOTPView: View {
                 .padding()
                 
             }
-            // Keeps the form a readable width on iPad, in any orientation.
-            .frame(maxWidth: 500)
+            .readableContentWidth()
             
             
             //Success Popup

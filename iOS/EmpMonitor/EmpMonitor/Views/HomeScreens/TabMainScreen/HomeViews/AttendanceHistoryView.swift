@@ -22,19 +22,20 @@ struct AttendanceHistoryView: View {
             } else if attendanceViewModel.attendanceData.isEmpty {
                 emptyPlaceholder
             } else {
-                // Columns share the available width, so the table fills iPhone and iPad alike.
-                LazyVStack(alignment: .leading, spacing: 0) {
-                    HStack(spacing: 0) {
+                // System grid: columns size themselves to their content and share any extra
+                // width, so the table adapts to iPhone, iPad, rotation and split view.
+                Grid(alignment: .leading, horizontalSpacing: AppSpacing.sm, verticalSpacing: 0) {
+                    GridRow {
                         Text("Date")
-                            .frame(minWidth: Column.date, maxWidth: .infinity, alignment: .leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         Text("Status")
-                            .frame(minWidth: Column.status, maxWidth: .infinity, alignment: .leading)
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         Text("Clocked-in")
-                            .frame(minWidth: Column.clockedIn, maxWidth: .infinity)
+                            .frame(maxWidth: .infinity)
                         Text("Clocked-out")
-                            .frame(minWidth: Column.clockedOut, maxWidth: .infinity)
+                            .frame(maxWidth: .infinity)
                         Color.clear
-                            .frame(width: Column.edit, height: 1)
+                            .gridCellUnsizedAxes([.horizontal, .vertical])
                     }
                     .font(AppFont.primary(size: AppFont.Size.caption))
                     .foregroundStyle(Color.attendanceTitleText)
@@ -43,30 +44,30 @@ struct AttendanceHistoryView: View {
                     .padding(.vertical, 10)
 
                     ForEach(attendanceViewModel.attendanceData, id: \.date) { attendance in
-                        HStack(spacing: 0) {
+                        GridRow {
                             Text(FormatterHelper.shared.formattedDate(from: attendance.date))
-                                .frame(minWidth: Column.date, maxWidth: .infinity, alignment: .leading)
+                                .frame(maxWidth: .infinity, alignment: .leading)
 
                             Text("\(checkAttendanceStatus(attendance: attendance))")
-                                .frame(minWidth: Column.status, maxWidth: .infinity, alignment: .leading)
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .foregroundStyle(applyColor(status: checkAttendanceStatus(attendance: attendance)))
 
                             if let clockedIN = FormatterHelper.shared.checkTimeFormatter(from: attendance.startTime ?? "") {
                                 Text(clockedIN)
-                                    .frame(minWidth: Column.clockedIn, maxWidth: .infinity)
+                                    .frame(maxWidth: .infinity)
                                     .foregroundStyle(Color.present)
                             } else {
                                 Text("--:--")
-                                    .frame(minWidth: Column.clockedIn, maxWidth: .infinity)
+                                    .frame(maxWidth: .infinity)
                             }
 
                             if let clockedOUT = FormatterHelper.shared.checkTimeFormatter(from: attendance.endTime ?? "") {
                                 Text(clockedOUT)
-                                    .frame(minWidth: Column.clockedOut, maxWidth: .infinity)
+                                    .frame(maxWidth: .infinity)
                                     .foregroundStyle(Color.absent)
                             } else {
                                 Text("--:--")
-                                    .frame(minWidth: Column.clockedOut, maxWidth: .infinity)
+                                    .frame(maxWidth: .infinity)
                             }
 
                             Button {
@@ -76,19 +77,19 @@ struct AttendanceHistoryView: View {
                                 }
                             } label: {
                                 Image(.editAttendanceIcon)
-                                    .frame(width: Column.edit, height: AppLayout.minimumTouchTarget)
+                                    .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
                                     .contentShape(Rectangle())
                             }
                             .buttonStyle(.plain)
                             .accessibilityLabel("Edit attendance")
                         }
-                        .lineLimit(1)
+                        .font(AppFont.primary(size: AppFont.Size.footnote))
+                        .fontWeight(AppFont.Weight.semibold)
+                        .lineLimit(2)
                         .minimumScaleFactor(0.8)
 
-                        LineView()
+                        Divider()
                     }
-                    .font(AppFont.primary(size: AppFont.Size.footnote))
-                    .fontWeight(AppFont.Weight.semibold)
                 }
                 .padding(.horizontal, AppSpacing.md)
                 .background(Color.white)
@@ -117,15 +118,6 @@ struct AttendanceHistoryView: View {
         }
     }
     
-    /// Minimum column widths; the remaining width is shared between the text columns.
-    private enum Column {
-        static let date: CGFloat = 64
-        static let status: CGFloat = 96
-        static let clockedIn: CGFloat = 72
-        static let clockedOut: CGFloat = 72
-        static let edit: CGFloat = 36
-    }
-
     private var loadingPlaceholder: some View {
         VStack(spacing: 12) {
             ProgressView()

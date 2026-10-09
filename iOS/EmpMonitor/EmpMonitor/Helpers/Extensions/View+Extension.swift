@@ -89,6 +89,52 @@ private extension UIView {
     }
 }
 
+extension View {
+    /// Limits the view to the system's readable content width (the same guide UIKit exposes
+    /// as `readableContentGuide`), so forms stay comfortable to read on iPad in any
+    /// orientation or window size, and follow the user's text size.
+    func readableContentWidth() -> some View {
+        modifier(ReadableContentWidth())
+    }
+}
+
+private struct ReadableContentWidth: ViewModifier {
+    @State private var readableWidth: CGFloat = .infinity
+
+    func body(content: Content) -> some View {
+        content
+            .frame(maxWidth: readableWidth)
+            .frame(maxWidth: .infinity)
+            .background(ReadableWidthReader(width: $readableWidth))
+    }
+}
+
+/// Reads the width of the system readable content guide for the space it is placed in.
+private struct ReadableWidthReader: UIViewRepresentable {
+    @Binding var width: CGFloat
+
+    func makeUIView(context: Context) -> GuideView {
+        let view = GuideView()
+        view.isUserInteractionEnabled = false
+        view.onLayout = { newWidth in
+            guard newWidth > 0, abs(newWidth - width) > 0.5 else { return }
+            DispatchQueue.main.async { width = newWidth }
+        }
+        return view
+    }
+
+    func updateUIView(_ uiView: GuideView, context: Context) {}
+
+    final class GuideView: UIView {
+        var onLayout: ((CGFloat) -> Void)?
+
+        override func layoutSubviews() {
+            super.layoutSubviews()
+            onLayout?(readableContentGuide.layoutFrame.width)
+        }
+    }
+}
+
 extension Image {
     /// A decorative background stretched to the container width at its designed height, so
     /// wave artwork drawn for a 393pt-wide canvas also spans wider phones and iPad.

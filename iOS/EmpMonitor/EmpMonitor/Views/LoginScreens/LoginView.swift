@@ -82,8 +82,7 @@ struct LoginView: View {
                     .padding(.top)
                     .padding(.leading, 50)
                     .padding(.trailing, 0)
-                    // Keeps the options and button a readable width on iPad, in any orientation.
-                    .frame(maxWidth: 500)
+                    .readableContentWidth()
                     
                     //MARK: Continue button
                     PrimaryButton(text: "Continue") {
@@ -101,7 +100,7 @@ struct LoginView: View {
                     }
                     .padding(.top, 50)
                     .padding(.horizontal, 50)
-                    .frame(maxWidth: 500)
+                    .readableContentWidth()
                     .disableWithOpacity(selectedButton == "")
                 }
 
