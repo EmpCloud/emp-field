@@ -328,14 +328,6 @@ struct TaskRescheduleSheetView: View {
                 
             }
             
-            //MARK: Currency Popup
-            if showCurrencyPopup {
-                ModalOverlayView(dismissOnBackgroundTap: {
-                    showCurrencyPopup.toggle()
-                }) {
-                    CurrencyPopupView(selectedCurrency: $selectedCurrency, showCurrencyPopup: $showCurrencyPopup)
-                }
-            }
             
             //MARK: Calendar
             if showCalendar {
@@ -958,8 +950,12 @@ struct TaskRescheduleDetailSheetView: View {
     }
 
     private var currencyPickerButton: some View {
-        Button {
-            showCurrencyPopup.toggle()
+        Menu {
+            Picker("Currency", selection: $selectedCurrency) {
+                ForEach(CurrencyCatalog.availableCurrencies, id: \.self) { currencyCode in
+                    Text("\(CurrencyCatalog.currencyName(currencyCode: currencyCode)) (\(currencyCode))").tag(currencyCode)
+                }
+            }
         } label: {
             HStack(alignment: .center, spacing: AppSpacing.iconTextSpacing) {
                 Text(selectedCurrency)

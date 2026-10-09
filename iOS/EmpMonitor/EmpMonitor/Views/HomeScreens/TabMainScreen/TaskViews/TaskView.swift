@@ -158,125 +158,9 @@ struct TaskView: View {
                             .frame(maxWidth: .infinity, alignment: .leading)
                             
                             
-                            //MARK: FilterMenu
-                            if showTaskFilter {
-                                RoundedRectangle(cornerRadius: 6)
-                                    .fill(
-                                        LinearGradient(gradient: Gradient(colors: [Color.primaryButton1, Color.primaryButton2]), startPoint: .top, endPoint: .bottom)
-                                    )
-                                    .frame(height: 92)
-                                    .padding(.top, AppSpacing.sectionTopSpacing)
-                                    .padding(.horizontal, AppSpacing.xl)
-                                    .padding(.leading, AppSpacing.xxl)
-                                    .overlay(alignment: .bottom) {
-                                        HStack(spacing: 30){
-                                            HStack{
-                                                Image(systemName: selectedFilter == "All" ? "checkmark.square" :"square")
-                                                Text("All")
-                                            }
-                                            .contentShape(Rectangle())
-                                            .accessibilityAddTraits(.isButton)
-                                            .onTapGesture {
-                                                Task {
-                                                    do {
-                                                        selectedFilter = "All"  // setting the selected UI
-                                                    
-                                                    
-    //                                                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
-                                                        taskListViewModel.status = 0 // passing the value for "All"
-                                                    
-                                                       try await taskListViewModel.getFilterTaskList()
-                                                    
-                                                        AppLog.debug(NetworkManager.shared.statusCode)
-                                                        AppLog.debug(NetworkManager.shared.responseMessage)
-                                                    
-                                                        if NetworkManager.shared.statusCode == 200 {
-                                                            filterTaskData = taskListViewModel.filterTaskData
-                                                        }
-                                                    
-                                                    
-                                                    } catch {
-                                                        AppLog.debug("Task failed: \(error.localizedDescription)")
-                                                    }
-                                                }
-                                                withAnimation(.smooth) {
-                                                    showTaskFilter.toggle()
-                                                }
-                                            }
-                                            
-                                            HStack{
-                                                Image(systemName: selectedFilter == "Current" ? "checkmark.square" :"square")
-                                                Text("Current")
-                                            }
-                                            .contentShape(Rectangle())
-                                            .accessibilityAddTraits(.isButton)
-                                            .onTapGesture {
-                                                Task {
-                                                    do {
-                                                        selectedFilter = "Current"  // setting the selected UI
-                                                    
-                                                    
-    //                                                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
-                                                        taskListViewModel.status = 1 // passing the value for "All"
-                                                    
-                                                       try await taskListViewModel.getFilterTaskList()
-                                                    
-                                                        if NetworkManager.shared.statusCode == 200 {
-                                                            filterTaskData = taskListViewModel.filterTaskData
-                                                        }
-                                                    
-                                                    
-                                                    } catch {
-                                                        AppLog.debug("Task failed: \(error.localizedDescription)")
-                                                    }
-                                                }
-                                                withAnimation(.smooth) {
-                                                    showTaskFilter.toggle()
-                                                }
-                                            }
-                                            
-                                            HStack{
-                                                Image(systemName: selectedFilter == "Finished" ? "checkmark.square" :"square")
-                                                Text("Finished")
-                                            }
-                                            .contentShape(Rectangle())
-                                            .accessibilityAddTraits(.isButton)
-                                            .onTapGesture {
-                                                Task {
-                                                    do {
-                                                        selectedFilter = "Finished"  // setting the selected UI
-                                                    
-                                                    
-    //                                                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
-                                                        taskListViewModel.status = 4 // passing the value for "All"
-                                                    
-                                                       try await taskListViewModel.getFilterTaskList()
-                                                    
-                                                        if NetworkManager.shared.statusCode == 200 {
-                                                            filterTaskData = taskListViewModel.filterTaskData
-                                                        }
-                                                    
-                                                    
-                                                    } catch {
-                                                        AppLog.debug("Task failed: \(error.localizedDescription)")
-                                                    }
-                                                }
-                                                withAnimation(.smooth) {
-                                                    showTaskFilter.toggle()
-                                                }
-                                            }
-                                            
-                                        }
-                                        .font(AppFont.primary(size: AppFont.Size.caption))
-                                        .fontWeight(AppFont.Weight.medium)
-                                        .foregroundStyle(Color.white)
-                                        .padding(AppSpacing.screenHorizontalPadding)
-                                        .padding(.leading, AppSpacing.xxl)
-                                    }
-                            }
                             
                             //MARK: Search bar with filter
-                            TaskSearchBarView(searchText: $searchText, selectedFilter: $selectedFilter, showTaskFilter: $showTaskFilter)
+                            TaskSearchBarView(searchText: $searchText, selectedFilter: $selectedFilter, showTaskFilter: $showTaskFilter, onFilterSelect: applyFilter)
                                 .padding(.leading, AppSpacing.xxl)
                                 .padding(.horizontal, AppSpacing.xl)
                                 .padding(.top, AppSpacing.sectionTopSpacing)
@@ -513,6 +397,26 @@ struct TaskView: View {
             
         }
         
+    }
+    /// Applies the task filter chosen from the search bar menu and reloads the list.
+    private func applyFilter(_ filter: String) {
+        selectedFilter = filter
+        switch filter {
+        case "Current": taskListViewModel.status = 1
+        case "Finished": taskListViewModel.status = 4
+        default: taskListViewModel.status = 0
+        }
+
+        Task {
+            do {
+                try await taskListViewModel.getFilterTaskList()
+                if NetworkManager.shared.statusCode == 200 {
+                    filterTaskData = taskListViewModel.filterTaskData
+                }
+            } catch {
+                AppLog.debug("Task failed: \(error.localizedDescription)")
+            }
+        }
     }
 }
 

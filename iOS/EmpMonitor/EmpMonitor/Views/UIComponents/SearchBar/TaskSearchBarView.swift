@@ -14,6 +14,7 @@ struct TaskSearchBarView: View {
     @Binding var selectedFilter: String?
     
     @Binding var showTaskFilter: Bool
+    var onFilterSelect: ((String) -> Void)? = nil
     
     var body: some View {
         GenericSearchBar(
@@ -22,7 +23,10 @@ struct TaskSearchBarView: View {
             placeholder: "Search",
             bgColor: Color.taskSearchBar,
             showFilterButton: true,
-            onFilterTap: nil
+            onFilterTap: nil,
+            filterOptions: ["All", "Current", "Finished"],
+            selectedFilter: selectedFilter,
+            onFilterSelect: onFilterSelect
         )
     }
 }

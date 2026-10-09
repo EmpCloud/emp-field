@@ -57,7 +57,6 @@
 		DA5DCD2E2C22DFD800F2BA5C /* Decoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5DCD2D2C22DFD800F2BA5C /* Decoder.swift */; };
 		DA5DCD302C22E0D000F2BA5C /* MobileTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5DCD2F2C22E0D000F2BA5C /* MobileTextField.swift */; };
 		DA5DCD322C22E8DE00F2BA5C /* MobileOTPView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5DCD312C22E8DE00F2BA5C /* MobileOTPView.swift */; };
-		DA5DCD342C22EB3100F2BA5C /* OTPTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5DCD332C22EB3100F2BA5C /* OTPTextField.swift */; };
 		DA5DCD362C22F24000F2BA5C /* EmailLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5DCD352C22F24000F2BA5C /* EmailLoginView.swift */; };
 		DA5DCD382C22F5D100F2BA5C /* PasswordLoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5DCD372C22F5D100F2BA5C /* PasswordLoginView.swift */; };
 		DA5DCD3B2C22F6A300F2BA5C /* CreateProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA5DCD3A2C22F6A200F2BA5C /* CreateProfileView.swift */; };
@@ -98,7 +97,6 @@
 		DA72904F2C295B3400609B3A /* AddressSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA72904E2C295B3400609B3A /* AddressSearchBarView.swift */; };
 		DA7290532C2977B100609B3A /* AddressTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7290522C2977B100609B3A /* AddressTextFieldView.swift */; };
 		DA7290552C297C1000609B3A /* MapAddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7290542C297C1000609B3A /* MapAddressView.swift */; };
-		DA7290572C2988B900609B3A /* MapSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7290562C2988B800609B3A /* MapSearchBarView.swift */; };
 		DA7290592C298A9900609B3A /* CurrentLocationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7290582C298A9900609B3A /* CurrentLocationButton.swift */; };
 		DA7290742C2BF0E500609B3A /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7290732C2BF0E500609B3A /* UserDefault.swift */; };
 		DA7290762C2BF32800609B3A /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7290752C2BF32800609B3A /* SplashView.swift */; };
@@ -118,7 +116,6 @@
 		DA7D4A3A2C3FE23A00C8741D /* CreateProfileRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D4A392C3FE23A00C8741D /* CreateProfileRequestModel.swift */; };
 		DA7D4A3D2C3FE85000C8741D /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D4A3C2C3FE85000C8741D /* HomeView.swift */; };
 		DA7D4A3F2C3FEB5000C8741D /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D4A3E2C3FEB5000C8741D /* TaskView.swift */; };
-		DA7D4A412C3FEB5F00C8741D /* InsightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D4A402C3FEB5F00C8741D /* InsightView.swift */; };
 		DA7D4A432C3FEB7500C8741D /* ClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D4A422C3FEB7500C8741D /* ClientView.swift */; };
 		DA7D4A452C3FEB7E00C8741D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D4A442C3FEB7E00C8741D /* Settings.swift */; };
 		DA7D4A472C4005ED00C8741D /* TabMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA7D4A462C4005ED00C8741D /* TabMainView.swift */; };
@@ -143,7 +140,6 @@
 		DAB014202C5A0CAD00988B8F /* AddNewLeavesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB0141F2C5A0CAD00988B8F /* AddNewLeavesView.swift */; };
 		DAB014222C5A0EFA00988B8F /* PopupTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB014212C5A0EFA00988B8F /* PopupTextField.swift */; };
 		DAB014272C5A140700988B8F /* PopupDropDownMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB014262C5A140700988B8F /* PopupDropDownMenu.swift */; };
-		DAB0142C2C5A768300988B8F /* SearchBarWithFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB0142B2C5A768300988B8F /* SearchBarWithFilterView.swift */; };
 		DAB98F042C85CD6E00250C6D /* UpdateClientRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F032C85CD6E00250C6D /* UpdateClientRequestModel.swift */; };
 		DAB98F062C85CDC300250C6D /* UpdateClientViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F052C85CDC300250C6D /* UpdateClientViewModel.swift */; };
 		DAB98F082C85CE4C00250C6D /* UpdateClientResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F072C85CE4C00250C6D /* UpdateClientResponseModel.swift */; };
@@ -242,7 +238,7 @@
 		DAD2EE722C770EF500D519B8 /* AddTaskTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE712C770EF500D519B8 /* AddTaskTextField.swift */; };
 		DAD2EE742C77107800D519B8 /* TextFieldButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE732C77107800D519B8 /* TextFieldButton.swift */; };
 		DAD2EE762C77138200D519B8 /* AddTaskTextEditor.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE752C77138200D519B8 /* AddTaskTextEditor.swift */; };
-		DAD2EE792C7724EB00D519B8 /* CurrencyPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE782C7724EB00D519B8 /* CurrencyPopupView.swift */; };
+		DAD2EE792C7724EB00D519B8 /* CurrencyCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE782C7724EB00D519B8 /* CurrencyCatalog.swift */; };
 		DAD2EE7B2C77307F00D519B8 /* AddPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE7A2C77307F00D519B8 /* AddPictureView.swift */; };
 		DAD2EE7D2C77412200D519B8 /* SelectClientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE7C2C77412200D519B8 /* SelectClientView.swift */; };
 		DAD2EE7F2C77426900D519B8 /* ClientSearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE7E2C77426900D519B8 /* ClientSearchBarView.swift */; };
@@ -251,7 +247,6 @@
 		DAD2EE852C774C0600D519B8 /* TaskCalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE842C774C0600D519B8 /* TaskCalendarView.swift */; };
 		DAD2EE882C7756A700D519B8 /* ClientListResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE872C7756A700D519B8 /* ClientListResponseModel.swift */; };
 		DAD2EE8B2C77576300D519B8 /* ClientListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE8A2C77576300D519B8 /* ClientListViewModel.swift */; };
-		DAD2EE8D2C776E5600D519B8 /* ScheduleTimeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE8C2C776E5600D519B8 /* ScheduleTimeView.swift */; };
 		DAD2EE902C77723900D519B8 /* DateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE8F2C77723900D519B8 /* DateViewModel.swift */; };
 		DAD2EE932C7774E700D519B8 /* TimePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE922C7774E700D519B8 /* TimePickerView.swift */; };
 		DAD2EE962C78A8EC00D519B8 /* DocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE952C78A8EC00D519B8 /* DocumentPicker.swift */; };
@@ -349,7 +344,6 @@
 		DA5DCD2D2C22DFD800F2BA5C /* Decoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoder.swift; sourceTree = "<group>"; };
 		DA5DCD2F2C22E0D000F2BA5C /* MobileTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileTextField.swift; sourceTree = "<group>"; };
 		DA5DCD312C22E8DE00F2BA5C /* MobileOTPView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobileOTPView.swift; sourceTree = "<group>"; };
-		DA5DCD332C22EB3100F2BA5C /* OTPTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OTPTextField.swift; sourceTree = "<group>"; };
 		DA5DCD352C22F24000F2BA5C /* EmailLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailLoginView.swift; sourceTree = "<group>"; };
 		DA5DCD372C22F5D100F2BA5C /* PasswordLoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordLoginView.swift; sourceTree = "<group>"; };
 		DA5DCD3A2C22F6A200F2BA5C /* CreateProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileView.swift; sourceTree = "<group>"; };
@@ -389,7 +383,6 @@
 		DA72904E2C295B3400609B3A /* AddressSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchBarView.swift; sourceTree = "<group>"; };
 		DA7290522C2977B100609B3A /* AddressTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressTextFieldView.swift; sourceTree = "<group>"; };
 		DA7290542C297C1000609B3A /* MapAddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapAddressView.swift; sourceTree = "<group>"; };
-		DA7290562C2988B800609B3A /* MapSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapSearchBarView.swift; sourceTree = "<group>"; };
 		DA7290582C298A9900609B3A /* CurrentLocationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationButton.swift; sourceTree = "<group>"; };
 		DA7290732C2BF0E500609B3A /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		DA7290752C2BF32800609B3A /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -409,7 +402,6 @@
 		DA7D4A392C3FE23A00C8741D /* CreateProfileRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateProfileRequestModel.swift; sourceTree = "<group>"; };
 		DA7D4A3C2C3FE85000C8741D /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		DA7D4A3E2C3FEB5000C8741D /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
-		DA7D4A402C3FEB5F00C8741D /* InsightView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightView.swift; sourceTree = "<group>"; };
 		DA7D4A422C3FEB7500C8741D /* ClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientView.swift; sourceTree = "<group>"; };
 		DA7D4A442C3FEB7E00C8741D /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		DA7D4A462C4005ED00C8741D /* TabMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMainView.swift; sourceTree = "<group>"; };
@@ -434,7 +426,6 @@
 		DAB0141F2C5A0CAD00988B8F /* AddNewLeavesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewLeavesView.swift; sourceTree = "<group>"; };
 		DAB014212C5A0EFA00988B8F /* PopupTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTextField.swift; sourceTree = "<group>"; };
 		DAB014262C5A140700988B8F /* PopupDropDownMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupDropDownMenu.swift; sourceTree = "<group>"; };
-		DAB0142B2C5A768300988B8F /* SearchBarWithFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBarWithFilterView.swift; sourceTree = "<group>"; };
 		DAB98F032C85CD6E00250C6D /* UpdateClientRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateClientRequestModel.swift; sourceTree = "<group>"; };
 		DAB98F052C85CDC300250C6D /* UpdateClientViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateClientViewModel.swift; sourceTree = "<group>"; };
 		DAB98F072C85CE4C00250C6D /* UpdateClientResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateClientResponseModel.swift; sourceTree = "<group>"; };
@@ -533,7 +524,7 @@
 		DAD2EE712C770EF500D519B8 /* AddTaskTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskTextField.swift; sourceTree = "<group>"; };
 		DAD2EE732C77107800D519B8 /* TextFieldButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldButton.swift; sourceTree = "<group>"; };
 		DAD2EE752C77138200D519B8 /* AddTaskTextEditor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskTextEditor.swift; sourceTree = "<group>"; };
-		DAD2EE782C7724EB00D519B8 /* CurrencyPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyPopupView.swift; sourceTree = "<group>"; };
+		DAD2EE782C7724EB00D519B8 /* CurrencyCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyCatalog.swift; sourceTree = "<group>"; };
 		DAD2EE7A2C77307F00D519B8 /* AddPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPictureView.swift; sourceTree = "<group>"; };
 		DAD2EE7C2C77412200D519B8 /* SelectClientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectClientView.swift; sourceTree = "<group>"; };
 		DAD2EE7E2C77426900D519B8 /* ClientSearchBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientSearchBarView.swift; sourceTree = "<group>"; };
@@ -542,7 +533,6 @@
 		DAD2EE842C774C0600D519B8 /* TaskCalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskCalendarView.swift; sourceTree = "<group>"; };
 		DAD2EE872C7756A700D519B8 /* ClientListResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListResponseModel.swift; sourceTree = "<group>"; };
 		DAD2EE8A2C77576300D519B8 /* ClientListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientListViewModel.swift; sourceTree = "<group>"; };
-		DAD2EE8C2C776E5600D519B8 /* ScheduleTimeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTimeView.swift; sourceTree = "<group>"; };
 		DAD2EE8F2C77723900D519B8 /* DateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateViewModel.swift; sourceTree = "<group>"; };
 		DAD2EE922C7774E700D519B8 /* TimePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimePickerView.swift; sourceTree = "<group>"; };
 		DAD2EE952C78A8EC00D519B8 /* DocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPicker.swift; sourceTree = "<group>"; };
@@ -623,7 +613,6 @@
 			isa = PBXGroup;
 			children = (
 				DA7D4A462C4005ED00C8741D /* TabMainView.swift */,
-				DA7D4A402C3FEB5F00C8741D /* InsightView.swift */,
 				DAB98F182C86DEAE00250C6D /* ProfileScreen */,
 				DA5D7A672C523486004A1BCA /* HomeViews */,
 				DAB014292C5A6D3400988B8F /* TaskViews */,
@@ -887,7 +876,6 @@
 			children = (
 				DA5DCD202C21C9C800F2BA5C /* AuthTextField.swift */,
 				DA5DCD2F2C22E0D000F2BA5C /* MobileTextField.swift */,
-				DA5DCD332C22EB3100F2BA5C /* OTPTextField.swift */,
 				DA7290462C2951EE00609B3A /* TextFieldCreateProfileView.swift */,
 				DAB014212C5A0EFA00988B8F /* PopupTextField.swift */,
 				DA7290522C2977B100609B3A /* AddressTextFieldView.swift */,
@@ -1102,7 +1090,6 @@
 			isa = PBXGroup;
 			children = (
 				DA72904E2C295B3400609B3A /* AddressSearchBarView.swift */,
-				DA7290562C2988B800609B3A /* MapSearchBarView.swift */,
 				DAD2EE5D2C75F40000D519B8 /* TaskSearchBarView.swift */,
 				DAD2EE7E2C77426900D519B8 /* ClientSearchBarView.swift */,
 				C0DE01042D12000000000004 /* GenericSearchBar.swift */,
@@ -1335,10 +1322,8 @@
 		DAB0142A2C5A766400988B8F /* TaskComponents */ = {
 			isa = PBXGroup;
 			children = (
-				DAB0142B2C5A768300988B8F /* SearchBarWithFilterView.swift */,
 				DAD2EE6D2C7701EA00D519B8 /* CreateTaskButtonView.swift */,
 				DAD2EE7A2C77307F00D519B8 /* AddPictureView.swift */,
-				DAD2EE8C2C776E5600D519B8 /* ScheduleTimeView.swift */,
 			);
 			path = TaskComponents;
 			sourceTree = "<group>";
@@ -1607,7 +1592,7 @@
 		DAD2EE772C7724C500D519B8 /* Popups */ = {
 			isa = PBXGroup;
 			children = (
-				DAD2EE782C7724EB00D519B8 /* CurrencyPopupView.swift */,
+				DAD2EE782C7724EB00D519B8 /* CurrencyCatalog.swift */,
 				C0DE01052D12000000000005 /* ModalOverlayView.swift */,
 				DAB98F9C2C9B0A8100250C6D /* LogoutAlertPopupView.swift */,
 			);
@@ -1920,7 +1905,6 @@
 				DA5DCD562C24368400F2BA5C /* LocationSocketManager.swift in Sources */,
 				DA618DBF2CA6D5BE002F8C44 /* YoutubeWebView.swift in Sources */,
 				DA5DCD0C2C21B21000F2BA5C /* LocationPermissionView.swift in Sources */,
-				DAD2EE8D2C776E5600D519B8 /* ScheduleTimeView.swift in Sources */,
 				DA5DCD302C22E0D000F2BA5C /* MobileTextField.swift in Sources */,
 				DAD2EEC22C80413300D519B8 /* FileUploadResponseModel.swift in Sources */,
 				DAB98F962C9AF38300250C6D /* MOTRequestModel.swift in Sources */,
@@ -1990,7 +1974,7 @@
 				DAB98F132C86D86B00250C6D /* TermConditionView.swift in Sources */,
 				DAD2EEA92C7DEBC600D519B8 /* ImagePreviewView.swift in Sources */,
 				DAD2EE722C770EF500D519B8 /* AddTaskTextField.swift in Sources */,
-				DAD2EE792C7724EB00D519B8 /* CurrencyPopupView.swift in Sources */,
+				DAD2EE792C7724EB00D519B8 /* CurrencyCatalog.swift in Sources */,
 				C0DE00052D12000000000005 /* ModalOverlayView.swift in Sources */,
 				DAD2EE642C761C9900D519B8 /* GeoFencingWarningView.swift in Sources */,
 				DAB98F9D2C9B0A8100250C6D /* LogoutAlertPopupView.swift in Sources */,
@@ -2000,10 +1984,8 @@
 				DA7D4A072C32DCE200C8741D /* CreateProfileMapViewRepresentable.swift in Sources */,
 				DAE115052C81939C00AE9C6F /* ClientContactView.swift in Sources */,
 				DAB98F982C9AF3A300250C6D /* MOTResponseModel.swift in Sources */,
-				DA5DCD342C22EB3100F2BA5C /* OTPTextField.swift in Sources */,
 				DA5DCCE12C21935E00F2BA5C /* ContentView.swift in Sources */,
 				DAE115022C818EDA00AE9C6F /* ClientDetailMapView.swift in Sources */,
-				DA7D4A412C3FEB5F00C8741D /* InsightView.swift in Sources */,
 				DAD2EE8B2C77576300D519B8 /* ClientListViewModel.swift in Sources */,
 				DAE115172C81E8AC00AE9C6F /* ProfileCameraViewModel.swift in Sources */,
 				DA5DCD082C21AFC500F2BA5C /* PrimaryButton.swift in Sources */,
@@ -2037,7 +2019,6 @@
 				DA7D4A4D2C401A0C00C8741D /* TotalTimeView.swift in Sources */,
 				DAE1150B2C81BD1D00AE9C6F /* AddClientView.swift in Sources */,
 				DAB98F1D2C86E1F700250C6D /* ProfileResponseModel.swift in Sources */,
-				DA7290572C2988B900609B3A /* MapSearchBarView.swift in Sources */,
 				DAD2EE552C748B5A00D519B8 /* CheckINBioMetrixView.swift in Sources */,
 				DA72904C2C29589600609B3A /* AddAddressView.swift in Sources */,
 				DAD2EE532C74895900D519B8 /* CheckINViaWebBioView.swift in Sources */,
@@ -2108,7 +2089,6 @@
 				DAB98F9B2C9AF40400250C6D /* MOTViewModel.swift in Sources */,
 				DAB014192C58EEAB00988B8F /* LeavesResponseModel.swift in Sources */,
 				DA7D49FF2C2DACA400C8741D /* EmpMapViewRepresentable.swift in Sources */,
-				DAB0142C2C5A768300988B8F /* SearchBarWithFilterView.swift in Sources */,
 				DAB98F932C94629400250C6D /* PDFRenderer.swift in Sources */,
 				DAD2EE222C69F17F00D519B8 /* HomeScreenResponseModel.swift in Sources */,
 				DAB98F902C94447D00250C6D /* QrDownloadButton.swift in Sources */,

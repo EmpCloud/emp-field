@@ -48,7 +48,7 @@ struct AddTaskView: View {
     @State private var showWarningPopup: Bool = false
     @State private var showCameraPermissionAlert: Bool = false
 
-    private let currencyOptions = CurrencyPopupView.availableCurrencies
+    private let currencyOptions = CurrencyCatalog.availableCurrencies
 
     private var isAddTaskDisabled: Bool {
         taskName.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
@@ -180,7 +180,7 @@ struct AddTaskView: View {
                                             Button {
                                                 selectedCurrency = currencyCode
                                             } label: {
-                                                Text("\(CurrencyPopupView.currencyName(currencyCode: currencyCode)) (\(currencyCode))")
+                                                Text("\(CurrencyCatalog.currencyName(currencyCode: currencyCode)) (\(currencyCode))")
                                             }
                                         }
                                     } label: {

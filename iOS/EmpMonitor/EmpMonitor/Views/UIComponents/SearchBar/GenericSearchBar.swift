@@ -17,6 +17,11 @@ struct GenericSearchBar: View {
     let showFilterButton: Bool
     let onFilterTap: (() -> Void)?
 
+    /// When options are supplied the filter button opens a system menu instead of toggling `showFilter`.
+    var filterOptions: [String] = []
+    var selectedFilter: String? = nil
+    var onFilterSelect: ((String) -> Void)? = nil
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: AppRadius.small)
@@ -43,21 +48,43 @@ struct GenericSearchBar: View {
                 if showFilterButton {
                     Spacer()
 
-                    Button {
-                        withAnimation(.spring) {
-                            showFilter.toggle()
+                    if filterOptions.isEmpty {
+                        Button {
+                            withAnimation(.spring) {
+                                showFilter.toggle()
+                            }
+                            onFilterTap?()
+                        } label: {
+                            Image(systemName: "slider.horizontal.3")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: AppLayout.iconSmall, height: AppLayout.iconSmall)
+                                .padding(.trailing, AppSpacing.compactControlInnerPadding)
                         }
-                        onFilterTap?()
-                    } label: {
-                        Image(systemName: "slider.horizontal.3")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: AppLayout.iconSmall, height: AppLayout.iconSmall)
-                            .padding(.trailing, AppSpacing.compactControlInnerPadding)
+                        .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+                        .accessibilityLabel("Filter")
+                        .accessibilityHint("Double tap to toggle filters")
+                    } else {
+                        Menu {
+                            Picker("Filter", selection: Binding(
+                                get: { selectedFilter ?? filterOptions[0] },
+                                set: { onFilterSelect?($0) }
+                            )) {
+                                ForEach(filterOptions, id: \.self) { option in
+                                    Text(option).tag(option)
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "slider.horizontal.3")
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(width: AppLayout.iconSmall, height: AppLayout.iconSmall)
+                                .foregroundStyle(Color.white)
+                                .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+                                .contentShape(Rectangle())
+                        }
+                        .accessibilityLabel("Filter")
                     }
-                    .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
-                    .accessibilityLabel("Filter")
-                    .accessibilityHint("Double tap to toggle filters")
                 }
             }
             .padding(.horizontal, AppSpacing.screenHorizontalPadding)
