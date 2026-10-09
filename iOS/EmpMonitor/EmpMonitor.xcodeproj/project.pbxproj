@@ -198,7 +198,6 @@
 		DAB98F982C9AF3A300250C6D /* MOTResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F972C9AF3A300250C6D /* MOTResponseModel.swift */; };
 		DAB98F9B2C9AF40400250C6D /* MOTViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F9A2C9AF40400250C6D /* MOTViewModel.swift */; };
 		DAB98F9D2C9B0A8100250C6D /* LogoutAlertPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F9C2C9B0A8100250C6D /* LogoutAlertPopupView.swift */; };
-		DAB98FA02C9DAC6300250C6D /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98F9F2C9DAC6300250C6D /* CustomTabBarView.swift */; };
 		DAB98FA32CA15DE300250C6D /* Validator.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98FA22CA15DE200250C6D /* Validator.swift */; };
 		DAB98FA62CA19C0D00250C6D /* NetworkToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAB98FA52CA19C0D00250C6D /* NetworkToastView.swift */; };
 		DAD2EE1A2C69E50400D519B8 /* CheckINRequestModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = DAD2EE192C69E50400D519B8 /* CheckINRequestModel.swift */; };
@@ -490,7 +489,6 @@
 		DAB98F972C9AF3A300250C6D /* MOTResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOTResponseModel.swift; sourceTree = "<group>"; };
 		DAB98F9A2C9AF40400250C6D /* MOTViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOTViewModel.swift; sourceTree = "<group>"; };
 		DAB98F9C2C9B0A8100250C6D /* LogoutAlertPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutAlertPopupView.swift; sourceTree = "<group>"; };
-		DAB98F9F2C9DAC6300250C6D /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		DAB98FA22CA15DE200250C6D /* Validator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Validator.swift; sourceTree = "<group>"; };
 		DAB98FA52CA19C0D00250C6D /* NetworkToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkToastView.swift; sourceTree = "<group>"; };
 		DAD2EE192C69E50400D519B8 /* CheckINRequestModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckINRequestModel.swift; sourceTree = "<group>"; };
@@ -1489,7 +1487,6 @@
 		DAB98F9E2C9DAC4500250C6D /* TabComponents */ = {
 			isa = PBXGroup;
 			children = (
-				DAB98F9F2C9DAC6300250C6D /* CustomTabBarView.swift */,
 			);
 			path = TabComponents;
 			sourceTree = "<group>";
@@ -1909,7 +1906,6 @@
 				DA5DCD4C2C24342800F2BA5C /* Constants.swift in Sources */,
 				DAD2EE1A2C69E50400D519B8 /* CheckINRequestModel.swift in Sources */,
 				DAB98F782C91ACF700250C6D /* TaskRescheduleSheetView.swift in Sources */,
-				DAB98FA02C9DAC6300250C6D /* CustomTabBarView.swift in Sources */,
 				DA5DCD452C24329000F2BA5C /* UserLoginResponseModel.swift in Sources */,
 				DA7D4A342C3FC85600C8741D /* View+Extension.swift in Sources */,
 				DAD2EE302C6C956D00D519B8 /* LeaveTypeViewModel.swift in Sources */,

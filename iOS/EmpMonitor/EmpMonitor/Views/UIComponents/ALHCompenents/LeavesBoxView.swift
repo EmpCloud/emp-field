@@ -12,7 +12,8 @@ struct LeavesBoxView: View {
         RoundedRectangle(cornerRadius: 10)
             .fill(Color.leavesBG)
             .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 1)
-            .frame(width: 114, height: 114)
+            .frame(height: 114)
+            .frame(maxWidth: .infinity)
             .overlay {
                 VStack(spacing: 10){
                     Circle()

@@ -15,7 +15,8 @@ struct TaskCompletedView: View {
         VStack {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.rectangleBG)
-                .frame(width: 106 ,height: 86)
+                .frame(height: 86)
+                .frame(maxWidth: .infinity)
                 .overlay {
                     VStack{
                         Circle()
@@ -40,6 +41,7 @@ struct TaskCompletedView: View {
                 .foregroundStyle(Color.yesterdayText)
                 .multilineTextAlignment(.center)
         }
+        .frame(maxWidth: .infinity)
     }
 }
 

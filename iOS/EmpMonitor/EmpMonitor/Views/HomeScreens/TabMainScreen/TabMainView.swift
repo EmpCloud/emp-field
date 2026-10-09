@@ -71,62 +71,29 @@ struct TabMainView: View {
                 LinearGradient(gradient: Gradient(colors: [Color.appBg1, Color.appBg2]), startPoint: .top, endPoint: .bottom)
                     .ignoresSafeArea()
                 
+                // System tab bar: at the bottom on iPhone, floating at the top on iPad.
                 TabView(selection: $selectedTab) {
-                    
-//                    Group {
-//                    ScrollView {
-                    HomeView(checkINViewModel: checkINViewModel, homeScreenViewModel: homeScreenViewModel, motViewModel: motViewModel, selectedALHView: $selectedALHView, showCheckIN: $showCheckIN, showCheckOUT: $showCheckOUT, showSideMenu: $showSideMenu, showMapCheckInView: $showMapCheckInView, showALHView: $showALHView, selectedMode: $selectedMode, tappedMode: $tappedMode, isTaskRunning: $isTaskRunning)
-//                            .tabItem {
-//                                Image(systemName: "house")
-//                                Text("Home")
-//                            }
-                            .tag(0)
-//                    }
-                        
-                        
-                    TaskView(showSideMenu: $showSideMenu, isTaskRunning: $isTaskRunning)
-                        .environmentObject(permissionManager)
-//                            .tabItem {
-//                                Image(systemName: "list.bullet.clipboard")
-//                                Text("Task")
-//                            }
-                            .tag(1)
-                        
-                        //           InsightView()
-                        //                .tabItem {
-                        //                    Text("Insight")
-                        //                }
-                        //                .tag(2)
-                        
+                    Tab("Home", systemImage: "house", value: 0) {
+                        HomeView(checkINViewModel: checkINViewModel, homeScreenViewModel: homeScreenViewModel, motViewModel: motViewModel, selectedALHView: $selectedALHView, showCheckIN: $showCheckIN, showCheckOUT: $showCheckOUT, showSideMenu: $showSideMenu, showMapCheckInView: $showMapCheckInView, showALHView: $showALHView, selectedMode: $selectedMode, tappedMode: $tappedMode, isTaskRunning: $isTaskRunning)
+                    }
+
+                    Tab("Task", systemImage: "list.bullet.clipboard", value: 1) {
+                        TaskView(showSideMenu: $showSideMenu, isTaskRunning: $isTaskRunning)
+                            .environmentObject(permissionManager)
+                    }
+
+                    Tab("Client", systemImage: "person.2", value: 2) {
                         ClientView(selectedClient: $selectedClient, selectedClientContact: $selectedClientContact, showSideMenu: $showSideMenu)
-                        .environmentObject(profileImageLoader)
-//                            .tabItem {
-//                                Image(systemName: "person.badge.minus")
-//                                Text("Client")
-//                            }
-                            .tag(2)
-                        
-                    Settings(motViewModel: motViewModel, selectedMode: $selectedMode, tappedMode: $tappedMode, isLogout: $isLogout, showQRCode: $showQRCode)
-//                            .tabItem {
-//                                Image(systemName: "gearshape")
-//                                Text("Settings")
-//                            }
-                            .tag(3)
-//                    }
-//                    .toolbarBackground(.visible, for: .tabBar)
-                    
+                            .environmentObject(profileImageLoader)
+                    }
+
+                    Tab("Settings", systemImage: "gearshape", value: 3) {
+                        Settings(motViewModel: motViewModel, selectedMode: $selectedMode, tappedMode: $tappedMode, isLogout: $isLogout, showQRCode: $showQRCode)
+                    }
                 }
-                .safeAreaInset(edge: .bottom, spacing: 0) {
-                    CustomTabBarView(tabSelection: $selectedTab)
-//                        .padding(.bottom, 10)
-                }
-                .zIndex(1)
-                
-                
-                
+                .tint(Color.primaryButton1)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .ignoresSafeArea(edges: .bottom)
             .sheet(isPresented: $showMapCheckInView) {
                 MapCheckInView(homeScreenViewModel: homeScreenViewModel, checkINViewModel: checkINViewModel, showCheckIN: $showCheckIN, showCheckOUT: $showCheckOUT, motViewModel: motViewModel, selecetedMode: $selectedMode, tappedMode: $tappedMode, isTaskRunning: $isTaskRunning)
                     .environmentObject(profileImageLoader)

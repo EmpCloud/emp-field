@@ -111,8 +111,8 @@ struct HomeView: View {
                                         .accessibilityLabel("Open map check-in")
                                     }
                                     .padding(.top)
-                                    .padding(.leading, 60)
-                                    .padding(.trailing, 24)
+                                    // Lines the greeting and Map link up with the text inside the cards below.
+                                    .padding(.horizontal, 56)
                                     
                                     
                                     //MARK: RoundedRectangle
@@ -143,7 +143,7 @@ struct HomeView: View {
                                                                     .padding(.top)
                                                                     .padding(.leading, 40)
                                                                 
-                                                                HStack(alignment: .top) {
+                                                                HStack(alignment: .top, spacing: 12) {
                                                                     DistanceTravelledView(homeScreenViewModel: homeScreenViewModel)
                                                                     HoursWorkedView(homeScreenViewModel: homeScreenViewModel)
                                                                     TaskCompletedView(homeScreenViewModel: homeScreenViewModel)
@@ -154,26 +154,22 @@ struct HomeView: View {
                                                     
                                                     
                                                     //MARK: Attendence, Leaves, Holidays
-                                                    HStack(spacing: 0) {
-                                                        Spacer(minLength: 0)
+                                                    HStack(spacing: 12) {
                                                         AttendenceHistoryBoxView()
                                                             .onTapGesture {
                                                                 selectedALHView = "Attendance History"
                                                                 showALHView.toggle()
                                                             }
-                                                        Spacer(minLength: 0)
                                                         LeavesBoxView()
                                                             .onTapGesture {
                                                                 selectedALHView = "Leaves"
                                                                 showALHView.toggle()
                                                             }
-                                                        Spacer(minLength: 0)
                                                         HolidayBoxView()
                                                             .onTapGesture {
                                                                 selectedALHView = "Holidays"
                                                                 showALHView.toggle()
                                                             }
-                                                        Spacer(minLength: 0)
                                                     }
                                                     .padding(.top)
                                                     .padding(.bottom, 50)

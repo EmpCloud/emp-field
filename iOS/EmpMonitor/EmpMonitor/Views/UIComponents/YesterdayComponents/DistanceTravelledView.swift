@@ -17,7 +17,8 @@ struct DistanceTravelledView: View {
         VStack {
             RoundedRectangle(cornerRadius: 10)
                 .fill(Color.rectangleBG)
-                .frame(width: 106 ,height: 86)
+                .frame(height: 86)
+                .frame(maxWidth: .infinity)
                 .overlay {
                     VStack{
                         Circle()
@@ -43,6 +44,7 @@ struct DistanceTravelledView: View {
                 .fontWeight(AppFont.Weight.medium)
                 .foregroundStyle(Color.yesterdayText)
         }
+        .frame(maxWidth: .infinity)
         .onAppear {
 //            if let distance = homeScreenViewModel.yesterdayDist {
 //                    
