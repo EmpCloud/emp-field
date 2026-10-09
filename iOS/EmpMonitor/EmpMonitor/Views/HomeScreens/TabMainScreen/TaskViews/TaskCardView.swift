@@ -116,12 +116,14 @@ struct TaskCardView: View {
                     if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {
                         try await updateTaskViewModel.updateTaskStatus()
                     }else {
+                        NetworkManager.shared.statusCode = 0
+                        NetworkManager.shared.responseMessage = "Location not found. Please check location access and try again."
                         showWarningPopup = true
-                        NetworkManager.shared.responseMessage = "Coordinate Error"
+                        return
                     }
                     
                     
-                    if NetworkManager.shared.statusCode == 400 {
+                    if NetworkManager.shared.statusCode != 200 {
                         showWarningPopup = true
                     }
                     else{
@@ -162,11 +164,13 @@ struct TaskCardView: View {
                     if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {
                         try await updateTaskViewModel.updateTaskStatus()
                     }else {
+                        NetworkManager.shared.statusCode = 0
+                        NetworkManager.shared.responseMessage = "Location not found. Please check location access and try again."
                         showWarningPopup = true
-                        NetworkManager.shared.responseMessage = "Coordinate Error"
+                        return
                     }
                     
-                    if NetworkManager.shared.statusCode == 400 {
+                    if NetworkManager.shared.statusCode != 200 {
                         showWarningPopup = true
                     }else{
                         taskStatus[filterTaskDetail.id] = 2
@@ -206,11 +210,13 @@ struct TaskCardView: View {
                     if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {
                         try await updateTaskViewModel.updateTaskStatus()
                     }else {
+                        NetworkManager.shared.statusCode = 0
+                        NetworkManager.shared.responseMessage = "Location not found. Please check location access and try again."
                         showWarningPopup = true
-                        NetworkManager.shared.responseMessage = "Coordinate Error"
+                        return
                     }
                     
-                    if NetworkManager.shared.statusCode == 400 {
+                    if NetworkManager.shared.statusCode != 200 {
                         showWarningPopup = true
                     }
                     else{

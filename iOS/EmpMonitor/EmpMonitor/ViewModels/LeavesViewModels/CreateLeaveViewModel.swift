@@ -32,7 +32,7 @@ class CreateLeaveViewModel: ObservableObject {
         
         let day = LeaveHelper.shared.getDayType(dayType: dayType)
         
-        let body = CreateLeaveRequestModel(dayType: day, leaveType: leaveType, startDate: startDate, endDate: endDate, reason: reason)
+        let body = CreateLeaveRequestModel(dayType: day, leaveType: leaveType, startDate: startDate, endDate: endDate, reason: reason.trimmingCharacters(in: .whitespacesAndNewlines))
         AppLog.debug(body)
         
         do{

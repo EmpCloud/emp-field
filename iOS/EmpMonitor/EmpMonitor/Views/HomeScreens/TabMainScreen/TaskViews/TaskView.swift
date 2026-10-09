@@ -166,6 +166,8 @@ struct TaskView: View {
                                                 Image(systemName: selectedFilter == "All" ? "checkmark.square" :"square")
                                                 Text("All")
                                             }
+                                            .contentShape(Rectangle())
+                                            .accessibilityAddTraits(.isButton)
                                             .onTapGesture {
                                                 Task {
                                                     selectedFilter = "All"  // setting the selected UI
@@ -194,6 +196,8 @@ struct TaskView: View {
                                                 Image(systemName: selectedFilter == "Current" ? "checkmark.square" :"square")
                                                 Text("Current")
                                             }
+                                            .contentShape(Rectangle())
+                                            .accessibilityAddTraits(.isButton)
                                             .onTapGesture {
                                                 Task {
                                                     selectedFilter = "Current"  // setting the selected UI
@@ -219,6 +223,8 @@ struct TaskView: View {
                                                 Image(systemName: selectedFilter == "Finished" ? "checkmark.square" :"square")
                                                 Text("Finished")
                                             }
+                                            .contentShape(Rectangle())
+                                            .accessibilityAddTraits(.isButton)
                                             .onTapGesture {
                                                 Task {
                                                     selectedFilter = "Finished"  // setting the selected UI
@@ -257,9 +263,7 @@ struct TaskView: View {
                             
                             //MARK: Warning Popup
                             if showWarningPopup {
-                                ModalOverlayView {
-                                    WarningPopupView(titleText: "\(NetworkManager.shared.statusCode)", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
-                                }
+                                WarningPopupView(titleText: NetworkManager.shared.statusCode == 0 ? "Request failed" : "\(NetworkManager.shared.statusCode)", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
                             }
                             
                         }
@@ -428,15 +432,31 @@ struct TaskView: View {
                             updateTaskViewModel.longitude = String(long)
                         }
 //                        updateTaskViewModel.value = swipedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "INR", amount: 0)
-                        updateTaskViewModel.taskValue = TaskValue(amount: swipedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                        updateTaskViewModel.taskValue = TaskValue(amount: swipedTask?.value?.amount, currency: swipedTask?.value?.currency)
                         updateTaskViewModel.taskVolume = swipedTask?.taskVolume ?? 0
                         updateTaskViewModel.tagLogs = swipedTask?.tagLogs ?? []
+                        
+                        // The finish request needs the current position, same as start/pause/resume.
+                        guard permissionManager.userLocation != nil else {
+                            NetworkManager.shared.statusCode = 0
+                            NetworkManager.shared.responseMessage = "Location not found. Please check location access and try again."
+                            showWarningPopup = true
+                            return
+                        }
+                        
+                        let finishedTaskID = swipedTaskID ?? ""
+                        let wasRunning = [1, 3].contains(taskStatus[finishedTaskID] ?? swipedTask?.taskApproveStatus ?? 0)
                         
                         Task {
                             try await updateTaskViewModel.updateTaskStatus()
                             
                             if NetworkManager.shared.statusCode == 200 {
-                                taskStatus[swipedTaskID ?? ""] = 4
+                                taskStatus[finishedTaskID] = 4
+                                if wasRunning {
+                                    isTaskRunning = false
+                                }
+                                let message = NetworkManager.shared.responseMessage
+                                AppState.shared.toastMessage = ToastMessage(style: .success, message: message.isEmpty ? "Task finished" : message)
                             }
                             else {
                                 showWarningPopup.toggle()

@@ -35,6 +35,7 @@ struct AddNewLeavesView: View {
     
     //Warning Popup
     @Binding var showWarningPopup: Bool
+    @State private var warningMessage: String = ""
     
     var body: some View {
         ZStack {
@@ -184,6 +185,13 @@ struct AddNewLeavesView: View {
                 //MARK: Apply Button
                 PrimaryThinButton(text: "Apply") {
                     Task {
+                        // Dates are "yyyy-MM-dd", so string order matches date order.
+                        if let startDate, let endDate, endDate < startDate {
+                            warningMessage = "End date cannot be before start date."
+                            showWarningPopup = true
+                            return
+                        }
+
                         if let dayType = dateTypeSelection {
                             createLeaveViewModel.dayType = dayType
                         }
@@ -198,8 +206,10 @@ struct AddNewLeavesView: View {
                         }
                         try await createLeaveViewModel.createLeave()
 
-                        if NetworkManager.shared.statusCode == 400 {
-                            showWarningPopup.toggle()
+                        if NetworkManager.shared.statusCode != 200 {
+                            let message = NetworkManager.shared.responseMessage
+                            warningMessage = message.isEmpty ? "Something went wrong. Please try again." : message
+                            showWarningPopup = true
                         }else {
                             await leavesViewModel.getLeaves() // to referesh the leaves screen
 
@@ -213,7 +223,7 @@ struct AddNewLeavesView: View {
 
                 }
                 .padding(.top, AppSpacing.xs)
-                .disableWithOpacity(empName.isEmpty || dateTypeSelection == nil || leaveTypeSelection == nil || startDate == nil || endDate == nil || createLeaveViewModel.reason.isEmpty)
+                .disableWithOpacity(empName.isEmpty || dateTypeSelection == nil || leaveTypeSelection == nil || startDate == nil || endDate == nil || createLeaveViewModel.reason.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty || createLeaveViewModel.isLoading)
 
             }
             .frame(maxWidth: 360)
@@ -224,11 +234,7 @@ struct AddNewLeavesView: View {
             
             //MARK: Warning
             if showWarningPopup {
-                ZStack {
-                    WarningPopupView(titleText: NetworkManager.shared.responseMessage, description: createLeaveViewModel.createLeaveData?.body.error?.message ?? "", showWarningPopup: $showWarningPopup)
-                }
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
-                .background(Color.black.opacity(0.5))
+                WarningPopupView(titleText: "Leave not applied", description: warningMessage, showWarningPopup: $showWarningPopup)
                 
             }
 

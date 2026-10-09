@@ -144,7 +144,19 @@ final class NetworkManager {
         }
 
         AppLog.debug("[API] \(method) \(urlString)")
-        let (data, response) = try await URLSession.shared.data(for: request)
+        let data: Data
+        let response: URLResponse
+        do {
+            (data, response) = try await URLSession.shared.data(for: request)
+        } catch {
+            // Record transport failures so callers never read a status left over from an
+            // earlier request. Cancellations are not failures the user needs to see.
+            if !Self.isCancellation(error) {
+                AppLog.debug("[API] \(method) \(urlString) — Transport error: \(error.localizedDescription)")
+                recordFailure(status: 0, message: error.localizedDescription)
+            }
+            throw error
+        }
         let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
         // The raw body (which may contain tokens / PII) is only stringified in DEBUG.
         AppLog.debug("[API] Response (\(httpStatus)) \(urlString)\n\(String(data: data, encoding: .utf8) ?? "<non-utf8 data>")")
@@ -241,13 +253,19 @@ final class NetworkManager {
     }
 
     private func decodeErrorMessage(from data: Data) -> String? {
-        // Decode once (the previous version decoded the same payload twice).
-        let body = (try? decoder.decode(ErrorResponse.self, from: data))?.body
-        if let error = body?.error, !error.isEmpty {
+        // `body.error` is a plain string for some endpoints (profile) and an object with
+        // its own `message` for others (leaves), so accept either shape.
+        let body = (try? decoder.decode(APIErrorEnvelope.self, from: data))?.body
+        if let error = body?.error?.text, !error.isEmpty {
             return error
         }
 
         return body?.message
+    }
+
+    private static func isCancellation(_ error: Error) -> Bool {
+        if error is CancellationError { return true }
+        return (error as? URLError)?.code == .cancelled
     }
 
     /// A response is treated as an expired session when it is a 401 or when the
@@ -265,4 +283,34 @@ final class NetworkManager {
 
 private struct APIStatusWrapper: Codable {
     let statusCode: Int
+}
+
+// MARK: - API Error Envelope
+
+private struct APIErrorEnvelope: Decodable {
+    let body: Body?
+
+    struct Body: Decodable {
+        let message: String?
+        let error: Detail?
+    }
+
+    /// The backend sends `error` either as a string or as `{ "message": ... }`.
+    struct Detail: Decodable {
+        let text: String?
+
+        private enum CodingKeys: String, CodingKey {
+            case message
+        }
+
+        init(from decoder: Decoder) throws {
+            if let string = try? decoder.singleValueContainer().decode(String.self) {
+                text = string
+            } else if let object = try? decoder.container(keyedBy: CodingKeys.self) {
+                text = try? object.decodeIfPresent(String.self, forKey: .message)
+            } else {
+                text = nil
+            }
+        }
+    }
 }

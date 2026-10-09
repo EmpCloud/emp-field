@@ -214,6 +214,12 @@ struct EditLeavesView: View {
                         //TODO: Save the updated leave
                         
                         Task {
+                            // Dates are "yyyy-MM-dd", so string order matches date order.
+                            if let startDate, let endDate, endDate < startDate {
+                                AppState.shared.toastMessage = ToastMessage(style: .error, message: "End date cannot be before start date.")
+                                return
+                            }
+
                             if let dayType = dateTypeSelection {
                                 updateLeaveViewModel.dayType = dayType
                             }
@@ -226,10 +232,15 @@ struct EditLeavesView: View {
                             if let leaveType = leaveTypeSelection {
                                 updateLeaveViewModel.leaveType = leaveType.id
                             }
-                            updateLeaveViewModel.reason = reason
+                            updateLeaveViewModel.reason = reason.trimmingCharacters(in: .whitespacesAndNewlines)
                             
                             try await updateLeaveViewModel.updateLeave()
                             
+                            guard NetworkManager.shared.statusCode == 200 else {
+                                let message = NetworkManager.shared.responseMessage
+                                AppState.shared.toastMessage = ToastMessage(style: .error, message: message.isEmpty ? "Something went wrong. Please try again." : message)
+                                return
+                            }
                             
                             await leavesViewModel.getLeaves() // to referesh the leaves screen
                             
@@ -242,7 +253,7 @@ struct EditLeavesView: View {
                         }
                         
                     }
-                    .disableWithOpacity(empName.isEmpty || dateTypeSelection == nil || leaveTypeSelection == nil || startDate == nil || endDate == nil || reason.isEmpty)
+                    .disableWithOpacity(empName.isEmpty || dateTypeSelection == nil || leaveTypeSelection == nil || startDate == nil || endDate == nil || reason.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
                 }
                 .padding(.top, AppSpacing.xs)
 
