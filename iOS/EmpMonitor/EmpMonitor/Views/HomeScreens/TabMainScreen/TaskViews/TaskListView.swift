@@ -23,7 +23,6 @@ struct TaskListView: View {
     
     //Swipe Gesture
     @Binding var swipeAmount: [String : CGFloat]
-    @GestureState private var isDragging: Bool = false
     @Binding var swipedTaskID: String?  // track the currently swipe task Id
     @Binding var swipedTask: FilterTaskListResponseData?
     @Binding var showDeleteAlert: Bool
@@ -41,177 +40,67 @@ struct TaskListView: View {
     @Binding var isTaskRunning: Bool
     
     var body: some View {
-        ScrollView {
-            LazyVStack {
-                if let filterTaskData = filterTaskData {
-                    ForEach(filterTaskData, id: \.id) { filterTaskDetail in
-                        
-                        ZStack {
-                            if swipeAmount[filterTaskDetail.id, default: 0] < 0 {
-                                //MARK: Delete Task
-                                Color.absent
-                                    .frame(height: 95)
-                                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                                    .padding(.horizontal, 34)
-                                    .overlay(alignment: .trailing) {
-                                        Button {
-                                            withAnimation {
-                                                showAlert = true
-                                                showDeleteAlert = true
-                                            }
-                                        } label: {
-                                            VStack {
-                                                Image(.deleteWhiteIcon)
-                                                    .accessibilityLabel("Delete")
-                                                Text("Delete Task")
-                                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
-                                                    .foregroundStyle(Color.white)
-                                            }
-                                            .padding(.trailing, 50)
-                                        }
-                                        .accessibilityLabel("Delete Task")
-                                        .accessibilityHint("Swipe left to delete this task")
-                                    }
+        List {
+            if let filterTaskData = filterTaskData {
+                ForEach(filterTaskData, id: \.id) { filterTaskDetail in
+                    TaskCardView(updateTaskViewModel: updateTaskViewModel, filterTaskDetail: filterTaskDetail, selectedTask: $selectedTask, taskStatus: $taskStatus, showWarningPopup: $showWarningPopup, refreshScreen: $refreshScreen, isTaskRunning: $isTaskRunning)
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            selectedTask = filterTaskDetail
+                            showTaskReschedule.toggle()
+                        }
+                        .padding(.vertical, AppSpacing.xs)
+                        .listRowInsets(EdgeInsets())
+                        .listRowSeparator(.hidden)
+                        .listRowBackground(Color.clear)
+                        //MARK: Finish Task
+                        .swipeActions(edge: .leading, allowsFullSwipe: true) {
+                            Button {
+                                confirm(filterTaskDetail, isDelete: false)
+                            } label: {
+                                Label("Finish Task", systemImage: "checkmark.circle")
                             }
-                            else if swipeAmount[filterTaskDetail.id, default: 0] > 0 {
-                                //MARK: Finish Task
-                                Color.present
-                                    .frame(height: 95)
-                                    .clipShape(RoundedRectangle(cornerRadius: 15))
-                                    .padding(.horizontal, 34)
-                                    .overlay(alignment: .leading) {
-                                        Button {
-                                            withAnimation {
-                                                showAlert = true
-                                                showDeleteAlert = false
-                                                showCompleteAlert = true
-                                            }
-                                        } label: {
-                                            VStack {
-                                                Circle()
-                                                    .fill(Color.white.opacity(0.3))
-                                                    .frame(width: 23, height: 23)
-                                                    .overlay {
-                                                        Image(.completeCheckIcon)
-                                                            .accessibilityLabel("Complete")
-                                                    }
+                            .tint(Color.present)
+                        }
+                        //MARK: Delete Task
+                        .swipeActions(edge: .trailing, allowsFullSwipe: true) {
+                            // No destructive role: the row must stay until the user confirms.
+                            Button {
+                                confirm(filterTaskDetail, isDelete: true)
+                            } label: {
+                                Label("Delete Task", systemImage: "trash")
+                            }
+                            .tint(Color.absent)
+                        }
+                }
+            }
+        }
+        .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .onChange(of: searchText) { _, _ in
+            searchTask()
+        }
+        .refreshable {
+            taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
+            taskListViewModel.status = 0
+            taskListViewModel.filterTaskData = []
+            try? await taskListViewModel.getFilterTaskList()
 
-                                                Text("Finish Task")
-                                                    .font(AppFont.primary(size: AppFont.Size.caption, weight: AppFont.Weight.semibold))
-                                                    .foregroundStyle(Color.white)
-                                            }
-                                            .padding(.leading, 50)
-                                        }
-                                        .accessibilityLabel("Finish Task")
-                                        .accessibilityHint("Swipe right to mark this task as finished")
-                                    }
-                            }
-                            
-                            //MARK: Task
-                            TaskCardView(updateTaskViewModel: updateTaskViewModel, filterTaskDetail: filterTaskDetail, selectedTask: $selectedTask, taskStatus: $taskStatus, showWarningPopup: $showWarningPopup, refreshScreen: $refreshScreen, isTaskRunning: $isTaskRunning)
-                                .onTapGesture {
-                                    selectedTask = filterTaskDetail
-                                    showTaskReschedule.toggle()
-                                }
-                                .offset(x: swipeAmount[filterTaskDetail.id, default: 0])
-                            //adjust the opacity based on swipe amount
-                                .opacity(1.0 - Double(min(abs(swipeAmount[filterTaskDetail.id, default: 0]) / 1200, 1.0)))
-                                .gesture(DragGesture()
-                                    .updating($isDragging, body: { value, state, _ in
-                                        // to validate the correct drag..
-                                        state = true
-                                        onChanged(value: value, task: filterTaskDetail)
-                                    })
-                                        .onEnded({ value in
-                                            onEnd(value: value, task: filterTaskDetail)
-                                        })
-                                )
-                                .onChange(of: swipedTaskID) { _, newTaskID in
-                                    withAnimation(.snappy(duration: 0.5)) {
-                                        if newTaskID != filterTaskDetail.id {
-                                            swipeAmount[filterTaskDetail.id] = 0
-                                        }
-                                    }
-                                }
-                        }
-                        
-                    }
-                }
-                
-            }
-            .onChange(of: searchText) { _, _ in
-                searchTask()
-            }
-        }
-        .refreshable {  
-//            selectedDate = nil // to reset the date
-                Task {
-                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
-                    taskListViewModel.status = 0
-                    taskListViewModel.filterTaskData = []
-                    AppLog.debug("-----filter task Data")
-                    AppLog.debug(taskListViewModel.filterTaskData)
-                   try await taskListViewModel.getFilterTaskList()
-                    
-                    if NetworkManager.shared.statusCode == 200 {
-                        filterTaskData = taskListViewModel.filterTaskData
-                    }
-                    
-                }
-        }
-    }
-    
-    //MARK: swipe Gesture functions
-    func onChanged(value: DragGesture.Value, task: FilterTaskListResponseData) {
-        if isDragging {
-            swipeAmount[task.id] = value.translation.width
-            swipedTaskID = task.id
-            swipedTask = task
-        }
-    }
-    
-    func onEnd(value: DragGesture.Value, task: FilterTaskListResponseData) {
-        withAnimation(.spring(duration: 0.5)) {
-            if let swipe = swipeAmount[task.id] {
-                if swipe < -80 {
-                    swipeAmount[task.id] = -80
-                    
-                    if swipe <= -UIScreen.main.bounds.width * 0.5 {
-                        //TODO: delete the task
-                        withAnimation {
-//                            AppLog.debug(swipedTaskID)
-                            showAlert = true
-                            showDeleteAlert = true
-                        }
-                    }
-                }
-                else if swipe > 80 {
-                    swipeAmount[task.id] = 80
-                    
-                    if swipe >= UIScreen.main.bounds.width * 0.5 {
-                        //TODO: Finish the task
-                        withAnimation {
-                            showAlert = true
-                            showDeleteAlert = false
-                            showCompleteAlert = true
-                        }
-                    }
-                }else{
-                    swipeAmount[task.id] = 0
-                }
-            }else{
-                swipeAmount[task.id] = 0
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                withAnimation {
-                    swipeAmount[task.id] = 0
-                }
+            if NetworkManager.shared.statusCode == 200 {
+                filterTaskData = taskListViewModel.filterTaskData
             }
         }
     }
-    
-    
+
+    /// Records which task was swiped and asks the parent to confirm the action.
+    private func confirm(_ task: FilterTaskListResponseData, isDelete: Bool) {
+        swipedTaskID = task.id
+        swipedTask = task
+        showDeleteAlert = isDelete
+        showCompleteAlert = !isDelete
+        showAlert = true
+    }
+
     //MARK: To handle the Task Search
     private func searchTask() {
         if searchText.isEmpty {
