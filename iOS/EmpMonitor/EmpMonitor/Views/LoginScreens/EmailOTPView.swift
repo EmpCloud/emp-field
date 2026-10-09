@@ -61,12 +61,12 @@ struct EmailOTPView: View {
                     ///- Hiding the TextField
                     TextField("", text: $emailOTP.limit(4))
                         .keyboardType(.numberPad)
+                        .textContentType(.oneTimeCode)
                     //                        .textContentType(.emailAddress)    // It will show the most recent email text content
                         .frame(width: 1, height: 1)
                         .opacity(0.001)
                         .blendMode(.screen)
                         .focused($isEmailKeyboardShowing)
-                        .toolbarDoneButton()
                 })
                 .contentShape(Rectangle())
                 .onTapGesture {

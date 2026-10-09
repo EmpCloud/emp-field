@@ -93,7 +93,11 @@ struct CheckInSwipeButtonView: View {
                 }
         )
         .accessibilityLabel("Swipe to check in")
-        .accessibilityHint("Drag the handle to the right to check in")
+        .accessibilityHint("Double tap to check in")
+        .accessibilityAddTraits(.isButton)
+        .accessibilityAction {
+            actionSuccess?()
+        }
     }
     
     //MARK: Helper Function

@@ -44,6 +44,7 @@ struct MobileOTPView: View {
                     ///- Hiding the TextField
                     TextField("", text: $enteredOTP.limit(6))
                         .keyboardType(.numberPad)
+                        .textContentType(.oneTimeCode)
 //                        .textContentType(.emailAddress)    // It will show the most recent email text content
                         .frame(width: 1, height: 1)
                         .opacity(0.001)

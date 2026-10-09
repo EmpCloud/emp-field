@@ -95,7 +95,11 @@ struct CheckOutSwipeButtonView: View {
                 }
         )
         .accessibilityLabel("Swipe to check out")
-        .accessibilityHint("Drag the handle to the left to check out")
+        .accessibilityHint("Double tap to check out")
+        .accessibilityAddTraits(.isButton)
+        .accessibilityAction {
+            actionSuccess?()
+        }
     }
     
     // MARK: Gesture Handlers
