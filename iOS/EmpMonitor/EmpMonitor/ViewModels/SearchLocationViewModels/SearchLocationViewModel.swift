@@ -120,7 +120,7 @@ class SearchLocationViewModel: NSObject, ObservableObject {
     }
     
     // to search the exact location coordinates from the title and subtitle
-    func locationSearch(forLocalSearchCompletion localSearch: MKLocalSearchCompletion, completion: @escaping @Sendable MKLocalSearch.CompletionHandler) {
+    func locationSearch(forLocalSearchCompletion localSearch: MKLocalSearchCompletion, completion: @escaping @Sendable (MKLocalSearch.Response?, (any Error)?) -> Void) {
         let searchRequest = MKLocalSearch.Request()
         searchRequest.naturalLanguageQuery = "\(localSearch.title) \(localSearch.subtitle)"
         let search = MKLocalSearch(request: searchRequest)

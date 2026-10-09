@@ -192,7 +192,7 @@ struct QRCodePopupView: View {
         let fileURL = documentsURL.appendingPathComponent("QRCode.pdf")
 
         //render the pdf directly to file
-        await renderer.renderPDF(to: fileURL)
+        renderer.renderPDF(to: fileURL)
 
         return fileURL
     }

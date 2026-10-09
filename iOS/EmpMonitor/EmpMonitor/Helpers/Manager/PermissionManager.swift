@@ -436,11 +436,7 @@ class PermissionManager: NSObject, ObservableObject {
     }
 
     nonisolated private static func isStationary(_ update: CLLocationUpdate) -> Bool {
-        if #available(iOS 18.0, *) {
-            return update.stationary
-        } else {
-            return update.isStationary
-        }
+        update.stationary
     }
 
     func addUniqueLocationData(latitude: Double, longitude: Double) -> TrackRequestModelData {

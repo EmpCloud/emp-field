@@ -65,7 +65,7 @@ struct WelcomeView: View {
                     .background(Color.white.opacity(0.95))
                     .cornerRadius(12)
                     .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 2)
-                    .onChange(of: isChecked) { newValue in
+                    .onChange(of: isChecked) { _, newValue in
                         if newValue {
                             startDelay()
                         }

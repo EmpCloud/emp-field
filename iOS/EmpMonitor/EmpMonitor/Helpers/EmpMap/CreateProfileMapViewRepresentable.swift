@@ -253,7 +253,7 @@ extension CreateProfileMapViewRepresentable {
                     AppLog.debug("Coordinate: \(coordinate.latitude), \(coordinate.longitude)")
                     
                     AppLog.debug("Searched pinCoordinate")
-                    AppLog.debug("\(self.parent.searchLocationViewModel.selectedLocationLatitude), \(self.parent.searchLocationViewModel.selectedLocationLongitude)")
+                    AppLog.debug("\(String(describing: self.parent.searchLocationViewModel.selectedLocationLatitude)), \(String(describing: self.parent.searchLocationViewModel.selectedLocationLongitude))")
                 }
             }
         }

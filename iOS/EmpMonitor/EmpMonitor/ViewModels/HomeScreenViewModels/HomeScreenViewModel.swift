@@ -42,7 +42,7 @@ class HomeScreenViewModel: ObservableObject {
             homeScreenData = fetchData.body.data
             yesterdayDist = getYesterdayDist(distance: homeScreenData?.yesterdayDist)
             AppLog.debug("Home Screen Data")
-            AppLog.debug(homeScreenData)
+            AppLog.debug(String(describing: homeScreenData))
             
             NetworkManager.shared.statusCode = fetchData.statusCode
             NetworkManager.shared.responseMessage = fetchData.body.message

@@ -24,9 +24,13 @@ final class FaceLivenessViewModel: NSObject, ObservableObject {
     @Published var cameraPermissionDenied = false
 
     // AVFoundation
-    let session = AVCaptureSession()
-    private let photoOutput = AVCapturePhotoOutput()
-    private let videoOutput = AVCaptureVideoDataOutput()
+    // Capture objects must be configured off the main thread. Safety invariant: after init
+    // they are only configured, started, stopped and used on `sessionQueue` (a serial
+    // queue); the main actor only hands `session` to the preview layer, which AVFoundation
+    // supports from any thread.
+    nonisolated(unsafe) let session = AVCaptureSession()
+    nonisolated(unsafe) private let photoOutput = AVCapturePhotoOutput()
+    nonisolated(unsafe) private let videoOutput = AVCaptureVideoDataOutput()
     private let sessionQueue = DispatchQueue(label: "com.empmonitor.face.session")
     private let analysisQueue = DispatchQueue(label: "com.empmonitor.face.vision")
 
@@ -66,10 +70,9 @@ final class FaceLivenessViewModel: NSObject, ObservableObject {
     func capturePhoto() {
         guard !captureTriggered else { return }
         captureTriggered = true
-        let settings = AVCapturePhotoSettings()
         sessionQueue.async { [weak self] in
             guard let self else { return }
-            self.photoOutput.capturePhoto(with: settings, delegate: self)
+            self.photoOutput.capturePhoto(with: AVCapturePhotoSettings(), delegate: self)
         }
     }
 
