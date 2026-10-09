@@ -97,25 +97,22 @@ struct TabMainView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             // iPhone keeps the sheet; wide layouts (iPad) get the map full screen so nothing is clipped.
             .sheet(isPresented: mapCheckInPresentation(fullScreen: false)) {
-                mapCheckInView
+                mapCheckInView(showsHeader: true)
             }
             .fullScreenCover(isPresented: mapCheckInPresentation(fullScreen: true)) {
-                mapCheckInView
-                    .overlay(alignment: .topTrailing) {
-                        Button {
-                            showMapCheckInView = false
-                        } label: {
-                            Image(systemName: "xmark.circle.fill")
-                                .font(.title)
-                                .symbolRenderingMode(.hierarchical)
-                                .foregroundStyle(.white)
-                                .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
-                                .contentShape(Rectangle())
+                NavigationStack {
+                    mapCheckInView(showsHeader: false)
+                        .navigationTitle("Map Check-In")
+                        .navigationBarTitleDisplayMode(.inline)
+                        .toolbar {
+                            ToolbarItem(placement: .topBarTrailing) {
+                                Button("Close", systemImage: "xmark") {
+                                    showMapCheckInView = false
+                                }
+                                .tint(.white)
+                            }
                         }
-                        .buttonStyle(.plain)
-                        .padding(AppSpacing.md)
-                        .accessibilityLabel("Close map")
-                    }
+                }
             }
             .fullScreenCover(isPresented: $showQRCode) {
                 qrCodeModal
@@ -239,8 +236,8 @@ struct TabMainView: View {
         }
     }
 
-    private var mapCheckInView: some View {
-        MapCheckInView(homeScreenViewModel: homeScreenViewModel, checkINViewModel: checkINViewModel, showCheckIN: $showCheckIN, showCheckOUT: $showCheckOUT, motViewModel: motViewModel, selecetedMode: $selectedMode, tappedMode: $tappedMode, isTaskRunning: $isTaskRunning)
+    private func mapCheckInView(showsHeader: Bool) -> some View {
+        MapCheckInView(showsHeader: showsHeader, homeScreenViewModel: homeScreenViewModel, checkINViewModel: checkINViewModel, showCheckIN: $showCheckIN, showCheckOUT: $showCheckOUT, motViewModel: motViewModel, selecetedMode: $selectedMode, tappedMode: $tappedMode, isTaskRunning: $isTaskRunning)
             .environmentObject(profileImageLoader)
     }
 

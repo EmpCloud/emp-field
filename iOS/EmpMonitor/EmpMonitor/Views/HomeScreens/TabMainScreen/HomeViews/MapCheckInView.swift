@@ -9,6 +9,9 @@ import SwiftUI
 import MapKit
 
 struct MapCheckInView: View {
+
+    /// Shows the profile header at the top. Turn off when a navigation bar provides the title.
+    var showsHeader: Bool = true
     
     @EnvironmentObject var permissionManager: PermissionManager
     @EnvironmentObject var timerManager: TimerManager
@@ -75,24 +78,27 @@ struct MapCheckInView: View {
                 .ignoresSafeArea()
             VStack {
                 //MARK: User Name
-                HStack(spacing: 20) {
-                    ProfileMediumView()
-                        .environmentObject(profileImageLoader)
-                        .padding()
-                        .padding(.leading, 20)
+                // Hidden when the screen is shown under a navigation bar (iPad full screen).
+                if showsHeader {
+                    HStack(spacing: 20) {
+                        ProfileMediumView()
+                            .environmentObject(profileImageLoader)
+                            .padding()
+                            .padding(.leading, 20)
                     
-                    VStack(alignment: .leading) {
-                        Text(name)
-                            .font(AppFont.primary(size: AppFont.Size.navigationTitle))
-                            .fontWeight(AppFont.Weight.bold)
+                        VStack(alignment: .leading) {
+                            Text(name)
+                                .font(AppFont.primary(size: AppFont.Size.navigationTitle))
+                                .fontWeight(AppFont.Weight.bold)
                         
-                        Text(department)
-                            .font(AppFont.primary(size: AppFont.Size.xSmall))
+                            Text(department)
+                                .font(AppFont.primary(size: AppFont.Size.xSmall))
+                        }
+                        .foregroundStyle(.white)
                     }
-                    .foregroundStyle(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(10)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(10)
                 
                 //MARK: Map View
                 VStack(spacing: 7) {
