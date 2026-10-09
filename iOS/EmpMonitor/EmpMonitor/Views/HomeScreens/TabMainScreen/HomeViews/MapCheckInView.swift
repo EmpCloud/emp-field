@@ -192,7 +192,8 @@ struct MapCheckInView: View {
                         
                     }
 	                    .frame(maxWidth: 300)
-	                    .frame(minHeight: 70)
+	                    // Capped so the spare height goes to the map instead of stretching this box.
+	                    .frame(minHeight: 70, maxHeight: 110)
 	                    .clipShape(RoundedRectangle(cornerRadius: AppRadius.medium))
                     .padding(.horizontal, 30)
                     
