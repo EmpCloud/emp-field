@@ -31,31 +31,58 @@ struct SideMenuView: View {
         GeometryReader { proxy in
             let drawerWidth = min(proxy.size.width * 0.86, 340)
 
-            ZStack(alignment: .topLeading) {
-                Color.black.opacity(0.32)
-                    .ignoresSafeArea()
-                    .contentShape(Rectangle())
-                    .onTapGesture {
-                        closeMenu()
-                    }
+            ZStack(alignment: .leading) {
+                if showSideMenu {
+                    // The dimming fades in place while only the drawer slides.
+                    Color.black.opacity(0.4)
+                        .ignoresSafeArea()
+                        .contentShape(Rectangle())
+                        .onTapGesture {
+                            closeMenu()
+                        }
+                        .accessibilityLabel("Close menu")
+                        .accessibilityAddTraits(.isButton)
+                        .transition(.opacity)
+                        .zIndex(0)
 
-                drawerContent(topInset: proxy.safeAreaInsets.top, bottomInset: proxy.safeAreaInsets.bottom)
-                    .frame(width: drawerWidth, height: proxy.size.height, alignment: .top)
-                    .background(Color.white)
-                    .shadow(color: Color.black.opacity(0.18), radius: 18, x: 4, y: 0)
+                    drawerContent
+                        .frame(width: drawerWidth)
+                        .frame(maxHeight: .infinity, alignment: .top)
+                        .background {
+                            UnevenRoundedRectangle(bottomTrailingRadius: AppRadius.large, topTrailingRadius: AppRadius.large)
+                                .fill(Color.white)
+                                .shadow(color: Color.black.opacity(0.18), radius: 18, x: 4, y: 0)
+                                .ignoresSafeArea()
+                        }
+                        .accessibilityAddTraits(.isModal)
+                        .transition(.move(edge: .leading))
+                        .zIndex(1)
+                }
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
+        }
+        // The overlay is always in the hierarchy, so it must not swallow touches when closed.
+        .allowsHitTesting(showSideMenu)
+        .onChange(of: showSideMenu) { _, isShowing in
+            if isShowing {
+                loadUserInfo()
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .onAppear {
-            self.name = UserDefaults.standard.string(forKey: "UserName") ?? ""
-            self.department = UserDefaults.standard.string(forKey: "UserDepartment") ?? ""
+            loadUserInfo()
         }
     }
 
-    private func drawerContent(topInset: CGFloat, bottomInset: CGFloat) -> some View {
+    private func loadUserInfo() {
+        name = UserDefaults.standard.string(forKey: "UserName") ?? ""
+        department = UserDefaults.standard.string(forKey: "UserDepartment") ?? ""
+    }
+
+    private var drawerContent: some View {
         VStack(alignment: .leading, spacing: AppSpacing.zero) {
             headerView
                 .padding(.horizontal, AppSpacing.md)
+                .padding(.top, AppSpacing.sm)
                 .padding(.bottom, AppSpacing.md)
 
             Divider()
@@ -131,7 +158,7 @@ struct SideMenuView: View {
             }
             .padding(.horizontal, AppSpacing.md)
             .padding(.top, AppSpacing.sm)
-            .padding(.bottom, bottomInset + AppSpacing.md)
+            .padding(.bottom, AppSpacing.md)
         }
     }
 

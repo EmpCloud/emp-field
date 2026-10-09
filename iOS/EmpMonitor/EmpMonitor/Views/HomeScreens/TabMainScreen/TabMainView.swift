@@ -122,12 +122,6 @@ struct TabMainView: View {
                 }
                 .zIndex(1)
                 
-                if showSideMenu{
-                    SideMenuView(showSideMenu: $showSideMenu, selectedTab: $selectedTab, showALHView: $showALHView, selectedALHView: $selectedALHView, isLogout: $isLogout)
-                        .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        .zIndex(2)
-                        .transition(AnyTransition.move(edge: .leading))
-                }
                 
                 
             }
@@ -247,6 +241,11 @@ struct TabMainView: View {
                 }
                 Task { try? await notificationViewModel.getNotificationList() }
             }
+        }
+        // Presented over the whole navigation stack so the drawer and its dimming also
+        // cover the navigation bar and tab bar instead of sitting underneath them.
+        .overlay {
+            SideMenuView(showSideMenu: $showSideMenu, selectedTab: $selectedTab, showALHView: $showALHView, selectedALHView: $selectedALHView, isLogout: $isLogout)
         }
     }
 
