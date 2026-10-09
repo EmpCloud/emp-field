@@ -219,28 +219,32 @@ struct TaskRescheduleSheetView: View {
                             PrimaryThinButton(text: "Start") {
                                 //TODO: To start the task
                                 Task {
-                                    updateTaskViewModel.taskID = selectedTask?.id ?? ""
-                                    updateTaskViewModel.status = 1
-                                    updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
-                                    updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
-                                    updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
-//                                    updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
-                                    updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
-                                    updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
-                                    updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                    do {
+                                        updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                        updateTaskViewModel.status = 1
+                                        updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                        updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                        updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+    //                                    updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                        updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                        updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                        updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
                                     
                                     
-                                    try await updateTaskViewModel.updateTaskStatus()
+                                        try await updateTaskViewModel.updateTaskStatus()
                                     
-                                    if NetworkManager.shared.statusCode == 400 {
-                                        currentDetent = .fraction(0.05)
-                                        showWarningPopup = true
+                                        if NetworkManager.shared.statusCode == 400 {
+                                            currentDetent = .fraction(0.05)
+                                            showWarningPopup = true
+                                        }
+                                        else{
+                                            taskStatus[selectedTask?.id ?? ""] = 1
+                                            refreshScreen.toggle()
+                                        }
+                                    
+                                    } catch {
+                                        AppLog.debug("Task failed: \(error.localizedDescription)")
                                     }
-                                    else{
-                                        taskStatus[selectedTask?.id ?? ""] = 1
-                                        refreshScreen.toggle()
-                                    }
-                                    
                                 }
                             }
                             .padding()
@@ -249,27 +253,31 @@ struct TaskRescheduleSheetView: View {
                             RedThinButton(text: "Pause") {
                                 //TODO: To pause the task
                                 Task {
-                                    updateTaskViewModel.taskID = selectedTask?.id ?? ""
-                                    updateTaskViewModel.status = 2
-                                    updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
-                                    updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
-                                    updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
-//                                    updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
-                                    updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
-                                    updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
-                                    updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                    do {
+                                        updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                        updateTaskViewModel.status = 2
+                                        updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                        updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                        updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+    //                                    updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                        updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                        updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                        updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
                                     
                                     
                                     
-                                    try await updateTaskViewModel.updateTaskStatus()
+                                        try await updateTaskViewModel.updateTaskStatus()
                                     
-                                    if NetworkManager.shared.statusCode == 400 {
-                                        showWarningPopup = true
-                                    }else{
-                                        taskStatus[selectedTask?.id ?? ""] = 2
-                                        refreshScreen.toggle()
+                                        if NetworkManager.shared.statusCode == 400 {
+                                            showWarningPopup = true
+                                        }else{
+                                            taskStatus[selectedTask?.id ?? ""] = 2
+                                            refreshScreen.toggle()
+                                        }
+                                    
+                                    } catch {
+                                        AppLog.debug("Task failed: \(error.localizedDescription)")
                                     }
-                                    
                                 }
                                 
                             }
@@ -278,25 +286,29 @@ struct TaskRescheduleSheetView: View {
                             RedThinButton(text: "Resume") {
                                 //TODO: To resume the task
                                 Task {
-                                    updateTaskViewModel.taskID = selectedTask?.id ?? ""
-                                    updateTaskViewModel.status = 3
-                                    updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
-                                    updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
-                                    updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
-//                                    updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
-                                    updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
-                                    updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
-                                    updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                    do {
+                                        updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                        updateTaskViewModel.status = 3
+                                        updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                        updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                        updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+    //                                    updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                        updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                        updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                        updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
                                     
                                     
-                                    try await updateTaskViewModel.updateTaskStatus()
+                                        try await updateTaskViewModel.updateTaskStatus()
                                     
-                                    if NetworkManager.shared.statusCode == 400 {
-                                        showWarningPopup = true
-                                    }
-                                    else{
-                                        taskStatus[selectedTask?.id ?? ""] = 3
-                                        refreshScreen.toggle()
+                                        if NetworkManager.shared.statusCode == 400 {
+                                            showWarningPopup = true
+                                        }
+                                        else{
+                                            taskStatus[selectedTask?.id ?? ""] = 3
+                                            refreshScreen.toggle()
+                                        }
+                                    } catch {
+                                        AppLog.debug("Task failed: \(error.localizedDescription)")
                                     }
                                 }
                             }
@@ -701,39 +713,43 @@ struct TaskRescheduleDetailSheetView: View {
                             PrimaryThinButton(text: "Update Task") {
                                 //TODO: Update the task
                                 Task {
-                                    updateTaskViewModel.taskID = selectedTask?.id ?? ""
-                                    updateTaskViewModel.clientID = selectedTask?.clientID ?? ""
-                                    updateTaskViewModel.taskName = selectedTask?.taskName ?? ""
+                                    do {
+                                        updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                        updateTaskViewModel.clientID = selectedTask?.clientID ?? ""
+                                        updateTaskViewModel.taskName = selectedTask?.taskName ?? ""
                                     
-                                    if let startDate = startDate, let rescheduleStartTime = rescheduleStartTime {
-                                        updateTaskViewModel.startTime = FormatterHelper.shared.formatDateAndTime(dateString: startDate, timeString: rescheduleStartTime) ?? ""
-                                    }
-                                    if let startDate = startDate, let rescheduleStopTime = rescheduleStopTime {
-                                        updateTaskViewModel.endTime = FormatterHelper.shared.formatDateAndTime(dateString: startDate, timeString: rescheduleStopTime) ?? ""
-                                    }
+                                        if let startDate = startDate, let rescheduleStartTime = rescheduleStartTime {
+                                            updateTaskViewModel.startTime = FormatterHelper.shared.formatDateAndTime(dateString: startDate, timeString: rescheduleStartTime) ?? ""
+                                        }
+                                        if let startDate = startDate, let rescheduleStopTime = rescheduleStopTime {
+                                            updateTaskViewModel.endTime = FormatterHelper.shared.formatDateAndTime(dateString: startDate, timeString: rescheduleStopTime) ?? ""
+                                        }
                                     
-                                    updateTaskViewModel.taskDescription = selectedTask?.taskDescription ?? ""
+                                        updateTaskViewModel.taskDescription = selectedTask?.taskDescription ?? ""
                                     
-                                    if let startDate = startDate {
-                                        updateTaskViewModel.date = startDate
-                                    }
+                                        if let startDate = startDate {
+                                            updateTaskViewModel.date = startDate
+                                        }
                                     
-                                    updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                        updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
                                     
-                                    updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                        updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
                                     
-//                                    AppLog.debug("Up :\(updateTaskViewModel.startTime)")
-//                                    AppLog.debug("Up :\(updateTaskViewModel.endTime)")
+    //                                    AppLog.debug("Up :\(updateTaskViewModel.startTime)")
+    //                                    AppLog.debug("Up :\(updateTaskViewModel.endTime)")
                                     
                                     
-                                    try await updateTaskViewModel.updateTask()
+                                        try await updateTaskViewModel.updateTask()
                                     
-                                    if NetworkManager.shared.statusCode == 200 {
-                                        currentDetent = .fraction(0.05)
+                                        if NetworkManager.shared.statusCode == 200 {
+                                            currentDetent = .fraction(0.05)
                                         
-                                        isDismiss = true
-                                    }else{
-                                        showWarningPopup.toggle()
+                                            isDismiss = true
+                                        }else{
+                                            showWarningPopup.toggle()
+                                        }
+                                    } catch {
+                                        AppLog.debug("Task failed: \(error.localizedDescription)")
                                     }
                                 }
                             }
@@ -754,27 +770,31 @@ struct TaskRescheduleDetailSheetView: View {
                                     PrimaryThinButton(text: "Start") {
                                         //TODO: To start the task
                                         Task {
-                                            updateTaskViewModel.taskID = selectedTask?.id ?? ""
-                                            updateTaskViewModel.status = 1
-                                            updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
-                                            updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
-                                            updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
-//                                            updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
-                                            updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
-                                            updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
-                                            updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                            do {
+                                                updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                                updateTaskViewModel.status = 1
+                                                updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                                updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                                updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+    //                                            updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                                updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                                updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                                updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
                                             
                                             
-                                            try await updateTaskViewModel.updateTaskStatus()
+                                                try await updateTaskViewModel.updateTaskStatus()
                                             
-                                            if NetworkManager.shared.statusCode == 400 {
-                                                showWarningPopup = true
+                                                if NetworkManager.shared.statusCode == 400 {
+                                                    showWarningPopup = true
+                                                }
+                                                else{
+                                                    taskStatus[selectedTask?.id ?? ""] = 1
+                                                    refreshScreen.toggle()
+                                                }
+                                            
+                                            } catch {
+                                                AppLog.debug("Task failed: \(error.localizedDescription)")
                                             }
-                                            else{
-                                                taskStatus[selectedTask?.id ?? ""] = 1
-                                                refreshScreen.toggle()
-                                            }
-                                            
                                         }
                                     }
                                 }
@@ -782,27 +802,31 @@ struct TaskRescheduleDetailSheetView: View {
                                     RedThinButton(text: "Pause") {
                                         //TODO: To pause the task
                                         Task {
-                                            updateTaskViewModel.taskID = selectedTask?.id ?? ""
-                                            updateTaskViewModel.status = 2
-                                            updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
-                                            updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
-                                            updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
-//                                            updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
-                                            updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
-                                            updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
-                                            updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                            do {
+                                                updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                                updateTaskViewModel.status = 2
+                                                updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                                updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                                updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+    //                                            updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                                updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                                updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                                updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
                                             
                                             
                                             
-                                            try await updateTaskViewModel.updateTaskStatus()
+                                                try await updateTaskViewModel.updateTaskStatus()
                                             
-                                            if NetworkManager.shared.statusCode == 400 {
-                                                showWarningPopup = true
-                                            }else{
-                                                taskStatus[selectedTask?.id ?? ""] = 2
-                                                refreshScreen.toggle()
+                                                if NetworkManager.shared.statusCode == 400 {
+                                                    showWarningPopup = true
+                                                }else{
+                                                    taskStatus[selectedTask?.id ?? ""] = 2
+                                                    refreshScreen.toggle()
+                                                }
+                                            
+                                            } catch {
+                                                AppLog.debug("Task failed: \(error.localizedDescription)")
                                             }
-                                            
                                         }
                                     }
                                 }
@@ -810,25 +834,29 @@ struct TaskRescheduleDetailSheetView: View {
                                     RedThinButton(text: "Resume") {
                                         //TODO: To resume the task
                                         Task {
-                                            updateTaskViewModel.taskID = selectedTask?.id ?? ""
-                                            updateTaskViewModel.status = 3
-                                            updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
-                                            updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
-                                            updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
-//                                            updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
-                                            updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
-                                            updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
-                                            updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
+                                            do {
+                                                updateTaskViewModel.taskID = selectedTask?.id ?? ""
+                                                updateTaskViewModel.status = 3
+                                                updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                                                updateTaskViewModel.latitude = selectedTask?.latitude ?? ""
+                                                updateTaskViewModel.longitude = selectedTask?.longitude ?? ""
+    //                                            updateTaskViewModel.value = selectedTask?.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                                                updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
+                                                updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                                updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
                                             
                                             
-                                            try await updateTaskViewModel.updateTaskStatus()
+                                                try await updateTaskViewModel.updateTaskStatus()
                                             
-                                            if NetworkManager.shared.statusCode == 400 {
-                                                showWarningPopup = true
-                                            }
-                                            else{
-                                                taskStatus[selectedTask?.id ?? ""] = 3
-                                                refreshScreen.toggle()
+                                                if NetworkManager.shared.statusCode == 400 {
+                                                    showWarningPopup = true
+                                                }
+                                                else{
+                                                    taskStatus[selectedTask?.id ?? ""] = 3
+                                                    refreshScreen.toggle()
+                                                }
+                                            } catch {
+                                                AppLog.debug("Task failed: \(error.localizedDescription)")
                                             }
                                         }
                                     }
@@ -862,7 +890,11 @@ struct TaskRescheduleDetailSheetView: View {
                 }
                 if tagViewModel.tagDataList.isEmpty {
                     Task {
-                        try await tagViewModel.getTags()
+                        do {
+                            try await tagViewModel.getTags()
+                        } catch {
+                            AppLog.debug("Task failed: \(error.localizedDescription)")
+                        }
                     }
                 }
 
@@ -903,12 +935,16 @@ struct TaskRescheduleDetailSheetView: View {
                     updateTaskViewModel.tagLogs = selectedTask?.tagLogs ?? []
                     
                     Task {
-                        try await updateTaskViewModel.updateTaskStatus()
+                        do {
+                            try await updateTaskViewModel.updateTaskStatus()
                         
-                        if NetworkManager.shared.statusCode == 200 {
-                            taskStatus[selectedTask?.id ?? ""] = 4
-                        }else {
-                            showWarningPopup.toggle()
+                            if NetworkManager.shared.statusCode == 200 {
+                                taskStatus[selectedTask?.id ?? ""] = 4
+                            }else {
+                                showWarningPopup.toggle()
+                            }
+                        } catch {
+                            AppLog.debug("Task failed: \(error.localizedDescription)")
                         }
                     }
                 }),

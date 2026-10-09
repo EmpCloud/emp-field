@@ -245,7 +245,7 @@ struct CreateProfileView: View {
                             
                         }
                         
-                        AppLog.debug("Profile Pic Uploaded: \(createProfileViewModel.profilePic)")
+                        AppLog.debug("Profile Pic Uploaded: \(String(describing: createProfileViewModel.profilePic))")
                     }
                 }
             }

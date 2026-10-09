@@ -67,9 +67,13 @@ struct SelectClientView: View {
             }
             .onAppear{
                 Task {
-                    try await clientListViewModel.getClientList()
+                    do {
+                        try await clientListViewModel.getClientList()
                     
-                    filteredSelectClient = clientListViewModel.clientListData
+                        filteredSelectClient = clientListViewModel.clientListData
+                    } catch {
+                        AppLog.debug("Task failed: \(error.localizedDescription)")
+                    }
                 }
             }
             .toolbar {

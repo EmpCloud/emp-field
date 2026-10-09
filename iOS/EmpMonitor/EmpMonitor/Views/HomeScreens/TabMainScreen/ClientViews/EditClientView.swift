@@ -203,33 +203,37 @@ struct EditClientView: View {
                             PrimaryThinButton(text: "Update Client") {
                                 //TODO: To make api call to add the client
                                 Task {
-                                    updateClientViewModel.clientID = clientData.id
-                                    updateClientViewModel.contactNumber = phoneNumber
-                                    updateClientViewModel.countryCode = countryCode
-                                    try await updateClientViewModel.updateClient()
+                                    do {
+                                        updateClientViewModel.clientID = clientData.id
+                                        updateClientViewModel.contactNumber = phoneNumber
+                                        updateClientViewModel.countryCode = countryCode
+                                        try await updateClientViewModel.updateClient()
                                     
-                                    if NetworkManager.shared.statusCode == 200 {
-                                        dismiss()
-                                        secondScreenDismiss.toggle()
-                                    }else {
-                                        showWarmningPopup.toggle()
+                                        if NetworkManager.shared.statusCode == 200 {
+                                            dismiss()
+                                            secondScreenDismiss.toggle()
+                                        }else {
+                                            showWarmningPopup.toggle()
+                                        }
+                                    
+                                    
+                                        AppLog.debug(updateClientViewModel.clientName)
+                                        AppLog.debug(updateClientViewModel.emailID)
+                                        AppLog.debug(updateClientViewModel.contactNumber)
+                                        AppLog.debug(updateClientViewModel.clientProfilePic)
+                                        AppLog.debug(updateClientViewModel.category)
+                                        AppLog.debug(updateClientViewModel.countryCode)
+                                        AppLog.debug(updateClientViewModel.address1)
+                                        AppLog.debug(updateClientViewModel.address2)
+                                        AppLog.debug(updateClientViewModel.country)
+                                        AppLog.debug(updateClientViewModel.state)
+                                        AppLog.debug(updateClientViewModel.city)
+                                        AppLog.debug(updateClientViewModel.zipCode)
+                                        AppLog.debug(updateClientViewModel.latitude)
+                                        AppLog.debug(updateClientViewModel.longitude)
+                                    } catch {
+                                        AppLog.debug("Task failed: \(error.localizedDescription)")
                                     }
-                                    
-                                    
-                                    AppLog.debug(updateClientViewModel.clientName)
-                                    AppLog.debug(updateClientViewModel.emailID)
-                                    AppLog.debug(updateClientViewModel.contactNumber)
-                                    AppLog.debug(updateClientViewModel.clientProfilePic)
-                                    AppLog.debug(updateClientViewModel.category)
-                                    AppLog.debug(updateClientViewModel.countryCode)
-                                    AppLog.debug(updateClientViewModel.address1)
-                                    AppLog.debug(updateClientViewModel.address2)
-                                    AppLog.debug(updateClientViewModel.country)
-                                    AppLog.debug(updateClientViewModel.state)
-                                    AppLog.debug(updateClientViewModel.city)
-                                    AppLog.debug(updateClientViewModel.zipCode)
-                                    AppLog.debug(updateClientViewModel.latitude)
-                                    AppLog.debug(updateClientViewModel.longitude)
                                 }
                                 
                             }
@@ -272,32 +276,36 @@ struct EditClientView: View {
         }
         .onChange(of: savedImageURL) { _, _ in
             Task {
-//                addClientViewModel.clientProfilePic = "" // removing the old URLs
-                if let imageURL = savedImageURL {
-                    uploadFileViewModel.selectedImageURLs.append(imageURL)
-                    await uploadFileViewModel.uploadProfileImages()
+                do {
+    //                addClientViewModel.clientProfilePic = "" // removing the old URLs
+                    if let imageURL = savedImageURL {
+                        uploadFileViewModel.selectedImageURLs.append(imageURL)
+                        await uploadFileViewModel.uploadProfileImages()
                     
-                    if NetworkManager.shared.statusCode == 200 {
-                        updateClientViewModel.clientProfilePic = uploadFileViewModel.fetchProfileURL
-                        
-                        //update the profile after updating the profile pic
-                        updateClientViewModel.clientID = clientData.id
-                        try await updateClientViewModel.updateClient()
                         if NetworkManager.shared.statusCode == 200 {
-                            //TODO: Profile pic uploaded successfully
-                            AppLog.debug("Client Profile pic uploaded successfully")
+                            updateClientViewModel.clientProfilePic = uploadFileViewModel.fetchProfileURL
+                        
+                            //update the profile after updating the profile pic
+                            updateClientViewModel.clientID = clientData.id
+                            try await updateClientViewModel.updateClient()
+                            if NetworkManager.shared.statusCode == 200 {
+                                //TODO: Profile pic uploaded successfully
+                                AppLog.debug("Client Profile pic uploaded successfully")
                             
-                            //TODO: Just Refresh the Profile Pic
-                            clientProfileURL = updateClientViewModel.clientProfilePic
-                            if let url = clientProfileURL {
-                                profileImageLoader.loadClientProfileImage(clientImageURL: url)
+                                //TODO: Just Refresh the Profile Pic
+                                clientProfileURL = updateClientViewModel.clientProfilePic
+                                if let url = clientProfileURL {
+                                    profileImageLoader.loadClientProfileImage(clientImageURL: url)
                                 
-                            }
+                                }
                             
+                            }
                         }
-                    }
                     
-                    AppLog.debug("Profile Image received URLS: \(updateClientViewModel.clientProfilePic)")
+                        AppLog.debug("Profile Image received URLS: \(updateClientViewModel.clientProfilePic)")
+                    }
+                } catch {
+                    AppLog.debug("Task failed: \(error.localizedDescription)")
                 }
             }
         }
@@ -383,7 +391,7 @@ struct EditClientView: View {
             
             savedImageURL = profileCameraViewModel.getCapturedImageURLs()
             
-            AppLog.debug(savedImageURL)
+            AppLog.debug(String(describing: savedImageURL))
             
             UINavigationBar.appearance().titleTextAttributes = [
                 .foregroundColor: UIColor.white

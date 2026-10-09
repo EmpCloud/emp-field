@@ -95,43 +95,47 @@ struct TaskCardView: View {
             return AnyView(StartButton {
                 //TODO: To start the task
                 Task {
-                    updateTaskViewModel.taskID = filterTaskDetail.id
-                    updateTaskViewModel.status = 1
-                    updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
-                    if let lat = permissionManager.userLocation?.coordinate.latitude{
-                        updateTaskViewModel.latitude = String(lat)
-                    }
-//                    updateTaskViewModel.latitude = filterTaskDetail.latitude ?? ""
-//                    updateTaskViewModel.longitude = filterTaskDetail.longitude ?? ""
-                    if let long = permissionManager.userLocation?.coordinate.longitude{
-                        updateTaskViewModel.longitude = String(long)
-                    }
-                    updateTaskViewModel.taskValue = TaskValue(amount: filterTaskDetail.value?.amount, currency: filterTaskDetail.value?.currency)
-                    updateTaskViewModel.taskVolume = filterTaskDetail.taskVolume
-                    updateTaskViewModel.tagLogs = filterTaskDetail.tagLogs
+                    do {
+                        updateTaskViewModel.taskID = filterTaskDetail.id
+                        updateTaskViewModel.status = 1
+                        updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+                        if let lat = permissionManager.userLocation?.coordinate.latitude{
+                            updateTaskViewModel.latitude = String(lat)
+                        }
+    //                    updateTaskViewModel.latitude = filterTaskDetail.latitude ?? ""
+    //                    updateTaskViewModel.longitude = filterTaskDetail.longitude ?? ""
+                        if let long = permissionManager.userLocation?.coordinate.longitude{
+                            updateTaskViewModel.longitude = String(long)
+                        }
+                        updateTaskViewModel.taskValue = TaskValue(amount: filterTaskDetail.value?.amount, currency: filterTaskDetail.value?.currency)
+                        updateTaskViewModel.taskVolume = filterTaskDetail.taskVolume
+                        updateTaskViewModel.tagLogs = filterTaskDetail.tagLogs
                     
-//                    AppLog.debug("Taglogs:  \(filterTaskDetail.tagLogs.first)")
+    //                    AppLog.debug("Taglogs:  \(filterTaskDetail.tagLogs.first)")
                     
-                    // adding a validation for the lat, long confirmation not to be empty
-                    if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {
-                        try await updateTaskViewModel.updateTaskStatus()
-                    }else {
-                        NetworkManager.shared.statusCode = 0
-                        NetworkManager.shared.responseMessage = "Location not found. Please check location access and try again."
-                        showWarningPopup = true
-                        return
+                        // adding a validation for the lat, long confirmation not to be empty
+                        if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {
+                            try await updateTaskViewModel.updateTaskStatus()
+                        }else {
+                            NetworkManager.shared.statusCode = 0
+                            NetworkManager.shared.responseMessage = "Location not found. Please check location access and try again."
+                            showWarningPopup = true
+                            return
+                        }
+                    
+                    
+                        if NetworkManager.shared.statusCode != 200 {
+                            showWarningPopup = true
+                        }
+                        else{
+                            taskStatus[filterTaskDetail.id] = 1
+                            refreshScreen.toggle()
+                            isTaskRunning = true
+                        }
+                    
+                    } catch {
+                        AppLog.debug("Task failed: \(error.localizedDescription)")
                     }
-                    
-                    
-                    if NetworkManager.shared.statusCode != 200 {
-                        showWarningPopup = true
-                    }
-                    else{
-                        taskStatus[filterTaskDetail.id] = 1
-                        refreshScreen.toggle()
-                        isTaskRunning = true
-                    }
-                    
                 }
             }
             .onAppear {
@@ -142,42 +146,46 @@ struct TaskCardView: View {
             return AnyView(PauseButton {
                 //TODO: To start the task
                 Task {
-                    updateTaskViewModel.taskID = filterTaskDetail.id
-                    updateTaskViewModel.status = 2
-                    updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
-//                    updateTaskViewModel.latitude = filterTaskDetail.latitude ?? ""
-//                    updateTaskViewModel.longitude = filterTaskDetail.longitude ?? ""
-                    if let lat = permissionManager.userLocation?.coordinate.latitude{
-                        updateTaskViewModel.latitude = String(lat)
-                    }
-                    if let long = permissionManager.userLocation?.coordinate.longitude{
-                        updateTaskViewModel.longitude = String(long)
-                    }
-//                    updateTaskViewModel.value = filterTaskDetail.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
-                    updateTaskViewModel.taskValue = TaskValue(amount: filterTaskDetail.value?.amount, currency: filterTaskDetail.value?.currency)
-                    updateTaskViewModel.taskVolume = filterTaskDetail.taskVolume
-                    updateTaskViewModel.tagLogs = filterTaskDetail.tagLogs
+                    do {
+                        updateTaskViewModel.taskID = filterTaskDetail.id
+                        updateTaskViewModel.status = 2
+                        updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+    //                    updateTaskViewModel.latitude = filterTaskDetail.latitude ?? ""
+    //                    updateTaskViewModel.longitude = filterTaskDetail.longitude ?? ""
+                        if let lat = permissionManager.userLocation?.coordinate.latitude{
+                            updateTaskViewModel.latitude = String(lat)
+                        }
+                        if let long = permissionManager.userLocation?.coordinate.longitude{
+                            updateTaskViewModel.longitude = String(long)
+                        }
+    //                    updateTaskViewModel.value = filterTaskDetail.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                        updateTaskViewModel.taskValue = TaskValue(amount: filterTaskDetail.value?.amount, currency: filterTaskDetail.value?.currency)
+                        updateTaskViewModel.taskVolume = filterTaskDetail.taskVolume
+                        updateTaskViewModel.tagLogs = filterTaskDetail.tagLogs
                     
-//                    AppLog.debug("Taglogs:  \(filterTaskDetail.tagLogs.first)")
+    //                    AppLog.debug("Taglogs:  \(filterTaskDetail.tagLogs.first)")
                     
-                    // adding a validation for the lat, long confirmation not to be empty
-                    if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {
-                        try await updateTaskViewModel.updateTaskStatus()
-                    }else {
-                        NetworkManager.shared.statusCode = 0
-                        NetworkManager.shared.responseMessage = "Location not found. Please check location access and try again."
-                        showWarningPopup = true
-                        return
+                        // adding a validation for the lat, long confirmation not to be empty
+                        if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {
+                            try await updateTaskViewModel.updateTaskStatus()
+                        }else {
+                            NetworkManager.shared.statusCode = 0
+                            NetworkManager.shared.responseMessage = "Location not found. Please check location access and try again."
+                            showWarningPopup = true
+                            return
+                        }
+                    
+                        if NetworkManager.shared.statusCode != 200 {
+                            showWarningPopup = true
+                        }else{
+                            taskStatus[filterTaskDetail.id] = 2
+                            refreshScreen.toggle()
+                            isTaskRunning = false
+                        }
+                    
+                    } catch {
+                        AppLog.debug("Task failed: \(error.localizedDescription)")
                     }
-                    
-                    if NetworkManager.shared.statusCode != 200 {
-                        showWarningPopup = true
-                    }else{
-                        taskStatus[filterTaskDetail.id] = 2
-                        refreshScreen.toggle()
-                        isTaskRunning = false
-                    }
-                    
                 }
             }
                 .onAppear {
@@ -188,41 +196,45 @@ struct TaskCardView: View {
             return AnyView(ResumeButton {
                 //TODO: To pause the task
                 Task {
-                    updateTaskViewModel.taskID = filterTaskDetail.id
-                    updateTaskViewModel.status = 3
-                    updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
-//                    updateTaskViewModel.latitude = filterTaskDetail.latitude ?? ""
-//                    updateTaskViewModel.longitude = filterTaskDetail.longitude ?? ""
-                    if let lat = permissionManager.userLocation?.coordinate.latitude{
-                        updateTaskViewModel.latitude = String(lat)
-                    }
-                    if let long = permissionManager.userLocation?.coordinate.longitude{
-                        updateTaskViewModel.longitude = String(long)
-                    }
-//                    updateTaskViewModel.value = filterTaskDetail.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
-                    updateTaskViewModel.taskValue = TaskValue(amount: filterTaskDetail.value?.amount, currency: filterTaskDetail.value?.currency)
-                    updateTaskViewModel.taskVolume = filterTaskDetail.taskVolume
-                    updateTaskViewModel.tagLogs = filterTaskDetail.tagLogs
+                    do {
+                        updateTaskViewModel.taskID = filterTaskDetail.id
+                        updateTaskViewModel.status = 3
+                        updateTaskViewModel.currentDateTime = FormatterHelper.shared.getCurrentDateTimeFormatted()
+    //                    updateTaskViewModel.latitude = filterTaskDetail.latitude ?? ""
+    //                    updateTaskViewModel.longitude = filterTaskDetail.longitude ?? ""
+                        if let lat = permissionManager.userLocation?.coordinate.latitude{
+                            updateTaskViewModel.latitude = String(lat)
+                        }
+                        if let long = permissionManager.userLocation?.coordinate.longitude{
+                            updateTaskViewModel.longitude = String(long)
+                        }
+    //                    updateTaskViewModel.value = filterTaskDetail.value ?? FilterTaskValue(convertedAmountInUSD: nil, currency: "", amount: 0)
+                        updateTaskViewModel.taskValue = TaskValue(amount: filterTaskDetail.value?.amount, currency: filterTaskDetail.value?.currency)
+                        updateTaskViewModel.taskVolume = filterTaskDetail.taskVolume
+                        updateTaskViewModel.tagLogs = filterTaskDetail.tagLogs
                     
-//                    AppLog.debug("Taglogs:  \(filterTaskDetail.tagLogs.first)")
+    //                    AppLog.debug("Taglogs:  \(filterTaskDetail.tagLogs.first)")
                     
-                    // adding a validation for the lat, long confirmation not to be empty
-                    if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {
-                        try await updateTaskViewModel.updateTaskStatus()
-                    }else {
-                        NetworkManager.shared.statusCode = 0
-                        NetworkManager.shared.responseMessage = "Location not found. Please check location access and try again."
-                        showWarningPopup = true
-                        return
-                    }
+                        // adding a validation for the lat, long confirmation not to be empty
+                        if !updateTaskViewModel.longitude.isEmpty  && !updateTaskViewModel.latitude.isEmpty {
+                            try await updateTaskViewModel.updateTaskStatus()
+                        }else {
+                            NetworkManager.shared.statusCode = 0
+                            NetworkManager.shared.responseMessage = "Location not found. Please check location access and try again."
+                            showWarningPopup = true
+                            return
+                        }
                     
-                    if NetworkManager.shared.statusCode != 200 {
-                        showWarningPopup = true
-                    }
-                    else{
-                        taskStatus[filterTaskDetail.id] = 3
-                        refreshScreen.toggle()
-                        isTaskRunning = true
+                        if NetworkManager.shared.statusCode != 200 {
+                            showWarningPopup = true
+                        }
+                        else{
+                            taskStatus[filterTaskDetail.id] = 3
+                            refreshScreen.toggle()
+                            isTaskRunning = true
+                        }
+                    } catch {
+                        AppLog.debug("Task failed: \(error.localizedDescription)")
                     }
                 }
             }

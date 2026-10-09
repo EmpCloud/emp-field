@@ -58,7 +58,11 @@ struct ResetPasswordView: View {
                     
                     //TODO: Reset password api call
                     Task {
-                        try await resetPasswordViewModel.resetPassword()
+                        do {
+                            try await resetPasswordViewModel.resetPassword()
+                        } catch {
+                            AppLog.debug("Task failed: \(error.localizedDescription)")
+                        }
                     }
                     if NetworkManager.shared.statusCode == 200 {
                         emailLoginScreen = true

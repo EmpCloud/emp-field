@@ -73,26 +73,30 @@ struct Settings: View {
                         
                         Button(action: {
                             Task {
-                                showProfile.toggle()
-                                try await getProfileViewModel.getProfile()
+                                do {
+                                    showProfile.toggle()
+                                    try await getProfileViewModel.getProfile()
 
-                                if let profileDetail = getProfileViewModel.profileDetail.first {
-                                    updateProfileViewModel.fullName = profileDetail.fullName
-                                    updateProfileViewModel.age = String(profileDetail.age ?? "")
-                                    updateProfileViewModel.gender = profileDetail.gender ?? ""
-                                    updateProfileViewModel.email = profileDetail.email ?? ""
-                                    updateProfileViewModel.profilePic = profileDetail.profilePic ?? ""
-                                    updateProfileViewModel.address1 = profileDetail.address1 ?? ""
-                                    updateProfileViewModel.address2 = profileDetail.address2 ?? ""
-                                    updateProfileViewModel.latitude = profileDetail.latitude ?? ""
-                                    updateProfileViewModel.longitude = profileDetail.longitude ?? ""
-                                    updateProfileViewModel.city = profileDetail.city ?? ""
-                                    updateProfileViewModel.state = profileDetail.state ?? ""
-                                    updateProfileViewModel.country = profileDetail.country ?? ""
-                                    updateProfileViewModel.zipCode = profileDetail.zipCode ?? ""
-                                    updateProfileViewModel.phoneNumber = profileDetail.phoneNumber ?? ""
+                                    if let profileDetail = getProfileViewModel.profileDetail.first {
+                                        updateProfileViewModel.fullName = profileDetail.fullName
+                                        updateProfileViewModel.age = String(profileDetail.age ?? "")
+                                        updateProfileViewModel.gender = profileDetail.gender ?? ""
+                                        updateProfileViewModel.email = profileDetail.email ?? ""
+                                        updateProfileViewModel.profilePic = profileDetail.profilePic ?? ""
+                                        updateProfileViewModel.address1 = profileDetail.address1 ?? ""
+                                        updateProfileViewModel.address2 = profileDetail.address2 ?? ""
+                                        updateProfileViewModel.latitude = profileDetail.latitude ?? ""
+                                        updateProfileViewModel.longitude = profileDetail.longitude ?? ""
+                                        updateProfileViewModel.city = profileDetail.city ?? ""
+                                        updateProfileViewModel.state = profileDetail.state ?? ""
+                                        updateProfileViewModel.country = profileDetail.country ?? ""
+                                        updateProfileViewModel.zipCode = profileDetail.zipCode ?? ""
+                                        updateProfileViewModel.phoneNumber = profileDetail.phoneNumber ?? ""
 
-                                    selectedGender = updateProfileViewModel.gender
+                                        selectedGender = updateProfileViewModel.gender
+                                    }
+                                } catch {
+                                    AppLog.debug("Task failed: \(error.localizedDescription)")
                                 }
                             }
                         }) {

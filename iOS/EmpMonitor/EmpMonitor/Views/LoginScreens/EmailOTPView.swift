@@ -79,19 +79,23 @@ struct EmailOTPView: View {
                 PrimaryButton(text: "Proceed") {
                     // next screen
                     Task {
-                        resetPasswordViewModel.verifyToken = emailOTP
-                        resetPasswordViewModel.email = forgetPasswordViewModel.email
-//                        AppLog.debug(forgetPasswordViewModel.email)
-//                        AppLog.debug(emailOTP)
+                        do {
+                            resetPasswordViewModel.verifyToken = emailOTP
+                            resetPasswordViewModel.email = forgetPasswordViewModel.email
+    //                        AppLog.debug(forgetPasswordViewModel.email)
+    //                        AppLog.debug(emailOTP)
                         
-                        try await verifyEmailOTPViewModel.verifyEmailOTP(email: forgetPasswordViewModel.email, emailOTP: emailOTP)
+                            try await verifyEmailOTPViewModel.verifyEmailOTP(email: forgetPasswordViewModel.email, emailOTP: emailOTP)
                         
-                        if NetworkManager.shared.statusCode == 200 {
-                            showResetPasswordScreen.toggle()
-                        }else {
-                            showWarningPopup.toggle()
+                            if NetworkManager.shared.statusCode == 200 {
+                                showResetPasswordScreen.toggle()
+                            }else {
+                                showWarningPopup.toggle()
+                            }
+                        
+                        } catch {
+                            AppLog.debug("Task failed: \(error.localizedDescription)")
                         }
-                        
                     }
                     
                 }
@@ -109,16 +113,20 @@ struct EmailOTPView: View {
                         .foregroundStyle(Color.authBlueSubText)
                         .onTapGesture {
                             Task {
-                                try await forgetPasswordViewModel.forgetPassword()
+                                do {
+                                    try await forgetPasswordViewModel.forgetPassword()
                                 
-                                //next screen
-                                if NetworkManager.shared.statusCode == 200 {
-                                    //                                        AppLog.debug(userLoginViewModel.email)
-                                    showOTPSendConfirmation = true
-                                }else {
-                                    withAnimation {
-//                                        showWarning.toggle()
+                                    //next screen
+                                    if NetworkManager.shared.statusCode == 200 {
+                                        //                                        AppLog.debug(userLoginViewModel.email)
+                                        showOTPSendConfirmation = true
+                                    }else {
+                                        withAnimation {
+    //                                        showWarning.toggle()
+                                        }
                                     }
+                                } catch {
+                                    AppLog.debug("Task failed: \(error.localizedDescription)")
                                 }
                             }
                         }

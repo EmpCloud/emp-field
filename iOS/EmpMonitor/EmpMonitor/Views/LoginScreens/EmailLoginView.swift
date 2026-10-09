@@ -86,15 +86,19 @@ struct EmailLoginView: View {
                     PrimaryButton(text: "Add Password", action: {
                         
                         Task {
-                            verifyEmailViewModel.email = userLoginViewModel.email
-                            try await verifyEmailViewModel.verifyUserEmail()
+                            do {
+                                verifyEmailViewModel.email = userLoginViewModel.email
+                                try await verifyEmailViewModel.verifyUserEmail()
                             
-                            //next screen
-                            if NetworkManager.shared.statusCode == 200 {
-                                AppLog.debug(userLoginViewModel.email)
-                                passwordScreen = true
-                            }else {
-                                showWarning.toggle()
+                                //next screen
+                                if NetworkManager.shared.statusCode == 200 {
+                                    AppLog.debug(userLoginViewModel.email)
+                                    passwordScreen = true
+                                }else {
+                                    showWarning.toggle()
+                                }
+                            } catch {
+                                AppLog.debug("Task failed: \(error.localizedDescription)")
                             }
                         }
                     })

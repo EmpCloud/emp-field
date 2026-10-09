@@ -34,14 +34,18 @@ struct ModeOfTravelView: View {
             PrimaryThinButton(text: "Select") {
                 //TODO: To select the mode & to make api call
                 Task {
-                    selectedMode = tappedMode
+                    do {
+                        selectedMode = tappedMode
 
-                    motViewModel.currentModeOfTravel = selectedMode?.lowercased() ?? ""
+                        motViewModel.currentModeOfTravel = selectedMode?.lowercased() ?? ""
 
-                    try await motViewModel.setModeOfTransport()
+                        try await motViewModel.setModeOfTransport()
 
-                    if NetworkManager.shared.statusCode == 200 {
-                        showMode.toggle()
+                        if NetworkManager.shared.statusCode == 200 {
+                            showMode.toggle()
+                        }
+                    } catch {
+                        AppLog.debug("Task failed: \(error.localizedDescription)")
                     }
                 }
             }

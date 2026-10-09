@@ -126,10 +126,14 @@ struct TaskView: View {
                                         // User Can refresh the task list if the task list has no data
                                         .refreshable {
                                             Task {
-                                                try await taskListViewModel.getFilterTaskList()
+                                                do {
+                                                    try await taskListViewModel.getFilterTaskList()
                                                 
-                                                if NetworkManager.shared.statusCode == 200 {
-                                                    filterTaskData = taskListViewModel.filterTaskData
+                                                    if NetworkManager.shared.statusCode == 200 {
+                                                        filterTaskData = taskListViewModel.filterTaskData
+                                                    }
+                                                } catch {
+                                                    AppLog.debug("Task failed: \(error.localizedDescription)")
                                                 }
                                             }
                                         }
@@ -139,10 +143,14 @@ struct TaskView: View {
                                 .frame(maxWidth: .infinity, alignment: .center)
                                 .refreshable {
                                     Task {
-                                        try await taskListViewModel.getFilterTaskList()
+                                        do {
+                                            try await taskListViewModel.getFilterTaskList()
                                         
-                                        if NetworkManager.shared.statusCode == 200 {
-                                            filterTaskData = taskListViewModel.filterTaskData
+                                            if NetworkManager.shared.statusCode == 200 {
+                                                filterTaskData = taskListViewModel.filterTaskData
+                                            }
+                                        } catch {
+                                            AppLog.debug("Task failed: \(error.localizedDescription)")
                                         }
                                     }
                                 }
@@ -170,22 +178,26 @@ struct TaskView: View {
                                             .accessibilityAddTraits(.isButton)
                                             .onTapGesture {
                                                 Task {
-                                                    selectedFilter = "All"  // setting the selected UI
+                                                    do {
+                                                        selectedFilter = "All"  // setting the selected UI
                                                     
                                                     
-//                                                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
-                                                    taskListViewModel.status = 0 // passing the value for "All"
+    //                                                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
+                                                        taskListViewModel.status = 0 // passing the value for "All"
                                                     
-                                                   try await taskListViewModel.getFilterTaskList()
+                                                       try await taskListViewModel.getFilterTaskList()
                                                     
-                                                    AppLog.debug(NetworkManager.shared.statusCode)
-                                                    AppLog.debug(NetworkManager.shared.responseMessage)
+                                                        AppLog.debug(NetworkManager.shared.statusCode)
+                                                        AppLog.debug(NetworkManager.shared.responseMessage)
                                                     
-                                                    if NetworkManager.shared.statusCode == 200 {
-                                                        filterTaskData = taskListViewModel.filterTaskData
+                                                        if NetworkManager.shared.statusCode == 200 {
+                                                            filterTaskData = taskListViewModel.filterTaskData
+                                                        }
+                                                    
+                                                    
+                                                    } catch {
+                                                        AppLog.debug("Task failed: \(error.localizedDescription)")
                                                     }
-                                                    
-                                                    
                                                 }
                                                 withAnimation(.smooth) {
                                                     showTaskFilter.toggle()
@@ -200,19 +212,23 @@ struct TaskView: View {
                                             .accessibilityAddTraits(.isButton)
                                             .onTapGesture {
                                                 Task {
-                                                    selectedFilter = "Current"  // setting the selected UI
+                                                    do {
+                                                        selectedFilter = "Current"  // setting the selected UI
                                                     
                                                     
-//                                                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
-                                                    taskListViewModel.status = 1 // passing the value for "All"
+    //                                                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
+                                                        taskListViewModel.status = 1 // passing the value for "All"
                                                     
-                                                   try await taskListViewModel.getFilterTaskList()
+                                                       try await taskListViewModel.getFilterTaskList()
                                                     
-                                                    if NetworkManager.shared.statusCode == 200 {
-                                                        filterTaskData = taskListViewModel.filterTaskData
+                                                        if NetworkManager.shared.statusCode == 200 {
+                                                            filterTaskData = taskListViewModel.filterTaskData
+                                                        }
+                                                    
+                                                    
+                                                    } catch {
+                                                        AppLog.debug("Task failed: \(error.localizedDescription)")
                                                     }
-                                                    
-                                                    
                                                 }
                                                 withAnimation(.smooth) {
                                                     showTaskFilter.toggle()
@@ -227,19 +243,23 @@ struct TaskView: View {
                                             .accessibilityAddTraits(.isButton)
                                             .onTapGesture {
                                                 Task {
-                                                    selectedFilter = "Finished"  // setting the selected UI
+                                                    do {
+                                                        selectedFilter = "Finished"  // setting the selected UI
                                                     
                                                     
-//                                                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
-                                                    taskListViewModel.status = 4 // passing the value for "All"
+    //                                                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
+                                                        taskListViewModel.status = 4 // passing the value for "All"
                                                     
-                                                   try await taskListViewModel.getFilterTaskList()
+                                                       try await taskListViewModel.getFilterTaskList()
                                                     
-                                                    if NetworkManager.shared.statusCode == 200 {
-                                                        filterTaskData = taskListViewModel.filterTaskData
+                                                        if NetworkManager.shared.statusCode == 200 {
+                                                            filterTaskData = taskListViewModel.filterTaskData
+                                                        }
+                                                    
+                                                    
+                                                    } catch {
+                                                        AppLog.debug("Task failed: \(error.localizedDescription)")
                                                     }
-                                                    
-                                                    
                                                 }
                                                 withAnimation(.smooth) {
                                                     showTaskFilter.toggle()
@@ -299,30 +319,38 @@ struct TaskView: View {
 //            }
             .onChange(of: selectedDate) { _, _ in
                 Task {
-                    taskListViewModel.date = selectedDate ?? FormatterHelper.shared.getTodaysDate()
-                    taskListViewModel.status = 0
-                   try await taskListViewModel.getFilterTaskList()
+                    do {
+                        taskListViewModel.date = selectedDate ?? FormatterHelper.shared.getTodaysDate()
+                        taskListViewModel.status = 0
+                       try await taskListViewModel.getFilterTaskList()
                     
-                    if NetworkManager.shared.statusCode == 200 {
-                        filterTaskData = taskListViewModel.filterTaskData
+                        if NetworkManager.shared.statusCode == 200 {
+                            filterTaskData = taskListViewModel.filterTaskData
+                        }
+                    
+                        AppLog.debug(NetworkManager.shared.statusCode)
+                        AppLog.debug(NetworkManager.shared.responseMessage)
+                    } catch {
+                        AppLog.debug("Task failed: \(error.localizedDescription)")
                     }
-                    
-                    AppLog.debug(NetworkManager.shared.statusCode)
-                    AppLog.debug(NetworkManager.shared.responseMessage)
                 }
             }
             .onChange(of: refreshScreen) { _, _ in
                 Task {
-                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
-                    taskListViewModel.status = 0
-                    taskListViewModel.filterTaskData = []
-                    AppLog.debug("-----filter task Data")
-                    AppLog.debug(taskListViewModel.filterTaskData)
+                    do {
+                        taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
+                        taskListViewModel.status = 0
+                        taskListViewModel.filterTaskData = []
+                        AppLog.debug("-----filter task Data")
+                        AppLog.debug(taskListViewModel.filterTaskData)
                     
-                    try await taskListViewModel.getFilterTaskList()
+                        try await taskListViewModel.getFilterTaskList()
                     
-                    if NetworkManager.shared.statusCode == 200 {
-                        filterTaskData = taskListViewModel.filterTaskData
+                        if NetworkManager.shared.statusCode == 200 {
+                            filterTaskData = taskListViewModel.filterTaskData
+                        }
+                    } catch {
+                        AppLog.debug("Task failed: \(error.localizedDescription)")
                     }
                 }
                 
@@ -339,17 +367,21 @@ struct TaskView: View {
             .onAppear{
                 selectedDate = nil // to reset the date
                 Task {
-                    taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
-                    taskListViewModel.status = 0
-                    taskListViewModel.filterTaskData = []
-                    AppLog.debug("-----filter task Data")
-                    AppLog.debug(taskListViewModel.filterTaskData)
-                   try await taskListViewModel.getFilterTaskList()
+                    do {
+                        taskListViewModel.date = FormatterHelper.shared.getTodaysDate()
+                        taskListViewModel.status = 0
+                        taskListViewModel.filterTaskData = []
+                        AppLog.debug("-----filter task Data")
+                        AppLog.debug(taskListViewModel.filterTaskData)
+                       try await taskListViewModel.getFilterTaskList()
                     
-                    if NetworkManager.shared.statusCode == 200 {
-                        filterTaskData = taskListViewModel.filterTaskData
+                        if NetworkManager.shared.statusCode == 200 {
+                            filterTaskData = taskListViewModel.filterTaskData
+                        }
+                    
+                    } catch {
+                        AppLog.debug("Task failed: \(error.localizedDescription)")
                     }
-                    
                 }
                 // just to refresh
 //                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
@@ -388,24 +420,32 @@ struct TaskView: View {
                         deleteTaskViewModel.tagLogs = swipedTask?.tagLogs ?? []
                         
                         Task {
-//                            taskListViewModel.removeTask(taskID: swipedTaskID ?? "")
-                            try await deleteTaskViewModel.deleteTask()
+                            do {
+    //                            taskListViewModel.removeTask(taskID: swipedTaskID ?? "")
+                                try await deleteTaskViewModel.deleteTask()
                             
-                            if NetworkManager.shared.statusCode == 200 {
-                                taskListViewModel.removeTask(taskID: swipedTaskID ?? "")
-                                taskStatus[swipedTaskID ?? ""] = 5
+                                if NetworkManager.shared.statusCode == 200 {
+                                    taskListViewModel.removeTask(taskID: swipedTaskID ?? "")
+                                    taskStatus[swipedTaskID ?? ""] = 5
                                 
-                                //Refresh the list after deleting
-                                Task {
-                                    try await taskListViewModel.getFilterTaskList()
+                                    //Refresh the list after deleting
+                                    Task {
+                                        do {
+                                            try await taskListViewModel.getFilterTaskList()
                                     
-                                    if NetworkManager.shared.statusCode == 200 {
-                                        filterTaskData = taskListViewModel.filterTaskData
+                                            if NetworkManager.shared.statusCode == 200 {
+                                                filterTaskData = taskListViewModel.filterTaskData
+                                            }
+                                        } catch {
+                                            AppLog.debug("Task failed: \(error.localizedDescription)")
+                                        }
                                     }
                                 }
-                            }
-                            else {
-                                showWarningPopup.toggle()
+                                else {
+                                    showWarningPopup.toggle()
+                                }
+                            } catch {
+                                AppLog.debug("Task failed: \(error.localizedDescription)")
                             }
                         }
                     }),
@@ -448,18 +488,22 @@ struct TaskView: View {
                         let wasRunning = [1, 3].contains(taskStatus[finishedTaskID] ?? swipedTask?.taskApproveStatus ?? 0)
                         
                         Task {
-                            try await updateTaskViewModel.updateTaskStatus()
+                            do {
+                                try await updateTaskViewModel.updateTaskStatus()
                             
-                            if NetworkManager.shared.statusCode == 200 {
-                                taskStatus[finishedTaskID] = 4
-                                if wasRunning {
-                                    isTaskRunning = false
+                                if NetworkManager.shared.statusCode == 200 {
+                                    taskStatus[finishedTaskID] = 4
+                                    if wasRunning {
+                                        isTaskRunning = false
+                                    }
+                                    let message = NetworkManager.shared.responseMessage
+                                    AppState.shared.toastMessage = ToastMessage(style: .success, message: message.isEmpty ? "Task finished" : message)
                                 }
-                                let message = NetworkManager.shared.responseMessage
-                                AppState.shared.toastMessage = ToastMessage(style: .success, message: message.isEmpty ? "Task finished" : message)
-                            }
-                            else {
-                                showWarningPopup.toggle()
+                                else {
+                                    showWarningPopup.toggle()
+                                }
+                            } catch {
+                                AppLog.debug("Task failed: \(error.localizedDescription)")
                             }
                         }
                     }),

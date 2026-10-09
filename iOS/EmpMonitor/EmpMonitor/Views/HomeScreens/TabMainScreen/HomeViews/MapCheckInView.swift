@@ -250,30 +250,34 @@ struct MapCheckInView: View {
                                             
                                             // to refresh the screen after checkIN
                                             Task {
-                                                try await homeScreenViewModel.getHomeScreenData()
+                                                do {
+                                                    try await homeScreenViewModel.getHomeScreenData()
                                                 
-                                                if homeScreenViewModel.checkData?.data.checkIn != nil {
-                                                    showCheckIN = false
-                                                    showCheckOUT = true
+                                                    if homeScreenViewModel.checkData?.data.checkIn != nil {
+                                                        showCheckIN = false
+                                                        showCheckOUT = true
                                                     
-                                                    //to automatically start the timer is CheckOUT timer is nill
-                                                    if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
-                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
-                                                        //                            timerManager.startActiveTimer()
-                                                        timerManager.stopActiveTimer()
-                                                    }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
-                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
-                                                        timerManager.startActiveTimer()
+                                                        //to automatically start the timer is CheckOUT timer is nill
+                                                        if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                            timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
+                                                            //                            timerManager.startActiveTimer()
+                                                            timerManager.stopActiveTimer()
+                                                        }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                            timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
+                                                            timerManager.startActiveTimer()
+                                                        }
                                                     }
-                                                }
-                                                else{
-                                                    UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
-                                                    showCheckIN = true
-                                                    showCheckOUT = false
-                                                }
+                                                    else{
+                                                        UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                        showCheckIN = true
+                                                        showCheckOUT = false
+                                                    }
                                                 
-                                                //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
-                                                //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                                    //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
+                                                    //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                                } catch {
+                                                    AppLog.debug("Task failed: \(error.localizedDescription)")
+                                                }
                                             }
                                         }
                                         .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
@@ -319,30 +323,34 @@ struct MapCheckInView: View {
                                         
                                         // to refresh the screen after checkIN
                                         Task {
-                                            try await homeScreenViewModel.getHomeScreenData()
+                                            do {
+                                                try await homeScreenViewModel.getHomeScreenData()
                                             
-                                            if homeScreenViewModel.checkData?.data.checkIn != nil {
-                                                showCheckIN = false
-                                                showCheckOUT = true
+                                                if homeScreenViewModel.checkData?.data.checkIn != nil {
+                                                    showCheckIN = false
+                                                    showCheckOUT = true
                                                 
-                                                //to automatically start the timer is CheckOUT timer is nill
-                                                if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
-                                                    timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
-                                                    //                            timerManager.startActiveTimer()
-                                                    timerManager.stopActiveTimer()
-                                                }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
-                                                    timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
-                                                    timerManager.startActiveTimer()
+                                                    //to automatically start the timer is CheckOUT timer is nill
+                                                    if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
+                                                        //                            timerManager.startActiveTimer()
+                                                        timerManager.stopActiveTimer()
+                                                    }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
+                                                        timerManager.startActiveTimer()
+                                                    }
                                                 }
-                                            }
-                                            else{
-                                                UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
-                                                showCheckIN = true
-                                                showCheckOUT = false
-                                            }
+                                                else{
+                                                    UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                    showCheckIN = true
+                                                    showCheckOUT = false
+                                                }
                                             
-                                            //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
-                                            //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                                //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
+                                                //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                            } catch {
+                                                AppLog.debug("Task failed: \(error.localizedDescription)")
+                                            }
                                         }
                                     }
                                     .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
@@ -385,30 +393,34 @@ struct MapCheckInView: View {
                                             
                                             // to refresh the screen after checkIN
                                             Task {
-                                                try await homeScreenViewModel.getHomeScreenData()
+                                                do {
+                                                    try await homeScreenViewModel.getHomeScreenData()
                                                 
-                                                if homeScreenViewModel.checkData?.data.checkIn != nil {
-                                                    showCheckIN = false
-                                                    showCheckOUT = true
+                                                    if homeScreenViewModel.checkData?.data.checkIn != nil {
+                                                        showCheckIN = false
+                                                        showCheckOUT = true
                                                     
-                                                    //to automatically start the timer is CheckOUT timer is nill
-                                                    if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
-                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
-                                                        //                            timerManager.startActiveTimer()
-                                                        timerManager.stopActiveTimer()
-                                                    }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
-                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
-                                                        timerManager.startActiveTimer()
+                                                        //to automatically start the timer is CheckOUT timer is nill
+                                                        if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                            timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
+                                                            //                            timerManager.startActiveTimer()
+                                                            timerManager.stopActiveTimer()
+                                                        }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                            timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
+                                                            timerManager.startActiveTimer()
+                                                        }
                                                     }
-                                                }
-                                                else{
-                                                    UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
-                                                    showCheckIN = true
-                                                    showCheckOUT = false
-                                                }
+                                                    else{
+                                                        UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                        showCheckIN = true
+                                                        showCheckOUT = false
+                                                    }
                                                 
-                                                //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
-                                                //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                                    //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
+                                                    //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                                } catch {
+                                                    AppLog.debug("Task failed: \(error.localizedDescription)")
+                                                }
                                             }
                                         }
                                         .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))
@@ -443,30 +455,34 @@ struct MapCheckInView: View {
                                         
                                         // to refresh the screen after checkIN
                                         Task {
-                                            try await homeScreenViewModel.getHomeScreenData()
+                                            do {
+                                                try await homeScreenViewModel.getHomeScreenData()
                                             
-                                            if homeScreenViewModel.checkData?.data.checkIn != nil {
-                                                showCheckIN = false
-                                                showCheckOUT = true
+                                                if homeScreenViewModel.checkData?.data.checkIn != nil {
+                                                    showCheckIN = false
+                                                    showCheckOUT = true
                                                 
-                                                //to automatically start the timer is CheckOUT timer is nill
-                                                if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
-                                                    timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
-                                                    //                            timerManager.startActiveTimer()
-                                                    timerManager.stopActiveTimer()
-                                                }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
-                                                    timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
-                                                    timerManager.startActiveTimer()
+                                                    //to automatically start the timer is CheckOUT timer is nill
+                                                    if homeScreenViewModel.checkOUTTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: homeScreenViewModel.checkOUTTime) ?? 0
+                                                        //                            timerManager.startActiveTimer()
+                                                        timerManager.stopActiveTimer()
+                                                    }else if homeScreenViewModel.checkINTime != "--:--" && homeScreenViewModel.checkINTime != ""{
+                                                        timerManager.activeTime = timerManager.timeDifference(from: homeScreenViewModel.checkINTime, to: nil) ?? 0
+                                                        timerManager.startActiveTimer()
+                                                    }
                                                 }
-                                            }
-                                            else{
-                                                UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
-                                                showCheckIN = true
-                                                showCheckOUT = false
-                                            }
+                                                else{
+                                                    UserDefaults.standard.setValue(false, forKey: "isCheckedIN")
+                                                    showCheckIN = true
+                                                    showCheckOUT = false
+                                                }
                                             
-                                            //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
-                                            //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                                //                                            isBioMetrixCheckIN = homeScreenViewModel.homeScreenData?.isBioMetricEnabled ?? 0
+                                                //                                            isWebCheckIN = homeScreenViewModel.homeScreenData?.isWebEnabled ?? 0
+                                            } catch {
+                                                AppLog.debug("Task failed: \(error.localizedDescription)")
+                                            }
                                         }
                                     }
                                     .transition(AnyTransition.scale.animation(Animation.spring(response: 0.3, dampingFraction: 0.5)))

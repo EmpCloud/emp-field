@@ -197,14 +197,18 @@ struct EditLeavesView: View {
                         //TODO: to show delete leaves popup
                         
                         Task{
-                            leavesDeleteViewModel.leaveID = updateLeaveViewModel.leaveID
-                            try await leavesDeleteViewModel.deleteLeave()
+                            do {
+                                leavesDeleteViewModel.leaveID = updateLeaveViewModel.leaveID
+                                try await leavesDeleteViewModel.deleteLeave()
                             
-                            if NetworkManager.shared.statusCode == 200 {
-                                showEditLeaves.toggle()
+                                if NetworkManager.shared.statusCode == 200 {
+                                    showEditLeaves.toggle()
+                                }
+                            
+                                await leavesViewModel.getLeaves() // to referesh the leaves screen
+                            } catch {
+                                AppLog.debug("Task failed: \(error.localizedDescription)")
                             }
-                            
-                            await leavesViewModel.getLeaves() // to referesh the leaves screen
                         }
                         
                     }
@@ -214,42 +218,46 @@ struct EditLeavesView: View {
                         //TODO: Save the updated leave
                         
                         Task {
-                            // Dates are "yyyy-MM-dd", so string order matches date order.
-                            if let startDate, let endDate, endDate < startDate {
-                                AppState.shared.toastMessage = ToastMessage(style: .error, message: "End date cannot be before start date.")
-                                return
-                            }
+                            do {
+                                // Dates are "yyyy-MM-dd", so string order matches date order.
+                                if let startDate, let endDate, endDate < startDate {
+                                    AppState.shared.toastMessage = ToastMessage(style: .error, message: "End date cannot be before start date.")
+                                    return
+                                }
 
-                            if let dayType = dateTypeSelection {
-                                updateLeaveViewModel.dayType = dayType
-                            }
-                            if let startDate = startDate {
-                                updateLeaveViewModel.startDate = startDate
-                            }
-                            if let endDate = endDate {
-                               updateLeaveViewModel.endDate = endDate
-                            }
-                            if let leaveType = leaveTypeSelection {
-                                updateLeaveViewModel.leaveType = leaveType.id
-                            }
-                            updateLeaveViewModel.reason = reason.trimmingCharacters(in: .whitespacesAndNewlines)
+                                if let dayType = dateTypeSelection {
+                                    updateLeaveViewModel.dayType = dayType
+                                }
+                                if let startDate = startDate {
+                                    updateLeaveViewModel.startDate = startDate
+                                }
+                                if let endDate = endDate {
+                                   updateLeaveViewModel.endDate = endDate
+                                }
+                                if let leaveType = leaveTypeSelection {
+                                    updateLeaveViewModel.leaveType = leaveType.id
+                                }
+                                updateLeaveViewModel.reason = reason.trimmingCharacters(in: .whitespacesAndNewlines)
                             
-                            try await updateLeaveViewModel.updateLeave()
+                                try await updateLeaveViewModel.updateLeave()
                             
-                            guard NetworkManager.shared.statusCode == 200 else {
-                                let message = NetworkManager.shared.responseMessage
-                                AppState.shared.toastMessage = ToastMessage(style: .error, message: message.isEmpty ? "Something went wrong. Please try again." : message)
-                                return
+                                guard NetworkManager.shared.statusCode == 200 else {
+                                    let message = NetworkManager.shared.responseMessage
+                                    AppState.shared.toastMessage = ToastMessage(style: .error, message: message.isEmpty ? "Something went wrong. Please try again." : message)
+                                    return
+                                }
+                            
+                                await leavesViewModel.getLeaves() // to referesh the leaves screen
+                            
+                                withAnimation {
+                                    startDate = nil
+                                    endDate = nil
+                                    showEditLeaves.toggle()
+                                }
+                            
+                            } catch {
+                                AppLog.debug("Task failed: \(error.localizedDescription)")
                             }
-                            
-                            await leavesViewModel.getLeaves() // to referesh the leaves screen
-                            
-                            withAnimation {
-                                startDate = nil
-                                endDate = nil
-                                showEditLeaves.toggle()
-                            }
-                            
                         }
                         
                     }
@@ -268,19 +276,23 @@ struct EditLeavesView: View {
 //        .border(Color.black)
         .onAppear {
             Task {
-//                startDate = updateLeaveViewModel.startDate
-//                endDate = updateLeaveViewModel.endDate
-                AppLog.debug(startDate)
-                AppLog.debug(endDate)
-                AppLog.debug("LeaveID: \(updateLeaveViewModel.leaveID)")
-                AppLog.debug("Leave Type: \(leaveTypeSelection?.name)")
+                do {
+    //                startDate = updateLeaveViewModel.startDate
+    //                endDate = updateLeaveViewModel.endDate
+                    AppLog.debug(String(describing: startDate))
+                    AppLog.debug(String(describing: endDate))
+                    AppLog.debug("LeaveID: \(updateLeaveViewModel.leaveID)")
+                    AppLog.debug("Leave Type: \(leaveTypeSelection?.name ?? "nil")")
                 
-               try await leaveTypeViewModel.fetchLeaveType()
+                   try await leaveTypeViewModel.fetchLeaveType()
                 
-                if NetworkManager.shared.statusCode == 200 {
-                    options = leaveTypeViewModel.leaveTypeData
-                    leaveTypeSelection = leaveTypeViewModel.leaveTypeData.first // providing the default value
-//                    dateTypeSelection =
+                    if NetworkManager.shared.statusCode == 200 {
+                        options = leaveTypeViewModel.leaveTypeData
+                        leaveTypeSelection = leaveTypeViewModel.leaveTypeData.first // providing the default value
+    //                    dateTypeSelection =
+                    }
+                } catch {
+                    AppLog.debug("Task failed: \(error.localizedDescription)")
                 }
             }
         }

@@ -37,7 +37,11 @@ struct NotificationView: View {
         }
         .onAppear {
             Task {
-                try await notificationViewModel.getNotificationList()
+                do {
+                    try await notificationViewModel.getNotificationList()
+                } catch {
+                    AppLog.debug("Task failed: \(error.localizedDescription)")
+                }
             }
         }
         .toolbar {

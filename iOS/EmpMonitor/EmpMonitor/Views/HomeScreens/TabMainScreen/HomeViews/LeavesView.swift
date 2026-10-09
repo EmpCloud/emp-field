@@ -92,7 +92,7 @@ struct LeavesView: View {
                                                 for leaveType in leaveTypeOptions {
                                                     if leaveTypeID == leaveType.id {
                                                         leaveTypeSelection = leaveType
-                                                        AppLog.debug("Typess: \(leaveTypeSelection?.name)")
+                                                        AppLog.debug("Typess: \(leaveTypeSelection?.name ?? "nil")")
                                                     }
                                                 }
                                                 startDate = FormatterHelper.shared.formattedDateReverse(from: leave.startDate)
@@ -132,13 +132,17 @@ struct LeavesView: View {
             }
             
             Task {
-//                dateTypeSelection = "First Half" // providing the default value
+                do {
+    //                dateTypeSelection = "First Half" // providing the default value
                 
-               try await leaveTypeViewModel.fetchLeaveType()
+                   try await leaveTypeViewModel.fetchLeaveType()
                 
-                if NetworkManager.shared.statusCode == 200 {
-                    options = leaveTypeViewModel.leaveTypeData
-//                    leaveTypeSelection = leaveTypeViewModel.leaveTypeData.first // providing the default value
+                    if NetworkManager.shared.statusCode == 200 {
+                        options = leaveTypeViewModel.leaveTypeData
+    //                    leaveTypeSelection = leaveTypeViewModel.leaveTypeData.first // providing the default value
+                    }
+                } catch {
+                    AppLog.debug("Task failed: \(error.localizedDescription)")
                 }
             }
         }
@@ -151,13 +155,17 @@ struct LeavesView: View {
             }
             
             Task {
-//                dateTypeSelection = "First Half" // providing the default value
+                do {
+    //                dateTypeSelection = "First Half" // providing the default value
                 
-               try await leaveTypeViewModel.fetchLeaveType()
+                   try await leaveTypeViewModel.fetchLeaveType()
                 
-                if NetworkManager.shared.statusCode == 200 {
-                    options = leaveTypeViewModel.leaveTypeData
-//                    leaveTypeSelection = leaveTypeViewModel.leaveTypeData.first // providing the default value
+                    if NetworkManager.shared.statusCode == 200 {
+                        options = leaveTypeViewModel.leaveTypeData
+    //                    leaveTypeSelection = leaveTypeViewModel.leaveTypeData.first // providing the default value
+                    }
+                } catch {
+                    AppLog.debug("Task failed: \(error.localizedDescription)")
                 }
             }
         }

@@ -315,22 +315,26 @@ struct AddTaskView: View {
                             //MARK: Add task button
                             PrimaryButton(text: "Add Task") {
                                 Task {
-                                    UIApplication.shared.dismissKeyboard()
-                                    syncScheduleTimes()
+                                    do {
+                                        UIApplication.shared.dismissKeyboard()
+                                        syncScheduleTimes()
 
-                                    createTaskViewModel.taskName = taskName
-                                    createTaskViewModel.clientID = selectedClientData?.id ?? ""
-                                    createTaskViewModel.taskDescription = description
-                                    createTaskViewModel.value = Value(currency: selectedCurrency, amount: Int(taskValue) ?? 0, convertedAmountInUSD: nil)
-                                    createTaskViewModel.taskVolume = Int(taskVolume) ?? 0
-                                    createTaskViewModel.date = FormatterHelper.shared.getTodaysDate()
+                                        createTaskViewModel.taskName = taskName
+                                        createTaskViewModel.clientID = selectedClientData?.id ?? ""
+                                        createTaskViewModel.taskDescription = description
+                                        createTaskViewModel.value = Value(currency: selectedCurrency, amount: Int(taskValue) ?? 0, convertedAmountInUSD: nil)
+                                        createTaskViewModel.taskVolume = Int(taskVolume) ?? 0
+                                        createTaskViewModel.date = FormatterHelper.shared.getTodaysDate()
 
-                                    try await createTaskViewModel.createTask()
+                                        try await createTaskViewModel.createTask()
 
-                                    if NetworkManager.shared.statusCode == 200 {
-                                        dismiss()
-                                    } else {
-                                        showWarningPopup.toggle()
+                                        if NetworkManager.shared.statusCode == 200 {
+                                            dismiss()
+                                        } else {
+                                            showWarningPopup.toggle()
+                                        }
+                                    } catch {
+                                        AppLog.debug("Task failed: \(error.localizedDescription)")
                                     }
                                 }
                             }

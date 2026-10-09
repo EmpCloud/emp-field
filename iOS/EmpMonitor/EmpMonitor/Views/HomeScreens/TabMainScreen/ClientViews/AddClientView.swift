@@ -193,29 +193,33 @@ struct AddClientView: View {
                             PrimaryThinButton(text: "Add Client") {
                                 //TODO: To make api call to add the client
                                 Task {
-                                    addClientViewModel.countryCode = countryCode
-                                    try await addClientViewModel.addClient()
+                                    do {
+                                        addClientViewModel.countryCode = countryCode
+                                        try await addClientViewModel.addClient()
                                     
-                                    if NetworkManager.shared.statusCode == 200 {
-                                        dismiss()
-                                    }else {
-                                        showWarningPopup.toggle()
+                                        if NetworkManager.shared.statusCode == 200 {
+                                            dismiss()
+                                        }else {
+                                            showWarningPopup.toggle()
+                                        }
+                                    
+    //                                    AppLog.debug(addClientViewModel.clientName)
+    //                                    AppLog.debug(addClientViewModel.emailID)
+    //                                    AppLog.debug(addClientViewModel.contactNumber)
+    //                                    AppLog.debug(addClientViewModel.clientProfilePic)
+    //                                    AppLog.debug(addClientViewModel.category)
+    //                                    AppLog.debug(addClientViewModel.countryCode)
+    //                                    AppLog.debug(addClientViewModel.address1)
+    //                                    AppLog.debug(addClientViewModel.address2)
+    //                                    AppLog.debug(addClientViewModel.country)
+    //                                    AppLog.debug(addClientViewModel.state)
+    //                                    AppLog.debug(addClientViewModel.city)
+    //                                    AppLog.debug(addClientViewModel.zipCode)
+    //                                    AppLog.debug(addClientViewModel.latitude)
+    //                                    AppLog.debug(addClientViewModel.longitude)
+                                    } catch {
+                                        AppLog.debug("Task failed: \(error.localizedDescription)")
                                     }
-                                    
-//                                    AppLog.debug(addClientViewModel.clientName)
-//                                    AppLog.debug(addClientViewModel.emailID)
-//                                    AppLog.debug(addClientViewModel.contactNumber)
-//                                    AppLog.debug(addClientViewModel.clientProfilePic)
-//                                    AppLog.debug(addClientViewModel.category)
-//                                    AppLog.debug(addClientViewModel.countryCode)
-//                                    AppLog.debug(addClientViewModel.address1)
-//                                    AppLog.debug(addClientViewModel.address2)
-//                                    AppLog.debug(addClientViewModel.country)
-//                                    AppLog.debug(addClientViewModel.state)
-//                                    AppLog.debug(addClientViewModel.city)
-//                                    AppLog.debug(addClientViewModel.zipCode)
-//                                    AppLog.debug(addClientViewModel.latitude)
-//                                    AppLog.debug(addClientViewModel.longitude)
                                 }
                                 
                             }
@@ -317,7 +321,7 @@ struct AddClientView: View {
             
             savedImageURL = profileCameraViewModel.getCapturedImageURLs()
             
-            AppLog.debug(savedImageURL)
+            AppLog.debug(String(describing: savedImageURL))
             
             UINavigationBar.appearance().titleTextAttributes = [
                 .foregroundColor: UIColor.white

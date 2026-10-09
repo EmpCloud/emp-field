@@ -72,35 +72,39 @@ struct PasswordLoginView: View {
                         return
                     }
                     Task {
-                        try await userLoginViewModel.loginUser()
+                        do {
+                            try await userLoginViewModel.loginUser()
 
-                        if NetworkManager.shared.statusCode == 200 {
-                            // Fetch profile and tracking settings here so loginUser() stays fast
-                            let profileVM = GetProfileViewModel()
-                            try? await profileVM.getProfile()
-                            await TrackingSettingsViewModel.shared.fetchTrackingSettings()
+                            if NetworkManager.shared.statusCode == 200 {
+                                // Fetch profile and tracking settings here so loginUser() stays fast
+                                let profileVM = GetProfileViewModel()
+                                try? await profileVM.getProfile()
+                                await TrackingSettingsViewModel.shared.fetchTrackingSettings()
 
-                            profileImageLoader.profileImageURL = UserDefaults.standard.string(forKey: "UserProfilePic") ?? ""
+                                profileImageLoader.profileImageURL = UserDefaults.standard.string(forKey: "UserProfilePic") ?? ""
 
-                            // Only route to CreateProfile when the API confirmed no profile exists.
-                            // If getProfile() itself failed (network error), fall through to TabMain
-                            // to avoid erroneously sending an existing user to the create-profile flow.
-                            if profileVM.error == nil && !hasExistingProfile() {
-                                createProfileScreen = true
-                            } else {
-                                showTabMainView = true
+                                // Only route to CreateProfile when the API confirmed no profile exists.
+                                // If getProfile() itself failed (network error), fall through to TabMain
+                                // to avoid erroneously sending an existing user to the create-profile flow.
+                                if profileVM.error == nil && !hasExistingProfile() {
+                                    createProfileScreen = true
+                                } else {
+                                    showTabMainView = true
+                                }
+
+                                //-------------logout changes -------
+                            }
+                            else {
+                                warningMessage = NetworkManager.shared.responseMessage.isEmpty
+                                    ? "Something went wrong. Please try again."
+                                    : NetworkManager.shared.responseMessage
+                                showWarning = true
                             }
 
-                            //-------------logout changes -------
+                            //                        appState.showToaster.toggle()
+                        } catch {
+                            AppLog.debug("Task failed: \(error.localizedDescription)")
                         }
-                        else {
-                            warningMessage = NetworkManager.shared.responseMessage.isEmpty
-                                ? "Something went wrong. Please try again."
-                                : NetworkManager.shared.responseMessage
-                            showWarning = true
-                        }
-
-                        //                        appState.showToaster.toggle()
                     }
 
                 }
@@ -114,20 +118,24 @@ struct PasswordLoginView: View {
                     .padding(.top)
                     .onTapGesture {
                         Task {
-                            forgetPasswordViewModel.email = userLoginViewModel.email
-                            try await forgetPasswordViewModel.forgetPassword()
+                            do {
+                                forgetPasswordViewModel.email = userLoginViewModel.email
+                                try await forgetPasswordViewModel.forgetPassword()
                             
-                            //next screen
-                            if NetworkManager.shared.statusCode == 200 {
-                                //                                        AppLog.debug(userLoginViewModel.email)
-                                showEmailOTPScreen = true
-                            }else {
-                                warningMessage = NetworkManager.shared.responseMessage.isEmpty
-                                    ? "Something went wrong. Please try again."
-                                    : NetworkManager.shared.responseMessage
-                                withAnimation {
-                                    showWarning = true
+                                //next screen
+                                if NetworkManager.shared.statusCode == 200 {
+                                    //                                        AppLog.debug(userLoginViewModel.email)
+                                    showEmailOTPScreen = true
+                                }else {
+                                    warningMessage = NetworkManager.shared.responseMessage.isEmpty
+                                        ? "Something went wrong. Please try again."
+                                        : NetworkManager.shared.responseMessage
+                                    withAnimation {
+                                        showWarning = true
+                                    }
                                 }
+                            } catch {
+                                AppLog.debug("Task failed: \(error.localizedDescription)")
                             }
                         }
                     }

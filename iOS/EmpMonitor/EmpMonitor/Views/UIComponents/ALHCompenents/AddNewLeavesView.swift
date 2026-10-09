@@ -184,39 +184,43 @@ struct AddNewLeavesView: View {
                 //MARK: Apply Button
                 PrimaryThinButton(text: "Apply") {
                     Task {
-                        // Dates are "yyyy-MM-dd", so string order matches date order.
-                        if let startDate, let endDate, endDate < startDate {
-                            warningMessage = "End date cannot be before start date."
-                            showWarningPopup = true
-                            return
-                        }
-
-                        if let dayType = dateTypeSelection {
-                            createLeaveViewModel.dayType = dayType
-                        }
-                        if let startDate = startDate {
-                            createLeaveViewModel.startDate = startDate
-                        }
-                        if let endDate = endDate {
-                            createLeaveViewModel.endDate = endDate
-                        }
-                        if let leaveType = leaveTypeSelection {
-                            createLeaveViewModel.leaveType = leaveType.id
-                        }
-                        try await createLeaveViewModel.createLeave()
-
-                        if NetworkManager.shared.statusCode != 200 {
-                            let message = NetworkManager.shared.responseMessage
-                            warningMessage = message.isEmpty ? "Something went wrong. Please try again." : message
-                            showWarningPopup = true
-                        }else {
-                            await leavesViewModel.getLeaves() // to referesh the leaves screen
-
-                            withAnimation {
-                                startDate = nil
-                                endDate = nil
-                                showAddLeaves.toggle()
+                        do {
+                            // Dates are "yyyy-MM-dd", so string order matches date order.
+                            if let startDate, let endDate, endDate < startDate {
+                                warningMessage = "End date cannot be before start date."
+                                showWarningPopup = true
+                                return
                             }
+
+                            if let dayType = dateTypeSelection {
+                                createLeaveViewModel.dayType = dayType
+                            }
+                            if let startDate = startDate {
+                                createLeaveViewModel.startDate = startDate
+                            }
+                            if let endDate = endDate {
+                                createLeaveViewModel.endDate = endDate
+                            }
+                            if let leaveType = leaveTypeSelection {
+                                createLeaveViewModel.leaveType = leaveType.id
+                            }
+                            try await createLeaveViewModel.createLeave()
+
+                            if NetworkManager.shared.statusCode != 200 {
+                                let message = NetworkManager.shared.responseMessage
+                                warningMessage = message.isEmpty ? "Something went wrong. Please try again." : message
+                                showWarningPopup = true
+                            }else {
+                                await leavesViewModel.getLeaves() // to referesh the leaves screen
+
+                                withAnimation {
+                                    startDate = nil
+                                    endDate = nil
+                                    showAddLeaves.toggle()
+                                }
+                            }
+                        } catch {
+                            AppLog.debug("Task failed: \(error.localizedDescription)")
                         }
                     }
 
@@ -242,13 +246,17 @@ struct AddNewLeavesView: View {
 //        .border(Color.black)
         .onAppear {
             Task {
-                dateTypeSelection = "First Half" // providing the default value
+                do {
+                    dateTypeSelection = "First Half" // providing the default value
                 
-               try await leaveTypeViewModel.fetchLeaveType()
+                   try await leaveTypeViewModel.fetchLeaveType()
                 
-                if NetworkManager.shared.statusCode == 200 {
-                    options = leaveTypeViewModel.leaveTypeData
-                    leaveTypeSelection = leaveTypeViewModel.leaveTypeData.first // providing the default value
+                    if NetworkManager.shared.statusCode == 200 {
+                        options = leaveTypeViewModel.leaveTypeData
+                        leaveTypeSelection = leaveTypeViewModel.leaveTypeData.first // providing the default value
+                    }
+                } catch {
+                    AppLog.debug("Task failed: \(error.localizedDescription)")
                 }
             }
         }

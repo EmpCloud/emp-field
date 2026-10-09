@@ -90,9 +90,13 @@ struct ClientView: View {
             .onAppear {
                 //TODO: Client List API
                 Task {
-                    try await clientListViewModel.getClientList()
-                    filteredClient = []
-                    filteredClient = clientListViewModel.clientListData
+                    do {
+                        try await clientListViewModel.getClientList()
+                        filteredClient = []
+                        filteredClient = clientListViewModel.clientListData
+                    } catch {
+                        AppLog.debug("Task failed: \(error.localizedDescription)")
+                    }
                 }
             }
 //            .navigationDestination(isPresented: $showClientDetailMap) {

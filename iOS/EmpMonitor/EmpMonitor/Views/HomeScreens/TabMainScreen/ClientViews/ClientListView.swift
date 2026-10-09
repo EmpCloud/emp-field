@@ -53,9 +53,13 @@ struct ClientListView: View {
         .refreshable {
             //TODO: Client List API
             Task {
-                try await clientListViewModel.getClientList()
+                do {
+                    try await clientListViewModel.getClientList()
                 
-                filteredClient = clientListViewModel.clientListData
+                    filteredClient = clientListViewModel.clientListData
+                } catch {
+                    AppLog.debug("Task failed: \(error.localizedDescription)")
+                }
             }
         }
     }

@@ -160,13 +160,17 @@ struct ALHView: View {
                     }
 
                     Task {
-        //                dateTypeSelection = "First Half" // providing the default value
+                        do {
+            //                dateTypeSelection = "First Half" // providing the default value
 
-                       try await leaveTypeViewModel.fetchLeaveType()
+                           try await leaveTypeViewModel.fetchLeaveType()
 
-                        if NetworkManager.shared.statusCode == 200 {
-                            leaveTypeOptions = leaveTypeViewModel.leaveTypeData
-        //                    leaveTypeSelection = leaveTypeViewModel.leaveTypeData.first // providing the default value
+                            if NetworkManager.shared.statusCode == 200 {
+                                leaveTypeOptions = leaveTypeViewModel.leaveTypeData
+            //                    leaveTypeSelection = leaveTypeViewModel.leaveTypeData.first // providing the default value
+                            }
+                        } catch {
+                            AppLog.debug("Task failed: \(error.localizedDescription)")
                         }
                     }
                 }
