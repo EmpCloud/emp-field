@@ -104,6 +104,11 @@ struct TabMainView: View {
                     mapCheckInView(showsHeader: false)
                         .navigationTitle("Map Check-In")
                         .navigationBarTitleDisplayMode(.inline)
+                        // The screen's white content reaches the top edge, so give the bar the app's
+                        // blue and a dark scheme to keep the title and Close button readable.
+                        .toolbarBackground(Color.appBg1, for: .navigationBar)
+                        .toolbarBackgroundVisibility(.visible, for: .navigationBar)
+                        .toolbarColorScheme(.dark, for: .navigationBar)
                         .toolbar {
                             ToolbarItem(placement: .topBarTrailing) {
                                 Button("Close", systemImage: "xmark") {
