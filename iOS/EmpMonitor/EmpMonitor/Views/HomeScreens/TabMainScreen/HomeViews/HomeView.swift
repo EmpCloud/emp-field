@@ -186,11 +186,13 @@ struct HomeView: View {
                                            
                                             }
     //                                        .padding(.bottom)
+                                            // Size first, then paint: the white panel must reach the bottom of the screen
+                                            // even when its content is shorter.
+                                            .frame(maxWidth: .infinity, minHeight: max(525, panelViewportHeight - 50), alignment: .topLeading)
                                             .background(Color.rectangleBG)
                                             // Without this the shadow is applied to every tile inside the panel as well.
                                             .compositingGroup()
                                             .shadow(color: Color.black.opacity(0.25), radius: 12)
-                                            .frame(maxWidth: .infinity, minHeight: max(525, panelViewportHeight - 50), alignment: .topLeading)
                                             .clipShape(RoundedRectangle(cornerRadius: 20))
                                         }
                                         .padding(.top, 50)

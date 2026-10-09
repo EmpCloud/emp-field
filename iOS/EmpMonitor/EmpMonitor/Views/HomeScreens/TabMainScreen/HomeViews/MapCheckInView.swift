@@ -495,6 +495,7 @@ struct MapCheckInView: View {
                     }
 	                    .frame(minHeight: AppLayout.checkInControlHeight)
                     .padding(.top)
+                    .padding(.bottom, AppSpacing.md)
                     
                 }
                 .background(Color.white)

@@ -12,6 +12,7 @@ import UIKit
 struct TabMainView: View {
     
     @EnvironmentObject var permissionManager: PermissionManager
+    @Environment(\.horizontalSizeClass) private var horizontalSizeClass
     @EnvironmentObject var searchLocationViewModel: SearchLocationViewModel
     @EnvironmentObject var timerManager: TimerManager
     @EnvironmentObject var profileImageLoader: ProfileImageLoader
@@ -94,9 +95,27 @@ struct TabMainView: View {
                 .tint(Color.primaryButton1)
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .sheet(isPresented: $showMapCheckInView) {
-                MapCheckInView(homeScreenViewModel: homeScreenViewModel, checkINViewModel: checkINViewModel, showCheckIN: $showCheckIN, showCheckOUT: $showCheckOUT, motViewModel: motViewModel, selecetedMode: $selectedMode, tappedMode: $tappedMode, isTaskRunning: $isTaskRunning)
-                    .environmentObject(profileImageLoader)
+            // iPhone keeps the sheet; wide layouts (iPad) get the map full screen so nothing is clipped.
+            .sheet(isPresented: mapCheckInPresentation(fullScreen: false)) {
+                mapCheckInView
+            }
+            .fullScreenCover(isPresented: mapCheckInPresentation(fullScreen: true)) {
+                mapCheckInView
+                    .overlay(alignment: .topTrailing) {
+                        Button {
+                            showMapCheckInView = false
+                        } label: {
+                            Image(systemName: "xmark.circle.fill")
+                                .font(.title)
+                                .symbolRenderingMode(.hierarchical)
+                                .foregroundStyle(.white)
+                                .frame(width: AppLayout.minimumTouchTarget, height: AppLayout.minimumTouchTarget)
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(.plain)
+                        .padding(AppSpacing.md)
+                        .accessibilityLabel("Close map")
+                    }
             }
             .fullScreenCover(isPresented: $showQRCode) {
                 qrCodeModal
@@ -220,6 +239,21 @@ struct TabMainView: View {
         }
     }
 
+    private var mapCheckInView: some View {
+        MapCheckInView(homeScreenViewModel: homeScreenViewModel, checkINViewModel: checkINViewModel, showCheckIN: $showCheckIN, showCheckOUT: $showCheckOUT, motViewModel: motViewModel, selecetedMode: $selectedMode, tappedMode: $tappedMode, isTaskRunning: $isTaskRunning)
+            .environmentObject(profileImageLoader)
+    }
+
+    /// Splits the single "show map" flag into a sheet (compact width) or a full-screen cover (regular width).
+    private func mapCheckInPresentation(fullScreen: Bool) -> Binding<Bool> {
+        Binding(
+            get: { showMapCheckInView && (horizontalSizeClass == .regular) == fullScreen },
+            set: { isPresented in
+                if !isPresented { showMapCheckInView = false }
+            }
+        )
+    }
+
     private var qrCodeModal: some View {
         ModalOverlayView(backgroundOpacity: 0.58, isScrollable: false, dismissOnBackgroundTap: {
             showQRCode = false
@@ -253,7 +287,8 @@ struct TabMainView: View {
     private func tabTitle(selectedTab: Int) -> String {
         switch selectedTab {
         case 0:
-            return ""
+            // Wide layouts (iPad) have room for a title; on iPhone the greeting fills that role.
+            return horizontalSizeClass == .regular ? "Home" : ""
         case 1:
             return "Task"
         case 2:
