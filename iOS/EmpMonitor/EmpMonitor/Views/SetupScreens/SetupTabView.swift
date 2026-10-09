@@ -56,6 +56,7 @@ struct SetupTabView: View {
         PrimaryButton(text: selectedTab == 6 ? "Finish" : "Next") {
             if selectedTab == 6 {
                 nextScreen = true
+                YoutubeWebViewPreloader.shared.release()
             }
             selectedTab += 1
         }

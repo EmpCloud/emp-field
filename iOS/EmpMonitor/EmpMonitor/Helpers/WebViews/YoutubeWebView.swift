@@ -48,15 +48,58 @@ struct WebPageView: UIViewRepresentable {
     }
 }
 
+/// Owns the tutorial video web view so the page can start loading before the
+/// setup flow reaches `VideoTutorialView`.
+@MainActor
+final class YoutubeWebViewPreloader {
+
+    static let shared = YoutubeWebViewPreloader()
+
+    private var webView: WKWebView?
+    private var loadedURL: URL?
+
+    private init() {}
+
+    /// Starts loading `url` in the background if it is not already loaded or loading.
+    func preload(_ url: URL) {
+        _ = webView(for: url)
+    }
+
+    /// Returns the preloaded web view for `url`, creating and loading one when needed.
+    func webView(for url: URL) -> WKWebView {
+        if let webView, loadedURL == url {
+            // Retry when an earlier preload failed (e.g. no network on the welcome screen).
+            if webView.url == nil && !webView.isLoading {
+                webView.load(URLRequest(url: url))
+            }
+            return webView
+        }
+
+        let configuration = WKWebViewConfiguration()
+        // Keep the preloaded page silent until the user taps play.
+        configuration.mediaTypesRequiringUserActionForPlayback = .all
+
+        let webView = WKWebView(frame: .zero, configuration: configuration)
+        webView.load(URLRequest(url: url))
+        self.webView = webView
+        loadedURL = url
+        return webView
+    }
+
+    /// Drops the web view once the tutorial is no longer needed.
+    func release() {
+        webView?.stopLoading()
+        webView = nil
+        loadedURL = nil
+    }
+}
+
 struct YoutubeWebView: UIViewRepresentable {
 
     let url: URL
 
     func makeUIView(context: Context) -> WKWebView {
-        let webView = WKWebView()
-        let request = URLRequest(url: url)
-        webView.load(request)
-        return webView
+        YoutubeWebViewPreloader.shared.webView(for: url)
     }
 
     func updateUIView(_ uiView: WKWebView, context: Context) {

@@ -104,6 +104,9 @@ struct WelcomeView: View {
             }
         }
         .ignoresSafeArea(.all)
+        .onAppear {
+            preloadVideoTutorial()
+        }
         .navigationDestination(isPresented: $nextScreen) {
 //            LanguageView()
 //                .environmentObject(profileImageLoader)
@@ -117,6 +120,12 @@ struct WelcomeView: View {
         }
     }
     
+    /// Starts loading the setup tutorial video so it is ready when the user reaches it.
+    private func preloadVideoTutorial() {
+        guard let url = URL(string: Constants.StaticURL.videoTutorial) else { return }
+        YoutubeWebViewPreloader.shared.preload(url)
+    }
+
     func startDelay(){
         DispatchQueue.main.asyncAfter(deadline: .now() + 1){
             UserDefaults.standard.set(true, forKey: "hasAcceptedTerms")
