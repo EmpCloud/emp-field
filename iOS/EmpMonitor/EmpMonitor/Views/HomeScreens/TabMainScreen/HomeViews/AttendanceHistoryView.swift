@@ -191,7 +191,9 @@ struct AttendanceHistoryView: View {
 
     private func workedDurationStatus(_ attendance: Attendance, includeHalfDayLeave: Bool = true) -> String {
         let minimum = attendance.minHours.first?.manualHours ?? 28800
-        let duration = attendance.loggedDuration ?? 0
+        let reportedDuration = max(attendance.loggedDuration ?? 0, 0)
+        let measuredDuration = elapsedAttendanceDuration(attendance) ?? 0
+        let duration = max(reportedDuration, measuredDuration)
         if duration >= minimum {
             return "Present"
         }
@@ -199,6 +201,21 @@ struct AttendanceHistoryView: View {
             return includeHalfDayLeave && attendance.halfDayLeave != nil ? halfDayLabel(attendance) : "Half Day Present"
         }
         return "Absent"
+    }
+
+    private func elapsedAttendanceDuration(_ attendance: Attendance) -> Int? {
+        guard let start = attendance.startTime, let end = attendance.endTime,
+              let startDate = attendanceDate(start, on: attendance.date),
+              let endDate = attendanceDate(end, on: attendance.date) else {
+            return nil
+        }
+        let seconds = endDate.timeIntervalSince(startDate)
+        return seconds > 0 ? Int(seconds) : nil
+    }
+
+    private func attendanceDate(_ value: String, on date: String) -> Date? {
+        FormatterHelper.shared.date(from: value)
+            ?? FormatterHelper.shared.date(from: "\(date) \(value)")
     }
 
     private func halfDayLabel(_ attendance: Attendance) -> String {

@@ -36,9 +36,12 @@ struct FormatterHelper {
     static let shared = FormatterHelper()
     func date(from value: String) -> Date? {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
         formatter.locale = Locale(identifier: "en_US_POSIX")
-        return formatter.date(from: value)
+        for format in ["yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm"] {
+            formatter.dateFormat = format
+            if let date = formatter.date(from: value) { return date }
+        }
+        return nil
     }
 }
 enum AppLog { static func debug(_ value: @autoclosure () -> String) { } }
@@ -52,6 +55,7 @@ func record(_ date: String = "2020-01-01", duration: Int? = nil, start: String? 
 let view = AttendanceHistoryView()
 assert(view.checkAttendanceStatus(attendance: record(duration: 14400, start: "09:00", end: "13:00")) == "Half Day Present")
 assert(view.checkAttendanceStatus(attendance: record(duration: 28800, start: "09:00", end: "17:00")) == "Present")
+assert(view.checkAttendanceStatus(attendance: record("2026-10-12", duration: 0, start: "09:50", end: "19:50")) == "Present")
 assert(view.checkAttendanceStatus(attendance: record(duration: 100, start: "09:00", end: "09:01")) == "Absent")
 assert(view.checkAttendanceStatus(attendance: record(start: "09:00")) == "Absent")
 assert(view.checkAttendanceStatus(attendance: record(start: "09:00", leaveType: 1)) == "Half Day Present")
