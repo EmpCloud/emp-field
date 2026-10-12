@@ -148,63 +148,64 @@ struct AttendanceHistoryView: View {
     }
     
     private func checkAttendanceStatus(attendance: Attendance) -> String {
-        if attendance.openRequest?.status == 0 || attendance.openAttendanceRequest != nil{
-            if attendance.openAttendanceRequest?.requestStatus == "1" {
-                return "Approved"
-            }
-            else if attendance.openAttendanceRequest?.requestStatus == "2" {
-                return "Rejected"
-            }
-            else{
-                return "Pending"
-            }
-           
-        }
-        else if attendance.startTime != nil && attendance.endTime != nil{
-            if attendance.loggedDuration ?? 0 > attendance.minHours.first?.manualHours ?? 28800 {
-                return "Present"
-            }
-            else if attendance.loggedDuration ?? 0 > ((attendance.minHours.first?.manualHours ?? 28800) / 2) && attendance.loggedDuration ?? 0 < attendance.minHours.first?.manualHours ?? 28800 {
-                if attendance.openRequest != nil {
-                    return "Half Day | \(LeaveHelper.shared.getInitials(from: attendance.openRequest?.leaveName ?? ""))"
-                }
-                return "Half Day | Un-Paid"
-            }else{
-                return "Absent"
-            }
-        }
-        else if attendance.startTime != nil && attendance.endTime == nil {
-            return "Absent"
-        }
-        else if attendance.holidayStatus == 1 {
-            return attendance.holidayName ?? ""
-        }
-        else if attendance.dayOff == false{
+        let hasStart = !(attendance.startTime ?? "").isEmpty
+        let hasEnd = !(attendance.endTime ?? "").isEmpty
+
+        if attendance.dayOff == false && !hasStart && !hasEnd {
             return "Week Off"
         }
-        else if attendance.leaveName == "Unpaid" && checkForPastAttendance(date: attendance.date) {
-            return "Absent"
+
+        if !hasStart && !hasEnd {
+            if attendance.holidayStatus == 1, let holidayName = attendance.holidayName, !holidayName.isEmpty {
+                return holidayName
+            }
+            if attendance.leaveType != 0, let leaveName = attendance.leaveName, !leaveName.isEmpty {
+                return leaveName
+            }
+            return isOnOrBeforeToday(date: attendance.date) ? "Absent" : "-- --"
         }
-        else if attendance.leaveName == "Unpaid" && !checkForPastAttendance(date: attendance.date) {
-            return "   --:--   "
+
+        if hasStart && hasEnd {
+            if attendance.holidayStatus == 1, let holidayName = attendance.holidayName, !holidayName.isEmpty {
+                return workedDurationStatus(attendance, includeHalfDayLeave: false)
+            }
+            if attendance.openAttendanceRequest?.requestStatus == "3" {
+                return "Pending"
+            }
+            if attendance.openAttendanceRequest?.requestStatus == "1", attendance.halfDayLeave != nil {
+                return halfDayLabel(attendance)
+            }
+            return workedDurationStatus(attendance)
         }
-        else if  attendance.leaveName != nil {
-            return attendance.leaveName ?? ""
+
+        if hasStart && !hasEnd {
+            if attendance.openRequest == nil && attendance.leaveType == 0 {
+                return attendance.halfDayLeave == nil ? "Absent" : halfDayLabel(attendance)
+            }
+            return checkForPastAttendance(date: attendance.date) ? halfDayLabel(attendance) : "Absent"
         }
-//        else if attendance.leaveName != nil && !checkForPastAttendance(date: attendance.date){
-//            if attendance.leaveName == "Unpaid" {  // to handle the future date attendance
-//                return "   --:--   "
-//            }else {
-//                return attendance.leaveName ?? ""
-//            }
-//            
-//        }
-        else {
-            return "Absent"
+
+        // Android treats an attendance record with only a checkout as a half day.
+        return halfDayLabel(attendance)
+    }
+
+    private func workedDurationStatus(_ attendance: Attendance, includeHalfDayLeave: Bool = true) -> String {
+        let minimum = attendance.minHours.first?.manualHours ?? 28800
+        let duration = attendance.loggedDuration ?? 0
+        if duration >= minimum {
+            return "Present"
         }
-//        else if attendance.startTime == nil && attendance.endTime == nil && checkForPastAttendance(date: attendance.date){
-//            return "Absent"
-//        }
+        if duration >= minimum / 2 {
+            return includeHalfDayLeave && attendance.halfDayLeave != nil ? halfDayLabel(attendance) : "Half Day Present"
+        }
+        return "Absent"
+    }
+
+    private func halfDayLabel(_ attendance: Attendance) -> String {
+        guard let leave = attendance.halfDayLeave, !leave.isEmpty else {
+            return "Half Day Present"
+        }
+        return "Half Day Present\n/\(leave)"
     }
     
     //MARK: To Check weather the date is past date for not
@@ -221,6 +222,14 @@ struct AttendanceHistoryView: View {
         
         //compare the input date with the current date
         return inputDate < startOfToday
+    }
+
+    private func isOnOrBeforeToday(date: String) -> Bool {
+        guard let inputDate = FormatterHelper.shared.date(from: date) else {
+            AppLog.debug("Invalid date Format")
+            return false
+        }
+        return inputDate <= Calendar.current.startOfDay(for: Date())
     }
     
     private func applyColor(status: String) -> Color {
