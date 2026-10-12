@@ -26,6 +26,7 @@ class CreateLeaveViewModel: ObservableObject {
     
     func createLeave() async throws {
         isLoading = true
+        error = nil
         defer { isLoading = false }
         
         let token = AuthStore.shared.getAccessToken()
@@ -48,6 +49,7 @@ class CreateLeaveViewModel: ObservableObject {
         }catch{
             AppLog.debug("Error: Create Leave Error in View Model")
             self.error = error
+            throw error
         }
     }
     

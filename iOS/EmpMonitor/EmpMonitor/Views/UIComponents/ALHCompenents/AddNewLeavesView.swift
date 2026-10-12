@@ -220,7 +220,8 @@ struct AddNewLeavesView: View {
                                 }
                             }
                         } catch {
-                            AppLog.debug("Task failed: \(error.localizedDescription)")
+                            warningMessage = error.localizedDescription
+                            showWarningPopup = true
                         }
                     }
 
@@ -236,10 +237,7 @@ struct AddNewLeavesView: View {
             .clipShape(RoundedRectangle(cornerRadius: AppRadius.large))
             
             //MARK: Warning
-            if showWarningPopup {
-                WarningPopupView(titleText: "Leave not applied", description: warningMessage, showWarningPopup: $showWarningPopup)
-                
-            }
+            WarningPopupView(titleText: "Leave Not Applied", description: warningMessage, showWarningPopup: $showWarningPopup)
 
         }
         .padding()
