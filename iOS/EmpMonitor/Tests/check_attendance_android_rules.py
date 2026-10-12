@@ -20,6 +20,7 @@ struct OpenAttendanceRequest { let requestStatus: String }
 struct Attendance {
     let date: String
     let loggedDuration: Int?
+    let totalTime: Int
     let minHours: [MinHour]
     let leaveType: Int?
     let leaveName: String?
@@ -49,12 +50,13 @@ struct AttendanceHistoryView {
 """ + methods + r"""
 }
 
-func record(_ date: String = "2020-01-01", duration: Int? = nil, start: String? = nil, end: String? = nil, dayOff: Bool = true, leaveType: Int? = 0, leaveName: String? = nil, holiday: String? = nil, holidayStatus: Int = 0, request: OpenAttendanceRequest? = nil, openLeave: OpenRequest? = nil, halfLeave: String? = nil) -> Attendance {
-    Attendance(date: date, loggedDuration: duration, minHours: [MinHour(manualHours: 28800)], leaveType: leaveType, leaveName: leaveName, openRequest: openLeave, holidayName: holiday, holidayStatus: holidayStatus, startTime: start, endTime: end, dayOff: dayOff, halfDayLeave: halfLeave, openAttendanceRequest: request)
+func record(_ date: String = "2020-01-01", duration: Int? = nil, totalTime: Int = 0, start: String? = nil, end: String? = nil, dayOff: Bool = true, leaveType: Int? = 0, leaveName: String? = nil, holiday: String? = nil, holidayStatus: Int = 0, request: OpenAttendanceRequest? = nil, openLeave: OpenRequest? = nil, halfLeave: String? = nil) -> Attendance {
+    Attendance(date: date, loggedDuration: duration, totalTime: totalTime, minHours: [MinHour(manualHours: 28800)], leaveType: leaveType, leaveName: leaveName, openRequest: openLeave, holidayName: holiday, holidayStatus: holidayStatus, startTime: start, endTime: end, dayOff: dayOff, halfDayLeave: halfLeave, openAttendanceRequest: request)
 }
 let view = AttendanceHistoryView()
 assert(view.checkAttendanceStatus(attendance: record(duration: 14400, start: "09:00", end: "13:00")) == "Half Day Present")
 assert(view.checkAttendanceStatus(attendance: record(duration: 28800, start: "09:00", end: "17:00")) == "Present")
+assert(view.checkAttendanceStatus(attendance: record(totalTime: 36000, start: "09:50", end: "19:50")) == "Present")
 assert(view.checkAttendanceStatus(attendance: record("2026-10-12", duration: 0, start: "09:50", end: "19:50")) == "Present")
 assert(view.checkAttendanceStatus(attendance: record(duration: 100, start: "09:00", end: "09:01")) == "Absent")
 assert(view.checkAttendanceStatus(attendance: record(start: "09:00")) == "Absent")

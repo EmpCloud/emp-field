@@ -193,7 +193,7 @@ struct AttendanceHistoryView: View {
         let minimum = attendance.minHours.first?.manualHours ?? 28800
         let reportedDuration = max(attendance.loggedDuration ?? 0, 0)
         let measuredDuration = elapsedAttendanceDuration(attendance) ?? 0
-        let duration = max(reportedDuration, measuredDuration)
+        let duration = max(reportedDuration, attendance.totalTime, measuredDuration)
         if duration >= minimum {
             return "Present"
         }
