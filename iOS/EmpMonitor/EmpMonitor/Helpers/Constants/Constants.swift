@@ -10,18 +10,47 @@ import UIKit
 
 // MARK: - Logging
 
-/// Lightweight logging that is compiled out of Release builds.
-///
-/// A drop-in replacement for `print(_:)`. Using an `@autoclosure` means the
-/// argument expression (and any string interpolation / value conversion it
-/// performs) is never evaluated in Release — this both avoids the runtime cost
-/// of building log output and prevents sensitive API payloads / tokens / PII
-/// from ever being written to the device console in production.
+/// General debug output is Debug-only; API responses also print in Release for testing.
 enum AppLog {
     static func debug(_ message: @autoclosure () -> Any) {
         #if DEBUG
         print(message())
         #endif
+    }
+
+    static func apiResponse(_ data: Data, response: URLResponse, request: URLRequest) {
+        let status = (response as? HTTPURLResponse)?.statusCode ?? 0
+        var endpoint = request.url.flatMap { URLComponents(url: $0, resolvingAgainstBaseURL: false) }
+        endpoint?.query = nil
+        endpoint?.fragment = nil
+        endpoint?.user = nil
+        endpoint?.password = nil
+
+        let body: String
+        if let json = try? JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed),
+           let redactedData = try? JSONSerialization.data(withJSONObject: redactingCredentials(json), options: [.prettyPrinted, .sortedKeys, .fragmentsAllowed]),
+           let text = String(data: redactedData, encoding: .utf8) {
+            body = text
+        } else {
+            body = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
+        }
+        print("[API] \(request.httpMethod ?? "GET") \(endpoint?.string ?? "<unknown URL>") — Response (\(status))\n\(body)")
+    }
+
+    // shortcut: Masks JSON credential fields; review free-text bodies and new credential names before distribution.
+    private static func redactingCredentials(_ value: Any) -> Any {
+        if let object = value as? [String: Any] {
+            return object.reduce(into: [String: Any]()) { result, entry in
+                let key = entry.key.lowercased().replacingOccurrences(of: "_", with: "").replacingOccurrences(of: "-", with: "")
+                let isCredential = key.contains("token") || key.contains("password") || key.contains("secret")
+                    || ["authorization", "apikey", "otp", "pin", "passcode", "cookie"].contains(key)
+                result[entry.key] = isCredential ? "<redacted>" : redactingCredentials(entry.value)
+            }
+        }
+        if let array = value as? [Any] {
+            return array.map { redactingCredentials($0) }
+        }
+        return value
     }
 }
 

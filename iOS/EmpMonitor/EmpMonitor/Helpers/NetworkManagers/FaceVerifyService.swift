@@ -30,8 +30,7 @@ final class FaceVerifyService {
         AppLog.debug("[FaceVerify] POST \(urlString)")
         let (data, response) = try await URLSession.shared.data(for: request)
         let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
-        let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
-        AppLog.debug("[FaceVerify] Response (\(httpStatus))\n\(rawBody)")
+        AppLog.apiResponse(data, response: response, request: request)
 
         guard (200...299).contains(httpStatus) else { throw NetworkError.serverError(httpStatus) }
 

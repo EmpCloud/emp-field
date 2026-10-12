@@ -158,8 +158,7 @@ final class NetworkManager {
             throw error
         }
         let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
-        // The raw body (which may contain tokens / PII) is only stringified in DEBUG.
-        AppLog.debug("[API] Response (\(httpStatus)) \(urlString)\n\(String(data: data, encoding: .utf8) ?? "<non-utf8 data>")")
+        AppLog.apiResponse(data, response: response, request: request)
 
         return (data, httpStatus)
     }

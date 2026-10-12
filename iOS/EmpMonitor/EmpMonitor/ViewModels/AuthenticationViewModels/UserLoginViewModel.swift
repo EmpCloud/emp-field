@@ -47,8 +47,7 @@ extension UserLoginViewModel {
             AppLog.debug("[API] POST \(urlString)")
             let (data, response) = try await URLSession.shared.data(for: request)
             let httpStatus = (response as? HTTPURLResponse)?.statusCode ?? 0
-            let rawBody = String(data: data, encoding: .utf8) ?? "<non-utf8 data>"
-            AppLog.debug("[API] Response (\(httpStatus)) \(urlString)\n\(rawBody)")
+            AppLog.apiResponse(data, response: response, request: request)
             let errorMessage = decodeErrorMessage(from: data)
             if isSessionExpired(status: httpStatus, message: errorMessage) {
                 expireSession(message: errorMessage)
