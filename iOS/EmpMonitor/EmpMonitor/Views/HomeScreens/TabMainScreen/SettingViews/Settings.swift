@@ -14,21 +14,21 @@ struct Settings: View {
     @EnvironmentObject var profileImageLoader: ProfileImageLoader
     @EnvironmentObject var permissionManager: PermissionManager
     
-    @StateObject private var getProfileViewModel = GetProfileViewModel()
-    @StateObject private var updateProfileViewModel = UpdateProfileViewModel()
+    @ObservedObject var getProfileViewModel: GetProfileViewModel
+    @ObservedObject var updateProfileViewModel: UpdateProfileViewModel
     
     @ObservedObject var motViewModel: MOTViewModel
     
     @State private var showMode: Bool = false
     @State private var showTermCondition: Bool = false
     @State private var showPrivacyPolicy: Bool = false
-    @State private var showProfile: Bool = false
+    @Binding var showProfile: Bool
     
     @State private var userName: String = ""
     @State private var department: String = ""
     
     //for profile screen
-    @State private var selectedGender: String = ""
+    @Binding var selectedGender: String
     
     //Mode of travel
     @Binding var selectedMode: String?
@@ -262,11 +262,6 @@ struct Settings: View {
         .sheet(isPresented: $showPrivacyPolicy, content: {
             PrivacyPolicyView()
         })
-        .navigationDestination(isPresented: $showProfile) {
-            ProfileView(getProfileViewModel: getProfileViewModel, updateProfileViewModel: updateProfileViewModel, selectedGender: $selectedGender)
-                .environmentObject(profileImageLoader)
-                .navigationBarBackButtonHidden()
-        }
     }
 }
 

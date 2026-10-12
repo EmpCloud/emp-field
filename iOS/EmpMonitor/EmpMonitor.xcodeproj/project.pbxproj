@@ -807,7 +807,6 @@
 			isa = PBXGroup;
 			children = (
 				DAB98FA42CA19BF400250C6D /* Toasts */,
-				DAB98F9E2C9DAC4500250C6D /* TabComponents */,
 				DAB98F852C9407B800250C6D /* QRCodeComponents */,
 				DAB98F6C2C90771500250C6D /* NotificationComponents */,
 				DAE115032C81938200AE9C6F /* ClientComponents */,
@@ -1467,13 +1466,6 @@
 				DAB98F9A2C9AF40400250C6D /* MOTViewModel.swift */,
 			);
 			path = ModeOfTravelViewModels;
-			sourceTree = "<group>";
-		};
-		DAB98F9E2C9DAC4500250C6D /* TabComponents */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = TabComponents;
 			sourceTree = "<group>";
 		};
 		DAB98FA12CA15DCD00250C6D /* Validations */ = {

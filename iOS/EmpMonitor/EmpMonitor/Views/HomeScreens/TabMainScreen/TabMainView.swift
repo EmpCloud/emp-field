@@ -89,7 +89,7 @@ struct TabMainView: View {
                     }
 
                     Tab("Settings", systemImage: "gearshape", value: 3) {
-                        Settings(motViewModel: motViewModel, selectedMode: $selectedMode, tappedMode: $tappedMode, isLogout: $isLogout, showQRCode: $showQRCode)
+                        Settings(getProfileViewModel: getProfileViewModel, updateProfileViewModel: updateProfileViewModel, motViewModel: motViewModel, showProfile: $showProfile, selectedGender: $selectedGender, selectedMode: $selectedMode, tappedMode: $tappedMode, isLogout: $isLogout, showQRCode: $showQRCode)
                     }
                 }
                 .tint(Color.primaryButton1)
