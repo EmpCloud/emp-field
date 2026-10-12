@@ -84,7 +84,7 @@ struct FilterTaskFile: Codable {
 }
 
 // MARK: - Image
-struct FilterTaskImage: Codable {
+struct FilterTaskImage: Codable, Identifiable {
     let url: String
     let description, id: String
 

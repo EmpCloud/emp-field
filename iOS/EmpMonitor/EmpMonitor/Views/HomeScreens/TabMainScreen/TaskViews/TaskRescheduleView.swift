@@ -104,7 +104,11 @@ struct TaskRescheduleView: View {
         }
         .onChange(of: isDismiss) { _, newValue in
             if newValue {
-                dismiss()
+                if showTaskRescheduleSheet {
+                    showTaskRescheduleSheet = false
+                } else {
+                    dismiss()
+                }
             }
         }
         .onAppear {
@@ -121,7 +125,11 @@ struct TaskRescheduleView: View {
             }
             
         }
-        .sheet(isPresented: $showTaskRescheduleSheet) {
+        .sheet(isPresented: $showTaskRescheduleSheet, onDismiss: {
+            if isDismiss {
+                dismiss()
+            }
+        }) {
             if #available(iOS 16.4, *) {
                 TaskRescheduleSheetView(cameraViewModel: cameraViewModel, uploadFileViewModel: uploadFileViewModel, updateTaskViewModel: updateTaskViewModel, tagViewModel: tagViewModel, dateViewModel: dateViewModel, sheetHeight: $sheetHeight, currentDetent: $currentDetent, showTaskRescheduleSheet: $showTaskRescheduleSheet, taskVolume: $taskVolume, taskValue: $taskValue, showCurrencyPopup: $showCurrencyPopup, selectedCurrency: $selectedCurrency, showCamera: $showCamera, showImagePreview: $showImagePreview, selectedImage: $selectedImage, savedImageURLs: $savedImageURLs, savedImages: $savedImages, selectedTask: $selectedTask, taskStatus: $taskStatus, isDismiss: $isDismiss, showWarningPopup: $showWarningPopup, refreshScreen: $refreshScreen)
                     .presentationDetents([.fraction(0.3), .fraction(0.05), .fraction(0.99)], selection: $currentDetent)

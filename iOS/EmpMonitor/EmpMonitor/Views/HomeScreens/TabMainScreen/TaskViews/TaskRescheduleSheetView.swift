@@ -595,6 +595,10 @@ struct TaskRescheduleDetailSheetView: View {
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                     
                    
+                    if let images = selectedTask?.images, !images.isEmpty {
+                        TaskImagesView(images: images)
+                    }
+
                     //MARK: Edit here
                     VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
                         Text("Stage of Task")
@@ -728,6 +732,8 @@ struct TaskRescheduleDetailSheetView: View {
                                         updateTaskViewModel.taskValue = TaskValue(amount: selectedTask?.value?.amount, currency: selectedTask?.value?.currency)
                                     
                                         updateTaskViewModel.taskVolume = selectedTask?.taskVolume ?? 0
+                                        updateTaskViewModel.files = selectedTask?.files.map { DocFile(url: $0.url, id: $0.id) } ?? []
+                                        updateTaskViewModel.images = selectedTask?.images.map { SelectedImage(url: $0.url, description: $0.description, id: $0.id) } ?? []
                                     
     //                                    AppLog.debug("Up :\(updateTaskViewModel.startTime)")
     //                                    AppLog.debug("Up :\(updateTaskViewModel.endTime)")
@@ -904,9 +910,7 @@ struct TaskRescheduleDetailSheetView: View {
             }
             
             //MARK: Warning Popup
-            if showWarningPopup {
-                WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
-            }
+            WarningPopupView(titleText: "Try Again", description: NetworkManager.shared.responseMessage, showWarningPopup: $showWarningPopup)
             
         }
         .alert(isPresented: $showFinishAlert) {
@@ -934,8 +938,12 @@ struct TaskRescheduleDetailSheetView: View {
                         
                             if NetworkManager.shared.statusCode == 200 {
                                 taskStatus[selectedTask?.id ?? ""] = 4
+                                refreshScreen.toggle()
+                                let message = NetworkManager.shared.responseMessage
+                                AppState.shared.toastMessage = ToastMessage(style: .success, message: message.isEmpty ? "Task finished" : message)
+                                isDismiss = true
                             }else {
-                                showWarningPopup.toggle()
+                                showWarningPopup = true
                             }
                         } catch {
                             AppLog.debug("Task failed: \(error.localizedDescription)")
@@ -987,6 +995,92 @@ struct TaskRescheduleDetailSheetView: View {
     private var taskValueField: some View {
         RescheduleTextFieldView(text: $taskValue, placeholder: "Enter Task Value")
             .keyboardType(.numberPad)
+    }
+}
+
+private struct TaskImagesView: View {
+    let images: [FilterTaskImage]
+    @State private var previewImage: FilterTaskImage?
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: AppSpacing.stackSpacingDefault) {
+            Text("Task Images")
+                .font(AppFont.primary(size: AppFont.Size.body, weight: AppFont.Weight.semibold))
+                .foregroundStyle(Color.subText)
+
+            LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: AppSpacing.sm) {
+                ForEach(images) { attachment in
+                    Button {
+                        previewImage = attachment
+                    } label: {
+                        VStack(alignment: .leading, spacing: AppSpacing.xs) {
+                            remoteImage(attachment)
+                                .frame(height: 120)
+                                .frame(maxWidth: .infinity)
+                                .background(Color.rectangleBG)
+                                .clipShape(RoundedRectangle(cornerRadius: AppRadius.small))
+                            Text(caption(for: attachment))
+                                .font(AppFont.primary(size: AppFont.Size.caption))
+                                .foregroundStyle(Color.subText)
+                                .lineLimit(2)
+                        }
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("View task image: \(caption(for: attachment))")
+                }
+            }
+        }
+        .sheet(item: $previewImage) { attachment in
+            NavigationStack {
+                VStack(spacing: AppSpacing.md) {
+                    remoteImage(attachment)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    if !attachment.description.isEmpty {
+                        Text(attachment.description)
+                            .font(.body)
+                            .fixedSize(horizontal: false, vertical: true)
+                    }
+                }
+                .padding()
+                .navigationTitle("Task Image")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button("Close", systemImage: "xmark") {
+                            previewImage = nil
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func remoteImage(_ attachment: FilterTaskImage) -> some View {
+        if let url = URL(string: attachment.url), ["https", "http"].contains(url.scheme?.lowercased() ?? "") {
+            AsyncImage(url: url) { phase in
+                if let image = phase.image {
+                    image.resizable().scaledToFit()
+                } else if phase.error != nil {
+                    imageUnavailable
+                } else {
+                    ProgressView()
+                }
+            }
+        } else {
+            imageUnavailable
+        }
+    }
+
+    private func caption(for attachment: FilterTaskImage) -> String {
+        attachment.description.isEmpty ? (URL(string: attachment.url)?.lastPathComponent ?? "Task image") : attachment.description
+    }
+
+    private var imageUnavailable: some View {
+        Label("Image unavailable", systemImage: "photo")
+            .font(.caption)
+            .foregroundStyle(.secondary)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
 }
 
