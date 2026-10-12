@@ -14,6 +14,8 @@ struct AttendanceHistoryView: View {
     @ObservedObject var editAttendanceViewModel: EditAttendanceViewModel
    
     @Binding var showEditAttendance: Bool
+    @Binding var checkINTime: String
+    @Binding var checkOUTTime: String
     
     var body: some View {
         ScrollView {
@@ -73,6 +75,9 @@ struct AttendanceHistoryView: View {
                             Button {
                                 withAnimation {
                                     editAttendanceViewModel.date = attendance.date
+                                    checkINTime = editTime(from: attendance.startTime, on: attendance.date)
+                                    checkOUTTime = editTime(from: attendance.endTime, on: attendance.date)
+                                    editAttendanceViewModel.reason = ""
                                     showEditAttendance.toggle()
                                 }
                             } label: {
@@ -259,6 +264,18 @@ struct AttendanceHistoryView: View {
             return Color.subText
         }
     }
+
+    private func editTime(from value: String?, on date: String) -> String {
+        guard let value, !value.isEmpty,
+              let parsed = FormatterHelper.shared.date(from: value) ?? FormatterHelper.shared.date(from: "\(date) \(value)") else {
+            return ""
+        }
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = .current
+        return formatter.string(from: parsed)
+    }
     
     
 //    private func initials(from input: String) -> String {
@@ -271,6 +288,6 @@ struct AttendanceHistoryView: View {
 }
 
 #Preview {
-    AttendanceHistoryView(attendanceViewModel: AttendanceViewModel(), editAttendanceViewModel: EditAttendanceViewModel(), showEditAttendance: .constant(false))
+    AttendanceHistoryView(attendanceViewModel: AttendanceViewModel(), editAttendanceViewModel: EditAttendanceViewModel(), showEditAttendance: .constant(false), checkINTime: .constant(""), checkOUTTime: .constant(""))
 //    ALHView()
 }

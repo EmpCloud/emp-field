@@ -9,7 +9,7 @@ import tempfile
 view = Path(__file__).parents[1] / "EmpMonitor/Views/HomeScreens/TabMainScreen/HomeViews/AttendanceHistoryView.swift"
 text = view.read_text()
 start = text.index("    private func checkAttendanceStatus")
-end = text.index("    private func applyColor", start)
+end = text.index("//    private func initials", start)
 methods = text[start:end].replace("private func", "func")
 
 source = """import Foundation
@@ -46,6 +46,7 @@ struct FormatterHelper {
     }
 }
 enum AppLog { static func debug(_ value: @autoclosure () -> String) { } }
+struct Color { static let absent = Color(); static let present = Color(); static let subText = Color() }
 struct AttendanceHistoryView {
 """ + methods + r"""
 }
@@ -54,6 +55,8 @@ func record(_ date: String = "2020-01-01", duration: Int? = nil, totalTime: Int 
     Attendance(date: date, loggedDuration: duration, totalTime: totalTime, minHours: [MinHour(manualHours: 28800)], leaveType: leaveType, leaveName: leaveName, openRequest: openLeave, holidayName: holiday, holidayStatus: holidayStatus, startTime: start, endTime: end, dayOff: dayOff, halfDayLeave: halfLeave, openAttendanceRequest: request)
 }
 let view = AttendanceHistoryView()
+assert(view.editTime(from: "2026-10-03 09:50:00", on: "2026-10-03") == "09:50")
+assert(view.editTime(from: nil, on: "2026-10-03") == "")
 assert(view.checkAttendanceStatus(attendance: record(duration: 14400, start: "09:00", end: "13:00")) == "Half Day Present")
 assert(view.checkAttendanceStatus(attendance: record(duration: 28800, start: "09:00", end: "17:00")) == "Present")
 assert(view.checkAttendanceStatus(attendance: record(totalTime: 36000, start: "09:50", end: "19:50")) == "Present")

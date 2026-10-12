@@ -94,7 +94,7 @@ struct ALHView: View {
 
                             ZStack {
                                 if selection == "Attendance History" {
-                                    AttendanceHistoryView(attendanceViewModel: attendanceViewModel, editAttendanceViewModel: editAttendanceViewModel, showEditAttendance: $showEditAttendance)
+                                    AttendanceHistoryView(attendanceViewModel: attendanceViewModel, editAttendanceViewModel: editAttendanceViewModel, showEditAttendance: $showEditAttendance, checkINTime: $checkINTime, checkOUTTime: $checkOUTTime)
                                 }
                                 else if selection == "Leaves" {
                                     LeavesView(leaveTypeViewModel: leaveTypeViewModel, leavesViewModel: leavesViewModel, updateLeaveViewModel: updateLeaveViewModel, showAddLeaves: $showAddLeaves, showEditLeaves: $showEditLeaves, empName: $empName, startDate: $startDate, endDate: $endDate, setStartDate: $setStartDate, setEndDate: $setEndDate, reason: $reason, dateTypeSelection: $dateTypeSelection, leaveTypeSelection: $leaveTypeSelection, leaveTypeOptions: $leaveTypeOptions)
